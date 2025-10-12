@@ -2,6 +2,10 @@
 
 A directory for discovering plugin marketplaces for [Claude Code](https://claude.ai/code).
 
+## How it works
+
+The site automatically crawls GitHub every hour to discover repositories with `.claude-plugin/marketplace.json` files. All valid marketplaces are automatically listed - no submission required.
+
 ## Links
 
 - [Website](https://claudemarketplaces.com)
