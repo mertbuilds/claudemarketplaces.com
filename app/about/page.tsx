@@ -54,7 +54,7 @@ export default function AboutPage() {
                     <p className="text-sm text-muted-foreground">
                       Our crawler automatically searches GitHub for repositories containing valid
                       <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
-                      files. This happens daily to ensure we capture new marketplaces as they&apos;re created.
+                      files. This happens hourly to ensure we capture new marketplaces as they&apos;re created.
                     </p>
                   </div>
                 </div>
@@ -79,7 +79,7 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold mb-1">GitHub Star Tracking</h4>
                     <p className="text-sm text-muted-foreground">
-                      We fetch and update GitHub star counts daily for all marketplaces, allowing you to sort and discover
+                      We fetch and update GitHub star counts hourly for all marketplaces, allowing you to sort and discover
                       popular marketplaces based on community engagement.
                     </p>
                   </div>
@@ -103,7 +103,7 @@ export default function AboutPage() {
               <p className="text-sm text-muted-foreground">
                 Simply create a GitHub repository with a valid
                 <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
-                file following the official schema. Our crawler will automatically discover and list it within 24 hours.
+                file following the official schema. Our crawler will automatically discover and list it within an hour.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="default" asChild>
@@ -144,11 +144,11 @@ export default function AboutPage() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>New marketplaces are discovered daily through GitHub search</span>
+                  <span>New marketplaces are discovered hourly through GitHub search</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>GitHub star counts are refreshed daily</span>
+                  <span>GitHub star counts are refreshed hourly</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>

@@ -1,6 +1,6 @@
 # GitHub Marketplace Crawler
 
-This project includes an automated crawler that discovers Claude Code plugin marketplaces from GitHub daily at midnight UTC.
+This project includes an automated crawler that discovers Claude Code plugin marketplaces from GitHub hourly.
 
 ## How It Works
 
@@ -11,7 +11,7 @@ The crawler:
 4. **Checks** that repositories are publicly accessible and plugins have required fields
 5. **Fetches GitHub stars** for all validated repositories to track popularity
 6. **Merges** discovered marketplaces with existing ones in `lib/data/marketplaces.json`
-7. **Runs daily** at midnight UTC via Vercel Cron
+7. **Runs hourly** via Vercel Cron
 
 ## Setup Instructions
 
@@ -65,7 +65,7 @@ vercel
 git push origin main
 ```
 
-The cron job will automatically start running daily at midnight UTC once deployed.
+The cron job will automatically start running hourly once deployed.
 
 ## Manual Trigger
 
@@ -110,7 +110,7 @@ The crawler endpoint returns JSON with detailed statistics:
 
 ```
 ┌─────────────────────────────────────────┐
-│   Vercel Cron (Daily at Midnight UTC)   │
+│      Vercel Cron (Runs Hourly)          │
 └──────────────┬──────────────────────────┘
                │
                ▼
@@ -165,7 +165,7 @@ lib/
 app/api/crawl/
 └── route.ts                # Main crawler endpoint (GET & POST)
 
-vercel.json                 # Cron configuration (daily at midnight UTC)
+vercel.json                 # Cron configuration (runs hourly)
 ```
 
 ## Validation Rules
@@ -212,7 +212,7 @@ Each discovered marketplace includes:
 - **GitHub Code Search API**: 30 requests/minute
 - **GitHub REST API**: 5,000 requests/hour (authenticated)
 
-The crawler is designed to stay well under these limits with daily runs. The batch star fetching uses `Promise.allSettled` to handle failures gracefully without blocking the entire crawl.
+The crawler is designed to stay well under these limits with hourly runs. The batch star fetching uses `Promise.allSettled` to handle failures gracefully without blocking the entire crawl.
 
 ## Troubleshooting
 
