@@ -52,7 +52,7 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Automatic Discovery</h4>
                     <p className="text-sm text-muted-foreground">
-                      Our crawler automatically searches GitHub for repositories containing valid
+                      Our search automatically discovers GitHub repositories containing valid
                       <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
                       files. This happens hourly to ensure we capture new marketplaces as they&apos;re created.
                     </p>
@@ -103,7 +103,7 @@ export default function AboutPage() {
               <p className="text-sm text-muted-foreground">
                 Simply create a GitHub repository with a valid
                 <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
-                file following the official schema. Our crawler will automatically discover and list it within an hour.
+                file following the official schema. Our search will automatically discover and list it within an hour.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="default" asChild>
@@ -152,7 +152,7 @@ export default function AboutPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>Marketplace metadata (description, plugin count, categories) is updated during each crawl</span>
+                  <span>Marketplace metadata (description, plugin count, categories) is updated during each search</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
@@ -172,7 +172,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                If you believe your marketplace is valid but couldn&apos;t be validated by our crawler,
+                If you believe your marketplace is valid but couldn&apos;t be validated by our search,
                 please reach out so we can investigate the issue.
               </p>
               <Button variant="outline" asChild>
@@ -194,7 +194,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                This site is open source and built with Claude Code. The crawler and website code are available on GitHub.
+                This site is open source and built with Claude Code. The search functionality and website code are available on GitHub.
               </p>
               <Button variant="outline" asChild>
                 <a

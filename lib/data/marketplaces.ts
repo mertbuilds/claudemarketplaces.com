@@ -1,5 +1,5 @@
 import { Marketplace } from "@/lib/types";
-import { readMarketplaces } from "@/lib/crawler/storage";
+import { readMarketplaces } from "@/lib/search/storage";
 
 /**
  * Fetch all marketplaces

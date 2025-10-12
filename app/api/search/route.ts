@@ -3,16 +3,16 @@ import { revalidatePath } from "next/cache";
 import {
   searchMarketplaceFiles,
   fetchMarketplaceFile,
-} from "@/lib/crawler/github-search";
-import { validateMarketplaces } from "@/lib/crawler/validator";
-import { mergeMarketplaces } from "@/lib/crawler/storage";
-import { batchFetchStars } from "@/lib/crawler/github-stars";
+} from "@/lib/search/github-search";
+import { validateMarketplaces } from "@/lib/search/validator";
+import { mergeMarketplaces } from "@/lib/search/storage";
+import { batchFetchStars } from "@/lib/search/github-stars";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 300; // 5 minutes max execution time
 
 /**
- * Crawl GitHub for Claude Code marketplaces
+ * Search GitHub for Claude Code marketplaces
  * Protected by CRON_SECRET for Vercel Cron
  */
 export async function GET(request: NextRequest) {
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    console.log("Starting marketplace crawl...");
+    console.log("Starting marketplace search...");
 
     // Step 1: Search GitHub for marketplace files
     const searchResults = await searchMarketplaceFiles();
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
     const mergeResult = await mergeMarketplaces(marketplacesWithStars, allDiscoveredRepos);
 
     console.log(
-      `Crawl complete: ${mergeResult.added} added, ${mergeResult.updated} updated, ${mergeResult.removed} removed`
+      `Search complete: ${mergeResult.added} added, ${mergeResult.updated} updated, ${mergeResult.removed} removed`
     );
 
     // Step 6: Revalidate the home page to show updated content immediately
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
       console.log("Successfully revalidated home page");
     } catch (error) {
       console.error("Failed to revalidate home page:", error);
-      // Don't fail the entire crawl if revalidation fails
+      // Don't fail the entire search if revalidation fails
     }
 
     // Return summary
@@ -129,7 +129,7 @@ export async function GET(request: NextRequest) {
       timestamp: new Date().toISOString(),
     });
   } catch (error) {
-    console.error("Crawl failed:", error);
+    console.error("Search failed:", error);
 
     return NextResponse.json(
       {
@@ -145,7 +145,7 @@ export async function GET(request: NextRequest) {
 
 /**
  * Manual trigger endpoint (POST method)
- * Can be used to trigger crawl manually without cron
+ * Can be used to trigger search manually without cron
  */
 export async function POST(request: NextRequest) {
   // Use the same logic as GET

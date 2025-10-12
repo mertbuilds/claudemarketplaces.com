@@ -1,18 +1,18 @@
 #!/usr/bin/env bun
 /**
- * Standalone crawler script for discovering and validating Claude Code marketplaces
+ * Standalone search script for discovering and validating Claude Code marketplaces
  *
  * Usage:
- *   bun run scripts/crawl.ts                    # Run full crawler
- *   bun run scripts/crawl.ts --limit 10         # Test with first 10 repos
- *   bun run scripts/crawl.ts --dry-run          # Preview without saving
- *   bun run scripts/crawl.ts --verbose          # Show detailed logs
+ *   bun run scripts/search.ts                    # Run full search
+ *   bun run scripts/search.ts --limit 10         # Test with first 10 repos
+ *   bun run scripts/search.ts --dry-run          # Preview without saving
+ *   bun run scripts/search.ts --verbose          # Show detailed logs
  */
 
-import { searchMarketplaceFiles, fetchMarketplaceFile } from "../lib/crawler/github-search";
-import { validateMarketplaces } from "../lib/crawler/validator";
-import { mergeMarketplaces } from "../lib/crawler/storage";
-import { batchFetchStars } from "../lib/crawler/github-stars";
+import { searchMarketplaceFiles, fetchMarketplaceFile } from "../lib/search/github-search";
+import { validateMarketplaces } from "../lib/search/validator";
+import { mergeMarketplaces } from "../lib/search/storage";
+import { batchFetchStars } from "../lib/search/github-stars";
 
 // CLI argument parsing
 interface CliArgs {
@@ -40,7 +40,7 @@ function parseArgs(): CliArgs {
       result.verbose = true;
     } else if (arg === "--help" || arg === "-h") {
       console.log(`
-Usage: bun run scripts/crawl.ts [options]
+Usage: bun run scripts/search.ts [options]
 
 Options:
   --limit N       Limit results to first N repositories
@@ -49,9 +49,9 @@ Options:
   --help, -h      Show this help message
 
 Examples:
-  bun run scripts/crawl.ts                  # Full crawler
-  bun run scripts/crawl.ts --limit 10       # Test with 10 repos
-  bun run scripts/crawl.ts --dry-run        # Preview mode
+  bun run scripts/search.ts                  # Full search
+  bun run scripts/search.ts --limit 10       # Test with 10 repos
+  bun run scripts/search.ts --dry-run        # Preview mode
 `);
       process.exit(0);
     }
@@ -96,13 +96,13 @@ function logInfo(message: string) {
   log(`  ${message}`, colors.gray);
 }
 
-async function runCrawler() {
+async function runSearch() {
   const args = parseArgs();
   const startTime = Date.now();
 
   // Banner
   log("━".repeat(60), colors.cyan);
-  log("  Claude Code Marketplaces Crawler", colors.bright);
+  log("  Claude Code Marketplaces Search", colors.bright);
   log("━".repeat(60), colors.cyan);
 
   if (args.limit) {
@@ -250,7 +250,7 @@ async function runCrawler() {
     // Summary
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     log("\n" + "━".repeat(60), colors.cyan);
-    log("  Crawl Complete!", colors.bright);
+    log("  Search Complete!", colors.bright);
     log("━".repeat(60), colors.cyan);
     log(`  ⏱️  Duration: ${duration}s`, colors.gray);
     log(`  📊 Success Rate: ${((validMarketplaces.length / validFiles.length) * 100).toFixed(1)}%`, colors.gray);
@@ -262,7 +262,7 @@ async function runCrawler() {
     log("━".repeat(60) + "\n", colors.cyan);
 
   } catch (error) {
-    logError(`Crawler failed: ${error instanceof Error ? error.message : String(error)}`);
+    logError(`Search failed: ${error instanceof Error ? error.message : String(error)}`);
     if (args.verbose && error instanceof Error && error.stack) {
       console.error(error.stack);
     }
@@ -270,5 +270,5 @@ async function runCrawler() {
   }
 }
 
-// Run the crawler
-runCrawler();
+// Run the search
+runSearch();

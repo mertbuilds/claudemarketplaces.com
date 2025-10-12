@@ -1,45 +1,45 @@
-# Crawler Scripts
+# Search Scripts
 
 This directory contains standalone scripts for managing the Claude Code marketplaces database.
 
 ## 📦 Available Scripts
 
-### `crawl.ts` - Marketplace Crawler
+### `search.ts` - Marketplace Search
 
 Standalone script for discovering and validating Claude Code marketplaces from GitHub.
 
 ## 🚀 Usage
 
-### Run Full Crawler
+### Run Full Search
 ```bash
-bun run crawl
+bun run search
 ```
 Discovers all marketplaces on GitHub, validates them, fetches star counts, and saves to local database. Automatically removes marketplaces that fail validation to maintain database integrity.
 
 ### Test with Limited Results
 ```bash
-bun run crawl:test
-# Equivalent to: bun run scripts/crawl.ts --limit 10
+bun run search:test
+# Equivalent to: bun run scripts/search.ts --limit 10
 ```
-Tests the crawler with only the first 10 repositories for faster development/testing.
+Tests the search with only the first 10 repositories for faster development/testing.
 
 ### Dry Run (Preview Mode)
 ```bash
-bun run crawl:dry
-# Equivalent to: bun run scripts/crawl.ts --dry-run
+bun run search:dry
+# Equivalent to: bun run scripts/search.ts --dry-run
 ```
 Runs the entire validation process but doesn't save results. Great for testing validation rules.
 
 ### Custom Options
 ```bash
 # Limit to first 20 repos
-bun run scripts/crawl.ts --limit 20
+bun run scripts/search.ts --limit 20
 
 # Dry run with verbose logging
-bun run scripts/crawl.ts --dry-run --verbose
+bun run scripts/search.ts --dry-run --verbose
 
 # Show help
-bun run scripts/crawl.ts --help
+bun run scripts/search.ts --help
 ```
 
 ## 📋 CLI Options
@@ -59,7 +59,7 @@ bun run scripts/crawl.ts --help
 
 ## 📊 Output
 
-The crawler provides:
+The search provides:
 - ✅ Color-coded progress indicators
 - 📊 Summary statistics (discovered, validated, added, updated, removed)
 - ⭐ Star counts for each marketplace
@@ -71,7 +71,7 @@ The crawler provides:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Claude Code Marketplaces Crawler
+  Claude Code Marketplaces Search
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 [1/6] Searching GitHub for marketplace files...
@@ -98,7 +98,7 @@ The crawler provides:
   ✅ Total: 46 marketplaces
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  Crawl Complete!
+  Search Complete!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ⏱️  Duration: 2.33s
   📊 Success Rate: 100.0%
@@ -108,7 +108,7 @@ The crawler provides:
 
 ## 🧹 Database Integrity
 
-The crawler automatically maintains database integrity by removing marketplaces that become invalid:
+The search automatically maintains database integrity by removing marketplaces that become invalid:
 
 - **What gets removed**: Marketplaces that were previously discovered but now fail validation
 - **Why removal happens**:
@@ -140,12 +140,12 @@ The GitHub API has rate limits. If you hit them:
 ### Validation Errors
 Use `--verbose` to see detailed validation errors:
 ```bash
-bun run scripts/crawl.ts --verbose
+bun run scripts/search.ts --verbose
 ```
 
 ## 🔄 Development Workflow
 
-1. **Test changes**: `bun run crawl:test`
-2. **Preview results**: `bun run crawl:dry --limit 5`
-3. **Run full crawl**: `bun run crawl`
-4. **Debug issues**: `bun run scripts/crawl.ts --verbose --limit 3`
+1. **Test changes**: `bun run search:test`
+2. **Preview results**: `bun run search:dry --limit 5`
+3. **Run full search**: `bun run search`
+4. **Debug issues**: `bun run scripts/search.ts --verbose --limit 3`

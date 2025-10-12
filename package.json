@@ -7,9 +7,9 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "crawl": "bun run scripts/crawl.ts",
-    "crawl:test": "bun run scripts/crawl.ts --limit 10",
-    "crawl:dry": "bun run scripts/crawl.ts --dry-run"
+    "search": "bun run scripts/search.ts",
+    "search:test": "bun run scripts/search.ts --limit 10",
+    "search:dry": "bun run scripts/search.ts --dry-run"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.0",

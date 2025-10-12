@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readMarketplaces } from "@/lib/crawler/storage";
+import { readMarketplaces } from "@/lib/search/storage";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300; // Revalidate every 5 minutes
