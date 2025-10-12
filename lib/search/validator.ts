@@ -13,7 +13,8 @@ export interface ValidationResult {
  */
 export async function validateMarketplace(
   repo: string,
-  jsonContent: string
+  jsonContent: string,
+  verbose: boolean = false
 ): Promise<ValidationResult> {
   const errors: string[] = [];
 
@@ -39,7 +40,7 @@ export async function validateMarketplace(
   const marketplaceData = schemaValidation.data;
 
   // Step 3: Check if repository is accessible
-  const accessible = await isRepoAccessible(repo);
+  const accessible = await isRepoAccessible(repo, verbose);
   if (!accessible) {
     errors.push(`Repository ${repo} is not publicly accessible`);
     return { valid: false, errors };
@@ -53,7 +54,7 @@ export async function validateMarketplace(
     marketplaceData.metadata?.description ||
     "";
   if (!description) {
-    description = await getRepoDescription(repo);
+    description = await getRepoDescription(repo, verbose);
   }
 
   // Step 5: Extract categories from plugins
@@ -104,12 +105,13 @@ export async function validateMarketplace(
  * Validate multiple marketplaces in parallel
  */
 export async function validateMarketplaces(
-  marketplaceFiles: Array<{ repo: string; content: string }>
+  marketplaceFiles: Array<{ repo: string; content: string }>,
+  verbose: boolean = false
 ): Promise<ValidationResult[]> {
   // Use Promise.allSettled to handle failures gracefully
   const results = await Promise.allSettled(
     marketplaceFiles.map(({ repo, content }) =>
-      validateMarketplace(repo, content)
+      validateMarketplace(repo, content, verbose)
     )
   );
 

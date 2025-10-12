@@ -6,9 +6,9 @@
     "categories": [
       "community"
     ],
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "stars": 145,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "davila7/claude-code-templates",
@@ -17,9 +17,9 @@
     "categories": [
       "community"
     ],
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
-    "stars": 7294,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
+    "stars": 7297,
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "wshobson/agents",
@@ -42,9 +42,9 @@
       "gaming",
       "accessibility"
     ],
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
-    "stars": 16588,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
+    "stars": 16597,
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "anthropics/claude-code",
@@ -56,10 +56,10 @@
       "security"
     ],
     "discoveredAt": "2025-10-10T18:03:09.622Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
-    "stars": 37230,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "stars": 37242,
+    "starsFetchedAt": "2025-10-12T08:22:12.450Z"
   },
   {
     "repo": "ruvnet/claude-flow",
@@ -69,10 +69,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-10T18:03:09.974Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
-    "stars": 8844,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "stars": 8845,
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "cexll/myclaude",
@@ -84,10 +84,10 @@
       "advanced"
     ],
     "discoveredAt": "2025-10-10T18:03:09.811Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 758,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "feiskyer/claude-code-settings",
@@ -97,10 +97,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.780Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 534,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Melvynx/aiblueprint",
@@ -110,10 +110,10 @@
       "essentials"
     ],
     "discoveredAt": "2025-10-10T18:03:09.496Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 8,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "TokenRollAI/cc-plugin",
@@ -123,10 +123,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.523Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "avxkim/personal-marketplace",
@@ -136,10 +136,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.905Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "bengous/claude-code-plugins",
@@ -149,10 +149,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.871Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "siraken/claude-plugins",
@@ -162,10 +162,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.800Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "danielscholl/claude-sdlc",
@@ -175,10 +175,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.825Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "johnclyde/clydehub",
@@ -188,10 +188,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:10.247Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "henkisdabro/claudecode-marketplace",
@@ -203,10 +203,10 @@
       "mcpservers"
     ],
     "discoveredAt": "2025-10-10T18:03:09.811Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "schuyler/duck-soup",
@@ -216,10 +216,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.760Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "TelecomsXChangeAPi/destinations-api-claude-plugin",
@@ -229,10 +229,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.974Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "eli0shin/cli-lsp-client",
@@ -242,10 +242,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.813Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 16,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "sjungling/claude-plugins",
@@ -255,10 +255,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.811Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "cashwu/Claude-Code-Plugin",
@@ -268,10 +268,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.989Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "panw3i/claude-plugins",
@@ -281,10 +281,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.508Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "eabay/claude-code-plugins",
@@ -294,10 +294,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.853Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "edmundmiller/dotfiles",
@@ -307,10 +307,10 @@
       "version-control"
     ],
     "discoveredAt": "2025-10-10T18:03:09.800Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 39,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "atxtechbro/dotfiles",
@@ -320,10 +320,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.871Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 5,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "stepankuzmin/claude-code-plugins",
@@ -333,10 +333,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.495Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "ananddtyagi/claude-code-marketplace",
@@ -356,10 +356,10 @@
       "agents"
     ],
     "discoveredAt": "2025-10-10T18:03:09.874Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 71,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "LAURA-agent/Claude-to-Speech",
@@ -369,10 +369,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.853Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "lpasqualis/lpclaude",
@@ -382,10 +382,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-10T18:03:09.853Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 6,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "JeongJaeSoon/claude-code-marketplace",
@@ -395,10 +395,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.811Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "shaurgon/claude-meow-marketplace",
@@ -408,10 +408,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.799Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "jeffh/claude-plugins",
@@ -421,10 +421,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-10T18:03:09.512Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "blogic-cz/blogic-marketplace",
@@ -434,10 +434,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.973Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "hmps/claude-marketplace",
@@ -447,10 +447,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.859Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "WarrenZhu050413/Warren-Claude-Code-Plugin-Marketplace",
@@ -460,10 +460,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T18:03:09.799Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "jeremylongshore/plugins-Claude-code",
@@ -486,10 +486,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-10T18:03:09.508Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "exa-labs/exa-mcp-server",
@@ -499,10 +499,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-10T19:02:56.993Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 2888,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "1broseidon/marketplace",
@@ -512,10 +512,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-10T19:02:56.941Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "quant-sentiment-ai/claude-equity-research",
@@ -525,10 +525,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T19:02:56.793Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 4,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "FradSer/dotclaude",
@@ -539,10 +539,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-10T19:02:56.470Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 167,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Parslee-ai/neo",
@@ -567,10 +567,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-10T19:02:56.540Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "amitpatole/claude-genkit-plugin",
@@ -584,10 +584,10 @@
       "content"
     ],
     "discoveredAt": "2025-10-10T23:04:37.846Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 2,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "MartyBonacci/specswarm",
@@ -597,10 +597,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T23:04:37.821Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 2,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "DustyWalker/claude-code-marketplace",
@@ -610,10 +610,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T23:04:37.853Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 3,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Parslee-ai/claude-code-plugins",
@@ -623,10 +623,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T23:04:38.193Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "hnegishi/cc-prtools",
@@ -636,10 +636,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-10T23:04:38.225Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "nazymko/claude-code-marketplace",
@@ -649,10 +649,10 @@
       "career tools"
     ],
     "discoveredAt": "2025-10-10T23:04:37.828Z",
-    "lastUpdated": "2025-10-12T08:09:32.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "classmethod/tsumiki",
@@ -662,10 +662,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.283Z",
-    "lastUpdated": "2025-10-12T08:09:29.283Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 778,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "udecode/dotai",
@@ -675,10 +675,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.261Z",
-    "lastUpdated": "2025-10-12T08:09:29.261Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1031,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "johnmatthewtennant/mcp-voice-hooks",
@@ -688,10 +688,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.500Z",
-    "lastUpdated": "2025-10-12T08:09:29.500Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 43,
-    "starsFetchedAt": "2025-10-12T08:09:32.441Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "vizzly-testing/cli",
@@ -701,10 +701,10 @@
       "testing"
     ],
     "discoveredAt": "2025-10-12T08:09:29.291Z",
-    "lastUpdated": "2025-10-12T08:09:29.291Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 4,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "yanmxa/claude-copilot",
@@ -714,10 +714,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.479Z",
-    "lastUpdated": "2025-10-12T08:09:29.479Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "shinpr/claude-code-workflows",
@@ -727,10 +727,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.521Z",
-    "lastUpdated": "2025-10-12T08:09:29.521Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 7,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "laststance/claude-code-marketplace",
@@ -740,10 +740,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.304Z",
-    "lastUpdated": "2025-10-12T08:09:29.304Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "ilyannn/claude-commands",
@@ -753,10 +753,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.218Z",
-    "lastUpdated": "2025-10-12T08:09:29.218Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 2,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "kivilaid/plugin-marketplace",
@@ -766,10 +766,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-12T08:09:29.261Z",
-    "lastUpdated": "2025-10-12T08:09:29.261Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "kodflow/.repository",
@@ -779,10 +779,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.308Z",
-    "lastUpdated": "2025-10-12T08:09:29.308Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Play-E-Ola/playeola-plugins",
@@ -792,10 +792,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.303Z",
-    "lastUpdated": "2025-10-12T08:09:29.303Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "BrandCast-Signage/brandcast-plugins",
@@ -805,10 +805,10 @@
       "integration"
     ],
     "discoveredAt": "2025-10-12T08:09:29.291Z",
-    "lastUpdated": "2025-10-12T08:09:29.291Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "mlaugharn/plugin-marketplace",
@@ -818,10 +818,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.584Z",
-    "lastUpdated": "2025-10-12T08:09:29.584Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "jwilger/claude-code-setup",
@@ -831,10 +831,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.544Z",
-    "lastUpdated": "2025-10-12T08:09:29.544Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 3,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "jmanhype/claude-code-plugins",
@@ -844,10 +844,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.243Z",
-    "lastUpdated": "2025-10-12T08:09:29.243Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "crathgeb/claude-code-plugins",
@@ -857,10 +857,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.216Z",
-    "lastUpdated": "2025-10-12T08:09:29.216Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "samber/cc",
@@ -870,10 +870,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.519Z",
-    "lastUpdated": "2025-10-12T08:09:29.519Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "huangdijia/cluade-code-plugins",
@@ -883,10 +883,10 @@
       "development"
     ],
     "discoveredAt": "2025-10-12T08:09:29.772Z",
-    "lastUpdated": "2025-10-12T08:09:29.772Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "docker/claude-plugins",
@@ -896,10 +896,10 @@
       "integration"
     ],
     "discoveredAt": "2025-10-12T08:09:29.311Z",
-    "lastUpdated": "2025-10-12T08:09:29.311Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 4,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "shin902/shi-marketplace",
@@ -909,10 +909,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.501Z",
-    "lastUpdated": "2025-10-12T08:09:29.501Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "ninthspace/claude-code-marketplace",
@@ -922,10 +922,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.205Z",
-    "lastUpdated": "2025-10-12T08:09:29.205Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Atsuki02/my-claude-plugins",
@@ -935,10 +935,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.500Z",
-    "lastUpdated": "2025-10-12T08:09:29.500Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "aki77/claude-plugins",
@@ -948,10 +948,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.578Z",
-    "lastUpdated": "2025-10-12T08:09:29.578Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "filiphsps/filiphs-claude-code-plugins",
@@ -961,10 +961,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-12T08:09:29.362Z",
-    "lastUpdated": "2025-10-12T08:09:29.362Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "FradSer/mcp-server-remix-icon",
@@ -974,10 +974,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-12T08:09:29.444Z",
-    "lastUpdated": "2025-10-12T08:09:29.444Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 7,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "TomCN0803/claude-code-plugins",
@@ -987,10 +987,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.917Z",
-    "lastUpdated": "2025-10-12T08:09:29.917Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "amondnet/claude-plugins",
@@ -1000,10 +1000,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.672Z",
-    "lastUpdated": "2025-10-12T08:09:29.672Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "panguin6010/daisy-mode-plugin",
@@ -1013,10 +1013,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.644Z",
-    "lastUpdated": "2025-10-12T08:09:29.644Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "abagames/slash-criticalthink",
@@ -1026,10 +1026,10 @@
       "essentials"
     ],
     "discoveredAt": "2025-10-12T08:09:29.436Z",
-    "lastUpdated": "2025-10-12T08:09:29.436Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 22,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "ChrisSc/bash-logger-hook",
@@ -1039,10 +1039,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-12T08:09:29.447Z",
-    "lastUpdated": "2025-10-12T08:09:29.447Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 2,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "thc1006/telecom-ops-claude-code-plugins",
@@ -1052,10 +1052,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.655Z",
-    "lastUpdated": "2025-10-12T08:09:29.655Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "bartolli/codanna-cc-plugin",
@@ -1065,10 +1065,10 @@
       "community"
     ],
     "discoveredAt": "2025-10-12T08:09:29.632Z",
-    "lastUpdated": "2025-10-12T08:09:29.632Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "Piotr1215/aiverse",
@@ -1078,10 +1078,10 @@
       "productivity"
     ],
     "discoveredAt": "2025-10-12T08:09:29.380Z",
-    "lastUpdated": "2025-10-12T08:09:29.380Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 1,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   },
   {
     "repo": "n4s5ti/claude-flow",
@@ -1091,9 +1091,9 @@
       "development"
     ],
     "discoveredAt": "2025-10-12T08:09:29.357Z",
-    "lastUpdated": "2025-10-12T08:09:29.357Z",
+    "lastUpdated": "2025-10-12T08:22:12.453Z",
     "source": "auto",
     "stars": 0,
-    "starsFetchedAt": "2025-10-12T08:09:32.442Z"
+    "starsFetchedAt": "2025-10-12T08:22:12.451Z"
   }
 ]

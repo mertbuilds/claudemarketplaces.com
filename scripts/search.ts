@@ -118,7 +118,7 @@ async function runSearch() {
   try {
     // Step 1: Search GitHub
     logStep(1, "Searching GitHub for marketplace files...");
-    const searchResults = await searchMarketplaceFiles();
+    const searchResults = await searchMarketplaceFiles(args.verbose);
     logSuccess(`Found ${searchResults.length} potential marketplaces`);
 
     if (searchResults.length === 0) {
@@ -144,7 +144,7 @@ async function runSearch() {
         }
         return {
           repo: result.repo,
-          content: await fetchMarketplaceFile(result.repo),
+          content: await fetchMarketplaceFile(result.repo, "main", args.verbose),
         };
       })
     );
@@ -164,7 +164,7 @@ async function runSearch() {
 
     // Step 3: Validate marketplace files
     logStep(3, "Validating with Zod v4 schema...");
-    const validationResults = await validateMarketplaces(validFiles);
+    const validationResults = await validateMarketplaces(validFiles, args.verbose);
 
     const validMarketplaces = validationResults
       .filter((result) => result.valid && result.marketplace)
@@ -197,7 +197,7 @@ async function runSearch() {
     // Step 4: Fetch GitHub stars
     logStep(4, "Fetching GitHub star counts...");
     const repos = validMarketplaces.map((m) => m.repo);
-    const starMap = await batchFetchStars(repos);
+    const starMap = await batchFetchStars(repos, args.verbose);
     const starsFetched = Array.from(starMap.values()).filter((s) => s !== null).length;
 
     logSuccess(`Fetched stars for ${starsFetched}/${repos.length} repos`);

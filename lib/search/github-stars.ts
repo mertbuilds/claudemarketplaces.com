@@ -1,6 +1,6 @@
 import { Octokit } from "@octokit/rest";
 
-function getOctokit() {
+function getOctokit(verbose: boolean = false) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   if (!GITHUB_TOKEN) {
@@ -9,6 +9,12 @@ function getOctokit() {
 
   return new Octokit({
     auth: GITHUB_TOKEN,
+    log: verbose ? undefined : {
+      debug: () => {},
+      info: () => {},
+      warn: () => {},
+      error: () => {}, // Suppress Octokit's internal error logging when not verbose
+    },
   });
 }
 
@@ -17,9 +23,9 @@ function getOctokit() {
  * @param repo - Repository in format "owner/name"
  * @returns Star count or null if failed
  */
-export async function fetchRepoStars(repo: string): Promise<number | null> {
+export async function fetchRepoStars(repo: string, verbose: boolean = false): Promise<number | null> {
   try {
-    const octokit = getOctokit();
+    const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
     const response = await octokit.rest.repos.get({
@@ -29,7 +35,9 @@ export async function fetchRepoStars(repo: string): Promise<number | null> {
 
     return response.data.stargazers_count;
   } catch (error) {
-    console.error(`Could not fetch stars for ${repo}:`, error);
+    if (verbose) {
+      console.warn(`⚠️  Could not fetch stars for ${repo}`, error);
+    }
     return null;
   }
 }
@@ -40,12 +48,13 @@ export async function fetchRepoStars(repo: string): Promise<number | null> {
  * @returns Map of repo -> star count (null if failed)
  */
 export async function batchFetchStars(
-  repos: string[]
+  repos: string[],
+  verbose: boolean = false
 ): Promise<Map<string, number | null>> {
   const results = await Promise.allSettled(
     repos.map(async (repo) => ({
       repo,
-      stars: await fetchRepoStars(repo),
+      stars: await fetchRepoStars(repo, verbose),
     }))
   );
 
@@ -55,7 +64,9 @@ export async function batchFetchStars(
     if (result.status === "fulfilled") {
       starMap.set(result.value.repo, result.value.stars);
     } else {
-      console.error("Failed to fetch stars for a repo:", result.reason);
+      if (verbose) {
+        console.warn("⚠️  Failed to fetch stars for a repo", result.reason);
+      }
     }
   }
 

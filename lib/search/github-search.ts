@@ -1,6 +1,6 @@
 import { Octokit } from "@octokit/rest";
 
-function getOctokit() {
+function getOctokit(verbose: boolean = false) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
   if (!GITHUB_TOKEN) {
@@ -9,6 +9,12 @@ function getOctokit() {
 
   return new Octokit({
     auth: GITHUB_TOKEN,
+    log: verbose ? undefined : {
+      debug: () => {},
+      info: () => {},
+      warn: () => {},
+      error: () => {}, // Suppress Octokit's internal error logging when not verbose
+    },
   });
 }
 
@@ -22,9 +28,9 @@ export interface GitHubSearchResult {
  * Search GitHub for .claude-plugin/marketplace.json files
  * Uses GitHub Code Search API with pagination to get all results
  */
-export async function searchMarketplaceFiles(): Promise<GitHubSearchResult[]> {
+export async function searchMarketplaceFiles(verbose: boolean = false): Promise<GitHubSearchResult[]> {
   try {
-    const octokit = getOctokit();
+    const octokit = getOctokit(verbose);
 
     // Search for marketplace.json files in the .claude-plugin directory
     const query = "filename:marketplace.json path:.claude-plugin";
@@ -98,10 +104,11 @@ export async function searchMarketplaceFiles(): Promise<GitHubSearchResult[]> {
  */
 export async function fetchMarketplaceFile(
   repo: string,
-  branch: string = "main"
+  branch: string = "main",
+  verbose: boolean = false
 ): Promise<string> {
   try {
-    const octokit = getOctokit();
+    const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
     const response = await octokit.rest.repos.getContent({
@@ -125,8 +132,12 @@ export async function fetchMarketplaceFile(
     // Try 'master' branch if 'main' fails
     if (branch === "main") {
       try {
-        return await fetchMarketplaceFile(repo, "master");
-      } catch {
+        return await fetchMarketplaceFile(repo, "master", verbose);
+      } catch (masterError) {
+        // Show warning for failed fetches (repo may be deleted, private, or file removed)
+        if (verbose) {
+          console.warn(`⚠️  Skipping ${repo}: marketplace.json not accessible`, masterError);
+        }
         throw new Error(`Could not fetch marketplace.json from ${repo}`);
       }
     }
@@ -137,9 +148,9 @@ export async function fetchMarketplaceFile(
 /**
  * Check if a GitHub repository is publicly accessible
  */
-export async function isRepoAccessible(repo: string): Promise<boolean> {
+export async function isRepoAccessible(repo: string, verbose: boolean = false): Promise<boolean> {
   try {
-    const octokit = getOctokit();
+    const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
     await octokit.rest.repos.get({
@@ -149,7 +160,9 @@ export async function isRepoAccessible(repo: string): Promise<boolean> {
 
     return true;
   } catch (error) {
-    console.error(`Repo ${repo} is not accessible:`, error);
+    if (verbose) {
+      console.warn(`⚠️  Repo ${repo} is not accessible`, error);
+    }
     return false;
   }
 }
@@ -157,9 +170,9 @@ export async function isRepoAccessible(repo: string): Promise<boolean> {
 /**
  * Get repository description from GitHub
  */
-export async function getRepoDescription(repo: string): Promise<string> {
+export async function getRepoDescription(repo: string, verbose: boolean = false): Promise<string> {
   try {
-    const octokit = getOctokit();
+    const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
     const response = await octokit.rest.repos.get({
@@ -168,8 +181,10 @@ export async function getRepoDescription(repo: string): Promise<string> {
     });
 
     return response.data.description || "";
-  } catch {
-    console.error(`Could not get description for ${repo}`);
+  } catch (error) {
+    if (verbose) {
+      console.warn(`⚠️  Could not get description for ${repo}`, error);
+    }
     return "";
   }
 }
