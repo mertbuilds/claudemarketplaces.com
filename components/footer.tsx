@@ -8,7 +8,9 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-3">Claude Code Marketplaces</h3>
             <p className="text-sm text-muted-foreground">
-              A directory for discovering plugin marketplaces for Claude Code. Browse curated collections from official sources and the community.
+              Discover Claude Code plugins, extensions, and tools. Automatically updated directory
+              of Anthropic Claude AI marketplaces with development tools, productivity plugins, and
+              integrations.
             </p>
           </div>
 
@@ -52,6 +54,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
                 <a href="https://github.com/mert-duzgun/claudemarketplaces.com" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                   Star on GitHub
                 </a>
@@ -65,8 +72,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>Built for the Claude Code community with Claude Code</p>
+        <div className="mt-8 pt-8 border-t border-border">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+            <p>Built for the Claude Code community with Claude Code</p>
+            <div className="flex items-center gap-3">
+              <span>Independent project, not affiliated with Anthropic</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

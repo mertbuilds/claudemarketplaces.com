@@ -32,9 +32,19 @@ const bbhSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Claude Code Marketplaces - Discover Plugin Collections",
+  title: "Claude Code Plugins & Extensions Directory - Discover Marketplaces",
   description:
-    "Discover Claude Code plugin marketplaces. Browse curated collections of extensions for development, productivity, testing, and more.",
+    "Discover Claude Code plugins, extensions, and tools from Anthropic. Browse automatically updated marketplace directory with development tools, productivity plugins, testing utilities, and integrations for Claude AI.",
+  keywords: [
+    "Claude Code plugins",
+    "Claude Code extensions",
+    "Claude Code marketplace",
+    "Anthropic Claude plugins",
+    "Claude AI tools",
+    "Claude Code directory",
+    "Claude development tools",
+    "Claude Code integrations",
+  ],
   icons: {
     icon: [
       { url: "/favicon/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -42,14 +52,22 @@ export const metadata: Metadata = {
       { url: "/favicon/favicon.ico" },
     ],
     apple: [
-      { url: "/favicon/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+      {
+        url: "/favicon/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
     ],
   },
   manifest: "/favicon/site.webmanifest",
+  other: {
+    "llms-txt": "/llms.txt",
+    "llms-full-txt": "/llms-full.txt",
+  },
   openGraph: {
-    title: "Claude Code Marketplaces - Discover Plugin Collections",
+    title: "Claude Code Plugins & Extensions Directory - Discover Marketplaces",
     description:
-      "Discover Claude Code plugin marketplaces. Browse curated collections of extensions for development, productivity, testing, and more.",
+      "Discover Claude Code plugins, extensions, and tools from Anthropic. Browse automatically updated marketplace directory with development tools, productivity plugins, and integrations.",
     url: "https://claudemarketplaces.com",
     siteName: "Claude Code Marketplaces",
     locale: "en_US",
@@ -57,9 +75,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Claude Code Marketplaces - Discover Plugin Collections",
+    title: "Claude Code Plugins & Extensions Directory",
     description:
-      "Discover Claude Code plugin marketplaces. Browse curated collections of extensions for development, productivity, testing, and more.",
+      "Discover Claude Code plugins, extensions, and tools. Automatically updated marketplace directory for Anthropic Claude AI development.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 

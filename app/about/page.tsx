@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import {
@@ -10,6 +11,19 @@ import {
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Search, RefreshCw, Github, Mail } from "lucide-react";
 
+export const metadata: Metadata = {
+  title: "About Claude Code Marketplaces - How It Works & Discovery Process",
+  description:
+    "Learn how Claude Code Marketplaces automatically discovers and catalogs Anthropic Claude plugin repositories from GitHub. Understand our validation process, hourly updates, and how to create your own marketplace.",
+  openGraph: {
+    title: "About Claude Code Marketplaces - How It Works",
+    description:
+      "Automated discovery of Claude Code plugins, extensions, and tools. Learn about our GitHub search process and marketplace validation.",
+    url: "https://claudemarketplaces.com/about",
+    type: "website",
+  },
+};
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -17,21 +31,50 @@ export default function AboutPage() {
 
       <main className="flex-1">
         <div className="container mx-auto px-4 py-12 max-w-4xl">
+          {/* Disclaimer */}
+          <Card className="mb-8 border-muted-foreground/20 bg-muted/30">
+            <CardContent>
+              <p className="text-xs text-muted-foreground">
+                <strong>Disclaimer:</strong> This is an independent,
+                community-run directory and is not officially affiliated with
+                Anthropic or Claude. All marketplace listings are automatically
+                discovered from public GitHub repositories. Users should review
+                plugin code and marketplace repositories before installation to
+                ensure they meet their security and quality standards.
+              </p>
+            </CardContent>
+          </Card>
+
           {/* What is this */}
           <Card className="mb-8">
             <CardHeader>
               <CardTitle>What is this site?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Claude Code Marketplaces is a centralized directory that helps you discover plugin marketplaces for Claude Code.
-                Plugin marketplaces are collections of plugins that extend Claude Code&apos;s functionality with new tools,
-                commands, and integrations.
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Instead of manually searching GitHub for marketplaces, this site automatically discovers and catalogs all
-                available marketplaces, making it easy to find the plugins you need.
-              </p>
+              <div className="space-y-4">
+                <p className="text-lg font-semibold text-foreground">
+                  The fastest way to discover Claude Code plugins and
+                  extensions.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Claude Code Marketplaces</strong> is the only
+                  automated directory that continuously searches GitHub to find
+                  and catalog every available{" "}
+                  <strong>Claude Code plugin marketplace</strong>. Instead of
+                  manually searching through hundreds of repositories, our
+                  system does the heavy lifting for you—discovering, validating,
+                  and updating marketplace information every single hour.
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  <strong>Plugin marketplaces</strong> are GitHub repositories
+                  containing collections of <strong>Claude Code plugins</strong>{" "}
+                  that extend Claude Code&apos;s functionality with new tools,
+                  commands, and integrations. Whether you&apos;re looking for
+                  development tools, productivity extensions, testing utilities,
+                  or specialized integrations, our directory gives you instant
+                  access to the entire Claude Code plugin ecosystem.
+                </p>
+              </div>
             </CardContent>
           </Card>
 
@@ -52,9 +95,13 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Automatic Discovery</h4>
                     <p className="text-sm text-muted-foreground">
-                      Our search automatically discovers GitHub repositories containing valid
-                      <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
-                      files. This happens hourly to ensure we capture new marketplaces as they&apos;re created.
+                      Our search automatically discovers GitHub repositories
+                      containing valid
+                      <code className="bg-muted px-1.5 py-0.5 rounded mx-1">
+                        .claude-plugin/marketplace.json
+                      </code>
+                      files. This happens hourly to ensure we capture new
+                      marketplaces as they&apos;re created.
                     </p>
                   </div>
                 </div>
@@ -64,10 +111,14 @@ export default function AboutPage() {
                     2
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Validation & Metadata</h4>
+                    <h4 className="font-semibold mb-1">
+                      Validation & Metadata
+                    </h4>
                     <p className="text-sm text-muted-foreground">
-                      Each discovered marketplace is validated to ensure it follows the official Claude Code marketplace schema.
-                      We extract key information like description, plugin count, and categories.
+                      Each discovered marketplace is validated to ensure it
+                      follows the official Claude Code marketplace schema. We
+                      extract key information like description, plugin count,
+                      and categories.
                     </p>
                   </div>
                 </div>
@@ -79,8 +130,9 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold mb-1">GitHub Star Tracking</h4>
                     <p className="text-sm text-muted-foreground">
-                      We fetch and update GitHub star counts hourly for all marketplaces, allowing you to sort and discover
-                      popular marketplaces based on community engagement.
+                      We fetch and update GitHub star counts hourly for all
+                      marketplaces, allowing you to sort and discover popular
+                      marketplaces based on community engagement.
                     </p>
                   </div>
                 </div>
@@ -96,14 +148,18 @@ export default function AboutPage() {
                 <CardTitle>Want to create your own marketplace?</CardTitle>
               </div>
               <CardDescription>
-                Creating a marketplace is easy and requires no submission process
+                Creating a marketplace is easy and requires no submission
+                process
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
                 Simply create a GitHub repository with a valid
-                <code className="bg-muted px-1.5 py-0.5 rounded mx-1">.claude-plugin/marketplace.json</code>
-                file following the official schema. Our search will automatically discover and list it within an hour.
+                <code className="bg-muted px-1.5 py-0.5 rounded mx-1">
+                  .claude-plugin/marketplace.json
+                </code>
+                file following the official schema. Our search will
+                automatically discover and list it within an hour.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="default" asChild>
@@ -144,7 +200,9 @@ export default function AboutPage() {
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>New marketplaces are discovered hourly through GitHub search</span>
+                  <span>
+                    New marketplaces are discovered hourly through GitHub search
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
@@ -152,7 +210,10 @@ export default function AboutPage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>Marketplace metadata (description, plugin count, categories) is updated during each search</span>
+                  <span>
+                    Marketplace metadata (description, plugin count, categories)
+                    is updated during each search
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
@@ -172,8 +233,9 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                If you believe your marketplace is valid but couldn&apos;t be validated by our search,
-                please reach out so we can investigate the issue.
+                If you believe your marketplace is valid but couldn&apos;t be
+                validated by our search, please reach out so we can investigate
+                the issue.
               </p>
               <Button variant="outline" asChild>
                 <a
@@ -194,7 +256,8 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                This site is open source and built with Claude Code. The search functionality and website code are available on GitHub.
+                This site is open source and built with Claude Code. The search
+                functionality and website code are available on GitHub.
               </p>
               <Button variant="outline" asChild>
                 <a

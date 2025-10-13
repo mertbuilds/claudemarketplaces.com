@@ -1,0 +1,40 @@
+# Allow all crawlers by default
+User-agent: *
+Allow: /
+
+# Explicitly allow AI/LLM bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemap
+Sitemap: https://claudemarketplaces.com/sitemap.xml
+
+# LLM discovery file
+# See: https://claudemarketplaces.com/llms.txt

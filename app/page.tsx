@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Script from "next/script";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
@@ -14,8 +15,32 @@ async function MarketplaceData() {
 }
 
 export default function Home() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Claude Code Marketplaces",
+    url: "https://claudemarketplaces.com",
+    description:
+      "Directory of Claude Code plugin marketplaces, extensions, and tools for Anthropic Claude AI development.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://claudemarketplaces.com/?search={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="schema-org"
+        type="application/ld+json"
+        strategy="afterInteractive"
+      >
+        {JSON.stringify(structuredData)}
+      </Script>
       <Header />
       <main className="flex-1">
         <Suspense
