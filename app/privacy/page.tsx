@@ -185,7 +185,7 @@ export default function PrivacyPage() {
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
                 Since we do not collect or store personal information, there is minimal security risk
-                to users. The public GitHub data we display is cached temporarily and updated hourly
+                to users. The public GitHub data we display is cached temporarily and updated daily
                 through automated processes.
               </p>
               <p className="text-sm text-muted-foreground">

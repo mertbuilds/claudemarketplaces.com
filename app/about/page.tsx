@@ -14,7 +14,7 @@ import { ExternalLink, Search, RefreshCw, Github, Mail } from "lucide-react";
 export const metadata: Metadata = {
   title: "About Claude Code Marketplaces - How It Works & Discovery Process",
   description:
-    "Learn how Claude Code Marketplaces automatically discovers and catalogs Anthropic Claude plugin repositories from GitHub. Understand our validation process, hourly updates, and how to create your own marketplace.",
+    "Learn how Claude Code Marketplaces automatically discovers and catalogs Anthropic Claude plugin repositories from GitHub. Understand our validation process, daily updates, and how to create your own marketplace.",
   openGraph: {
     title: "About Claude Code Marketplaces - How It Works",
     description:
@@ -63,7 +63,7 @@ export default function AboutPage() {
                   <strong>Claude Code plugin marketplace</strong>. Instead of
                   manually searching through hundreds of repositories, our
                   system does the heavy lifting for you—discovering, validating,
-                  and updating marketplace information every single hour.
+                  and updating marketplace information daily.
                 </p>
                 <p className="text-sm text-muted-foreground">
                   <strong>Plugin marketplaces</strong> are GitHub repositories
@@ -100,7 +100,7 @@ export default function AboutPage() {
                       <code className="bg-muted px-1.5 py-0.5 rounded mx-1">
                         .claude-plugin/marketplace.json
                       </code>
-                      files. This happens hourly to ensure we capture new
+                      files. This happens daily to ensure we capture new
                       marketplaces as they&apos;re created.
                     </p>
                   </div>
@@ -130,7 +130,7 @@ export default function AboutPage() {
                   <div>
                     <h4 className="font-semibold mb-1">GitHub Star Tracking</h4>
                     <p className="text-sm text-muted-foreground">
-                      We fetch and update GitHub star counts hourly for all
+                      We fetch and update GitHub star counts daily for all
                       marketplaces, allowing you to sort and discover popular
                       marketplaces based on community engagement.
                     </p>
@@ -174,7 +174,7 @@ export default function AboutPage() {
                   .claude-plugin/marketplace.json
                 </code>
                 file following the official schema. Our search will
-                automatically discover and list it within an hour.
+                automatically discover and list it within 24 hours.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="default" asChild>
@@ -216,12 +216,12 @@ export default function AboutPage() {
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
                   <span>
-                    New marketplaces are discovered hourly through GitHub search
+                    New marketplaces are discovered daily through GitHub search
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span>GitHub star counts are refreshed hourly</span>
+                  <span>GitHub star counts are refreshed daily</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>

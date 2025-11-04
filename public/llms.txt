@@ -7,7 +7,7 @@ Claude Code Marketplaces is an automated directory that discovers and catalogs C
 ## Purpose
 - Automatically discovers GitHub repositories with .claude-plugin/marketplace.json files
 - Validates marketplaces against official Claude Code schema
-- Updates hourly with new marketplaces and GitHub star counts
+- Updates daily with new marketplaces and GitHub star counts
 - Provides categorized browsing of development tools, productivity plugins, testing utilities, and integrations
 
 ## Key URLs
@@ -25,7 +25,7 @@ Developers using Claude Code who want to discover plugins, extensions, and tools
 ## Key Information
 - Independent project (not affiliated with Anthropic)
 - Open source on GitHub: https://github.com/mert-duzgun/claudemarketplaces.com
-- Hourly automated updates
+- Daily automated updates
 - Schema-validated marketplaces only
 - No user data collection
 - Community-driven discovery through GitHub stars
