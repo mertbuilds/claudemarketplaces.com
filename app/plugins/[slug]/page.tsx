@@ -47,25 +47,41 @@ export async function generateMetadata({
     };
   }
 
-  const title = `${marketplace.repo} Plugins - Claude Code Marketplace`;
+  const title = `${marketplace.repo} Plugins | Claude Code Marketplace`;
   const description =
     marketplace.description ||
-    `Browse ${marketplace.pluginCount} plugins from ${marketplace.repo}`;
+    `Discover ${marketplace.pluginCount}+ powerful plugins from ${marketplace.repo}. Enhance your Claude AI development workflow with curated tools and extensions.`;
 
   return {
     title,
     description,
+    keywords: [
+      `${marketplace.repo} plugins`,
+      "Claude Code marketplace",
+      "Claude plugin marketplace",
+      "AI development tools",
+      "Claude extensions",
+    ],
     openGraph: {
       title,
       description,
       url: `https://claudemarketplaces.com/plugins/${slug}`,
-      siteName: "Claude Code Marketplaces",
+      siteName: "Claude Code Plugin Marketplace",
       type: "website",
+      images: [
+        {
+          url: "https://claudemarketplaces.com/og-image.png",
+          width: 1200,
+          height: 630,
+          alt: `${marketplace.repo} Plugins`,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["https://claudemarketplaces.com/og-image.png"],
     },
   };
 }

@@ -32,18 +32,19 @@ const bbhSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Claude Code Plugins & Extensions Directory - Discover Marketplaces",
+  title: "Claude Code Plugin Marketplace | AI Tools & Extensions",
   description:
-    "Discover Claude Code plugins, extensions, and tools from Anthropic. Browse automatically updated marketplace directory with development tools, productivity plugins, testing utilities, and integrations for Claude AI.",
+    "Explore the ultimate Claude Code plugin marketplace. Discover powerful AI development tools, productivity extensions, and innovative integrations from top developers. Find the perfect plugins for your workflow.",
   keywords: [
-    "Claude Code plugins",
-    "Claude Code extensions",
     "Claude Code marketplace",
-    "Anthropic Claude plugins",
+    "Claude plugin marketplace",
+    "Claude Code plugins",
+    "Claude marketplaces",
+    "Anthropic plugin marketplace",
     "Claude AI tools",
-    "Claude Code directory",
     "Claude development tools",
-    "Claude Code integrations",
+    "Claude Code extensions",
+    "plugin marketplaces for claude code",
   ],
   icons: {
     icon: [
@@ -65,19 +66,28 @@ export const metadata: Metadata = {
     "llms-full-txt": "/llms-full.txt",
   },
   openGraph: {
-    title: "Claude Code Plugins & Extensions Directory - Discover Marketplaces",
+    title: "Claude Code Plugin Marketplace | AI Tools & Extensions",
     description:
-      "Discover Claude Code plugins, extensions, and tools from Anthropic. Browse automatically updated marketplace directory with development tools, productivity plugins, and integrations.",
+      "Explore the ultimate Claude Code plugin marketplace. Discover powerful AI development tools, productivity extensions, and innovative integrations from top developers.",
     url: "https://claudemarketplaces.com",
-    siteName: "Claude Code Marketplaces",
+    siteName: "Claude Code Plugin Marketplace",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "https://claudemarketplaces.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Claude Code Plugin Marketplace",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Claude Code Plugins & Extensions Directory",
+    title: "Claude Code Plugin Marketplace | AI Tools",
     description:
-      "Discover Claude Code plugins, extensions, and tools. Automatically updated marketplace directory for Anthropic Claude AI development.",
+      "Discover powerful plugins, extensions, and tools for Claude AI. Browse curated marketplaces and boost your development workflow.",
+    images: ["https://claudemarketplaces.com/og-image.png"],
   },
   robots: {
     index: true,
