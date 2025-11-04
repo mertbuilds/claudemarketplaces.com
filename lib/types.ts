@@ -29,6 +29,7 @@ export interface Marketplace {
   description: string;
   pluginCount: number;
   categories: string[];
+  pluginKeywords?: string[]; // Aggregated keywords from all plugins for searchability
   discoveredAt?: string;
   lastUpdated?: string;
   source?: 'manual' | 'auto';

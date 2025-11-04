@@ -3,17 +3,22 @@
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMemo, useCallback } from "react";
 import { Plugin } from "@/lib/types";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 /**
  * Plugin filtering hook - mirrors marketplace filtering pattern
- * Manages URL-based state for search and category filters
+ * Manages local state for search and URL-based state for category filters
  */
-export function usePluginFilters(plugins: Plugin[]) {
+export function usePluginFilters(
+  plugins: Plugin[],
+  searchQuery: string = "" // Accept search query as parameter (local state)
+) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const searchQuery = searchParams.get("q") || "";
+  // Debounce search query for better filtering performance
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const selectedCategories = useMemo(
     () => searchParams.get("categories")?.split(",").filter(Boolean) || [],
     [searchParams]
@@ -38,9 +43,9 @@ export function usePluginFilters(plugins: Plugin[]) {
   const filteredPlugins = useMemo(() => {
     let filtered = plugins;
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+    // Search filter (using debounced query for better performance)
+    if (debouncedSearchQuery) {
+      const query = debouncedSearchQuery.toLowerCase();
       filtered = filtered.filter(
         (p) =>
           p.name.toLowerCase().includes(query) ||
@@ -59,14 +64,12 @@ export function usePluginFilters(plugins: Plugin[]) {
 
     // Sort by name alphabetically
     return filtered.sort((a, b) => a.name.localeCompare(b.name));
-  }, [plugins, searchQuery, selectedCategories]);
+  }, [plugins, debouncedSearchQuery, selectedCategories]);
 
   return {
-    searchQuery,
     selectedCategories,
     filteredPlugins,
     filteredCount: filteredPlugins.length,
-    setSearchQuery: (q: string) => updateURL({ q: q || null }),
     toggleCategory: (cat: string) => {
       const newCats = selectedCategories.includes(cat)
         ? selectedCategories.filter((c) => c !== cat)
@@ -75,6 +78,6 @@ export function usePluginFilters(plugins: Plugin[]) {
         categories: newCats.length ? newCats.join(",") : null,
       });
     },
-    clearFilters: () => updateURL({ q: null, categories: null }),
+    clearFilters: () => updateURL({ categories: null }),
   };
 }

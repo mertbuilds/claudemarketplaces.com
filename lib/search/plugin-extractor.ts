@@ -108,3 +108,40 @@ export function extractPluginsFromMarketplaces(
 
   return allPlugins;
 }
+
+/**
+ * Aggregate plugin keywords from a marketplace's plugins for searchability
+ * Extracts keywords from plugin names, descriptions, and keywords arrays
+ * Returns deduplicated, lowercase keywords
+ */
+export function aggregatePluginKeywords(plugins: Plugin[]): string[] {
+  const keywords = new Set<string>();
+
+  plugins.forEach(plugin => {
+    // Extract words from plugin name (split on hyphens, underscores, spaces)
+    plugin.name.split(/[-_\s]+/).forEach(word => {
+      const normalized = word.toLowerCase().trim();
+      if (normalized.length > 2) {  // Filter out very short words
+        keywords.add(normalized);
+      }
+    });
+
+    // Extract significant words from plugin description (5+ chars)
+    plugin.description.split(/\s+/).forEach(word => {
+      const normalized = word.toLowerCase().replace(/[^a-z0-9]/g, '').trim();
+      if (normalized.length > 4) {  // Only longer, more meaningful words
+        keywords.add(normalized);
+      }
+    });
+
+    // Add plugin keywords directly (already meaningful)
+    plugin.keywords?.forEach(kw => {
+      const normalized = kw.toLowerCase().trim();
+      if (normalized.length > 0) {
+        keywords.add(normalized);
+      }
+    });
+  });
+
+  return Array.from(keywords).sort();
+}

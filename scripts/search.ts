@@ -13,7 +13,7 @@ import { searchMarketplaceFiles, fetchMarketplaceFile } from "../lib/search/gith
 import { validateMarketplaces } from "../lib/search/validator";
 import { mergeMarketplaces, writePlugins } from "../lib/search/storage";
 import { batchFetchStars } from "../lib/search/github-stars";
-import { extractPluginsFromMarketplaces } from "../lib/search/plugin-extractor";
+import { extractPluginsFromMarketplaces, aggregatePluginKeywords } from "../lib/search/plugin-extractor";
 
 // CLI argument parsing
 interface CliArgs {
@@ -260,6 +260,26 @@ async function runSearch() {
       });
     }
 
+    // Step 7.5: Aggregate plugin keywords into marketplaces
+    logStep(7.5, "Aggregating plugin keywords for searchability...");
+    const marketplacesWithKeywords = marketplacesWithStars.map(marketplace => {
+      // Filter plugins for this marketplace
+      const marketplacePlugins = allPlugins.filter(p => p.marketplace === marketplace.slug);
+      // Aggregate keywords from all plugins
+      const pluginKeywords = aggregatePluginKeywords(marketplacePlugins);
+
+      return {
+        ...marketplace,
+        pluginKeywords,
+      };
+    });
+
+    const avgKeywords = Math.round(
+      marketplacesWithKeywords.reduce((sum, m) => sum + (m.pluginKeywords?.length || 0), 0) /
+      marketplacesWithKeywords.length
+    );
+    logSuccess(`Aggregated keywords for ${marketplacesWithKeywords.length} marketplaces (avg: ${avgKeywords} keywords/marketplace)`);
+
     // Step 8: Save results
     if (args.dryRun) {
       logStep(8, "Skipping save (dry run mode)");
@@ -267,9 +287,9 @@ async function runSearch() {
     } else {
       logStep(8, "Saving to database...");
 
-      // Save marketplaces
+      // Save marketplaces (with plugin keywords)
       const allDiscoveredRepos = new Set(resultsToProcess.map((r) => r.repo));
-      const mergeResult = await mergeMarketplaces(marketplacesWithStars, allDiscoveredRepos);
+      const mergeResult = await mergeMarketplaces(marketplacesWithKeywords, allDiscoveredRepos);
 
       logSuccess(`Marketplaces - Added: ${mergeResult.added}, Updated: ${mergeResult.updated}`);
       if (mergeResult.removed > 0) {

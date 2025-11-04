@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { MarketplaceGrid } from "@/components/marketplace-grid";
 import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
@@ -16,22 +17,29 @@ export function MarketplaceContent({
   marketplaces,
   categories,
 }: MarketplaceContentProps) {
+  // Local state for search query (not in URL)
+  const [searchQuery, setSearchQuery] = useState("");
+
   const {
-    searchQuery,
     filterPreset,
     selectedCategories,
     filteredMarketplaces,
     filteredCount,
-    setSearchQuery,
     setFilterPreset,
     toggleCategory,
-    clearFilters,
-  } = useMarketplaceFilters(marketplaces);
+    clearFilters: clearUrlFilters,
+  } = useMarketplaceFilters(marketplaces, searchQuery);
 
   const hasActiveFilters =
     searchQuery ||
     selectedCategories.length > 0 ||
     (filterPreset && filterPreset !== "all");
+
+  // Clear both local search and URL filters
+  const clearFilters = () => {
+    setSearchQuery("");
+    clearUrlFilters();
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">

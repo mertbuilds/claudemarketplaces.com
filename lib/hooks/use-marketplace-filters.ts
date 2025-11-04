@@ -4,13 +4,18 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useMemo, useCallback } from "react";
 import { Marketplace } from "@/lib/types";
 import { FilterPreset, getFilterPreset } from "@/lib/config/filter-presets";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
-export function useMarketplaceFilters(marketplaces: Marketplace[]) {
+export function useMarketplaceFilters(
+  marketplaces: Marketplace[],
+  searchQuery: string = "" // Accept search query as parameter (local state)
+) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const searchQuery = searchParams.get("q") || "";
+  // Debounce search query for better filtering performance
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   // Validate filter preset from URL params
   const filterParam = searchParams.get("filter");
   const filterPreset: FilterPreset =
@@ -39,14 +44,17 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
   const filteredMarketplaces = useMemo(() => {
     let filtered = marketplaces;
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+    // Search filter (searches marketplace fields + aggregated plugin keywords)
+    // Uses debounced query to reduce expensive filtering on every keystroke
+    if (debouncedSearchQuery) {
+      const query = debouncedSearchQuery.toLowerCase();
       filtered = filtered.filter(
         (m) =>
           m.repo.toLowerCase().includes(query) ||
+          m.slug.toLowerCase().includes(query) ||
           m.description.toLowerCase().includes(query) ||
-          m.categories.some((cat) => cat.toLowerCase().includes(query))
+          m.categories.some((cat) => cat.toLowerCase().includes(query)) ||
+          m.pluginKeywords?.some((kw) => kw.includes(query))
       );
     }
 
@@ -70,15 +78,13 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
       const starsB = b.stars ?? 0;
       return starsB - starsA;
     });
-  }, [marketplaces, searchQuery, filterPreset, selectedCategories]);
+  }, [marketplaces, debouncedSearchQuery, filterPreset, selectedCategories]);
 
   return {
-    searchQuery,
     filterPreset,
     selectedCategories,
     filteredMarketplaces,
     filteredCount: filteredMarketplaces.length,
-    setSearchQuery: (q: string) => updateURL({ q: q || null }),
     setFilterPreset: (preset: FilterPreset) => {
       updateURL({
         filter: preset === "all" ? null : preset,
@@ -94,6 +100,6 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
         filter: null, // Clear preset when selecting a category
       });
     },
-    clearFilters: () => updateURL({ q: null, categories: null, filter: null }),
+    clearFilters: () => updateURL({ categories: null, filter: null }),
   };
 }

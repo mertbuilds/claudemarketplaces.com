@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { PluginCard } from "@/components/plugin-card";
 import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
@@ -13,15 +14,16 @@ interface PluginContentProps {
 }
 
 export function PluginContent({ plugins, categories, expectedPluginCount }: PluginContentProps) {
+  // Local state for search query (not in URL)
+  const [searchQuery, setSearchQuery] = useState("");
+
   const {
-    searchQuery,
     selectedCategories,
     filteredPlugins,
     filteredCount,
-    setSearchQuery,
     toggleCategory,
-    clearFilters,
-  } = usePluginFilters(plugins);
+    clearFilters: clearUrlFilters,
+  } = usePluginFilters(plugins, searchQuery);
 
   const hasActiveFilters =
     searchQuery || selectedCategories.length > 0;
@@ -32,6 +34,12 @@ export function PluginContent({ plugins, categories, expectedPluginCount }: Plug
     !hasActiveFilters &&
     expectedPluginCount &&
     expectedPluginCount > 0;
+
+  // Clear both local search and URL filters
+  const clearFilters = () => {
+    setSearchQuery("");
+    clearUrlFilters();
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
