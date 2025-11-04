@@ -133,7 +133,11 @@ async function PluginData({ slug }: { slug: string }) {
       </div>
 
       {/* Plugin Content */}
-      <PluginContent plugins={plugins} categories={categories} />
+      <PluginContent
+        plugins={plugins}
+        categories={categories}
+        expectedPluginCount={marketplace.pluginCount}
+      />
     </>
   );
 }

@@ -9,9 +9,10 @@ import { Plugin } from "@/lib/types";
 interface PluginContentProps {
   plugins: Plugin[];
   categories: string[];
+  expectedPluginCount?: number;
 }
 
-export function PluginContent({ plugins, categories }: PluginContentProps) {
+export function PluginContent({ plugins, categories, expectedPluginCount }: PluginContentProps) {
   const {
     searchQuery,
     selectedCategories,
@@ -24,6 +25,13 @@ export function PluginContent({ plugins, categories }: PluginContentProps) {
 
   const hasActiveFilters =
     searchQuery || selectedCategories.length > 0;
+
+  // Check if we have a data sync issue (marketplace says it has plugins but we found none)
+  const hasDataSyncIssue =
+    plugins.length === 0 &&
+    !hasActiveFilters &&
+    expectedPluginCount &&
+    expectedPluginCount > 0;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -80,16 +88,29 @@ export function PluginContent({ plugins, categories }: PluginContentProps) {
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-muted-foreground mb-4">
-            No plugins found matching your criteria.
-          </p>
-          {hasActiveFilters && (
-            <button
-              onClick={clearFilters}
-              className="text-primary hover:underline"
-            >
-              Clear all filters
-            </button>
+          {hasDataSyncIssue ? (
+            <>
+              <p className="text-muted-foreground mb-2">
+                Plugins are currently being indexed.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                This marketplace has {expectedPluginCount} {expectedPluginCount === 1 ? 'plugin' : 'plugins'} that will appear shortly. Please check back soon or refresh the page.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-muted-foreground mb-4">
+                No plugins found matching your criteria.
+              </p>
+              {hasActiveFilters && (
+                <button
+                  onClick={clearFilters}
+                  className="text-primary hover:underline"
+                >
+                  Clear all filters
+                </button>
+              )}
+            </>
           )}
         </div>
       )}
