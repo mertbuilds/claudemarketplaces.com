@@ -36,3 +36,15 @@ export interface Marketplace {
   stars?: number;
   starsFetchedAt?: string;
 }
+
+export interface Author {
+  name: string;
+  image: string;
+}
+
+export interface Video {
+  url: string; // YouTube embed URL
+  title: string;
+  description: string;
+  author: Author;
+}
