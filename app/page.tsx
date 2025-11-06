@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Script from "next/script";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Navigation } from "@/components/navigation";
 import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
 
@@ -11,7 +12,9 @@ async function MarketplaceData() {
     getCategories(),
   ]);
 
-  return <MarketplaceContent marketplaces={marketplaces} categories={categories} />;
+  return (
+    <MarketplaceContent marketplaces={marketplaces} categories={categories} />
+  );
 }
 
 export default function Home() {
@@ -28,7 +31,8 @@ export default function Home() {
           "@type": "SearchAction",
           target: {
             "@type": "EntryPoint",
-            urlTemplate: "https://claudemarketplaces.com/?search={search_term_string}",
+            urlTemplate:
+              "https://claudemarketplaces.com/?search={search_term_string}",
           },
           "query-input": "required name=search_term_string",
         },
@@ -36,7 +40,8 @@ export default function Home() {
       {
         "@type": "Organization",
         name: "Claude Code Plugin Marketplace",
-        description: "The central hub for discovering Claude Code plugins, extensions, and development tools",
+        description:
+          "The central hub for discovering Claude Code plugins, extensions, and development tools",
         url: "https://claudemarketplaces.com",
       },
       {
@@ -82,6 +87,7 @@ export default function Home() {
       </Script>
       <Header />
       <main className="flex-1">
+        <Navigation />
         <Suspense
           fallback={
             <div className="container mx-auto px-4 py-8">
