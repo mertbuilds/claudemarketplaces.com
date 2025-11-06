@@ -21,7 +21,10 @@ export const metadata: Metadata = {
 export default function FeedbackPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header subtitle="" showAboutLink={false} />
+      <Header
+        subtitle="Share your thoughts and help us improve the directory"
+        showAboutLink={true}
+      />
 
       <main className="flex-1">
         <Navigation />
