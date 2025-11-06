@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 export function Navigation() {
   const pathname = usePathname();
@@ -9,6 +10,7 @@ export function Navigation() {
   const links = [
     { href: "/", label: "Marketplaces" },
     { href: "/learn", label: "Learn" },
+    { href: "/feedback", label: "Feedback" },
   ];
 
   return (
@@ -20,11 +22,12 @@ export function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className={`pb-3 text-sm font-medium transition-colors border-b-2 -mb-px ${
+              className={cn(
+                "pb-3 text-sm font-medium transition-colors border-b-2 -mb-px",
                 isActive
                   ? "border-primary text-foreground"
                   : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
+              )}
             >
               {link.label}
             </Link>
