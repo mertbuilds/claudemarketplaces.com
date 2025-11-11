@@ -112,6 +112,7 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                   {installCommand}
                 </code>
                 <button
+                  type="button"
                   onClick={handleCopy}
                   className="shrink-0 p-1.5 hover:bg-muted rounded transition-colors cursor-pointer"
                   title="Copy to clipboard"
