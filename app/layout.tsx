@@ -1,9 +1,15 @@
-import type { Metadata } from "next";
-import { Playfair_Display, Comfortaa, Space_Mono } from "next/font/google";
-import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/react";
-import "./globals.css";
 import BMC from "@/components/bmc";
+import { Analytics } from "@vercel/analytics/react";
+import type { Metadata } from "next";
+import {
+  Comfortaa,
+  Crimson_Pro,
+  Inter,
+  Playfair_Display,
+  Space_Mono,
+} from "next/font/google";
+import localFont from "next/font/local";
+import "./globals.css";
 
 // Playfair Display for elegant headings
 const playfair = Playfair_Display({
@@ -21,6 +27,18 @@ const comfortaa = Comfortaa({
 const spaceMono = Space_Mono({
   weight: ["400", "700"],
   variable: "--font-space-mono",
+  subsets: ["latin"],
+});
+
+// Inter for general UI text
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+// Crimson Pro for serif text
+const crimsonPro = Crimson_Pro({
+  variable: "--font-crimson-pro",
   subsets: ["latin"],
 });
 
@@ -111,7 +129,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${comfortaa.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
+        className={`${playfair.variable} ${comfortaa.variable} ${spaceMono.variable} ${inter.variable} ${crimsonPro.variable} ${bbhSans.variable} antialiased`}
       >
         <BMC />
         {children}

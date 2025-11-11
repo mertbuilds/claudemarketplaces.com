@@ -48,3 +48,9 @@ export interface Video {
   description: string;
   author: Author;
 }
+
+export interface Category {
+  label: string;
+  slug: string;
+  count: number;
+}

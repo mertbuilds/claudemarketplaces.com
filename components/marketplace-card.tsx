@@ -13,6 +13,7 @@ import { Marketplace } from "@/lib/types";
 import { Package, ExternalLink, Copy, Check, Star } from "lucide-react";
 import { useState } from "react";
 import { formatStarCount } from "@/lib/utils/format";
+import { cn } from "@/lib/utils";
 
 interface MarketplaceCardProps {
   marketplace: Marketplace;
@@ -39,7 +40,19 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
 
   return (
     <Link href={`/plugins/${marketplace.slug}`} className="block h-full">
-      <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer overflow-auto">
+      <Card
+        className={cn(
+          "group h-full flex flex-col justify-between relative cursor-pointer shadow-lg shadow-primary-foreground/5",
+          "transition-colors ease-in",
+          "hover:border-foreground/50 hover:duration-0"
+        )}
+      >
+        <div
+          className={cn(
+            "absolute inset-0 pointer-events-none bg-gradient-to-b to-primary/3 from-transparent opacity-0 transition-opacity ease-in-out",
+            "group-hover:opacity-100 group-hover:duration-100"
+          )}
+        />
         <CardHeader>
           <div className="flex flex-col gap-2">
             <div className="flex items-start justify-between gap-2">
@@ -47,6 +60,7 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                 {marketplace.repo}
               </CardTitle>
               <button
+                type="button"
                 onClick={handleExternalLink}
                 className="flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded transition-colors"
                 aria-label="View on GitHub"

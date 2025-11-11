@@ -1,38 +1,34 @@
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-interface HeaderProps {
-  subtitle?: string;
-  showAboutLink?: boolean;
-}
-
 export function Header({
-  subtitle = "A comprehensive directory for discovering plugin marketplaces",
-  showAboutLink = true,
-}: HeaderProps) {
+  className,
+  ...props
+}: React.ComponentProps<"header">) {
   return (
-    <header>
+    <header
+      className={cn("w-full border-b border-border bg-secondary", className)}
+      {...props}
+    >
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-col gap-4">
-          {/* Logo */}
-          <Link href="/" className="group">
-            <h1 className="text-lg sm:text-4xl md:text-5xl font-[family-name:var(--font-bbh-sans)] font-normal text-primary tracking-wide transition-opacity hover:opacity-80 pt-10">
-              CLAUDE CODE MARKETPLACES
-            </h1>
-          </Link>
-
-          {/* Tagline */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-            <p className="text-lg text-muted-foreground">{subtitle}</p>
-            {showAboutLink && (
-              <Link
-                href="/about"
-                className="text-sm text-primary hover:underline whitespace-nowrap"
-              >
-                How does this work?
-              </Link>
+        <Link href="/" className="flex items-center gap-2">
+          <div
+            className={cn(
+              "rounded-full bg-primary size-4 mt-1 shadow-md",
+              "max-md:mt-0.5 max-md:size-3.5"
             )}
-          </div>
-        </div>
+          />
+
+          <h1
+            className={cn(
+              "text-4xl font-display text-primary-foreground tracking-tight font-[450] transition-opacity",
+              "max-md:text-3xl",
+              "hover:opacity-80"
+            )}
+          >
+            Claude Marketplaces
+          </h1>
+        </Link>
       </div>
     </header>
   );

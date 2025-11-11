@@ -1,4 +1,4 @@
-import { Marketplace } from "@/lib/types";
+import type { Marketplace } from "@/lib/types";
 import { readMarketplaces } from "@/lib/search/storage";
 import { repoToSlug } from "@/lib/utils/slug";
 
@@ -47,8 +47,23 @@ export async function getMarketplacesByCategory(
   return marketplaces.filter((m) => m.categories.includes(category));
 }
 
-export async function getCategories(): Promise<string[]> {
+export async function getCategories(): Promise<Array<{ label: string; slug: string; count: number }>> {
   const marketplaces = await getAllMarketplaces();
-  const categories = new Set(marketplaces.flatMap((m) => m.categories));
-  return Array.from(categories).sort();
+  
+  // Count marketplaces per category
+  const categoryCounts = new Map<string, number>();
+  marketplaces.forEach((m) => {
+    m.categories.forEach((category) => {
+      categoryCounts.set(category, (categoryCounts.get(category) || 0) + 1);
+    });
+  });
+  
+  // Convert to array of objects with label, slug, and count
+  return Array.from(categoryCounts.entries())
+    .map(([category, count]) => ({
+      label: category,
+      slug: category.toLowerCase().replace(/\s+/g, '-'),
+      count,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label));
 }
