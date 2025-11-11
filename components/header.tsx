@@ -14,7 +14,7 @@ export function Header({
         <Link href="/" className="flex items-center gap-2">
           <div
             className={cn(
-              "rounded-full bg-primary size-4 mt-1 shadow-md",
+              "rounded-full bg-primary size-4 mt-1 shadow-md shadow-primary-foreground/5",
               "max-md:mt-0.5 max-md:size-3.5"
             )}
           />
