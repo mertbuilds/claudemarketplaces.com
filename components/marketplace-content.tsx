@@ -5,12 +5,12 @@ import { MarketplaceGrid } from "@/components/marketplace-grid";
 import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
 import { useMarketplaceFilters } from "@/lib/hooks/use-marketplace-filters";
-import { Marketplace } from "@/lib/types";
+import type { Marketplace, Category } from "@/lib/types";
 import { FILTER_PRESETS } from "@/lib/config/filter-presets";
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
-  categories: string[];
+  categories: Category[];
 }
 
 export function MarketplaceContent({
@@ -50,7 +50,7 @@ export function MarketplaceContent({
 
       {/* Horizontal Scrollable Filter Presets and Categories */}
       <div className="mb-6 -mx-4 px-4">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 flex-wrap">
           {/* Filter Presets */}
           {FILTER_PRESETS.map((preset) => (
             <Badge
@@ -64,15 +64,16 @@ export function MarketplaceContent({
           ))}
           {/* Category Filters */}
           {categories.map((category) => {
-            const isSelected = selectedCategories.includes(category);
+            const isSelected = selectedCategories.includes(category.label);
             return (
               <Badge
-                key={category}
+                key={category.slug}
                 variant={isSelected ? "default" : "outline"}
-                className="cursor-pointer capitalize shrink-0"
-                onClick={() => toggleCategory(category)}
+                className="cursor-pointer capitalize shrink-0 flex items-baseline gap-1"
+                onClick={() => toggleCategory(category.label)}
               >
-                {category}
+                <span>{category.label}</span>
+                <span className="text-[10px] opacity-70">{category.count}</span>
               </Badge>
             );
           })}
@@ -86,6 +87,7 @@ export function MarketplaceContent({
         </p>
         {hasActiveFilters && (
           <button
+            type="button"
             onClick={clearFilters}
             className="text-sm text-primary hover:underline"
           >
@@ -104,6 +106,7 @@ export function MarketplaceContent({
           </p>
           {hasActiveFilters && (
             <button
+              type="button"
               onClick={clearFilters}
               className="text-primary hover:underline"
             >
