@@ -14,26 +14,28 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="container mx-auto px-4 pt-8">
-      <div className="flex gap-6 border-b border-border">
-        {links.map((link) => {
-          const isActive = pathname === link.href;
-          return (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                "pb-3 text-sm font-medium transition-colors border-b-2 -mb-px",
-                isActive
-                  ? "border-primary text-foreground"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              )}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
-      </div>
-    </nav>
+    <div className="w-full border-b border-border">
+      <nav className="container mx-auto px-4 pt-4">
+        <div className="flex gap-6">
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  "pb-3 text-sm font-medium transition-colors border-b-2 -mb-px",
+                  isActive
+                    ? "border-primary text-foreground"
+                    : "border-transparent text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
+    </div>
   );
 }
