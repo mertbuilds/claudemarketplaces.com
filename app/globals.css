@@ -6,8 +6,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-comfortaa);
-  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-geist);
+  --font-serif: var(--font-crimson-pro);
   --font-mono: var(--font-space-mono);
   --font-display: var(--font-bbh-sans);
   --color-ring: var(--ring);

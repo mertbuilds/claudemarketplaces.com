@@ -1,19 +1,19 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Comfortaa, Space_Mono } from "next/font/google";
+import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import BMC from "@/components/bmc";
 
-// Playfair Display for elegant headings
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+// Crimson Pro for elegant headings
+const crimsonPro = Crimson_Pro({
+  variable: "--font-crimson-pro",
   subsets: ["latin"],
 });
 
-// Comfortaa for friendly body text
-const comfortaa = Comfortaa({
-  variable: "--font-comfortaa",
+// Geist for friendly body text
+const geist = Geist({
+  variable: "--font-geist",
   subsets: ["latin"],
 });
 
@@ -111,7 +111,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${playfair.variable} ${comfortaa.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
+        className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
         <BMC />
         {children}
