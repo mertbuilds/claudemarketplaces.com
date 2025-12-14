@@ -59,6 +59,7 @@ export const metadata: Metadata = {
     "Claude plugin marketplace",
     "Claude Code plugins",
     "Claude marketplaces",
+    "Claude Code Marketplaces",
     "Anthropic plugin marketplace",
     "Claude AI tools",
     "Claude development tools",

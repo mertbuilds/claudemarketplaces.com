@@ -26,7 +26,7 @@ export function Header({
               "hover:opacity-80"
             )}
           >
-            Claude Marketplaces
+            Claude Code Marketplaces
           </h1>
         </Link>
       </div>
