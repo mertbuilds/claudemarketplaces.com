@@ -3,7 +3,6 @@ import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
-import BMC from "@/components/bmc";
 
 // Crimson Pro for elegant headings
 const crimsonPro = Crimson_Pro({
@@ -113,8 +112,7 @@ export default function RootLayout({
       <body
         className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
-        <BMC />
-        {children}
+                {children}
         <Analytics />
       </body>
     </html>
