@@ -9,7 +9,10 @@
     "lint": "eslint",
     "search": "bun run scripts/search.ts",
     "search:test": "bun run scripts/search.ts --limit 10",
-    "search:dry": "bun run scripts/search.ts --dry-run"
+    "search:dry": "bun run scripts/search.ts --dry-run",
+    "search:skills": "bun run scripts/search-skills.ts",
+    "search:skills:test": "bun run scripts/search-skills.ts --limit 10",
+    "search:skills:dry": "bun run scripts/search-skills.ts --dry-run"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.0",
