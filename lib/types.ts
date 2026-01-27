@@ -48,3 +48,29 @@ export interface Video {
   description: string;
   author: Author;
 }
+
+export interface Skill {
+  id: string;              // "owner-repo/skill-name"
+  name: string;            // from SKILL.md frontmatter
+  description: string;     // from SKILL.md frontmatter
+  repo: string;            // "owner/repo"
+  repoSlug: string;        // "owner-repo"
+  path: string;            // "skills/pdf" or ".claude/skills/pdf"
+  license?: string;
+  stars?: number;
+  installCommand: string;  // "claude skill add owner/repo:skill-name"
+  discoveredAt?: string;
+  lastUpdated?: string;
+}
+
+export interface SkillRepo {
+  repo: string;
+  slug: string;
+  description: string;
+  skillCount: number;
+  stars?: number;
+  starsFetchedAt?: string;
+  discoveredAt?: string;
+  lastUpdated?: string;
+  source?: 'manual' | 'auto';
+}
