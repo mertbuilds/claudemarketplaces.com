@@ -4,6 +4,7 @@ import { searchSkillFiles, fetchSkillFile } from "@/lib/search/github-skills-sea
 import { validateSkills } from "@/lib/search/skills-validator";
 import { mergeSkills, mergeSkillRepos } from "@/lib/search/skills-storage";
 import { batchFetchStars } from "@/lib/search/github-stars";
+import { batchExecute } from "@/lib/search/rate-limit";
 import { repoToSlug } from "@/lib/utils/slug";
 import { SkillRepo } from "@/lib/types";
 
@@ -77,12 +78,14 @@ export async function GET(request: NextRequest) {
 
     // Step 4: Fetch SKILL.md files
     console.log("Fetching SKILL.md files...");
-    const fetchedFiles = await Promise.allSettled(
-      qualityResults.map(async (result) => ({
+    const fetchedFiles = await batchExecute(
+      qualityResults,
+      async (result) => ({
         repo: result.repo,
         path: result.path,
         content: await fetchSkillFile(result.repo, result.path, "main"),
-      }))
+      }),
+      { concurrency: 5, delayMs: 1000 }
     );
 
     const validFiles = fetchedFiles
