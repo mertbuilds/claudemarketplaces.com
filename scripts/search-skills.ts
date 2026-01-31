@@ -13,6 +13,7 @@ import { searchSkillFiles, fetchSkillFile } from "../lib/search/github-skills-se
 import { validateSkills } from "../lib/search/skills-validator";
 import { mergeSkills, mergeSkillRepos } from "../lib/search/skills-storage";
 import { batchFetchStars } from "../lib/search/github-stars";
+import { batchExecute } from "../lib/search/rate-limit";
 import { repoToSlug } from "../lib/utils/slug";
 import { SkillRepo } from "../lib/types";
 
@@ -166,8 +167,9 @@ async function runSearch() {
 
     // Step 4: Fetch SKILL.md files
     logStep(4, "Fetching SKILL.md files (quality repos only)...");
-    const fetchedFiles = await Promise.allSettled(
-      qualityResults.map(async (result) => {
+    const fetchedFiles = await batchExecute(
+      qualityResults,
+      async (result) => {
         if (args.verbose) {
           logInfo(`Fetching ${result.repo}/${result.path}...`);
         }
@@ -176,7 +178,8 @@ async function runSearch() {
           path: result.path,
           content: await fetchSkillFile(result.repo, result.path, "main", args.verbose),
         };
-      })
+      },
+      { concurrency: 5, delayMs: 1000 }
     );
 
     const validFiles = fetchedFiles

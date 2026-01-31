@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/rest";
+import { batchExecute, withRetry } from "./rate-limit";
 
 function getOctokit(verbose: boolean = false) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -28,10 +29,10 @@ export async function fetchRepoStars(repo: string, verbose: boolean = false): Pr
     const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
-    const response = await octokit.rest.repos.get({
-      owner,
-      repo: repoName,
-    });
+    const response = await withRetry(
+      () => octokit.rest.repos.get({ owner, repo: repoName }),
+      { maxRetries: 2, baseDelayMs: 10000, label: `stars for ${repo}` }
+    );
 
     return response.data.stargazers_count;
   } catch (error) {
@@ -51,11 +52,13 @@ export async function batchFetchStars(
   repos: string[],
   verbose: boolean = false
 ): Promise<Map<string, number | null>> {
-  const results = await Promise.allSettled(
-    repos.map(async (repo) => ({
+  const results = await batchExecute(
+    repos,
+    async (repo) => ({
       repo,
       stars: await fetchRepoStars(repo, verbose),
-    }))
+    }),
+    { concurrency: 10, delayMs: 1000 }
   );
 
   const starMap = new Map<string, number | null>();
@@ -65,7 +68,7 @@ export async function batchFetchStars(
       starMap.set(result.value.repo, result.value.stars);
     } else {
       if (verbose) {
-        console.warn("⚠️  Failed to fetch stars for a repo", result.reason);
+        console.warn("Warning: Failed to fetch stars for a repo", result.reason);
       }
     }
   }

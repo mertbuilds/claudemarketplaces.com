@@ -1,4 +1,5 @@
 import { Octokit } from "@octokit/rest";
+import { withRetry } from "./rate-limit";
 
 function getOctokit(verbose: boolean = false) {
   const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -31,76 +32,58 @@ export interface GitHubSearchResult {
 export async function searchSkillFiles(verbose: boolean = false): Promise<GitHubSearchResult[]> {
   try {
     const octokit = getOctokit(verbose);
-    const queries = [
-      "filename:SKILL.md path:skills",
-      "filename:SKILL.md path:.claude/skills",
-    ];
+    const query = "filename:SKILL.md path:.claude/skills";
     const perPage = 100;
     const maxPages = 10;
 
     const allResults: GitHubSearchResult[] = [];
+    let page = 1;
+    let totalCount = 0;
 
-    for (const query of queries) {
-      let page = 1;
-      let totalCount = 0;
-
-      while (page <= maxPages) {
-        const response = await octokit.rest.search.code({
+    while (page <= maxPages) {
+      const response = await withRetry(
+        () => octokit.rest.search.code({
           q: query,
           per_page: perPage,
           page: page,
-        });
+        }),
+        { baseDelayMs: 60000, maxDelayMs: 60000, maxRetries: 2, label: `search page ${page}` }
+      );
 
-        if (page === 1) {
-          totalCount = response.data.total_count;
-          if (verbose) {
-            console.log(`Query "${query}": ${totalCount} total results`);
-          }
+      if (page === 1) {
+        totalCount = response.data.total_count;
+        if (verbose) {
+          console.log(`Query "${query}": ${totalCount} total results`);
         }
-
-        const pageResults: GitHubSearchResult[] = response.data.items.map(
-          (item) => ({
-            repo: item.repository.full_name,
-            path: item.path,
-            url: item.html_url,
-          })
-        );
-
-        allResults.push(...pageResults);
-
-        if (response.data.items.length < perPage) {
-          break;
-        }
-
-        if (allResults.length >= totalCount) {
-          break;
-        }
-
-        page++;
       }
+
+      const pageResults: GitHubSearchResult[] = response.data.items.map(
+        (item) => ({
+          repo: item.repository.full_name,
+          path: item.path,
+          url: item.html_url,
+        })
+      );
+
+      allResults.push(...pageResults);
+
+      if (response.data.items.length < perPage) {
+        break;
+      }
+
+      if (allResults.length >= totalCount) {
+        break;
+      }
+
+      page++;
     }
 
-    // Dedupe by repo+path
-    const seen = new Set<string>();
-    const dedupedResults = allResults.filter((result) => {
-      const key = `${result.repo}:${result.path}`;
-      if (seen.has(key)) {
-        return false;
-      }
-      seen.add(key);
-      return true;
-    });
+    console.log(`Found ${allResults.length} SKILL.md files on GitHub`);
 
-    console.log(`Found ${dedupedResults.length} SKILL.md files on GitHub (deduped from ${allResults.length})`);
-
-    return dedupedResults;
+    return allResults;
   } catch (error) {
     if (error instanceof Error) {
       console.error("GitHub search failed:", error.message);
-
-      if ("status" in error && error.status === 403) {
-        throw new Error("GitHub API rate limit exceeded. Try again later.");
-      }
     }
     throw error;
   }
@@ -120,12 +103,10 @@ export async function fetchSkillFile(
     const octokit = getOctokit(verbose);
     const [owner, repoName] = repo.split("/");
 
-    const response = await octokit.rest.repos.getContent({
-      owner,
-      repo: repoName,
-      path,
-      ref: branch,
-    });
+    const response = await withRetry(
+      () => octokit.rest.repos.getContent({ owner, repo: repoName, path, ref: branch }),
+      { maxRetries: 2, baseDelayMs: 10000, label: `${repo}/${path}` }
+    );
 
     if ("content" in response.data && response.data.type === "file") {
       const content = Buffer.from(response.data.content, "base64").toString(
