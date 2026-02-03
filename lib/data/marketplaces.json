@@ -9634,5 +9634,30 @@
       "track",
       "tracker"
     ]
+  },
+  {
+    "repo": "tzachbon/smart-ralph",
+    "slug": "tzachbon-smart-ralph",
+    "description": "Spec-driven development for Claude Code. Transforms feature requests into structured specs (research, requirements, design, tasks) then executes them task-by-task with fresh context.",
+    "pluginCount": 2,
+    "categories": [
+      "development"
+    ],
+    "discoveredAt": "2026-02-03T17:00:00.000Z",
+    "lastUpdated": "2026-02-03T17:00:00.000Z",
+    "source": "manual",
+    "stars": 156,
+    "starsFetchedAt": "2026-02-03T17:00:00.000Z",
+    "pluginKeywords": [
+      "spec-driven",
+      "ralph",
+      "autonomous",
+      "research",
+      "requirements",
+      "design",
+      "tasks",
+      "execution",
+      "workflow"
+    ]
   }
 ]
