@@ -1,0 +1,1707 @@
+[
+  {
+    "repo": "facebook/react",
+    "slug": "facebook-react",
+    "description": "fix",
+    "skillCount": 1,
+    "stars": 242665,
+    "starsFetchedAt": "2026-01-31T17:49:32.740Z",
+    "discoveredAt": "2026-01-31T17:44:17.964Z",
+    "source": "auto",
+    "lastUpdated": "2026-01-31T17:49:32.748Z"
+  },
+  {
+    "repo": "srbhr/Resume-Matcher",
+    "slug": "srbhr-resume-matcher",
+    "description": "design-principles",
+    "skillCount": 1,
+    "stars": 25837,
+    "starsFetchedAt": "2026-01-31T17:49:32.740Z",
+    "discoveredAt": "2026-01-31T17:44:17.966Z",
+    "source": "auto",
+    "lastUpdated": "2026-01-31T17:49:32.748Z"
+  },
+  {
+    "repo": "ruvnet/claude-flow",
+    "slug": "ruvnet-claude-flow",
+    "description": "worker-benchmarks, worker-integration",
+    "skillCount": 2,
+    "stars": 13408,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:44:17.966Z",
+    "source": "auto",
+    "lastUpdated": "2026-01-31T17:49:32.748Z"
+  },
+  {
+    "repo": "pytorch/pytorch",
+    "slug": "pytorch-pytorch",
+    "description": "docstring",
+    "skillCount": 1,
+    "stars": 97081,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:44:17.966Z",
+    "source": "auto",
+    "lastUpdated": "2026-01-31T17:49:32.748Z"
+  },
+  {
+    "repo": "n8n-io/n8n",
+    "slug": "n8n-io-n8n",
+    "description": "create-pr",
+    "skillCount": 1,
+    "stars": 172323,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:44:17.966Z",
+    "source": "auto",
+    "lastUpdated": "2026-01-31T17:49:32.748Z"
+  },
+  {
+    "repo": "electron/electron",
+    "slug": "electron-electron",
+    "description": "electron-chromium-upgrade",
+    "skillCount": 1,
+    "stars": 119960,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "zenml-io/zenml",
+    "slug": "zenml-io-zenml",
+    "description": "zenml-backport",
+    "skillCount": 1,
+    "stars": 5181,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "iPlug2/iPlug2",
+    "slug": "iplug2-iplug2",
+    "description": "screenshot",
+    "skillCount": 1,
+    "stars": 2233,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "leonardomso/33-js-concepts",
+    "slug": "leonardomso-33-js-concepts",
+    "description": "fact-check",
+    "skillCount": 1,
+    "stars": 66214,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "promptfoo/promptfoo",
+    "slug": "promptfoo-promptfoo",
+    "description": "redteam-plugin-development",
+    "skillCount": 1,
+    "stars": 10215,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "ClickHouse/ClickHouse",
+    "slug": "clickhouse-clickhouse",
+    "description": "build",
+    "skillCount": 1,
+    "stars": 45559,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "oven-sh/bun",
+    "slug": "oven-sh-bun",
+    "description": "zig-system-calls",
+    "skillCount": 1,
+    "stars": 86926,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "metabase/metabase",
+    "slug": "metabase-metabase",
+    "description": "docs-write, docs-review, clojure-write, clojure-review, typescript-write, analytics-events, add-malli-schemas, typescript-review",
+    "skillCount": 8,
+    "stars": 45767,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "TryGhost/Ghost",
+    "slug": "tryghost-ghost",
+    "description": "Add Admin API Endpoint, Create database migration",
+    "skillCount": 2,
+    "stars": 51717,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "getsentry/sentry",
+    "slug": "getsentry-sentry",
+    "description": "generate-migration",
+    "skillCount": 1,
+    "stars": 43044,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "cockroachdb/cockroach",
+    "slug": "cockroachdb-cockroach",
+    "description": "commit-helper, backport-pr-assistant",
+    "skillCount": 2,
+    "stars": 31803,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "chromium/chromium",
+    "slug": "chromium-chromium",
+    "description": "chromium docs",
+    "skillCount": 1,
+    "stars": 22875,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "anthropics/claude-cookbooks",
+    "slug": "anthropics-claude-cookbooks",
+    "description": "cookbook-audit",
+    "skillCount": 1,
+    "stars": 32198,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.734Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mlflow/mlflow",
+    "slug": "mlflow-mlflow",
+    "description": "copilot, analyze-ci, fetch-diff, add-review-comment, fetch-unresolved-comments",
+    "skillCount": 5,
+    "stars": 23916,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "tldraw/tldraw",
+    "slug": "tldraw-tldraw",
+    "description": "write-pr, write-docs, write-issue, skill-creator, write-example",
+    "skillCount": 5,
+    "stars": 44976,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "karpathy/nanochat",
+    "slug": "karpathy-nanochat",
+    "description": "read-arxiv-paper",
+    "skillCount": 1,
+    "stars": 41077,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "remotion-dev/remotion",
+    "slug": "remotion-dev-remotion",
+    "description": "make-pr, docs-demo, video-report, writing-docs",
+    "skillCount": 4,
+    "stars": 34059,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "airbytehq/airbyte",
+    "slug": "airbytehq-airbyte",
+    "description": "my-prs",
+    "skillCount": 1,
+    "stars": 20597,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "payloadcms/payload",
+    "slug": "payloadcms-payload",
+    "description": "triage-ci-flake, generate-translations",
+    "skillCount": 2,
+    "stars": 40277,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "labring/FastGPT",
+    "slug": "labring-fastgpt",
+    "description": "pr-review, create-skill-file, workflow-stop-design",
+    "skillCount": 3,
+    "stars": 27047,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "JetBrains/ideavim",
+    "slug": "jetbrains-ideavim",
+    "description": "doc-sync, changelog, issues-deduplication",
+    "skillCount": 3,
+    "stars": 10126,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nrwl/nx",
+    "slug": "nrwl-nx",
+    "description": "run-nx-generator",
+    "skillCount": 1,
+    "stars": 28030,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "PostHog/posthog",
+    "slug": "posthog-posthog",
+    "description": "survey-sdk-audit, implementing-agent-modes",
+    "skillCount": 2,
+    "stars": 31047,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "reactjs/react.dev",
+    "slug": "reactjs-react.dev",
+    "description": "docs-voice, review-docs, react-expert, docs-sandpack, docs-components, docs-writer-blog, docs-writer-learn",
+    "skillCount": 7,
+    "stars": 11660,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "quickwit-oss/tantivy",
+    "slug": "quickwit-oss-tantivy",
+    "description": "simple-pr, rationalize-deps",
+    "skillCount": 2,
+    "stars": 14448,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "SuperClaude-Org/SuperClaude_Framework",
+    "slug": "superclaude-org-superclaude_framework",
+    "description": "Confidence Check",
+    "skillCount": 1,
+    "stars": 20553,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "jlowin/fastmcp",
+    "slug": "jlowin-fastmcp",
+    "description": "reviewing-code",
+    "skillCount": 1,
+    "stars": 22471,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "tursodatabase/turso",
+    "slug": "tursodatabase-turso",
+    "description": "mvcc, testing, debugging",
+    "skillCount": 3,
+    "stars": 17080,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mediar-ai/screenpipe",
+    "slug": "mediar-ai-screenpipe",
+    "description": "release, brand-style",
+    "skillCount": 2,
+    "stars": 16619,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "getsentry/sentry-javascript",
+    "slug": "getsentry-sentry-javascript",
+    "description": "e2e",
+    "skillCount": 1,
+    "stars": 8573,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mastra-ai/mastra",
+    "slug": "mastra-ai-mastra",
+    "description": "ralph-plan",
+    "skillCount": 1,
+    "stars": 20632,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "microsoft/playwright-python",
+    "slug": "microsoft-playwright-python",
+    "description": "playwright-roll",
+    "skillCount": 1,
+    "stars": 14214,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "dyad-sh/dyad",
+    "slug": "dyad-sh-dyad",
+    "description": "dyad:multi-pr-review",
+    "skillCount": 1,
+    "stars": 19479,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.735Z",
+    "source": "auto"
+  },
+  {
+    "repo": "teambit/bit",
+    "slug": "teambit-bit",
+    "description": "generate-release-notes",
+    "skillCount": 1,
+    "stars": 18346,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "ethereum/ethereum-org-website",
+    "slug": "ethereum-ethereum-org-website",
+    "description": "data-layer",
+    "skillCount": 1,
+    "stars": 5840,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "PostHog/posthog-foss",
+    "slug": "posthog-posthog-foss",
+    "description": "survey-sdk-audit, implementing-agent-modes",
+    "skillCount": 2,
+    "stars": 444,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "quickwit-oss/quickwit",
+    "slug": "quickwit-oss-quickwit",
+    "description": "simple-pr, rationalize-deps",
+    "skillCount": 2,
+    "stars": 10839,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "rolldown/rolldown",
+    "slug": "rolldown-rolldown",
+    "description": "upgrade-oxc",
+    "skillCount": 1,
+    "stars": 12759,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "longbridge/gpui-component",
+    "slug": "longbridge-gpui-component",
+    "description": "generate-component-story",
+    "skillCount": 1,
+    "stars": 9953,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "rubys/showcase",
+    "slug": "rubys-showcase",
+    "description": "compare-erb-js",
+    "skillCount": 1,
+    "stars": 34,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "catlog22/Claude-Code-Workflow",
+    "slug": "catlog22-claude-code-workflow",
+    "description": "flow-coordinator",
+    "skillCount": 1,
+    "stars": 1227,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "finos/morphir",
+    "slug": "finos-morphir",
+    "description": "release-manager",
+    "skillCount": 1,
+    "stars": 177,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "marcglasberg/async_redux",
+    "slug": "marcglasberg-async_redux",
+    "description": "asyncredux-persistence",
+    "skillCount": 1,
+    "stars": 239,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "MetaMask/ocap-kernel",
+    "slug": "metamask-ocap-kernel",
+    "description": "commit",
+    "skillCount": 1,
+    "stars": 7,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "doccker/cc-use-exp",
+    "slug": "doccker-cc-use-exp",
+    "description": "java-dev",
+    "skillCount": 1,
+    "stars": 128,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "proffesor-for-testing/agentic-qe",
+    "slug": "proffesor-for-testing-agentic-qe",
+    "description": "quality-metrics",
+    "skillCount": 1,
+    "stars": 156,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "alfredolopez80/multi-agent-ralph-loop",
+    "slug": "alfredolopez80-multi-agent-ralph-loop",
+    "description": "gates",
+    "skillCount": 1,
+    "stars": 73,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Screenly/Playground",
+    "slug": "screenly-playground",
+    "description": "create-an-edge-app",
+    "skillCount": 1,
+    "stars": 27,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "aircrushin/promptMinder",
+    "slug": "aircrushin-promptminder",
+    "description": "agent-sdk",
+    "skillCount": 1,
+    "stars": 88,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "kungfuai/CVlization",
+    "slug": "kungfuai-cvlization",
+    "description": "remote-run-ssh",
+    "skillCount": 1,
+    "stars": 11,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "pr-pm/prpm",
+    "slug": "pr-pm-prpm",
+    "description": "thoroughness, creating-skills, agent-builder",
+    "skillCount": 3,
+    "stars": 85,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "bountydotnew/bounty.new",
+    "slug": "bountydotnew-bounty.new",
+    "description": "Integrating Stripe Payments",
+    "skillCount": 1,
+    "stars": 132,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "alex-ilgayev/MCPSpy",
+    "slug": "alex-ilgayev-mcpspy",
+    "description": "github-issue-creator",
+    "skillCount": 1,
+    "stars": 496,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.736Z",
+    "source": "auto"
+  },
+  {
+    "repo": "erichowens/some_claude_skills",
+    "slug": "erichowens-some_claude_skills",
+    "description": "product-appeal-analyzer, video-processing-editing, fancy-yard-landscaper, dag-parallel-executor",
+    "skillCount": 4,
+    "stars": 21,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "az9713/ai-co-writing-claude-skills",
+    "slug": "az9713-ai-co-writing-claude-skills",
+    "description": "voice-dna-creator",
+    "skillCount": 1,
+    "stars": 12,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "zbruhnke/claude-code-starter",
+    "slug": "zbruhnke-claude-code-starter",
+    "description": "refresh-claude",
+    "skillCount": 1,
+    "stars": 12,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Tony363/SuperClaude",
+    "slug": "tony363-superclaude",
+    "description": "agent-qa-expert, agent-research-analyst, agent-devops-incident-responder",
+    "skillCount": 3,
+    "stars": 13,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "promptadvisers/n8n-powerhouse",
+    "slug": "promptadvisers-n8n-powerhouse",
+    "description": "n8n-workflow-architect",
+    "skillCount": 1,
+    "stars": 21,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "vallafederico/webflow-dev-setup",
+    "slug": "vallafederico-webflow-dev-setup",
+    "description": "webflow-editor-integration",
+    "skillCount": 1,
+    "stars": 12,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nicepkg/ai-workflow",
+    "slug": "nicepkg-ai-workflow",
+    "description": "resource-scout, resource-scout",
+    "skillCount": 2,
+    "stars": 20,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "chongdashu/cc-skills",
+    "slug": "chongdashu-cc-skills",
+    "description": "seo-optimizer",
+    "skillCount": 1,
+    "stars": 17,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "masharratt/claude-flow-novice",
+    "slug": "masharratt-claude-flow-novice",
+    "description": "cfn-intervention-system, cfn-agent-lifecycle, cfn-error-management, cfn-agent-tooling",
+    "skillCount": 4,
+    "stars": 14,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "PackmindHub/coding-agents-matrix",
+    "slug": "packmindhub-coding-agents-matrix",
+    "description": "add-agent-property",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "jkomoros/community-patterns",
+    "slug": "jkomoros-community-patterns",
+    "description": "git-workflow",
+    "skillCount": 1,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "vamseeachanta/digitalmodel",
+    "slug": "vamseeachanta-digitalmodel",
+    "description": "orcaflex-model-generator",
+    "skillCount": 1,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mjunaidca/robolearn",
+    "slug": "mjunaidca-robolearn",
+    "description": "ros2-launch-system",
+    "skillCount": 1,
+    "stars": 7,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "sanand0/scientific-research",
+    "slug": "sanand0-scientific-research",
+    "description": "matchms, rdkit, denario, matplotlib, hypogenic",
+    "skillCount": 5,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "TaylorHuston/local-life-manager",
+    "slug": "taylorhuston-local-life-manager",
+    "description": "flashcards",
+    "skillCount": 1,
+    "stars": 25,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "BerryKuipers/claude-code-toolkit",
+    "slug": "berrykuipers-claude-code-toolkit",
+    "description": "create-feature-branch",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "VilnaCRM-Org/user-service",
+    "slug": "vilnacrm-org-user-service",
+    "description": "quality-standards",
+    "skillCount": 1,
+    "stars": 16,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "CongDon1207/AGENTS.md",
+    "slug": "congdon1207-agents.md",
+    "description": "angular-api-service, sequential-thinking",
+    "skillCount": 2,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "PackmindHub/packmind",
+    "slug": "packmindhub-packmind",
+    "description": "test-factory-patterns",
+    "skillCount": 1,
+    "stars": 188,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "zerx-lab/zTerm",
+    "slug": "zerx-lab-zterm",
+    "description": "generate-component-story",
+    "skillCount": 1,
+    "stars": 17,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "proffesor-for-testing/sentinel-api-testing",
+    "slug": "proffesor-for-testing-sentinel-api-testing",
+    "description": "quality-metrics",
+    "skillCount": 1,
+    "stars": 33,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "AgentWorkforce/relay",
+    "slug": "agentworkforce-relay",
+    "description": "creating-skills",
+    "skillCount": 1,
+    "stars": 17,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nicepkg/vsync",
+    "slug": "nicepkg-vsync",
+    "description": "resource-scout",
+    "skillCount": 1,
+    "stars": 11,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mepuka/effect-ontology",
+    "slug": "mepuka-effect-ontology",
+    "description": "effect-layers-services",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "dinerojs/dinero.js",
+    "slug": "dinerojs-dinero.js",
+    "description": "commit",
+    "skillCount": 1,
+    "stars": 6520,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "pymc-labs/CausalPy",
+    "slug": "pymc-labs-causalpy",
+    "description": "loading-datasets",
+    "skillCount": 1,
+    "stars": 1098,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "hirokazu-kobayashi-koba-hiro/idp-server",
+    "slug": "hirokazu-kobayashi-koba-hiro-idp-server",
+    "description": "control-plane",
+    "skillCount": 1,
+    "stars": 7,
+    "starsFetchedAt": "2026-01-31T17:49:32.741Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "TheOrcDev/8bitcn-ui",
+    "slug": "theorcdev-8bitcn-ui",
+    "description": "rerender-memo",
+    "skillCount": 1,
+    "stars": 1564,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "gadievron/raptor",
+    "slug": "gadievron-raptor",
+    "description": "github-archive",
+    "skillCount": 1,
+    "stars": 1043,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "modu-ai/moai-adk",
+    "slug": "modu-ai-moai-adk",
+    "description": "moai-platform-auth0, moai-workflow-thinking",
+    "skillCount": 2,
+    "stars": 596,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "dailydotdev/daily-api",
+    "slug": "dailydotdev-daily-api",
+    "description": "local-env",
+    "skillCount": 1,
+    "stars": 463,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.737Z",
+    "source": "auto"
+  },
+  {
+    "repo": "huifer/Claude-Code-KnowCraft",
+    "slug": "huifer-claude-code-knowcraft",
+    "description": "knowledge-manager",
+    "skillCount": 1,
+    "stars": 72,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "wheels-dev/wheels",
+    "slug": "wheels-dev-wheels",
+    "description": "Wheels Anti-Pattern Detector",
+    "skillCount": 1,
+    "stars": 200,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nextflow-io/training",
+    "slug": "nextflow-io-training",
+    "description": "Check Inline Code Formatting",
+    "skillCount": 1,
+    "stars": 211,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "llama-farm/llamafarm",
+    "slug": "llama-farm-llamafarm",
+    "description": "generate-subsystem-skills",
+    "skillCount": 1,
+    "stars": 821,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "vm0-ai/vm0",
+    "slug": "vm0-ai-vm0",
+    "description": "dev-server",
+    "skillCount": 1,
+    "stars": 246,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "pydantic/monty",
+    "slug": "pydantic-monty",
+    "description": "python-playground",
+    "skillCount": 1,
+    "stars": 68,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "gpt-cmdr/ras-commander",
+    "slug": "gpt-cmdr-ras-commander",
+    "description": "hecras_plan_execution, qa_review_triple-model, hecras_compute_remote",
+    "skillCount": 3,
+    "stars": 40,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "hyperlane-xyz/hyperlane-monorepo",
+    "slug": "hyperlane-xyz-hyperlane-monorepo",
+    "description": "denylist-stuck-messages",
+    "skillCount": 1,
+    "stars": 46,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "dagster-io/erk",
+    "slug": "dagster-io-erk",
+    "description": "learned-docs",
+    "skillCount": 1,
+    "stars": 66,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "openshift-online/maestro",
+    "slug": "openshift-online-maestro",
+    "description": "trace-manifestwork",
+    "skillCount": 1,
+    "stars": 16,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "binjuhor/shadcn-lar",
+    "slug": "binjuhor-shadcn-lar",
+    "description": "ui-ux-pro-max",
+    "skillCount": 1,
+    "stars": 59,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "vechain/inspector-app",
+    "slug": "vechain-inspector-app",
+    "description": "karpathy-guidelines",
+    "skillCount": 1,
+    "stars": 21,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "anam-org/metaxy",
+    "slug": "anam-org-metaxy",
+    "description": "claude-improve-config",
+    "skillCount": 1,
+    "stars": 21,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "yoloshii/mcp-code-execution-enhanced",
+    "slug": "yoloshii-mcp-code-execution-enhanced",
+    "description": "simple-fetch",
+    "skillCount": 1,
+    "stars": 33,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "bearcove/pikru",
+    "slug": "bearcove-pikru",
+    "description": "idiomatic-rust",
+    "skillCount": 1,
+    "stars": 23,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "METR/inspect-action",
+    "slug": "metr-inspect-action",
+    "description": "monitoring",
+    "skillCount": 1,
+    "stars": 13,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "EvanBacon/apple-health",
+    "slug": "evanbacon-apple-health",
+    "description": "expo-modules",
+    "skillCount": 1,
+    "stars": 25,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "SWUSTcyt/langchain-travel-agent",
+    "slug": "swustcyt-langchain-travel-agent",
+    "description": "feature",
+    "skillCount": 1,
+    "stars": 15,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "matteocervelli/llms",
+    "slug": "matteocervelli-llms",
+    "description": "tech-stack-evaluator",
+    "skillCount": 1,
+    "stars": 17,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Falkicon/Mechanic",
+    "slug": "falkicon-mechanic",
+    "description": "s-research",
+    "skillCount": 1,
+    "stars": 9,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mvillmow/ProjectOdyssey",
+    "slug": "mvillmow-projectodyssey",
+    "description": "agent-hierarchy-diagram",
+    "skillCount": 1,
+    "stars": 12,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "lbds137/tzurot",
+    "slug": "lbds137-tzurot",
+    "description": "tzurot-deployment, tzurot-council-mcp",
+    "skillCount": 2,
+    "stars": 7,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.738Z",
+    "source": "auto"
+  },
+  {
+    "repo": "georgekhananaev/claude-skills-vault",
+    "slug": "georgekhananaev-claude-skills-vault",
+    "description": "nextjs-senior-dev, supabase-expert",
+    "skillCount": 2,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "alexanderop/workoutTracker",
+    "slug": "alexanderop-workouttracker",
+    "description": "workout-domain",
+    "skillCount": 1,
+    "stars": 9,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "tbartel74/Vigil-Code",
+    "slug": "tbartel74-vigil-code",
+    "description": "security-audit-scanner",
+    "skillCount": 1,
+    "stars": 8,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "kettleofketchup/DraftForge",
+    "slug": "kettleofketchup-draftforge",
+    "description": "frontend-dev-guidelines",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "spences10/devhub-crm",
+    "slug": "spences10-devhub-crm",
+    "description": "error-handling-patterns",
+    "skillCount": 1,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "lawless-m/claude-skills",
+    "slug": "lawless-m-claude-skills",
+    "description": "Reverse Proxy Deployment, Vram-GPU-OOM",
+    "skillCount": 2,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "aniketpanjwani/payload-plugin-email-newsletter",
+    "slug": "aniketpanjwani-payload-plugin-email-newsletter",
+    "description": "payload-v3-endpoints",
+    "skillCount": 1,
+    "stars": 34,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Wania-Kazmi/claude-code-autonomous-agent-workflow",
+    "slug": "wania-kazmi-claude-code-autonomous-agent-workflow",
+    "description": "database-patterns",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "mc-zuri/mineflayer-bedrock",
+    "slug": "mc-zuri-mineflayer-bedrock",
+    "description": "skill-builder, create-analyzer",
+    "skillCount": 2,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "crmagz/cdk-constructs-library",
+    "slug": "crmagz-cdk-constructs-library",
+    "description": "naming-conventions",
+    "skillCount": 1,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "ohare93/juggle",
+    "slug": "ohare93-juggle",
+    "description": "sandbox-setup",
+    "skillCount": 1,
+    "stars": 8,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "samarv/Shanon",
+    "slug": "samarv-shanon",
+    "description": "opportunity-framing, agentic-product-prototyping, internal-startup-incubation",
+    "skillCount": 3,
+    "stars": 11,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "The1Studio/theone-training-skills",
+    "slug": "the1studio-theone-training-skills",
+    "description": "ui-ux-pro-max",
+    "skillCount": 1,
+    "stars": 27,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "studyzy/imewlconverter",
+    "slug": "studyzy-imewlconverter",
+    "description": "openspec-continue-change",
+    "skillCount": 1,
+    "stars": 9621,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "parcadei/Continuous-Claude-v3",
+    "slug": "parcadei-continuous-claude-v3",
+    "description": "explore, slash-commands, release, firecrawl-scrape, skill-development",
+    "skillCount": 5,
+    "stars": 3445,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "raintree-technology/claude-starter",
+    "slug": "raintree-technology-claude-starter",
+    "description": "shelby-protocol-expert",
+    "skillCount": 1,
+    "stars": 41,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Interstellar-code/claud-skills",
+    "slug": "interstellar-code-claud-skills",
+    "description": "changelog-manager",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "EvanBacon/crispy",
+    "slug": "evanbacon-crispy",
+    "description": "reusable-ui-components",
+    "skillCount": 1,
+    "stars": 552,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "elitan/frost",
+    "slug": "elitan-frost",
+    "description": "monitor",
+    "skillCount": 1,
+    "stars": 299,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "dojoengine/dojo.js",
+    "slug": "dojoengine-dojo.js",
+    "description": "dojo-react",
+    "skillCount": 1,
+    "stars": 37,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "storyblok/monoblok",
+    "slug": "storyblok-monoblok",
+    "description": "review-and-qa",
+    "skillCount": 1,
+    "stars": 34,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Prorise-cool/Claude-Code-Multi-Agent",
+    "slug": "prorise-cool-claude-code-multi-agent",
+    "description": "internal-comms",
+    "skillCount": 1,
+    "stars": 201,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "junerver/ComposeHooks",
+    "slug": "junerver-composehooks",
+    "description": "compose-hooks",
+    "skillCount": 1,
+    "stars": 99,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "starwards/starwards",
+    "slug": "starwards-starwards",
+    "description": "starwards-colyseus",
+    "skillCount": 1,
+    "stars": 39,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "adawalli/nexus",
+    "slug": "adawalli-nexus",
+    "description": "prd",
+    "skillCount": 1,
+    "stars": 19,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "sunholo-data/ailang",
+    "slug": "sunholo-data-ailang",
+    "description": "AILANG Sprint Planner, Builtin Developer",
+    "skillCount": 2,
+    "stars": 19,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "ROBOTIS-GIT/zenoh_ros2_sdk",
+    "slug": "robotis-git-zenoh_ros2_sdk",
+    "description": "create-example",
+    "skillCount": 1,
+    "stars": 10,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "StirlingMarketingGroup/marlin",
+    "slug": "stirlingmarketinggroup-marlin",
+    "description": "creating-github-issues",
+    "skillCount": 1,
+    "stars": 8,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nibzard/2025-intro-swe",
+    "slug": "nibzard-2025-intro-swe",
+    "description": "student-activity-analysis",
+    "skillCount": 1,
+    "stars": 8,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Prorise-cool/prorise-claude-skills",
+    "slug": "prorise-cool-prorise-claude-skills",
+    "description": "gh-bootstrap, internal-comms",
+    "skillCount": 2,
+    "stars": 16,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nkeonye-akumah/decentralized-storage-gateway",
+    "slug": "nkeonye-akumah-decentralized-storage-gateway",
+    "description": "test-with-spanner",
+    "skillCount": 1,
+    "stars": 93,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "pollinations/pollinations",
+    "slug": "pollinations-pollinations",
+    "description": "issue-maker",
+    "skillCount": 1,
+    "stars": 3880,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "crowi/crowi",
+    "slug": "crowi-crowi",
+    "description": "crowi-migration",
+    "skillCount": 1,
+    "stars": 1098,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "artsy/force",
+    "slug": "artsy-force",
+    "description": "beep",
+    "skillCount": 1,
+    "stars": 627,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "EpicenterHQ/epicenter",
+    "slug": "epicenterhq-epicenter",
+    "description": "documentation",
+    "skillCount": 1,
+    "stars": 3997,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "neovateai/neovate-code",
+    "slug": "neovateai-neovate-code",
+    "description": "add-nodebridge-handler",
+    "skillCount": 1,
+    "stars": 1407,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Trevoke/org-gtd.el",
+    "slug": "trevoke-org-gtd.el",
+    "description": "writing-skills",
+    "skillCount": 1,
+    "stars": 457,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "udecode/better-convex",
+    "slug": "udecode-better-convex",
+    "description": "testing",
+    "skillCount": 1,
+    "stars": 323,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "panaversity/agentfactory",
+    "slug": "panaversity-agentfactory",
+    "description": "quiz-generator",
+    "skillCount": 1,
+    "stars": 115,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "UKGovernmentBEIS/inspect_evals",
+    "slug": "ukgovernmentbeis-inspect_evals",
+    "description": "code-quality-fix-all",
+    "skillCount": 1,
+    "stars": 353,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "TheBeardedBearSAS/claude-craft",
+    "slug": "thebeardedbearsas-claude-craft",
+    "description": "security",
+    "skillCount": 1,
+    "stars": 79,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Gerstep/cybos",
+    "slug": "gerstep-cybos",
+    "description": "gtd",
+    "skillCount": 1,
+    "stars": 32,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.739Z",
+    "source": "auto"
+  },
+  {
+    "repo": "huifer/WellAlly-health",
+    "slug": "huifer-wellally-health",
+    "description": "mental-health-analyzer",
+    "skillCount": 1,
+    "stars": 671,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "inocan-group/inferred-types",
+    "slug": "inocan-group-inferred-types",
+    "description": "testing, planning",
+    "skillCount": 2,
+    "stars": 18,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "tugtool/tugtool",
+    "slug": "tugtool-tugtool",
+    "description": "tug-refactor",
+    "skillCount": 1,
+    "stars": 10,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "davekilleen/Dex",
+    "slug": "davekilleen-dex",
+    "description": "resume-builder",
+    "skillCount": 1,
+    "stars": 33,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "sgcarstrends/sgcarstrends",
+    "slug": "sgcarstrends-sgcarstrends",
+    "description": "chart-implementation",
+    "skillCount": 1,
+    "stars": 16,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "rjmurillo/ai-agents",
+    "slug": "rjmurillo-ai-agents",
+    "description": "decision-critic, git-advanced-workflows",
+    "skillCount": 2,
+    "stars": 10,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "neptaco/mcproc",
+    "slug": "neptaco-mcproc",
+    "description": "release-preview",
+    "skillCount": 1,
+    "stars": 9,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "plaited/plaited",
+    "slug": "plaited-plaited",
+    "description": "ui-patterns",
+    "skillCount": 1,
+    "stars": 6,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nahisaho/CodeGraphMCPServer",
+    "slug": "nahisaho-codegraphmcpserver",
+    "description": "bug-hunter",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "aspiers/ai-config",
+    "slug": "aspiers-ai-config",
+    "description": "allow-agent-commands",
+    "skillCount": 1,
+    "stars": 8,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Atyantik/python-modern-template",
+    "slug": "atyantik-python-modern-template",
+    "description": "session-template",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "leaderiop/hex-di",
+    "slug": "leaderiop-hex-di",
+    "description": "Testing Vitest",
+    "skillCount": 1,
+    "stars": 7,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "reggiechan74/vp-real-estate",
+    "slug": "reggiechan74-vp-real-estate",
+    "description": "injurious-affection-assessment",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "nandemo-ya/kecs",
+    "slug": "nandemo-ya-kecs",
+    "description": "LocalStack Service Tiers Reference",
+    "skillCount": 1,
+    "stars": 40,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Cornjebus/security-analyzer",
+    "slug": "cornjebus-security-analyzer",
+    "description": "security-analyzer",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "rysweet/amplihack",
+    "slug": "rysweet-amplihack",
+    "description": "xlsx",
+    "skillCount": 1,
+    "stars": 17,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  },
+  {
+    "repo": "Dexploarer/hyper-forge",
+    "slug": "dexploarer-hyper-forge",
+    "description": "api-gateway-configurator",
+    "skillCount": 1,
+    "stars": 5,
+    "starsFetchedAt": "2026-01-31T17:49:32.742Z",
+    "discoveredAt": "2026-01-31T17:49:32.740Z",
+    "source": "auto"
+  }
+]

@@ -9,6 +9,7 @@ export function Navigation() {
 
   const links = [
     { href: "/", label: "Marketplaces" },
+    { href: "/skills", label: "Skills" },
     { href: "/learn", label: "Learn" },
     { href: "/feedback", label: "Feedback" },
   ];
