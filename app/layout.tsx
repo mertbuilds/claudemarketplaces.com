@@ -113,13 +113,13 @@ export default function RootLayout({
       <body
         className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
-        <SiteBanner />
-        {children}
         <OpenPanelComponent
           clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID!}
           trackScreenViews={true}
           trackOutgoingLinks={true}
         />
+        <SiteBanner />
+        {children}
       </body>
     </html>
   );
