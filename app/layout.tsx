@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { OpenPanelComponent } from "@openpanel/nextjs";
+import { Analytics } from "@vercel/analytics/react";
 import { SiteBanner } from "@/components/site-banner";
 import "./globals.css";
 
@@ -113,11 +113,7 @@ export default function RootLayout({
       <body
         className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
-        <OpenPanelComponent
-          clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID!}
-          trackScreenViews={true}
-          trackOutgoingLinks={true}
-        />
+        <Analytics />
         <SiteBanner />
         {children}
       </body>

@@ -2,22 +2,20 @@
 
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
-import { useOpenPanel } from "@openpanel/nextjs";
+import { track } from "@vercel/analytics";
 import { cn } from "@/lib/utils";
 
 const STORAGE_KEY = "site-banner-dismissed";
 
 export function SiteBanner() {
   const [visible, setVisible] = useState(false);
-  const { track } = useOpenPanel();
-
   useEffect(() => {
     const dismissed = localStorage.getItem(STORAGE_KEY);
     if (!dismissed) {
       setVisible(true);
       track("banner_view");
     }
-  }, [track]);
+  }, []);
 
   function handleDismiss() {
     track("banner_dismiss");
