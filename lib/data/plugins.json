@@ -16268,5 +16268,33 @@
       "reference-implementation"
     ],
     "installCommand": "/plugin install pomodoro@jakedahn-pomodoro"
+  },
+  {
+    "id": "tzachbon-smart-ralph/ralph-specum",
+    "name": "ralph-specum",
+    "description": "Spec-driven development with research, requirements, design, tasks, and autonomous execution. Fresh context per task.",
+    "version": "2.11.1",
+    "author": {
+      "name": "tzachbon"
+    },
+    "source": "./plugins/ralph-specum",
+    "marketplace": "tzachbon-smart-ralph",
+    "marketplaceUrl": "https://github.com/tzachbon/smart-ralph",
+    "category": "development",
+    "installCommand": "/plugin install ralph-specum@tzachbon-smart-ralph"
+  },
+  {
+    "id": "tzachbon-smart-ralph/ralph-speckit",
+    "name": "ralph-speckit",
+    "description": "Spec-driven development using GitHub spec-kit methodology. Constitution-first approach with specify, plan, tasks, and implement phases.",
+    "version": "0.4.0",
+    "author": {
+      "name": "tzachbon"
+    },
+    "source": "./plugins/ralph-speckit",
+    "marketplace": "tzachbon-smart-ralph",
+    "marketplaceUrl": "https://github.com/tzachbon/smart-ralph",
+    "category": "development",
+    "installCommand": "/plugin install ralph-speckit@tzachbon-smart-ralph"
   }
 ]
