@@ -114,7 +114,7 @@ export default function RootLayout({
         className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
         <OpenPanelComponent
-          clientId="7c3adb42-0b93-4813-bf04-2e51dc60889d"
+          clientId="8565c8be-b41a-49b6-8985-25dd22f2086e"
           clientSecret={process.env.OPENPANEL_CLIENT_SECRET}
           apiUrl="https://analytics.vinena.studio/api"
           trackScreenViews={true}
