@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/react";
+import { OpenPanelComponent } from "@openpanel/nextjs";
 import { SiteBanner } from "@/components/site-banner";
 import "./globals.css";
 
@@ -113,7 +113,14 @@ export default function RootLayout({
       <body
         className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
       >
-        <Analytics />
+        <OpenPanelComponent
+          clientId="7c3adb42-0b93-4813-bf04-2e51dc60889d"
+          clientSecret={process.env.OPENPANEL_CLIENT_SECRET}
+          apiUrl="http://openpanel-openpanel-5e368c-178-104-8-101.traefik.me/api"
+          trackScreenViews={true}
+          trackOutgoingLinks={true}
+          trackAttributes={true}
+        />
         <SiteBanner />
         {children}
       </body>
