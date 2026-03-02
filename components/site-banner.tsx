@@ -47,7 +47,7 @@ export function SiteBanner() {
         </a>{" "}
         or{" "}
         <a
-          href="https://mertbuilds.substack.com"
+          href="https://tastysoftware.substack.com"
           target="_blank"
           rel="noopener noreferrer"
           className="underline underline-offset-2 font-medium hover:opacity-80"

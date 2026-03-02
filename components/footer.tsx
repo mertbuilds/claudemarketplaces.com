@@ -6,7 +6,7 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center items-center mb-4 bg-background">
           <iframe
-            src="https://mertbuilds.substack.com/embed"
+            src="https://tastysoftware.substack.com/embed"
             width="480"
             height="320"
             style={{
