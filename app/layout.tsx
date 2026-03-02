@@ -116,7 +116,7 @@ export default function RootLayout({
         <OpenPanelComponent
           clientId="7c3adb42-0b93-4813-bf04-2e51dc60889d"
           clientSecret={process.env.OPENPANEL_CLIENT_SECRET}
-          apiUrl="http://openpanel-openpanel-5e368c-178-104-8-101.traefik.me/api"
+          apiUrl="https://analytics.vinena.studio/api"
           trackScreenViews={true}
           trackOutgoingLinks={true}
           trackAttributes={true}
