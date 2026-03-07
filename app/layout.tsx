@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { OpenPanelComponent } from "@openpanel/nextjs";
-import { SiteBanner } from "@/components/site-banner";
 import "./globals.css";
 
 // Crimson Pro for elegant headings
@@ -121,7 +120,6 @@ export default function RootLayout({
           trackOutgoingLinks={true}
           trackAttributes={true}
         />
-        <SiteBanner />
         {children}
       </body>
     </html>
