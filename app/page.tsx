@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import Script from "next/script";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Navigation } from "@/components/navigation";
 import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
 
@@ -88,7 +87,6 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        <Navigation />
         <Suspense
           fallback={
             <div className="container mx-auto px-4 py-8">

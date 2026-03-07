@@ -10,6 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Star } from "lucide-react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { PluginContent } from "@/components/plugin-content";
@@ -115,9 +116,9 @@ async function PluginData({ slug }: { slug: string }) {
       </div>
 
       {/* Marketplace Header */}
-      <div className="container mx-auto px-4 pb-4">
+      <div className="container mx-auto px-4 pb-0">
         <div className="mb-6">
-          <h1 className="text-4xl font-bold font-serif mb-2">
+          <h1 className="text-4xl font-bold mb-2">
             {marketplace.repo}
           </h1>
           <p className="text-lg text-muted-foreground mb-4">
@@ -126,7 +127,10 @@ async function PluginData({ slug }: { slug: string }) {
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <span>{marketplace.pluginCount} plugins</span>
             {marketplace.stars !== undefined && marketplace.stars > 0 && (
-              <span>⭐ {marketplace.stars} stars</span>
+              <span className="flex items-center gap-1">
+                <Star className="h-3.5 w-3.5 fill-current" />
+                {marketplace.stars.toLocaleString()} stars
+              </span>
             )}
           </div>
         </div>

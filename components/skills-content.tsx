@@ -1,10 +1,14 @@
 "use client";
 
+import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { SkillsGrid } from "@/components/skills-grid";
 import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
 import { Skill } from "@/lib/types";
-import { Search } from "lucide-react";
+import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+
+const ITEMS_PER_PAGE = 20;
 
 interface SkillsContentProps {
   skills: Skill[];
@@ -12,11 +16,25 @@ interface SkillsContentProps {
 
 export function SkillsContent({ skills }: SkillsContentProps) {
   const { searchQuery, setSearchQuery, filteredSkills } = useSkillsFilters(skills);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
+
+  const paginatedSkills = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredSkills.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredSkills, currentPage]);
 
   const hasActiveFilters = searchQuery.length > 0;
 
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
   const clearFilters = () => {
     setSearchQuery("");
+    setCurrentPage(1);
   };
 
   return (
@@ -29,7 +47,7 @@ export function SkillsContent({ skills }: SkillsContentProps) {
             type="text"
             placeholder="Search skills..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             className="pl-10"
           />
         </div>
@@ -51,8 +69,37 @@ export function SkillsContent({ skills }: SkillsContentProps) {
       </div>
 
       {/* Skills Grid */}
-      {filteredSkills.length > 0 ? (
-        <SkillsGrid skills={filteredSkills} />
+      {paginatedSkills.length > 0 ? (
+        <>
+          <SkillsGrid skills={paginatedSkills} />
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Previous
+              </Button>
+              <span className="text-sm text-muted-foreground px-3">
+                {currentPage} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">

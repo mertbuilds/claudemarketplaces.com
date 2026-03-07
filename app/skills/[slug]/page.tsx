@@ -118,7 +118,7 @@ async function SkillData({ slug }: { slug: string }) {
       {/* Skill Repo Header */}
       <div className="container mx-auto px-4 pb-4">
         <div className="mb-6">
-          <h1 className="text-4xl font-bold font-serif mb-2">
+          <h1 className="text-4xl font-bold mb-2">
             {skillRepo.repo}
           </h1>
           <p className="text-lg text-muted-foreground mb-4">

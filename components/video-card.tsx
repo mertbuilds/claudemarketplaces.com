@@ -31,10 +31,10 @@ export function VideoCard({ video }: VideoCardProps) {
           loading="lazy"
           allowFullScreen
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          className="w-full aspect-video rounded-t-xl"
+          className="w-full aspect-video"
         />
         <div className="p-6 space-y-2">
-          <CardTitle className="text-xl font-serif line-clamp-2 leading-7">
+          <CardTitle className="text-xl line-clamp-2 leading-7">
             {video.title}
           </CardTitle>
           <CardDescription className="line-clamp-3">

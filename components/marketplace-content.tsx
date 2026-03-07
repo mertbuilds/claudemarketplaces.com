@@ -1,12 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { MarketplaceGrid } from "@/components/marketplace-grid";
 import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useMarketplaceFilters } from "@/lib/hooks/use-marketplace-filters";
 import { Marketplace } from "@/lib/types";
 import { FILTER_PRESETS } from "@/lib/config/filter-presets";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+const ITEMS_PER_PAGE = 20;
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
@@ -17,8 +21,8 @@ export function MarketplaceContent({
   marketplaces,
   categories,
 }: MarketplaceContentProps) {
-  // Local state for search query (not in URL)
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const {
     filterPreset,
@@ -30,22 +34,45 @@ export function MarketplaceContent({
     clearFilters: clearUrlFilters,
   } = useMarketplaceFilters(marketplaces, searchQuery);
 
+  const totalPages = Math.ceil(filteredCount / ITEMS_PER_PAGE);
+
+  const paginatedMarketplaces = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredMarketplaces.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredMarketplaces, currentPage]);
+
+  // Reset to page 1 when filters change
+  const handleFilterPreset = (id: string) => {
+    setFilterPreset(id);
+    setCurrentPage(1);
+  };
+
+  const handleToggleCategory = (category: string) => {
+    toggleCategory(category);
+    setCurrentPage(1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  };
+
   const hasActiveFilters =
     searchQuery ||
     selectedCategories.length > 0 ||
     (filterPreset && filterPreset !== "all");
 
-  // Clear both local search and URL filters
   const clearFilters = () => {
     setSearchQuery("");
     clearUrlFilters();
+    setCurrentPage(1);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       {/* Search Bar */}
       <div className="mb-6">
-        <MarketplaceSearch value={searchQuery} onChange={setSearchQuery} />
+        <MarketplaceSearch value={searchQuery} onChange={handleSearchChange} />
       </div>
 
       {/* Horizontal Scrollable Filter Presets and Categories */}
@@ -57,7 +84,7 @@ export function MarketplaceContent({
               key={preset.id}
               variant={filterPreset === preset.id ? "default" : "outline"}
               className="cursor-pointer capitalize shrink-0"
-              onClick={() => setFilterPreset(preset.id)}
+              onClick={() => handleFilterPreset(preset.id)}
             >
               {preset.label}
             </Badge>
@@ -70,7 +97,7 @@ export function MarketplaceContent({
                 key={category}
                 variant={isSelected ? "default" : "outline"}
                 className="cursor-pointer capitalize shrink-0"
-                onClick={() => toggleCategory(category)}
+                onClick={() => handleToggleCategory(category)}
               >
                 {category}
               </Badge>
@@ -95,8 +122,37 @@ export function MarketplaceContent({
       </div>
 
       {/* Marketplace Grid */}
-      {filteredMarketplaces.length > 0 ? (
-        <MarketplaceGrid marketplaces={filteredMarketplaces} />
+      {paginatedMarketplaces.length > 0 ? (
+        <>
+          <MarketplaceGrid marketplaces={paginatedMarketplaces} />
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+              >
+                <ChevronLeft className="h-4 w-4" />
+                Previous
+              </Button>
+              <span className="text-sm text-muted-foreground px-3">
+                {currentPage} / {totalPages}
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+              >
+                Next
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </>
       ) : (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">

@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Navigation } from "@/components/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FeedbackForm } from "@/components/feedback-form";
 
@@ -21,13 +20,9 @@ export const metadata: Metadata = {
 export default function FeedbackPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <Header
-        subtitle="Share your thoughts and help us improve the directory"
-        showAboutLink={true}
-      />
+      <Header />
 
       <main className="flex-1">
-        <Navigation />
         <div className="container mx-auto px-4 py-12 max-w-2xl">
           <Card>
             <CardHeader>

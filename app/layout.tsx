@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Crimson_Pro, Geist, Space_Mono } from "next/font/google";
+import { Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import "./globals.css";
@@ -10,16 +10,9 @@ const crimsonPro = Crimson_Pro({
   subsets: ["latin"],
 });
 
-// Geist for friendly body text
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-});
-
-// Space Mono for code blocks
-const spaceMono = Space_Mono({
-  weight: ["400", "700"],
-  variable: "--font-space-mono",
+// JetBrains Mono for body and code
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
   subsets: ["latin"],
 });
 
@@ -110,7 +103,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${crimsonPro.variable} ${geist.variable} ${spaceMono.variable} ${bbhSans.variable} antialiased`}
+        className={`${crimsonPro.variable} ${jetbrainsMono.variable} ${bbhSans.variable} antialiased`}
       >
         <OpenPanelComponent
           clientId="8565c8be-b41a-49b6-8985-25dd22f2086e"

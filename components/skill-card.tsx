@@ -35,14 +35,14 @@ export function SkillCard({ skill }: SkillCardProps) {
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-xl font-serif line-clamp-2 flex-1 min-w-0 leading-7">
+            <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
               {skill.name}
             </CardTitle>
             <a
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded transition-colors"
+              className="flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded-none transition-colors"
               aria-label="View on GitHub"
             >
               <ExternalLink className="h-4 w-4 text-muted-foreground" />
@@ -82,12 +82,12 @@ export function SkillCard({ skill }: SkillCardProps) {
           {/* Install Command */}
           <div className="mt-2 pt-3 border-t border-border">
             <div className="flex items-center gap-2">
-              <code className="text-xs bg-muted px-2 py-1 rounded flex-1 truncate min-w-0">
+              <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">
                 {skill.installCommand}
               </code>
               <button
                 onClick={handleCopy}
-                className="shrink-0 p-1.5 hover:bg-muted rounded transition-colors cursor-pointer"
+                className="shrink-0 p-1.5 hover:bg-muted rounded-none transition-colors cursor-pointer"
                 title="Copy to clipboard"
               >
                 {copied ? (

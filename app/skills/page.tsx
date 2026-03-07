@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { Navigation } from "@/components/navigation";
 import { getAllSkills } from "@/lib/data/skills";
 import { SkillsContent } from "@/components/skills-content";
 import type { Metadata } from "next";
@@ -29,7 +28,6 @@ export default function SkillsPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <Navigation />
         <Suspense
           fallback={
             <div className="container mx-auto px-4 py-8">

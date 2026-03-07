@@ -37,7 +37,7 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
         <CardHeader>
           <div className="flex flex-col gap-2">
             <div className="flex items-start justify-between gap-2">
-              <CardTitle className="text-xl font-serif line-clamp-2 flex-1 min-w-0 leading-7">
+              <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
                 <Link
                   href={pluginsUrl}
                   className="after:absolute after:inset-0"
@@ -49,7 +49,7 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                 href={repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative z-10 flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded transition-colors"
+                className="relative z-10 flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded-none transition-colors"
                 aria-label="View on GitHub"
               >
                 <ExternalLink className="h-4 w-4 text-muted-foreground" />
@@ -95,12 +95,12 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
 
             <div className="mt-2 pt-3 border-t border-border">
               <div className="flex items-center gap-2">
-                <code className="text-xs bg-muted px-2 py-1 rounded flex-1 truncate min-w-0">
+                <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">
                   {installCommand}
                 </code>
                 <button
                   onClick={handleCopy}
-                  className="relative z-10 shrink-0 p-1.5 hover:bg-muted rounded transition-colors cursor-pointer"
+                  className="relative z-10 shrink-0 p-1.5 hover:bg-muted rounded-none transition-colors cursor-pointer"
                   title="Copy to clipboard"
                 >
                   {copied ? (

@@ -37,7 +37,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
     <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50">
       <CardHeader>
         <div className="flex items-start justify-between gap-2 mb-2">
-          <CardTitle className="text-lg font-serif line-clamp-2 flex-1 min-w-0">
+          <CardTitle className="text-lg line-clamp-2 flex-1 min-w-0">
             {plugin.name}
           </CardTitle>
           <div className="flex items-center gap-1 shrink-0">
@@ -51,7 +51,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
                 href={sourceUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center h-7 p-1 hover:bg-muted rounded transition-colors"
+                className="flex items-center justify-center h-7 p-1 hover:bg-muted rounded-none transition-colors"
                 aria-label="View source on GitHub"
               >
                 <ExternalLink className="h-4 w-4 text-muted-foreground" />
@@ -103,12 +103,12 @@ export function PluginCard({ plugin }: PluginCardProps) {
           {/* Install Command */}
           <div className="mt-2 pt-3 border-t border-border">
             <div className="flex items-center gap-2">
-              <code className="text-xs bg-muted px-2 py-1 rounded flex-1 truncate min-w-0">
+              <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">
                 {plugin.installCommand}
               </code>
               <button
                 onClick={handleCopy}
-                className="shrink-0 p-1.5 hover:bg-muted rounded transition-colors cursor-pointer"
+                className="shrink-0 p-1.5 hover:bg-muted rounded-none transition-colors cursor-pointer"
                 title="Copy to clipboard"
               >
                 {copied ? (
