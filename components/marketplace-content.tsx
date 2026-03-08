@@ -10,16 +10,18 @@ import { Marketplace } from "@/lib/types";
 import { FILTER_PRESETS, type FilterPreset } from "@/lib/config/filter-presets";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 22;
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
   categories: string[];
+  newsletterSeed: [number, number];
 }
 
 export function MarketplaceContent({
   marketplaces,
   categories,
+  newsletterSeed,
 }: MarketplaceContentProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -124,7 +126,7 @@ export function MarketplaceContent({
       {/* Marketplace Grid */}
       {paginatedMarketplaces.length > 0 ? (
         <>
-          <MarketplaceGrid marketplaces={paginatedMarketplaces} />
+          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} />
 
           {/* Pagination */}
           {totalPages > 1 && (

@@ -3,6 +3,7 @@ import { Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import "./globals.css";
+import { FloatingBanner } from "@/components/floating-banner";
 
 // Crimson Pro for elegant headings
 const crimsonPro = Crimson_Pro({
@@ -114,6 +115,7 @@ export default function RootLayout({
           trackAttributes={true}
         />
         {children}
+        <FloatingBanner />
       </body>
     </html>
   );

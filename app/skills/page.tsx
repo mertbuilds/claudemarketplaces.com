@@ -20,7 +20,12 @@ export const metadata: Metadata = {
 
 async function SkillsData() {
   const skills = await getAllSkills({ includeEmpty: false });
-  return <SkillsContent skills={skills} />;
+  return (
+    <SkillsContent
+      skills={skills}
+      newsletterSeed={[Math.random(), Math.random()]}
+    />
+  );
 }
 
 export default function SkillsPage() {

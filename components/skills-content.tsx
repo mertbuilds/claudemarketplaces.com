@@ -8,13 +8,14 @@ import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
 import { Skill } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 
-const ITEMS_PER_PAGE = 20;
+const ITEMS_PER_PAGE = 22;
 
 interface SkillsContentProps {
   skills: Skill[];
+  newsletterSeed: [number, number];
 }
 
-export function SkillsContent({ skills }: SkillsContentProps) {
+export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
   const { searchQuery, setSearchQuery, filteredSkills } = useSkillsFilters(skills);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -71,7 +72,7 @@ export function SkillsContent({ skills }: SkillsContentProps) {
       {/* Skills Grid */}
       {paginatedSkills.length > 0 ? (
         <>
-          <SkillsGrid skills={paginatedSkills} />
+          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} />
 
           {/* Pagination */}
           {totalPages > 1 && (

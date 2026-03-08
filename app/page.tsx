@@ -12,7 +12,11 @@ async function MarketplaceData() {
   ]);
 
   return (
-    <MarketplaceContent marketplaces={marketplaces} categories={categories} />
+    <MarketplaceContent
+      marketplaces={marketplaces}
+      categories={categories}
+      newsletterSeed={[Math.random(), Math.random()]}
+    />
   );
 }
 

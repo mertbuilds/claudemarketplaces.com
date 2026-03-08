@@ -268,7 +268,7 @@ export default function AdvertisePage() {
                       <div className="w-[600px] md:w-full origin-top-left scale-[0.55] md:scale-100">
                         <div className="grid grid-cols-3 gap-2">
                           {/* Sponsored card — spans 2 rows */}
-                          <div className="row-span-2 rounded-lg border border-border p-3 space-y-2">
+                          <div className="row-span-2 rounded-lg border border-primary p-3 space-y-2">
                             <div className="flex items-start justify-between gap-2">
                               <p className="text-sm font-semibold text-foreground">
                                 acme/ai-toolkit
