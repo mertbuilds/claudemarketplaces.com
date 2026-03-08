@@ -1,5 +1,17 @@
 [
   {
+    "id": "huseinaskraba899-jpg-dash0-claude-marketplace-observability/dash0-observability",
+    "name": "dash0-observability",
+    "description": "Set up production-grade OpenTelemetry observability for Claude API calls: distributed traces, token usage histograms, and latency metrics exported to Dash0 via OTLP/gRPC following GenAI Semantic Conventions.",
+    "repo": "huseinaskraba899-jpg/dash0-claude-marketplace-observability",
+    "repoSlug": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
+    "path": ".claude/skills/dash0-observability/skill.md",
+    "stars": 1,
+    "installCommand": "claude skill add huseinaskraba899-jpg/dash0-claude-marketplace-observability:dash0-observability",
+    "discoveredAt": "2026-03-08T00:00:00.000Z",
+    "lastUpdated": "2026-03-08T00:00:00.000Z"
+  },
+  {
     "id": "facebook-react/fix",
     "name": "fix",
     "description": "Use when you have lint errors, formatting issues, or before committing code to ensure it passes CI.",
@@ -471,7 +483,7 @@
   {
     "id": "labring-FastGPT/pr-review",
     "name": "pr-review",
-    "description": "进行 Pull Request 代码审查,包括代码质量、安全性、性能、架构合理性等方面的全面评估。当用户要求审查 PR 或提到 \"review pr\"、\"检查 PR\" 等关键词时激活。",
+    "description": "\u8fdb\u884c Pull Request \u4ee3\u7801\u5ba1\u67e5,\u5305\u62ec\u4ee3\u7801\u8d28\u91cf\u3001\u5b89\u5168\u6027\u3001\u6027\u80fd\u3001\u67b6\u6784\u5408\u7406\u6027\u7b49\u65b9\u9762\u7684\u5168\u9762\u8bc4\u4f30\u3002\u5f53\u7528\u6237\u8981\u6c42\u5ba1\u67e5 PR \u6216\u63d0\u5230 \"review pr\"\u3001\"\u68c0\u67e5 PR\" \u7b49\u5173\u952e\u8bcd\u65f6\u6fc0\u6d3b\u3002",
     "repo": "labring/FastGPT",
     "repoSlug": "labring-FastGPT",
     "path": ".claude/skills/pr-review",
@@ -625,7 +637,7 @@
   {
     "id": "SuperClaude-Org-SuperClaude_Framework/confidence-check",
     "name": "Confidence Check",
-    "description": "Pre-implementation confidence assessment (≥90% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS references, and root cause identification.",
+    "description": "Pre-implementation confidence assessment (\u226590% required). Use before starting any implementation to verify readiness with duplicate check, architecture compliance, official docs verification, OSS references, and root cause identification.",
     "repo": "SuperClaude-Org/SuperClaude_Framework",
     "repoSlug": "SuperClaude-Org-SuperClaude_Framework",
     "path": ".claude/skills/confidence-check",
@@ -724,7 +736,7 @@
   {
     "id": "labring-FastGPT/stop",
     "name": "workflow-stop-design",
-    "description": "工作流暂停逻辑设计方案",
+    "description": "\u5de5\u4f5c\u6d41\u6682\u505c\u903b\u8f91\u8bbe\u8ba1\u65b9\u6848",
     "repo": "labring/FastGPT",
     "repoSlug": "labring-FastGPT",
     "path": ".claude/skills/core/app/workflow/stop",
@@ -977,7 +989,7 @@
   {
     "id": "doccker-cc-use-exp/java-dev",
     "name": "java-dev",
-    "description": "Java 开发规范，包含命名约定、异常处理、Spring Boot 最佳实践等",
+    "description": "Java \u5f00\u53d1\u89c4\u8303\uff0c\u5305\u542b\u547d\u540d\u7ea6\u5b9a\u3001\u5f02\u5e38\u5904\u7406\u3001Spring Boot \u6700\u4f73\u5b9e\u8df5\u7b49",
     "repo": "doccker/cc-use-exp",
     "repoSlug": "doccker-cc-use-exp",
     "path": ".claude/skills/java-dev",
@@ -1032,7 +1044,7 @@
   {
     "id": "kungfuai-CVlization/remote-run-ssh",
     "name": "remote-run-ssh",
-    "description": "Run CVlization examples on the `ssh l1` GPU host by copying only the needed example directory plus the shared `cvlization/` package into `/tmp`, then launching the example’s Docker scripts.",
+    "description": "Run CVlization examples on the `ssh l1` GPU host by copying only the needed example directory plus the shared `cvlization/` package into `/tmp`, then launching the example\u2019s Docker scripts.",
     "repo": "kungfuai/CVlization",
     "repoSlug": "kungfuai-CVlization",
     "path": ".claude/skills/remote-run-ssh",
@@ -1087,7 +1099,7 @@
   {
     "id": "erichowens-some_claude_skills/product-appeal-analyzer",
     "name": "product-appeal-analyzer",
-    "description": "Evaluate product desirability, market positioning, and emotional resonance—the complement to friction analysis. Assess whether users will WANT a product (not just use it), identity fit, trust signals, and value proposition clarity. Activate on \"will they like it\", \"market positioning\", \"appeal analysis\", \"product desirability\", \"value proposition\", \"why would someone choose this\", \"landing page review\", \"conversion optimization\", \"messaging strategy\". NOT for UX friction analysis (use ux-friction-analyzer), visual design implementation (use web-design-expert), or A/B test setup (use frontend-developer).",
+    "description": "Evaluate product desirability, market positioning, and emotional resonance\u2014the complement to friction analysis. Assess whether users will WANT a product (not just use it), identity fit, trust signals, and value proposition clarity. Activate on \"will they like it\", \"market positioning\", \"appeal analysis\", \"product desirability\", \"value proposition\", \"why would someone choose this\", \"landing page review\", \"conversion optimization\", \"messaging strategy\". NOT for UX friction analysis (use ux-friction-analyzer), visual design implementation (use web-design-expert), or A/B test setup (use frontend-developer).",
     "repo": "erichowens/some_claude_skills",
     "repoSlug": "erichowens-some_claude_skills",
     "path": ".claude/skills/product-appeal-analyzer",
@@ -1374,7 +1386,7 @@
   {
     "id": "hirokazu-kobayashi-koba-hiro-idp-server/control-plane",
     "name": "control-plane",
-    "description": "管理API（Control Plane）の開発・修正を行う際に使用。システムレベル・組織レベルAPI、リソース管理、権限モデル実装時に役立つ。",
+    "description": "\u7ba1\u7406API\uff08Control Plane\uff09\u306e\u958b\u767a\u30fb\u4fee\u6b63\u3092\u884c\u3046\u969b\u306b\u4f7f\u7528\u3002\u30b7\u30b9\u30c6\u30e0\u30ec\u30d9\u30eb\u30fb\u7d44\u7e54\u30ec\u30d9\u30ebAPI\u3001\u30ea\u30bd\u30fc\u30b9\u7ba1\u7406\u3001\u6a29\u9650\u30e2\u30c7\u30eb\u5b9f\u88c5\u6642\u306b\u5f79\u7acb\u3064\u3002",
     "repo": "hirokazu-kobayashi-koba-hiro/idp-server",
     "repoSlug": "hirokazu-kobayashi-koba-hiro-idp-server",
     "path": ".claude/skills/control-plane/skill.md",
@@ -1430,7 +1442,7 @@
   {
     "id": "huifer-Claude-Code-KnowCraft/knowledge-manager",
     "name": "knowledge-manager",
-    "description": "智能知识管理助手,自动分析、组织和优化知识库",
+    "description": "\u667a\u80fd\u77e5\u8bc6\u7ba1\u7406\u52a9\u624b,\u81ea\u52a8\u5206\u6790\u3001\u7ec4\u7ec7\u548c\u4f18\u5316\u77e5\u8bc6\u5e93",
     "repo": "huifer/Claude-Code-KnowCraft",
     "repoSlug": "huifer-Claude-Code-KnowCraft",
     "path": ".claude/skills/knowledge-manager/skill.md",
@@ -1640,7 +1652,7 @@
   {
     "id": "SWUSTcyt-langchain-travel-agent/feature",
     "name": "feature",
-    "description": "基于 docs/ARCHITECTURE.md 的规范，安全地实现新功能或优化现有代码。",
+    "description": "\u57fa\u4e8e docs/ARCHITECTURE.md \u7684\u89c4\u8303\uff0c\u5b89\u5168\u5730\u5b9e\u73b0\u65b0\u529f\u80fd\u6216\u4f18\u5316\u73b0\u6709\u4ee3\u7801\u3002",
     "repo": "SWUSTcyt/langchain-travel-agent",
     "repoSlug": "SWUSTcyt-langchain-travel-agent",
     "path": ".claude/skills/feature",
@@ -1882,7 +1894,7 @@
   {
     "id": "studyzy-imewlconverter/openspec-continue-change",
     "name": "openspec-continue-change",
-    "description": "通过创建下一个产出物继续处理 OpenSpec 变更。当用户想要推进其变更、创建下一个产出物或继续其工作流程时使用。",
+    "description": "\u901a\u8fc7\u521b\u5efa\u4e0b\u4e00\u4e2a\u4ea7\u51fa\u7269\u7ee7\u7eed\u5904\u7406 OpenSpec \u53d8\u66f4\u3002\u5f53\u7528\u6237\u60f3\u8981\u63a8\u8fdb\u5176\u53d8\u66f4\u3001\u521b\u5efa\u4e0b\u4e00\u4e2a\u4ea7\u51fa\u7269\u6216\u7ee7\u7eed\u5176\u5de5\u4f5c\u6d41\u7a0b\u65f6\u4f7f\u7528\u3002",
     "repo": "studyzy/imewlconverter",
     "repoSlug": "studyzy-imewlconverter",
     "path": ".claude/skills/openspec-continue-change",
@@ -1971,7 +1983,7 @@
   {
     "id": "Prorise-cool-Claude-Code-Multi-Agent/internal-comms",
     "name": "internal-comms",
-    "description": "一套资源，帮助我使用公司喜欢的格式编写各种内部通信。每当要求编写某种内部通信（状态报告、领导更新、3P 更新、公司通讯、常见问题、事件报告、项目更新等）时，Claude 应使用此技能。",
+    "description": "\u4e00\u5957\u8d44\u6e90\uff0c\u5e2e\u52a9\u6211\u4f7f\u7528\u516c\u53f8\u559c\u6b22\u7684\u683c\u5f0f\u7f16\u5199\u5404\u79cd\u5185\u90e8\u901a\u4fe1\u3002\u6bcf\u5f53\u8981\u6c42\u7f16\u5199\u67d0\u79cd\u5185\u90e8\u901a\u4fe1\uff08\u72b6\u6001\u62a5\u544a\u3001\u9886\u5bfc\u66f4\u65b0\u30013P \u66f4\u65b0\u3001\u516c\u53f8\u901a\u8baf\u3001\u5e38\u89c1\u95ee\u9898\u3001\u4e8b\u4ef6\u62a5\u544a\u3001\u9879\u76ee\u66f4\u65b0\u7b49\uff09\u65f6\uff0cClaude \u5e94\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
     "repo": "Prorise-cool/Claude-Code-Multi-Agent",
     "repoSlug": "Prorise-cool-Claude-Code-Multi-Agent",
     "path": ".claude/skills/internal-comms",
@@ -2159,7 +2171,7 @@
   {
     "id": "Prorise-cool-prorise-claude-skills/gh-bootstrap",
     "name": "gh-bootstrap",
-    "description": "一站式 GitHub 仓库配置初始化工具。",
+    "description": "\u4e00\u7ad9\u5f0f GitHub \u4ed3\u5e93\u914d\u7f6e\u521d\u59cb\u5316\u5de5\u5177\u3002",
     "repo": "Prorise-cool/prorise-claude-skills",
     "repoSlug": "Prorise-cool-prorise-claude-skills",
     "path": ".claude/skills/gh-bootstrap",
@@ -2181,7 +2193,7 @@
   {
     "id": "Prorise-cool-prorise-claude-skills/internal-comms",
     "name": "internal-comms",
-    "description": "一套资源，帮助我使用公司喜欢的格式编写各种内部通信。每当要求编写某种内部通信（状态报告、领导更新、3P 更新、公司通讯、常见问题、事件报告、项目更新等）时，Claude 应使用此技能。",
+    "description": "\u4e00\u5957\u8d44\u6e90\uff0c\u5e2e\u52a9\u6211\u4f7f\u7528\u516c\u53f8\u559c\u6b22\u7684\u683c\u5f0f\u7f16\u5199\u5404\u79cd\u5185\u90e8\u901a\u4fe1\u3002\u6bcf\u5f53\u8981\u6c42\u7f16\u5199\u67d0\u79cd\u5185\u90e8\u901a\u4fe1\uff08\u72b6\u6001\u62a5\u544a\u3001\u9886\u5bfc\u66f4\u65b0\u30013P \u66f4\u65b0\u3001\u516c\u53f8\u901a\u8baf\u3001\u5e38\u89c1\u95ee\u9898\u3001\u4e8b\u4ef6\u62a5\u544a\u3001\u9879\u76ee\u66f4\u65b0\u7b49\uff09\u65f6\uff0cClaude \u5e94\u4f7f\u7528\u6b64\u6280\u80fd\u3002",
     "repo": "Prorise-cool/prorise-claude-skills",
     "repoSlug": "Prorise-cool-prorise-claude-skills",
     "path": ".claude/skills/internal-comms",
@@ -2204,7 +2216,7 @@
   {
     "id": "parcadei-Continuous-Claude-v3/release",
     "name": "release",
-    "description": "Release preparation workflow - security audit → E2E tests → review → changelog → docs",
+    "description": "Release preparation workflow - security audit \u2192 E2E tests \u2192 review \u2192 changelog \u2192 docs",
     "repo": "parcadei/Continuous-Claude-v3",
     "repoSlug": "parcadei-Continuous-Claude-v3",
     "path": ".claude/skills/release",
@@ -2315,7 +2327,7 @@
   {
     "id": "TheBeardedBearSAS-claude-craft/security",
     "name": "security",
-    "description": "Sécurité. Use when reviewing security, implementing auth, or hardening code.",
+    "description": "S\u00e9curit\u00e9. Use when reviewing security, implementing auth, or hardening code.",
     "repo": "TheBeardedBearSAS/claude-craft",
     "repoSlug": "TheBeardedBearSAS-claude-craft",
     "path": ".claude/skills/security",
@@ -2337,7 +2349,7 @@
   {
     "id": "huifer-WellAlly-health/mental-health-analyzer",
     "name": "mental-health-analyzer",
-    "description": "分析心理健康数据、识别心理模式、评估心理健康状况、提供个性化心理健康建议。支持与睡眠、运动、营养等其他健康数据的关联分析。",
+    "description": "\u5206\u6790\u5fc3\u7406\u5065\u5eb7\u6570\u636e\u3001\u8bc6\u522b\u5fc3\u7406\u6a21\u5f0f\u3001\u8bc4\u4f30\u5fc3\u7406\u5065\u5eb7\u72b6\u51b5\u3001\u63d0\u4f9b\u4e2a\u6027\u5316\u5fc3\u7406\u5065\u5eb7\u5efa\u8bae\u3002\u652f\u6301\u4e0e\u7761\u7720\u3001\u8fd0\u52a8\u3001\u8425\u517b\u7b49\u5176\u4ed6\u5065\u5eb7\u6570\u636e\u7684\u5173\u8054\u5206\u6790\u3002",
     "repo": "huifer/WellAlly-health",
     "repoSlug": "huifer-WellAlly-health",
     "path": ".claude/skills/mental-health-analyzer",
@@ -2426,7 +2438,7 @@
   {
     "id": "neptaco-mcproc/release-preview",
     "name": "release-preview",
-    "description": "次回リリースに含まれる変更をプレビューする。「リリースプレビュー」「次のリリース」「リリース内容確認」と言われた場合に使用する。",
+    "description": "\u6b21\u56de\u30ea\u30ea\u30fc\u30b9\u306b\u542b\u307e\u308c\u308b\u5909\u66f4\u3092\u30d7\u30ec\u30d3\u30e5\u30fc\u3059\u308b\u3002\u300c\u30ea\u30ea\u30fc\u30b9\u30d7\u30ec\u30d3\u30e5\u30fc\u300d\u300c\u6b21\u306e\u30ea\u30ea\u30fc\u30b9\u300d\u300c\u30ea\u30ea\u30fc\u30b9\u5185\u5bb9\u78ba\u8a8d\u300d\u3068\u8a00\u308f\u308c\u305f\u5834\u5408\u306b\u4f7f\u7528\u3059\u308b\u3002",
     "repo": "neptaco/mcproc",
     "repoSlug": "neptaco-mcproc",
     "path": ".claude/skills/release-preview",
