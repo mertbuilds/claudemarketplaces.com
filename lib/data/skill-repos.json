@@ -2,7 +2,7 @@
   {
     "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
     "slug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
-    "description": "The Dash0 MCP Connector for Claude \u2014 OTel-native observability for AI agents. Distributed traces, token histograms, latency metrics, and graceful forceFlush for short-lived CLI/MCP processes. Exports to Dash0 via OTLP/gRPC following GenAI Semantic Conventions.",
+    "description": "Community companion to the Dash0 MCP Server — reference implementation for OTel GenAI observability in Claude Marketplace plugins. Distributed traces, token histograms, latency metrics, and graceful forceFlush for short-lived MCP processes.",
     "skillCount": 1,
     "stars": 1,
     "starsFetchedAt": "2026-03-08T00:00:00.000Z",
