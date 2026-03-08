@@ -15,8 +15,11 @@ export function SkillsGrid({ skills, newsletterSeed }: SkillsGridProps) {
   const totalSlots = skills.length + 2;
   const totalRows = Math.ceil(totalSlots / cols);
 
-  const topPos = Math.floor(newsletterSeed[0] * cols);
-  const bottomRowStart = Math.max(cols, (totalRows - 3) * cols);
+  // First card: random slot in 2nd row (indices 3, 4, 5)
+  const topPos = cols + Math.floor(newsletterSeed[0] * cols);
+
+  // Second card: random slot in the bottom 2 rows
+  const bottomRowStart = Math.max(cols * 2, (totalRows - 2) * cols);
   const bottomPos =
     bottomRowStart + Math.floor(newsletterSeed[1] * (totalSlots - bottomRowStart));
 

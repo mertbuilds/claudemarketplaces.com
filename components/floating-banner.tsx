@@ -40,11 +40,11 @@ export function FloatingBanner() {
   const banner = banners[activeIndex];
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:bottom-6 sm:right-6 z-50 max-w-[480px] bg-background border border-primary/30 rounded-md p-5 flex items-center gap-4 shadow-lg">
+    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-5 sm:right-5 z-50 max-w-[384px] bg-background border border-primary/30 rounded-md p-4 flex items-center gap-3 shadow-lg">
       <div
-        className={`flex items-center gap-4 flex-1 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
+        className={`flex items-center gap-3 flex-1 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
       >
-        <p className="text-base font-medium text-foreground leading-snug">
+        <p className="text-sm font-medium text-foreground leading-snug">
           {banner.text}
         </p>
         {banner.external ? (
@@ -52,14 +52,14 @@ export function FloatingBanner() {
             href={banner.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="shrink-0 text-sm bg-primary text-primary-foreground px-4 py-1.5 rounded-md font-medium"
+            className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
           </a>
         ) : (
           <Link
             href={banner.href}
-            className="shrink-0 text-sm bg-primary text-primary-foreground px-4 py-1.5 rounded-md font-medium"
+            className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
           </Link>
@@ -67,10 +67,10 @@ export function FloatingBanner() {
       </div>
       <button
         onClick={() => setDismissed(true)}
-        className="shrink-0 p-1 hover:bg-muted rounded-sm transition-colors cursor-pointer"
+        className="shrink-0 p-0.5 hover:bg-muted rounded-sm transition-colors cursor-pointer"
         aria-label="Dismiss"
       >
-        <X className="h-4 w-4 text-muted-foreground" />
+        <X className="h-3.5 w-3.5 text-muted-foreground" />
       </button>
     </div>
   );

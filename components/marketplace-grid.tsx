@@ -15,11 +15,11 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed }: MarketplaceGri
   const totalSlots = marketplaces.length + 2;
   const totalRows = Math.ceil(totalSlots / cols);
 
-  // First card: random slot in top row (0, 1, or 2)
-  const topPos = Math.floor(newsletterSeed[0] * cols);
+  // First card: random slot in 2nd row (indices 3, 4, 5)
+  const topPos = cols + Math.floor(newsletterSeed[0] * cols);
 
-  // Second card: random slot in the bottom 3 rows
-  const bottomRowStart = Math.max(cols, (totalRows - 3) * cols);
+  // Second card: random slot in the bottom 2 rows
+  const bottomRowStart = Math.max(cols * 2, (totalRows - 2) * cols);
   const bottomPos =
     bottomRowStart + Math.floor(newsletterSeed[1] * (totalSlots - bottomRowStart));
 

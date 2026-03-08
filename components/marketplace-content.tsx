@@ -9,6 +9,7 @@ import { useMarketplaceFilters } from "@/lib/hooks/use-marketplace-filters";
 import { Marketplace } from "@/lib/types";
 import { FILTER_PRESETS, type FilterPreset } from "@/lib/config/filter-presets";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FeaturedCards } from "@/components/featured-cards";
 
 const ITEMS_PER_PAGE = 22;
 
@@ -107,6 +108,9 @@ export function MarketplaceContent({
           })}
         </div>
       </div>
+
+      {/* Featured Cards - only on page 1 with no filters */}
+      {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
 
       {/* Results info */}
       <div className="flex items-center justify-between mb-6">

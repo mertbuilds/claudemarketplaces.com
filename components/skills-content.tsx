@@ -7,6 +7,7 @@ import { SkillsGrid } from "@/components/skills-grid";
 import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
 import { Skill } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { FeaturedCards } from "@/components/featured-cards";
 
 const ITEMS_PER_PAGE = 22;
 
@@ -53,6 +54,9 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
           />
         </div>
       </div>
+
+      {/* Featured Cards - only on page 1 with no filters */}
+      {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
 
       {/* Results info */}
       <div className="flex items-center justify-between mb-6">
