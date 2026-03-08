@@ -1,17 +1,17 @@
 [
   {
-    "id": "huseinaskraba899-jpg-dash0-claude-marketplace-observability/dash0-observability",
+    "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
     "name": "dash0-observability",
     "description": "Sidecar observability for every Claude Marketplace plugin. Instruments the Anthropic SDK at the transport layer \u2014 intercepts and traces API calls from anthropics/claude-code, upstash/context7, obra/superpowers, and any MCP server. Token histograms, latency p95, error rates, and distributed traces all flow into an auto-provisioned Dash0 dashboard. Zero changes to observed plugins.",
     "version": "1.0.0",
     "author": {
-      "name": "huseinaskraba899-jpg"
+      "name": "husein-askraba-bridge"
     },
     "source": ".claude/skills/dash0-observability",
-    "marketplace": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
-    "marketplaceUrl": "https://github.com/huseinaskraba899-jpg/dash0-claude-marketplace-observability",
+    "marketplace": "husein-askraba-bridge-dash0-claude-marketplace-observability",
+    "marketplaceUrl": "https://github.com/husein-askraba-bridge/dash0-claude-marketplace-observability",
     "category": "observability",
-    "installCommand": "claude skill add huseinaskraba899-jpg/dash0-claude-marketplace-observability:dash0-observability",
+    "installCommand": "claude skill add husein-askraba-bridge/dash0-claude-marketplace-observability:dash0-observability",
     "tags": [
       "observability",
       "opentelemetry",

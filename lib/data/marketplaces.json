@@ -1,7 +1,7 @@
 [
   {
-    "repo": "huseinaskraba899-jpg/dash0-claude-marketplace-observability",
-    "slug": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
+    "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
+    "slug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
     "description": "Dash0 as the observability layer for Claude-powered AI agents \u2014 OpenTelemetry GenAI Semantic Conventions, OTLP/gRPC to Dash0, distributed traces, token cost tracking, and latency histograms.",
     "pluginCount": 1,
     "categories": [

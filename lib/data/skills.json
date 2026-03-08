@@ -1,13 +1,13 @@
 [
   {
-    "id": "huseinaskraba899-jpg-dash0-claude-marketplace-observability/dash0-observability",
+    "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
     "name": "dash0-observability",
     "description": "Observe every Claude Marketplace plugin as a sidecar \u2014 instruments the Anthropic SDK at the transport layer to capture distributed traces, token usage histograms, and latency metrics across all plugins (claude-code, context7, superpowers, any MCP server) and exports to Dash0 via OTLP/gRPC following GenAI Semantic Conventions.",
-    "repo": "huseinaskraba899-jpg/dash0-claude-marketplace-observability",
-    "repoSlug": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
+    "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
+    "repoSlug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
     "path": ".claude/skills/dash0-observability/skill.md",
     "stars": 1,
-    "installCommand": "claude skill add huseinaskraba899-jpg/dash0-claude-marketplace-observability:dash0-observability",
+    "installCommand": "claude skill add husein-askraba-bridge/dash0-claude-marketplace-observability:dash0-observability",
     "discoveredAt": "2026-03-08T00:00:00.000Z",
     "lastUpdated": "2026-03-08T00:00:00.000Z"
   },

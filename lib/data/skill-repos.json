@@ -1,7 +1,7 @@
 [
   {
-    "repo": "huseinaskraba899-jpg/dash0-claude-marketplace-observability",
-    "slug": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
+    "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
+    "slug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
     "description": "Production-grade OpenTelemetry observability for Claude-powered AI agents \u2014 traces, token metrics, and latency histograms exported to Dash0 via OTLP/gRPC",
     "skillCount": 1,
     "stars": 1,
