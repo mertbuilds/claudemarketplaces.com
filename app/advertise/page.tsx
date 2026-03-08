@@ -138,13 +138,13 @@ export default function AdvertisePage() {
                     <span className="text-lg font-bold text-primary">$300/mo</span>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Persistent banner visible across all pages. Always in view as users browse.
+                    Compact floating banner pinned to the bottom-right corner. Always visible as users browse.
                   </p>
                   <div className="mt-3 pt-3 border-t border-border">
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
-                    <div className="pointer-events-none">
-                      <div className="bg-primary/10 border border-primary/30 rounded-md p-3 flex items-center justify-between gap-3">
-                        <p className="text-xs font-medium text-foreground">Supercharge your AI workflow with AcmeAI — the fastest way to build agents.</p>
+                    <div className="pointer-events-none relative bg-muted/20 rounded-md border border-border/50 h-32">
+                      <div className="absolute bottom-2 right-2 max-w-[260px] bg-primary/10 border border-primary/30 rounded-md p-2.5 flex items-center gap-2 shadow-sm">
+                        <p className="text-[11px] font-medium text-foreground leading-tight">Supercharge your AI workflow with AcmeAI</p>
                         <span className="shrink-0 text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-md font-medium">Try Free</span>
                       </div>
                     </div>
