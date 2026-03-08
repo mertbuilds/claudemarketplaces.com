@@ -11,14 +11,16 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Megaphone } from "lucide-react";
-import { useOpenPanel } from "@openpanel/nextjs";
-
 export function AdvertiseInFeedCard() {
-  const op = useOpenPanel();
-
   useEffect(() => {
-    op.track("infeed_card_viewed", { card: "advertise" });
-  }, [op]);
+    const id = setInterval(() => {
+      if (typeof window.op === "function") {
+        window.op!("track", "infeed_card_viewed", { card: "advertise" });
+        clearInterval(id);
+      }
+    }, 200);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
@@ -29,7 +31,7 @@ export function AdvertiseInFeedCard() {
               <Link
                 href="/advertise"
                 className="after:absolute after:inset-0"
-                onClick={() => op.track("infeed_card_clicked", { card: "advertise" })}
+                onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "advertise" }); }}
               >
                 Advertise Here
               </Link>
@@ -61,7 +63,7 @@ export function AdvertiseInFeedCard() {
             <Link
               href="/advertise"
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
-              onClick={() => op.track("infeed_card_clicked", { card: "advertise" })}
+              onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "advertise" }); }}
             >
               Learn more →
             </Link>

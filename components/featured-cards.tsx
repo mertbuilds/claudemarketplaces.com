@@ -9,14 +9,16 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Twitter, Megaphone, Code } from "lucide-react";
-import { useOpenPanel } from "@openpanel/nextjs";
-
 export function FeaturedCards() {
-  const op = useOpenPanel();
-
   useEffect(() => {
-    op.track("featured_section_viewed");
-  }, [op]);
+    const id = setInterval(() => {
+      if (typeof window.op === "function") {
+        window.op!("track", "featured_section_viewed");
+        clearInterval(id);
+      }
+    }, 200);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className="mb-8">
@@ -35,7 +37,7 @@ export function FeaturedCards() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => op.track("featured_card_clicked", { card: "x_follow" })}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "x_follow" }); }}
                 >
                   Follow @mertduzgun
                 </Link>
@@ -61,7 +63,7 @@ export function FeaturedCards() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => op.track("featured_card_clicked", { card: "vinena_studio" })}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "vinena_studio" }); }}
                 >
                   Vinena Studio
                 </a>
@@ -85,7 +87,7 @@ export function FeaturedCards() {
                 <Link
                   href="/advertise"
                   className="after:absolute after:inset-0"
-                  onClick={() => op.track("featured_card_clicked", { card: "advertise" })}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "advertise" }); }}
                 >
                   Advertise Here
                 </Link>

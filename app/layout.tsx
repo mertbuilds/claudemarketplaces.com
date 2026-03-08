@@ -107,7 +107,8 @@ export default function RootLayout({
         className={`${crimsonPro.variable} ${jetbrainsMono.variable} ${bbhSans.variable} antialiased`}
       >
         <OpenPanelComponent
-          clientId="8565c8be-b41a-49b6-8985-25dd22f2086e"
+          clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID!}
+          clientSecret={process.env.OPENPANEL_CLIENT_SECRET}
           apiUrl="/api/op"
           scriptUrl="/api/op/op1.js"
           trackScreenViews={true}

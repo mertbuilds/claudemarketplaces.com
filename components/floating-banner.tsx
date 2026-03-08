@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-import { useOpenPanel } from "@openpanel/nextjs";
-
 const banners = [
   {
     id: "x_follow",
@@ -26,11 +24,15 @@ export function FloatingBanner() {
   const [dismissed, setDismissed] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fading, setFading] = useState(false);
-  const op = useOpenPanel();
-
   useEffect(() => {
-    op.track("floating_banner_viewed");
-  }, [op]);
+    const id = setInterval(() => {
+      if (typeof window.op === "function") {
+        window.op!("track", "floating_banner_viewed");
+        clearInterval(id);
+      }
+    }, 200);
+    return () => clearInterval(id);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -60,7 +62,7 @@ export function FloatingBanner() {
             href={banner.href}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => op.track("floating_banner_clicked", { banner: banner.id })}
+            onClick={() => { if (typeof window.op === "function") window.op!("track", "floating_banner_clicked", { banner: banner.id }); }}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
@@ -68,7 +70,7 @@ export function FloatingBanner() {
         ) : (
           <Link
             href={banner.href}
-            onClick={() => op.track("floating_banner_clicked", { banner: banner.id })}
+            onClick={() => { if (typeof window.op === "function") window.op!("track", "floating_banner_clicked", { banner: banner.id }); }}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
