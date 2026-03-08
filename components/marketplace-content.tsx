@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useMarketplaceFilters } from "@/lib/hooks/use-marketplace-filters";
 import { Marketplace } from "@/lib/types";
-import { FILTER_PRESETS } from "@/lib/config/filter-presets";
+import { FILTER_PRESETS, type FilterPreset } from "@/lib/config/filter-presets";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const ITEMS_PER_PAGE = 20;
@@ -42,7 +42,7 @@ export function MarketplaceContent({
   }, [filteredMarketplaces, currentPage]);
 
   // Reset to page 1 when filters change
-  const handleFilterPreset = (id: string) => {
+  const handleFilterPreset = (id: FilterPreset) => {
     setFilterPreset(id);
     setCurrentPage(1);
   };
