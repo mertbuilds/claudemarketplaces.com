@@ -142,7 +142,7 @@ export function Footer() {
 
         <div className="mt-8 pt-8 border-t border-border">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-            <p>Built for the Claude Code community with Claude Code</p>
+            <p>Built for the Claude Code community with Claude Code by <a href="https://x.com/mertduzgun" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">@mertduzgun</a></p>
             <div className="flex items-center gap-3">
               <span>Independent project, not affiliated with Anthropic</span>
             </div>
