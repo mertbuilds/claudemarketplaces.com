@@ -116,6 +116,11 @@ export default function AdvertisePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 mb-4 text-center">
+                <p className="text-sm font-semibold text-primary">
+                  50% off for a limited time
+                </p>
+              </div>
               <div className="grid grid-cols-1 gap-4">
                 {/* All Placements */}
                 <div className="rounded-lg border border-primary bg-primary/5 p-4 space-y-2">
@@ -123,9 +128,10 @@ export default function AdvertisePage() {
                     <h4 className="font-semibold text-foreground">
                       All Placements
                     </h4>
-                    <span className="text-lg font-bold text-primary">
-                      $500/mo
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$500/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$1,000</span>
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Includes every ad type below. Maximum visibility across the
@@ -142,9 +148,10 @@ export default function AdvertisePage() {
                     <h4 className="font-semibold text-foreground">
                       Floating Banner
                     </h4>
-                    <span className="text-lg font-bold text-primary">
-                      $300/mo
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$300/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$600</span>
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Compact floating banner pinned to the bottom-right corner.
@@ -173,9 +180,10 @@ export default function AdvertisePage() {
                     <h4 className="font-semibold text-foreground">
                       Pinned Cards
                     </h4>
-                    <span className="text-lg font-bold text-primary">
-                      $250/mo
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$250/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$500</span>
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Featured cards at the top of listings. First thing users see
@@ -243,9 +251,10 @@ export default function AdvertisePage() {
                     <h4 className="font-semibold text-foreground">
                       In-Feed Cards
                     </h4>
-                    <span className="text-lg font-bold text-primary">
-                      $200/mo
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$200/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$400</span>
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Native cards mixed into marketplace listings. Blends
@@ -329,9 +338,10 @@ export default function AdvertisePage() {
                     <h4 className="font-semibold text-foreground">
                       Job Listings
                     </h4>
-                    <span className="text-lg font-bold text-primary">
-                      $49/mo
-                    </span>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$49/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$99</span>
+                    </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
                     Post AI and developer job openings to reach qualified
