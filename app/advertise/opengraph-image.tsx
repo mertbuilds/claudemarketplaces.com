@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 export const runtime = "edge";
 
 // Image metadata
-export const alt = "Claude Code Marketplaces";
+export const alt = "Advertise - Claude Code Marketplaces";
 export const size = {
   width: 1200,
   height: 630,
@@ -38,7 +38,7 @@ export default async function Image() {
     "https://github.com/mert-duzgun/claudemarketplaces.com/raw/main/public/BBH_Sans_Bartle/BBHSansBartle-Regular.ttf"
   ).then((res) => res.arrayBuffer());
 
-  const description = "Discover Claude Code marketplaces and plugins";
+  const subtitle = "Reach AI developers building with Claude Code";
 
   return new ImageResponse(
     (
@@ -67,10 +67,10 @@ export default async function Image() {
             fontFamily: "BBH Sans Bartle",
           }}
         >
-          CLAUDE CODE MARKETPLACES
+          ADVERTISE WITH US
         </div>
 
-        {/* Tagline */}
+        {/* Subtitle */}
         <div
           style={{
             display: "flex",
@@ -81,7 +81,7 @@ export default async function Image() {
             fontFamily: "JetBrains Mono",
           }}
         >
-          {description}
+          {subtitle}
         </div>
       </div>
     ),
@@ -96,7 +96,7 @@ export default async function Image() {
         },
         {
           name: "JetBrains Mono",
-          data: await loadGoogleFont("JetBrains+Mono", description),
+          data: await loadGoogleFont("JetBrains+Mono", subtitle),
           style: "normal",
           weight: 400,
         },
