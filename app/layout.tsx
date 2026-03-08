@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://claudemarketplaces.com/og-image.png",
+        url: "https://claudemarketplaces.com/opengraph-image?v=2",
         width: 1200,
         height: 630,
         alt: "Claude Code Plugin Marketplace",
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     title: "Claude Code Plugin Marketplace | AI Tools",
     description:
       "Discover powerful plugins, extensions, and tools for Claude AI. Browse curated marketplaces and boost your development workflow.",
-    images: ["https://claudemarketplaces.com/og-image.png"],
+    images: ["https://claudemarketplaces.com/opengraph-image?v=2"],
   },
   robots: {
     index: true,
