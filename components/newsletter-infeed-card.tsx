@@ -9,10 +9,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail } from "lucide-react";
+import { useAdViewTracking, useAdClickHandler } from "@/lib/hooks/use-ad-tracking";
 
 export function NewsletterInFeedCard() {
+  const viewRef = useAdViewTracking("infeed_card_viewed", { card: "newsletter" });
+  const handleClick = useAdClickHandler("infeed_card_clicked", { card: "newsletter" });
+
   return (
-    <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
+    <Card ref={viewRef} onClick={handleClick} className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">

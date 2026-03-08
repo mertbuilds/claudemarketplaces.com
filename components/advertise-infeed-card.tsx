@@ -10,10 +10,14 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Megaphone } from "lucide-react";
+import { useAdViewTracking, useAdClickHandler } from "@/lib/hooks/use-ad-tracking";
 
 export function AdvertiseInFeedCard() {
+  const viewRef = useAdViewTracking("infeed_card_viewed", { card: "advertise" });
+  const handleClick = useAdClickHandler("infeed_card_clicked", { card: "advertise" });
+
   return (
-    <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
+    <Card ref={viewRef} onClick={handleClick} className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
