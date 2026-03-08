@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-import { useOpenPanel } from "@openpanel/nextjs";
 import { useAdViewTracking } from "@/lib/hooks/use-ad-tracking";
 
 const banners = [
@@ -28,7 +27,6 @@ export function FloatingBanner() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [fading, setFading] = useState(false);
   const bannerViewRef = useAdViewTracking("floating_banner_viewed");
-  const { track } = useOpenPanel();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,7 +56,8 @@ export function FloatingBanner() {
             href={banner.href}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => track("floating_banner_clicked", { banner: banner.id })}
+            data-track="floating_banner_clicked"
+            data-banner={banner.id}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
@@ -66,7 +65,8 @@ export function FloatingBanner() {
         ) : (
           <Link
             href={banner.href}
-            onClick={() => track("floating_banner_clicked", { banner: banner.id })}
+            data-track="floating_banner_clicked"
+            data-banner={banner.id}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
