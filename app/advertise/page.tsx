@@ -9,7 +9,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 import { Mail, Users, BarChart3, Megaphone, Check } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -24,44 +24,6 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
-
-const pricingTiers = [
-  {
-    name: "All Placements",
-    price: "$500/mo",
-    description:
-      "Includes every ad type below. Maximum visibility across the entire site.",
-    highlighted: true,
-  },
-  {
-    name: "Floating Banner",
-    price: "$300/mo",
-    description:
-      "Persistent banner visible across all pages. Always in view as users browse.",
-    highlighted: false,
-  },
-  {
-    name: "In-Feed Cards",
-    price: "$250/mo",
-    description:
-      "Native cards mixed into marketplace listings. Blends naturally with content.",
-    highlighted: false,
-  },
-  {
-    name: "Pinned Cards",
-    price: "$200/mo",
-    description:
-      "Featured cards at the top of listings. First thing users see when browsing.",
-    highlighted: false,
-  },
-  {
-    name: "Job Listings",
-    price: "$49/mo",
-    description:
-      "Post AI and developer job openings to reach qualified candidates.",
-    highlighted: false,
-  },
-];
 
 export default function AdvertisePage() {
   return (
@@ -154,35 +116,144 @@ export default function AdvertisePage() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {pricingTiers.map((tier) => (
-                  <div
-                    key={tier.name}
-                    className={cn(
-                      "rounded-lg border p-4 space-y-2",
-                      tier.highlighted
-                        ? "border-primary bg-primary/5 md:col-span-2"
-                        : "border-border"
-                    )}
-                  >
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-semibold text-foreground">
-                        {tier.name}
-                      </h4>
-                      <span className="text-lg font-bold text-primary">
-                        {tier.price}
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {tier.description}
-                    </p>
-                    {tier.highlighted && (
-                      <p className="text-xs font-medium text-primary">
-                        Best value — save over 40% vs. individual placements
-                      </p>
-                    )}
+              <div className="grid grid-cols-1 gap-4">
+                {/* All Placements */}
+                <div className="rounded-lg border border-primary bg-primary/5 p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">All Placements</h4>
+                    <span className="text-lg font-bold text-primary">$500/mo</span>
                   </div>
-                ))}
+                  <p className="text-sm text-muted-foreground">
+                    Includes every ad type below. Maximum visibility across the entire site.
+                  </p>
+                  <p className="text-xs font-medium text-primary">
+                    Best value — save over 40% vs. individual placements
+                  </p>
+                </div>
+
+                {/* Floating Banner */}
+                <div className="rounded-lg border border-border p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">Floating Banner</h4>
+                    <span className="text-lg font-bold text-primary">$300/mo</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Persistent banner visible across all pages. Always in view as users browse.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
+                    <div className="pointer-events-none">
+                      <div className="bg-primary/10 border border-primary/30 rounded-md p-3 flex items-center justify-between gap-3">
+                        <p className="text-xs font-medium text-foreground">Supercharge your AI workflow with AcmeAI — the fastest way to build agents.</p>
+                        <span className="shrink-0 text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-md font-medium">Try Free</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Pinned Cards */}
+                <div className="rounded-lg border border-border p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">Pinned Cards</h4>
+                    <span className="text-lg font-bold text-primary">$250/mo</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Featured cards at the top of listings. First thing users see when browsing.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
+                    <div className="pointer-events-none">
+                      <div className="grid grid-cols-3 gap-2">
+                        {/* Featured/pinned card — first position, highlighted */}
+                        <div className="rounded-lg border border-primary bg-primary/5 p-3 space-y-2">
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="text-sm font-semibold text-foreground">acme/ai-toolkit</p>
+                            <Badge variant="outline" className="text-[10px] shrink-0 border-primary text-primary">Featured</Badge>
+                          </div>
+                          <p className="text-xs text-muted-foreground">Build AI agents faster with pre-built components and templates.</p>
+                          <div className="flex flex-wrap gap-1">
+                            <Badge variant="secondary" className="text-[10px]">ai</Badge>
+                            <Badge variant="secondary" className="text-[10px]">agents</Badge>
+                          </div>
+                        </div>
+                        {/* Placeholder cards */}
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-3/4 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-2/3 bg-muted/60 rounded" />
+                        </div>
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-2/3 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-1/2 bg-muted/60 rounded" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* In-Feed Cards */}
+                <div className="rounded-lg border border-border p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">In-Feed Cards</h4>
+                    <span className="text-lg font-bold text-primary">$200/mo</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Native cards mixed into marketplace listings. Blends naturally with content.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">Preview</p>
+                    <div className="pointer-events-none">
+                      <div className="grid grid-cols-3 gap-2">
+                        {/* Sponsored card — spans 2 rows */}
+                        <div className="row-span-2 rounded-lg border border-border p-3 space-y-2">
+                          <div className="flex items-start justify-between gap-2">
+                            <p className="text-sm font-semibold text-foreground">acme/ai-toolkit</p>
+                            <Badge variant="outline" className="text-[10px] shrink-0">Sponsored</Badge>
+                          </div>
+                          <p className="text-xs text-muted-foreground">Build AI agents faster with pre-built components and templates for Claude Code.</p>
+                          <div className="flex flex-wrap gap-1">
+                            <Badge variant="secondary" className="text-[10px]">ai</Badge>
+                            <Badge variant="secondary" className="text-[10px]">agents</Badge>
+                            <Badge variant="secondary" className="text-[10px]">toolkit</Badge>
+                          </div>
+                        </div>
+                        {/* Placeholder cards */}
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-3/4 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-2/3 bg-muted/60 rounded" />
+                        </div>
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-2/3 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-1/2 bg-muted/60 rounded" />
+                        </div>
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-3/5 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-3/4 bg-muted/60 rounded" />
+                        </div>
+                        <div className="rounded-lg border border-border/50 bg-muted/30 p-3">
+                          <div className="h-2 w-1/2 bg-muted rounded mb-2" />
+                          <div className="h-2 w-full bg-muted/60 rounded mb-1" />
+                          <div className="h-2 w-2/3 bg-muted/60 rounded" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Job Listings */}
+                <div className="rounded-lg border border-border p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">Job Listings</h4>
+                    <span className="text-lg font-bold text-primary">$49/mo</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Post AI and developer job openings to reach qualified candidates.
+                  </p>
+                </div>
               </div>
             </CardContent>
           </Card>
