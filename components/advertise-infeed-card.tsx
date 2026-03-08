@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -10,13 +11,17 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Megaphone } from "lucide-react";
-import { useAdViewTracking } from "@/lib/hooks/use-ad-tracking";
+import { useOpenPanel } from "@openpanel/nextjs";
 
 export function AdvertiseInFeedCard() {
-  const viewRef = useAdViewTracking("infeed_card_viewed", { card: "advertise" });
+  const op = useOpenPanel();
+
+  useEffect(() => {
+    op.track("infeed_card_viewed", { card: "advertise" });
+  }, [op]);
 
   return (
-    <Card ref={viewRef} data-track="infeed_card_clicked" data-card="advertise" className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
+    <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
@@ -24,6 +29,7 @@ export function AdvertiseInFeedCard() {
               <Link
                 href="/advertise"
                 className="after:absolute after:inset-0"
+                onClick={() => op.track("infeed_card_clicked", { card: "advertise" })}
               >
                 Advertise Here
               </Link>
@@ -55,6 +61,7 @@ export function AdvertiseInFeedCard() {
             <Link
               href="/advertise"
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
+              onClick={() => op.track("infeed_card_clicked", { card: "advertise" })}
             >
               Learn more →
             </Link>

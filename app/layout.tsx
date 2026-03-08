@@ -112,7 +112,7 @@ export default function RootLayout({
           scriptUrl="/api/op/op1.js"
           trackScreenViews={true}
           trackOutgoingLinks={false}
-          trackAttributes={true}
+          trackAttributes={false}
         />
         {children}
         <FloatingBanner />

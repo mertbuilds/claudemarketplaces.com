@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
-import { useAdViewTracking } from "@/lib/hooks/use-ad-tracking";
+import { useOpenPanel } from "@openpanel/nextjs";
 
 const banners = [
   {
@@ -26,7 +26,11 @@ export function FloatingBanner() {
   const [dismissed, setDismissed] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [fading, setFading] = useState(false);
-  const bannerViewRef = useAdViewTracking("floating_banner_viewed");
+  const op = useOpenPanel();
+
+  useEffect(() => {
+    op.track("floating_banner_viewed");
+  }, [op]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -44,7 +48,7 @@ export function FloatingBanner() {
   const banner = banners[activeIndex];
 
   return (
-    <div ref={bannerViewRef} className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-5 sm:right-5 z-50 max-w-[384px] bg-background border border-primary/30 rounded-md p-4 flex items-center gap-3 shadow-lg">
+    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-5 sm:right-5 z-50 max-w-[384px] bg-background border border-primary/30 rounded-md p-4 flex items-center gap-3 shadow-lg">
       <div
         className={`flex items-center gap-3 flex-1 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
       >
@@ -56,8 +60,7 @@ export function FloatingBanner() {
             href={banner.href}
             target="_blank"
             rel="noopener noreferrer"
-            data-track="floating_banner_clicked"
-            data-banner={banner.id}
+            onClick={() => op.track("floating_banner_clicked", { banner: banner.id })}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}
@@ -65,8 +68,7 @@ export function FloatingBanner() {
         ) : (
           <Link
             href={banner.href}
-            data-track="floating_banner_clicked"
-            data-banner={banner.id}
+            onClick={() => op.track("floating_banner_clicked", { banner: banner.id })}
             className="shrink-0 text-xs bg-primary text-primary-foreground px-3 py-1 rounded-md font-medium"
           >
             {banner.cta}

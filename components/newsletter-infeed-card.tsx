@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -9,13 +10,17 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail } from "lucide-react";
-import { useAdViewTracking } from "@/lib/hooks/use-ad-tracking";
+import { useOpenPanel } from "@openpanel/nextjs";
 
 export function NewsletterInFeedCard() {
-  const viewRef = useAdViewTracking("infeed_card_viewed", { card: "newsletter" });
+  const op = useOpenPanel();
+
+  useEffect(() => {
+    op.track("infeed_card_viewed", { card: "newsletter" });
+  }, [op]);
 
   return (
-    <Card ref={viewRef} data-track="infeed_card_clicked" data-card="newsletter" className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
+    <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
@@ -25,6 +30,7 @@ export function NewsletterInFeedCard() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="after:absolute after:inset-0"
+                onClick={() => op.track("infeed_card_clicked", { card: "newsletter" })}
               >
                 Tasty Software Newsletter
               </a>
@@ -61,6 +67,7 @@ export function NewsletterInFeedCard() {
               target="_blank"
               rel="noopener noreferrer"
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
+              onClick={() => op.track("infeed_card_clicked", { card: "newsletter" })}
             >
               Subscribe →
             </a>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -8,22 +9,23 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Twitter, Megaphone, Code } from "lucide-react";
-import { useAdViewTracking } from "@/lib/hooks/use-ad-tracking";
+import { useOpenPanel } from "@openpanel/nextjs";
 
 export function FeaturedCards() {
-  const sectionRef = useAdViewTracking("featured_section_viewed");
-  const xFollowRef = useAdViewTracking("featured_card_viewed", { card: "x_follow" });
-  const vinenaRef = useAdViewTracking("featured_card_viewed", { card: "vinena_studio" });
-  const advertiseRef = useAdViewTracking("featured_card_viewed", { card: "advertise" });
+  const op = useOpenPanel();
+
+  useEffect(() => {
+    op.track("featured_section_viewed");
+  }, [op]);
 
   return (
-    <div className="mb-8" ref={sectionRef}>
+    <div className="mb-8">
       <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Card 1: Follow on X */}
-        <Card ref={xFollowRef} data-track="featured_card_clicked" data-card="x_follow" className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Twitter className="h-4 w-4 text-primary" />
@@ -33,6 +35,7 @@ export function FeaturedCards() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
+                  onClick={() => op.track("featured_card_clicked", { card: "x_follow" })}
                 >
                   Follow @mertduzgun
                 </Link>
@@ -48,7 +51,7 @@ export function FeaturedCards() {
         </Card>
 
         {/* Card 2: Vinena Studio */}
-        <Card ref={vinenaRef} data-track="featured_card_clicked" data-card="vinena_studio" className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Code className="h-4 w-4 text-primary" />
@@ -58,6 +61,7 @@ export function FeaturedCards() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
+                  onClick={() => op.track("featured_card_clicked", { card: "vinena_studio" })}
                 >
                   Vinena Studio
                 </a>
@@ -73,7 +77,7 @@ export function FeaturedCards() {
         </Card>
 
         {/* Card 3: Advertise */}
-        <Card ref={advertiseRef} data-track="featured_card_clicked" data-card="advertise" className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Megaphone className="h-4 w-4 text-primary" />
@@ -81,6 +85,7 @@ export function FeaturedCards() {
                 <Link
                   href="/advertise"
                   className="after:absolute after:inset-0"
+                  onClick={() => op.track("featured_card_clicked", { card: "advertise" })}
                 >
                   Advertise Here
                 </Link>
