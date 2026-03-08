@@ -2,7 +2,7 @@
   {
     "id": "huseinaskraba899-jpg-dash0-claude-marketplace-observability/dash0-observability",
     "name": "dash0-observability",
-    "description": "Production-grade OpenTelemetry observability for Claude-powered AI agents. Instruments every Claude API call with GenAI Semantic Convention spans, token usage histograms, and operation duration metrics \u2014 exported to Dash0 via OTLP/gRPC.",
+    "description": "Sidecar observability for every Claude Marketplace plugin. Instruments the Anthropic SDK at the transport layer \u2014 intercepts and traces API calls from anthropics/claude-code, upstash/context7, obra/superpowers, and any MCP server. Token histograms, latency p95, error rates, and distributed traces all flow into an auto-provisioned Dash0 dashboard. Zero changes to observed plugins.",
     "version": "1.0.0",
     "author": {
       "name": "huseinaskraba899-jpg"
@@ -11,7 +11,16 @@
     "marketplace": "huseinaskraba899-jpg-dash0-claude-marketplace-observability",
     "marketplaceUrl": "https://github.com/huseinaskraba899-jpg/dash0-claude-marketplace-observability",
     "category": "observability",
-    "installCommand": "claude skill add huseinaskraba899-jpg/dash0-claude-marketplace-observability:dash0-observability"
+    "installCommand": "claude skill add huseinaskraba899-jpg/dash0-claude-marketplace-observability:dash0-observability",
+    "tags": [
+      "observability",
+      "opentelemetry",
+      "dash0",
+      "tracing",
+      "metrics",
+      "genai",
+      "sidecar"
+    ]
   },
   {
     "id": "payloadcms-payload/payload",
