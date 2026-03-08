@@ -2,7 +2,7 @@
   {
     "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
     "name": "dash0-observability",
-    "description": "Observe every Claude Marketplace plugin as a sidecar \u2014 instruments the Anthropic SDK at the transport layer to capture distributed traces, token usage histograms, and latency metrics across all plugins (claude-code, context7, superpowers, any MCP server) and exports to Dash0 via OTLP/gRPC following GenAI Semantic Conventions.",
+    "description": "The Dash0 MCP Connector for Claude \u2014 the first OpenTelemetry-native connector to bridge AI agent development and enterprise observability. Instruments every Anthropic API call with GenAI Semantic Convention spans and metrics, handles graceful forceFlush for short-lived MCP processes, and auto-provisions a Dash0 dashboard in one command.",
     "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
     "repoSlug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
     "path": ".claude/skills/dash0-observability/skill.md",

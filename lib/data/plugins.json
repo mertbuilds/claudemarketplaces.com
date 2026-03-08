@@ -2,7 +2,7 @@
   {
     "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
     "name": "dash0-observability",
-    "description": "Sidecar observability for every Claude Marketplace plugin. Instruments the Anthropic SDK at the transport layer \u2014 intercepts and traces API calls from anthropics/claude-code, upstash/context7, obra/superpowers, and any MCP server. Token histograms, latency p95, error rates, and distributed traces all flow into an auto-provisioned Dash0 dashboard. Zero changes to observed plugins.",
+    "description": "The Dash0 Observability Connector for Claude agents and MCP servers. Instruments every Anthropic API call with OTel GenAI Semantic Convention spans (gen_ai.usage.input_tokens, gen_ai.client.operation.duration), handles graceful sdk.shutdown()/forceFlush() for short-lived CLI processes, and auto-provisions a Dash0 dashboard via REST API. The reference implementation for OTel-native Claude plugins.",
     "version": "1.0.0",
     "author": {
       "name": "husein-askraba-bridge"
@@ -19,7 +19,8 @@
       "tracing",
       "metrics",
       "genai",
-      "sidecar"
+      "mcp",
+      "connector"
     ]
   },
   {

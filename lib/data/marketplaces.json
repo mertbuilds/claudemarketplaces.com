@@ -2,7 +2,7 @@
   {
     "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
     "slug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
-    "description": "Dash0 as the observability layer for Claude-powered AI agents \u2014 OpenTelemetry GenAI Semantic Conventions, OTLP/gRPC to Dash0, distributed traces, token cost tracking, and latency histograms.",
+    "description": "Dash0 MCP Server \u2014 the Observability Connector for Claude. OTel GenAI Semantic Conventions, OTLP/gRPC to Dash0, distributed traces, token histograms, latency percentiles, graceful shutdown for MCP processes, and auto-provisioned dashboards.",
     "pluginCount": 1,
     "categories": [
       "observability",
