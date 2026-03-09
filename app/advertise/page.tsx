@@ -118,7 +118,7 @@ export default function AdvertisePage() {
             <CardContent>
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 mb-4 text-center">
                 <p className="text-sm font-semibold text-primary">
-                  50% off for a limited time
+                  25% off for a limited time
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-4">
@@ -129,8 +129,8 @@ export default function AdvertisePage() {
                       All Placements
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$500/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$1,000</span>
+                      <span className="text-lg font-bold text-primary">$900/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$1,200</span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -138,40 +138,8 @@ export default function AdvertisePage() {
                     entire site.
                   </p>
                   <p className="text-xs font-medium text-primary">
-                    Best value — save over 40% vs. individual placements
+                    Best value — save 25% vs. individual placements
                   </p>
-                </div>
-
-                {/* Floating Banner */}
-                <div className="rounded-lg border border-border p-4 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">
-                      Floating Banner
-                    </h4>
-                    <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$300/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$600</span>
-                    </div>
-                  </div>
-                  <p className="text-sm text-muted-foreground">
-                    Compact floating banner pinned to the bottom-right corner.
-                    Always visible as users browse.
-                  </p>
-                  <div className="mt-3 pt-3 border-t border-border">
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
-                      Preview
-                    </p>
-                    <div className="pointer-events-none relative bg-muted/20 rounded-md border border-border/50 h-32">
-                      <div className="absolute bottom-2 right-2 max-w-[260px] bg-primary/10 border border-primary/30 rounded-md p-2.5 flex items-center gap-2 shadow-sm">
-                        <p className="text-[11px] font-medium text-foreground leading-tight">
-                          Supercharge your AI workflow with AcmeAI
-                        </p>
-                        <span className="shrink-0 text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-md font-medium">
-                          Try Free
-                        </span>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Pinned Cards */}
@@ -181,8 +149,8 @@ export default function AdvertisePage() {
                       Pinned Cards
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$250/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$500</span>
+                      <span className="text-lg font-bold text-primary">$450/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$600</span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -245,6 +213,38 @@ export default function AdvertisePage() {
                   </div>
                 </div>
 
+                {/* Floating Banner */}
+                <div className="rounded-lg border border-border p-4 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-semibold text-foreground">
+                      Floating Banner
+                    </h4>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-lg font-bold text-primary">$375/mo</span>
+                      <span className="text-sm text-muted-foreground line-through">$500</span>
+                    </div>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    Compact floating banner pinned to the bottom-right corner.
+                    Always visible as users browse.
+                  </p>
+                  <div className="mt-3 pt-3 border-t border-border">
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
+                      Preview
+                    </p>
+                    <div className="pointer-events-none relative bg-muted/20 rounded-md border border-border/50 h-32">
+                      <div className="absolute bottom-2 right-2 max-w-[260px] bg-primary/10 border border-primary/30 rounded-md p-2.5 flex items-center gap-2 shadow-sm">
+                        <p className="text-[11px] font-medium text-foreground leading-tight">
+                          Supercharge your AI workflow with AcmeAI
+                        </p>
+                        <span className="shrink-0 text-[10px] bg-primary text-primary-foreground px-2 py-0.5 rounded-md font-medium">
+                          Try Free
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* In-Feed Cards */}
                 <div className="rounded-lg border border-border p-4 space-y-2">
                   <div className="flex items-center justify-between">
@@ -252,13 +252,13 @@ export default function AdvertisePage() {
                       In-Feed Cards
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$200/mo</span>
+                      <span className="text-lg font-bold text-primary">$300/mo</span>
                       <span className="text-sm text-muted-foreground line-through">$400</span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Native cards mixed into marketplace listings. Blends
-                    naturally with content.
+                    Native cards mixed into marketplace and skill listings.
+                    Blends naturally with content.
                   </p>
                   <div className="mt-3 pt-3 border-t border-border">
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-2">
@@ -339,7 +339,7 @@ export default function AdvertisePage() {
                       Job Listings
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$49/mo</span>
+                      <span className="text-lg font-bold text-primary">$75/mo</span>
                       <span className="text-sm text-muted-foreground line-through">$99</span>
                     </div>
                   </div>
