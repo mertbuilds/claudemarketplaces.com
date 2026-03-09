@@ -8,7 +8,8 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { Twitter, Megaphone, Code } from "lucide-react";
+import Image from "next/image";
+import { Twitter, Megaphone } from "lucide-react";
 export function FeaturedCards() {
   useEffect(() => {
     const id = setInterval(() => {
@@ -26,7 +27,33 @@ export function FeaturedCards() {
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: Follow on X */}
+        {/* Card 1: Dirstarter */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+          <CardHeader className="flex flex-col justify-between h-full">
+            <div className="flex items-center gap-2">
+              <Image src="/dirstarter-logo.svg" alt="Dirstarter" width={16} height={16} className="h-4 w-4" />
+              <CardTitle className="text-base">
+                <a
+                  href="https://dirstarter.com?atp=vinena"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="after:absolute after:inset-0"
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "dirstarter" }); }}
+                >
+                  Dirstarter
+                </a>
+              </CardTitle>
+            </div>
+            <CardDescription className="text-sm">
+              Ship directory websites in days, not months. Production-ready Next.js template — pay once, launch unlimited.
+            </CardDescription>
+            <span className="text-sm font-medium text-primary hover:underline mt-auto">
+              Get Dirstarter →
+            </span>
+          </CardHeader>
+        </Card>
+
+        {/* Card 2: Follow on X */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
@@ -48,32 +75,6 @@ export function FeaturedCards() {
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
               Follow on X →
-            </span>
-          </CardHeader>
-        </Card>
-
-        {/* Card 2: Vinena Studio */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
-          <CardHeader className="flex flex-col justify-between h-full">
-            <div className="flex items-center gap-2">
-              <Code className="h-4 w-4 text-primary" />
-              <CardTitle className="text-base">
-                <a
-                  href="https://vinena.studio?referrer=claudemarketplaces.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "vinena_studio" }); }}
-                >
-                  Vinena Studio
-                </a>
-              </CardTitle>
-            </div>
-            <CardDescription className="text-sm">
-              AI-native engineering studio — from ex OpenPurpose and Atölye15 engineers.
-            </CardDescription>
-            <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Visit vinena.studio →
             </span>
           </CardHeader>
         </Card>
