@@ -9,7 +9,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { Twitter, Megaphone } from "lucide-react";
+import { Megaphone } from "lucide-react";
 export function FeaturedCards() {
   useEffect(() => {
     const id = setInterval(() => {
@@ -53,28 +53,28 @@ export function FeaturedCards() {
           </CardHeader>
         </Card>
 
-        {/* Card 2: Follow on X */}
+        {/* Card 2: Railway */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Twitter className="h-4 w-4 text-primary" />
+              <Image src="/railway-logo.svg" alt="Railway" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
-                <Link
-                  href="https://x.com/mertduzgun"
+                <a
+                  href="https://railway.com?referralCode=vinena"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "x_follow" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "railway" }); }}
                 >
-                  Follow @mertduzgun
-                </Link>
+                  Railway
+                </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Stay updated with the latest Claude plugins and marketplace news.
+              Deploy apps, databases, and infrastructure in seconds. The intelligent cloud platform that just works.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Follow on X →
+              Try Railway →
             </span>
           </CardHeader>
         </Card>
