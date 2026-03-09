@@ -118,7 +118,7 @@ export default function AdvertisePage() {
             <CardContent>
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 mb-4 text-center">
                 <p className="text-sm font-semibold text-primary">
-                  25% off for a limited time
+                  25% off for the first month
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-4">
@@ -129,8 +129,12 @@ export default function AdvertisePage() {
                       All Placements
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$900/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$1,200</span>
+                      <span className="text-lg font-bold text-primary">
+                        $900/mo
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        $1,200
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -149,8 +153,12 @@ export default function AdvertisePage() {
                       Pinned Cards
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$450/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$600</span>
+                      <span className="text-lg font-bold text-primary">
+                        $450/mo
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        $600
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -220,8 +228,12 @@ export default function AdvertisePage() {
                       Floating Banner
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$375/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$500</span>
+                      <span className="text-lg font-bold text-primary">
+                        $375/mo
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        $500
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -252,8 +264,12 @@ export default function AdvertisePage() {
                       In-Feed Cards
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$300/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$400</span>
+                      <span className="text-lg font-bold text-primary">
+                        $300/mo
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        $400
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
@@ -339,8 +355,12 @@ export default function AdvertisePage() {
                       Job Listings
                     </h4>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-lg font-bold text-primary">$75/mo</span>
-                      <span className="text-sm text-muted-foreground line-through">$99</span>
+                      <span className="text-lg font-bold text-primary">
+                        $75/mo
+                      </span>
+                      <span className="text-sm text-muted-foreground line-through">
+                        $99
+                      </span>
                     </div>
                   </div>
                   <p className="text-sm text-muted-foreground">
