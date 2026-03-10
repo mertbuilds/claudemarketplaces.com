@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -11,18 +11,26 @@ import {
 import Image from "next/image";
 import { Megaphone } from "lucide-react";
 export function FeaturedCards() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const id = setInterval(() => {
-      if (typeof window.op === "function") {
-        window.op!("track", "featured_section_viewed");
-        clearInterval(id);
-      }
-    }, 200);
-    return () => clearInterval(id);
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && typeof window.op === "function") {
+          window.op!("track", "featured_section_viewed");
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="mb-8">
+    <div ref={sectionRef} className="mb-8">
       <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
         Featured
       </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   Card,
   CardHeader,
@@ -11,18 +11,26 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Mail } from "lucide-react";
 export function NewsletterInFeedCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const id = setInterval(() => {
-      if (typeof window.op === "function") {
-        window.op!("track", "infeed_card_viewed", { card: "newsletter" });
-        clearInterval(id);
-      }
-    }, 200);
-    return () => clearInterval(id);
+    const el = cardRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && typeof window.op === "function") {
+          window.op!("track", "infeed_card_viewed", { card: "newsletter" });
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <Card className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
+    <Card ref={cardRef} className="relative h-full bg-white border-primary transition-all hover:shadow-lg overflow-auto">
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
