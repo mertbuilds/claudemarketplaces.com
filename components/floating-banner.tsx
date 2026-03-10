@@ -5,10 +5,10 @@ import Link from "next/link";
 import { X } from "lucide-react";
 const banners = [
   {
-    id: "goilerplate",
-    text: "Goilerplate — production-ready Go SaaS boilerplate",
+    id: "supastarter",
+    text: "supastarter — production-ready SaaS starter kit for Next.js",
     cta: "Try it",
-    href: "https://goilerplate.com?atp=vinena",
+    href: "https://supastarter.dev?atp=vinena",
     external: true,
   },
   {

@@ -33,28 +33,28 @@ export function FeaturedCards() {
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: Goilerplate */}
+        {/* Card 1: supastarter */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Image src="/go-gopher.svg" alt="Go Gopher" width={16} height={16} className="h-4 w-4" />
+              <Image src="/supastarter-logo.svg" alt="supastarter" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://goilerplate.com?atp=vinena"
+                  href="https://supastarter.dev?atp=vinena"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "goilerplate" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "supastarter" }); }}
                 >
-                  Goilerplate
+                  supastarter
                 </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Production-ready Go boilerplate for SaaS. Auth, billing, emails, and more — save 300+ hours of setup.
+              Production-ready SaaS starter kit for Next.js and Nuxt. Auth, billing, i18n, multi-tenancy — save months of setup.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Get Goilerplate →
+              Get supastarter →
             </span>
           </CardHeader>
         </Card>
