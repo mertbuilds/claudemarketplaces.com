@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
 import {
   Card,
   CardHeader,
@@ -9,7 +8,6 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Image from "next/image";
-import { Megaphone } from "lucide-react";
 export function FeaturedCards() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -35,28 +33,28 @@ export function FeaturedCards() {
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: Dirstarter */}
+        {/* Card 1: Goilerplate */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Image src="/dirstarter-logo.svg" alt="Dirstarter" width={16} height={16} className="h-4 w-4" />
+              <Image src="/go-gopher.svg" alt="Go Gopher" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://dirstarter.com?atp=vinena"
+                  href="https://goilerplate.com?atp=vinena"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "dirstarter" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "goilerplate" }); }}
                 >
-                  Dirstarter
+                  Goilerplate
                 </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Ship directory websites in days, not months. Production-ready Next.js template — pay once, launch unlimited.
+              Production-ready Go boilerplate for SaaS. Auth, billing, emails, and more — save 300+ hours of setup.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Get Dirstarter →
+              Get Goilerplate →
             </span>
           </CardHeader>
         </Card>
@@ -87,27 +85,28 @@ export function FeaturedCards() {
           </CardHeader>
         </Card>
 
-        {/* Card 3: Advertise */}
+        {/* Card 3: Dirstarter */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Megaphone className="h-4 w-4 text-primary" />
+              <Image src="/dirstarter-logo.svg" alt="Dirstarter" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
-                <Link
-                  href="/advertise"
+                <a
+                  href="https://dirstarter.com?atp=vinena"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "advertise" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "dirstarter" }); }}
                 >
-                  Advertise Here
-                </Link>
+                  Dirstarter
+                </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Promote your developer tool or service to thousands of Claude Code
-              users.
+              Ship directory websites in days, not months. Production-ready Next.js template — pay once, launch unlimited.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Learn more →
+              Get Dirstarter →
             </span>
           </CardHeader>
         </Card>

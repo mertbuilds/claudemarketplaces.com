@@ -5,10 +5,10 @@ import Link from "next/link";
 import { X } from "lucide-react";
 const banners = [
   {
-    id: "x_follow",
-    text: "Follow @mertduzgun for updates",
-    cta: "Follow",
-    href: "https://x.com/mertduzgun",
+    id: "goilerplate",
+    text: "Goilerplate — production-ready Go SaaS boilerplate",
+    cta: "Try it",
+    href: "https://goilerplate.com?atp=vinena",
     external: true,
   },
   {

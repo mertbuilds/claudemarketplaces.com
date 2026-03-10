@@ -2,8 +2,8 @@
 
 import { Skill } from "@/lib/types";
 import { SkillCard } from "@/components/skill-card";
+import { GoilerplateInFeedCard } from "@/components/goilerplate-infeed-card";
 import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
-import { AdvertiseInFeedCard } from "@/components/advertise-infeed-card";
 
 interface SkillsGridProps {
   skills: Skill[];
@@ -24,26 +24,26 @@ export function SkillsGrid({ skills, newsletterSeed }: SkillsGridProps) {
     bottomRowStart + Math.floor(newsletterSeed[1] * (totalSlots - bottomRowStart));
 
   const positions = [topPos, bottomPos];
+  const infeedCards = [
+    <GoilerplateInFeedCard key="goilerplate-card" />,
+    <NewsletterInFeedCard key="newsletter-card" />,
+  ];
+
   const items: React.ReactNode[] = [];
   let inserted = 0;
 
   skills.forEach((skill, index) => {
     const currentIndex = index + inserted;
-    if (inserted < 2) {
-      if (currentIndex === positions[0] || currentIndex === positions[1]) {
-        items.push(
-          inserted === 0
-            ? <NewsletterInFeedCard key="newsletter-card" />
-            : <AdvertiseInFeedCard key="advertise-card" />
-        );
-        inserted++;
-      }
+    if (inserted < 2 && positions.includes(currentIndex)) {
+      items.push(infeedCards[inserted]);
+      inserted++;
     }
     items.push(<SkillCard key={skill.id} skill={skill} />);
   });
 
-  if (inserted < 2) {
-    items.push(<AdvertiseInFeedCard key="advertise-card" />);
+  while (inserted < 2) {
+    items.push(infeedCards[inserted]);
+    inserted++;
   }
 
   return (

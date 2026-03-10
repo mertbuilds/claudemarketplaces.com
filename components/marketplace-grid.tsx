@@ -2,8 +2,8 @@
 
 import { Marketplace } from "@/lib/types";
 import { MarketplaceCard } from "@/components/marketplace-card";
+import { GoilerplateInFeedCard } from "@/components/goilerplate-infeed-card";
 import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
-import { AdvertiseInFeedCard } from "@/components/advertise-infeed-card";
 
 interface MarketplaceGridProps {
   marketplaces: Marketplace[];
@@ -24,30 +24,28 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed }: MarketplaceGri
     bottomRowStart + Math.floor(newsletterSeed[1] * (totalSlots - bottomRowStart));
 
   const positions = [topPos, bottomPos];
+  const infeedCards = [
+    <GoilerplateInFeedCard key="goilerplate-card" />,
+    <NewsletterInFeedCard key="newsletter-card" />,
+  ];
 
   const items: React.ReactNode[] = [];
   let inserted = 0;
 
   marketplaces.forEach((marketplace, index) => {
     const currentIndex = index + inserted;
-    if (inserted < 2) {
-      if (currentIndex === positions[0] || currentIndex === positions[1]) {
-        items.push(
-          inserted === 0
-            ? <NewsletterInFeedCard key="newsletter-card" />
-            : <AdvertiseInFeedCard key="advertise-card" />
-        );
-        inserted++;
-      }
+    if (inserted < 2 && positions.includes(currentIndex)) {
+      items.push(infeedCards[inserted]);
+      inserted++;
     }
     items.push(
       <MarketplaceCard key={marketplace.repo} marketplace={marketplace} />
     );
   });
 
-  // If second card hasn't been inserted yet (position was past all items)
-  if (inserted < 2) {
-    items.push(<AdvertiseInFeedCard key="advertise-card" />);
+  while (inserted < 2) {
+    items.push(infeedCards[inserted]);
+    inserted++;
   }
 
   return (
