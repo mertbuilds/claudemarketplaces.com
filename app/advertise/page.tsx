@@ -118,7 +118,10 @@ export default function AdvertisePage() {
             <CardContent>
               <div className="rounded-lg border border-primary/30 bg-primary/5 p-3 mb-4 text-center">
                 <p className="text-sm font-semibold text-primary">
-                  25% off for the first month
+                  25% off for the first month with code{" "}
+                  <code className="bg-primary/10 px-1.5 py-0.5 rounded text-primary font-bold">
+                    EARLYBIRD
+                  </code>
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-4">
@@ -144,6 +147,17 @@ export default function AdvertisePage() {
                   <p className="text-xs font-medium text-primary">
                     Best value — save 25% vs. individual placements
                   </p>
+                  <div className="flex justify-end">
+                  <Button size="sm" asChild>
+                    <a
+                      href="https://vinena.lemonsqueezy.com/checkout/buy/014f30de-3215-4f7c-874b-525e8ce8a62d"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </Button>
+                  </div>
                 </div>
 
                 {/* Pinned Cards */}
@@ -219,6 +233,17 @@ export default function AdvertisePage() {
                       </div>
                     </div>
                   </div>
+                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
+                  <Button size="sm" asChild>
+                    <a
+                      href="https://vinena.lemonsqueezy.com/checkout/buy/b913dcd2-0882-40e0-88de-d7dcd020be12"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </Button>
+                  </div>
                 </div>
 
                 {/* Floating Banner */}
@@ -254,6 +279,17 @@ export default function AdvertisePage() {
                         </span>
                       </div>
                     </div>
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
+                  <Button size="sm" asChild>
+                    <a
+                      href="https://vinena.lemonsqueezy.com/checkout/buy/4e1e19ee-cf01-47ef-b648-0787e5d75824"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </Button>
                   </div>
                 </div>
 
@@ -346,6 +382,17 @@ export default function AdvertisePage() {
                       </div>
                     </div>
                   </div>
+                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
+                  <Button size="sm" asChild>
+                    <a
+                      href="https://vinena.lemonsqueezy.com/checkout/buy/3089afc8-406a-4527-94ba-4bac33378fe7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </Button>
+                  </div>
                 </div>
 
                 {/* Job Listings */}
@@ -367,6 +414,17 @@ export default function AdvertisePage() {
                     Post AI and developer job openings to reach qualified
                     candidates.
                   </p>
+                  <div className="flex justify-end">
+                  <Button size="sm" asChild>
+                    <a
+                      href="https://vinena.lemonsqueezy.com/checkout/buy/cb2daedf-c722-4c84-a5e9-c73ea375141f"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Now
+                    </a>
+                  </Button>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -382,17 +440,17 @@ export default function AdvertisePage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Ready to reach AI developers? Get in touch and we&apos;ll set up
-                your campaign. We&apos;re happy to discuss custom packages and
-                answer any questions about our audience.
+                Pick a placement above to get started instantly. Need a custom
+                package or have questions about our audience? Reach out and
+                we&apos;ll be happy to help.
               </p>
               <Button variant="default" asChild>
                 <a
-                  href="mailto:mert@duzgun.dev?subject=Advertising on Claude Code Marketplaces"
+                  href="mailto:mert@vinena.studio?subject=Advertising on Claude Code Marketplaces"
                   className="flex items-center gap-2"
                 >
                   <Mail className="h-4 w-4" />
-                  Contact: mert@duzgun.dev
+                  Contact: mert@vinena.studio
                 </a>
               </Button>
             </CardContent>

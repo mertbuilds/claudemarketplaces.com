@@ -231,10 +231,10 @@ export default function PrivacyPage() {
               </p>
               <p className="text-sm">
                 <a
-                  href="mailto:mert@duzgun.dev?subject=Privacy Policy Question"
+                  href="mailto:mert@vinena.studio?subject=Privacy Policy Question"
                   className="text-primary hover:underline"
                 >
-                  mert@duzgun.dev
+                  mert@vinena.studio
                 </a>
               </p>
             </CardContent>

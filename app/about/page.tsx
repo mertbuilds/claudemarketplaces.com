@@ -254,11 +254,11 @@ export default function AboutPage() {
               </p>
               <Button variant="outline" asChild>
                 <a
-                  href="mailto:mert@duzgun.dev?subject=Marketplace Validation Issue"
+                  href="mailto:mert@vinena.studio?subject=Marketplace Validation Issue"
                   className="flex items-center gap-2"
                 >
                   <Mail className="h-4 w-4" />
-                  Contact: mert@duzgun.dev
+                  Contact: mert@vinena.studio
                 </a>
               </Button>
             </CardContent>

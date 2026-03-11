@@ -84,7 +84,7 @@ Site: https://claudemarketplaces.com
 Status: Active, Daily Updates
 Type: Directory, Catalog, Discovery Tool
 Open Source: https://github.com/mert-duzgun/claudemarketplaces.com
-Contact: mert@duzgun.dev
+Contact: mert@vinena.studio
 Affiliation: Independent (not affiliated with Anthropic)
 Data Source: GitHub API (public repositories)
 Privacy: No user data collection, analytics via Vercel
@@ -145,5 +145,5 @@ The site automatically updates daily. New marketplaces appear within 24 hours of
 
 ---
 Last Updated: 2025
-Maintained by: mert@duzgun.dev
+Maintained by: mert@vinena.studio
 Built with Claude Code
