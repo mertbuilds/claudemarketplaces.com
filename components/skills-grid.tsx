@@ -2,7 +2,7 @@
 
 import { Skill } from "@/lib/types";
 import { SkillCard } from "@/components/skill-card";
-import { SupastarterInFeedCard } from "@/components/supastarter-infeed-card";
+import { IdeabrowserInFeedCard } from "@/components/ideabrowser-infeed-card";
 import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
 
 interface SkillsGridProps {
@@ -25,7 +25,7 @@ export function SkillsGrid({ skills, newsletterSeed }: SkillsGridProps) {
 
   const positions = [topPos, bottomPos];
   const infeedCards = [
-    <SupastarterInFeedCard key="supastarter-card" />,
+    <IdeabrowserInFeedCard key="ideabrowser-card" />,
     <NewsletterInFeedCard key="newsletter-card" />,
   ];
 

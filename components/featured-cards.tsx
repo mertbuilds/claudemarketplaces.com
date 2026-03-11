@@ -33,8 +33,34 @@ export function FeaturedCards() {
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: supastarter */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+        {/* Card 1: Ideabrowser */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+          <CardHeader className="flex flex-col justify-between h-full">
+            <div className="flex items-center gap-2">
+              <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
+              <CardTitle className="text-base">
+                <a
+                  href="https://ideabrowser.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="after:absolute after:inset-0 after:cursor-pointer"
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser" }); }}
+                >
+                  ideabrowser.com
+                </a>
+              </CardTitle>
+            </div>
+            <CardDescription className="text-sm">
+              Find trending startup ideas with real demand. Launch with a team of AI agents.
+            </CardDescription>
+            <span className="text-sm font-medium text-primary hover:underline mt-auto">
+              Get trending startup ideas →
+            </span>
+          </CardHeader>
+        </Card>
+
+        {/* Card 2: supastarter */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Image src="/supastarter-logo.svg" alt="supastarter" width={16} height={16} className="h-4 w-4" />
@@ -43,7 +69,7 @@ export function FeaturedCards() {
                   href="https://supastarter.dev?atp=vinena"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="after:absolute after:inset-0"
+                  className="after:absolute after:inset-0 after:cursor-pointer"
                   onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "supastarter" }); }}
                 >
                   supastarter
@@ -59,54 +85,28 @@ export function FeaturedCards() {
           </CardHeader>
         </Card>
 
-        {/* Card 2: Railway */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
+        {/* Card 3: Ideabrowser Newsletter */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Image src="/railway-logo.svg" alt="Railway" width={16} height={16} className="h-4 w-4" />
+              <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://railway.com?referralCode=vinena"
+                  href="https://ideabrowser.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "railway" }); }}
+                  className="after:absolute after:inset-0 after:cursor-pointer"
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser-newsletter" }); }}
                 >
-                  Railway
+                  Ideabrowser Newsletter
                 </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Deploy apps, databases, and infrastructure in seconds. The intelligent cloud platform that just works.
+              Get free trending startup ideas you can build.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Try Railway →
-            </span>
-          </CardHeader>
-        </Card>
-
-        {/* Card 3: Dirstarter */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5">
-          <CardHeader className="flex flex-col justify-between h-full">
-            <div className="flex items-center gap-2">
-              <Image src="/dirstarter-logo.svg" alt="Dirstarter" width={16} height={16} className="h-4 w-4" />
-              <CardTitle className="text-base">
-                <a
-                  href="https://dirstarter.com?atp=vinena"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="after:absolute after:inset-0"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "dirstarter" }); }}
-                >
-                  Dirstarter
-                </a>
-              </CardTitle>
-            </div>
-            <CardDescription className="text-sm">
-              Ship directory websites in days, not months. Production-ready Next.js template — pay once, launch unlimited.
-            </CardDescription>
-            <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Get Dirstarter →
+              Show me today&apos;s idea →
             </span>
           </CardHeader>
         </Card>

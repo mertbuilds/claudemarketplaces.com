@@ -2,7 +2,7 @@
 
 import { Marketplace } from "@/lib/types";
 import { MarketplaceCard } from "@/components/marketplace-card";
-import { SupastarterInFeedCard } from "@/components/supastarter-infeed-card";
+import { IdeabrowserInFeedCard } from "@/components/ideabrowser-infeed-card";
 import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
 
 interface MarketplaceGridProps {
@@ -25,7 +25,7 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed }: MarketplaceGri
 
   const positions = [topPos, bottomPos];
   const infeedCards = [
-    <SupastarterInFeedCard key="supastarter-card" />,
+    <IdeabrowserInFeedCard key="ideabrowser-card" />,
     <NewsletterInFeedCard key="newsletter-card" />,
   ];
 

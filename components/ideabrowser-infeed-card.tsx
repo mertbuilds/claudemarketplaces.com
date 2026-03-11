@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-export function NewsletterInFeedCard() {
+export function IdeabrowserInFeedCard() {
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function NewsletterInFeedCard() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && typeof window.op === "function") {
-          window.op!("track", "infeed_card_viewed", { card: "ideabrowser-newsletter" });
+          window.op!("track", "infeed_card_viewed", { card: "ideabrowser" });
           observer.disconnect();
         }
       },
@@ -41,18 +41,18 @@ export function NewsletterInFeedCard() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="after:absolute after:inset-0"
-                onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "ideabrowser-newsletter" }); }}
+                onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "ideabrowser" }); }}
               >
-                Ideabrowser Newsletter
+                ideabrowser.com
               </a>
             </CardTitle>
             <Badge variant="outline" className="shrink-0 text-xs">
-              Newsletter
+              Sponsored
             </Badge>
           </div>
         </div>
         <CardDescription className="line-clamp-3">
-          Get free trending startup ideas you can build.
+          Find trending startup ideas with real demand. Launch with a team of AI agents.
         </CardDescription>
       </CardHeader>
       <CardContent className="mt-auto">
@@ -65,7 +65,7 @@ export function NewsletterInFeedCard() {
               ai agents
             </Badge>
             <Badge variant="secondary" className="text-xs capitalize">
-              newsletter
+              ideas
             </Badge>
           </div>
           <div className="mt-2 pt-3 border-t border-border">
@@ -74,9 +74,9 @@ export function NewsletterInFeedCard() {
               target="_blank"
               rel="noopener noreferrer"
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
-              onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "ideabrowser-newsletter" }); }}
+              onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "ideabrowser" }); }}
             >
-              Show me today&apos;s idea →
+              Get trending startup ideas →
             </a>
           </div>
         </div>

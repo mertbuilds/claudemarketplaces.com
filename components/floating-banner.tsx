@@ -5,18 +5,18 @@ import Link from "next/link";
 import { X } from "lucide-react";
 const banners = [
   {
+    id: "ideabrowser",
+    text: "ideabrowser.com — find trending startup ideas with real demand",
+    cta: "Try it",
+    href: "https://ideabrowser.com",
+    external: true,
+  },
+  {
     id: "supastarter",
     text: "supastarter — production-ready SaaS starter kit for Next.js",
     cta: "Try it",
     href: "https://supastarter.dev?atp=vinena",
     external: true,
-  },
-  {
-    id: "advertise",
-    text: "Promote your product here",
-    cta: "Advertise",
-    href: "/advertise",
-    external: false,
   },
 ];
 
