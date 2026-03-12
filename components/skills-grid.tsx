@@ -8,9 +8,20 @@ import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
 interface SkillsGridProps {
   skills: Skill[];
   newsletterSeed: [number, number];
+  isSearching?: boolean;
 }
 
-export function SkillsGrid({ skills, newsletterSeed }: SkillsGridProps) {
+export function SkillsGrid({ skills, newsletterSeed, isSearching }: SkillsGridProps) {
+  if (isSearching) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {skills.map((skill) => (
+          <SkillCard key={skill.id} skill={skill} />
+        ))}
+      </div>
+    );
+  }
+
   const cols = 3;
   const totalSlots = skills.length + 2;
   const totalRows = Math.ceil(totalSlots / cols);

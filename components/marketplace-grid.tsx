@@ -8,9 +8,20 @@ import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
 interface MarketplaceGridProps {
   marketplaces: Marketplace[];
   newsletterSeed: [number, number];
+  isSearching?: boolean;
 }
 
-export function MarketplaceGrid({ marketplaces, newsletterSeed }: MarketplaceGridProps) {
+export function MarketplaceGrid({ marketplaces, newsletterSeed, isSearching }: MarketplaceGridProps) {
+  if (isSearching) {
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {marketplaces.map((marketplace) => (
+          <MarketplaceCard key={marketplace.repo} marketplace={marketplace} />
+        ))}
+      </div>
+    );
+  }
+
   const cols = 3;
   const totalSlots = marketplaces.length + 2;
   const totalRows = Math.ceil(totalSlots / cols);

@@ -76,7 +76,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
       {/* Skills Grid */}
       {paginatedSkills.length > 0 ? (
         <>
-          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} />
+          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (

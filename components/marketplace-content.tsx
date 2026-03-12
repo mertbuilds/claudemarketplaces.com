@@ -130,7 +130,7 @@ export function MarketplaceContent({
       {/* Marketplace Grid */}
       {paginatedMarketplaces.length > 0 ? (
         <>
-          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} />
+          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (
