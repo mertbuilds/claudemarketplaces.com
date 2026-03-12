@@ -6,6 +6,7 @@ import { useDebounce } from "@/lib/hooks/use-debounce";
 
 export function useSkillsFilters(skills: Skill[]) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<"stars" | "votes">("stars");
 
   // Debounce search query for better filtering performance
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
@@ -25,17 +26,22 @@ export function useSkillsFilters(skills: Skill[]) {
       );
     }
 
-    // Sort by stars (highest first)
+    // Sort by votes or stars
     return filtered.sort((a, b) => {
+      if (sortBy === "votes") {
+        return (b.voteCount ?? 0) - (a.voteCount ?? 0);
+      }
       const starsA = a.stars ?? 0;
       const starsB = b.stars ?? 0;
       return starsB - starsA;
     });
-  }, [skills, debouncedSearchQuery]);
+  }, [skills, debouncedSearchQuery, sortBy]);
 
   return {
     searchQuery,
     setSearchQuery,
     filteredSkills,
+    sortBy,
+    setSortBy,
   };
 }

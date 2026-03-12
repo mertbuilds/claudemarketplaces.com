@@ -10,6 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Plugin } from "@/lib/types";
 import { Copy, Check, ExternalLink } from "lucide-react";
+import { VoteButton } from "@/components/vote-button";
 import { useState } from "react";
 
 interface PluginCardProps {
@@ -93,12 +94,14 @@ export function PluginCard({ plugin }: PluginCardProps) {
             </div>
           )}
 
-          {/* Author */}
-          {plugin.author?.name && (
-            <p className="text-xs text-muted-foreground">
-              by {plugin.author.name}
-            </p>
-          )}
+          <div className="flex items-center justify-between">
+            {plugin.author?.name && (
+              <p className="text-xs text-muted-foreground">
+                by {plugin.author.name}
+              </p>
+            )}
+            <VoteButton itemType="plugin" itemId={plugin.id} initialVoteCount={plugin.voteCount} />
+          </div>
 
           {/* Install Command */}
           <div className="mt-2 pt-3 border-t border-border">

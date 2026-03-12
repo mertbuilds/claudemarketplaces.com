@@ -94,6 +94,7 @@ export async function validateMarketplace(
     discoveredAt: new Date().toISOString(),
     lastUpdated: new Date().toISOString(),
     source: "auto",
+    voteCount: 0,
   };
 
   return {

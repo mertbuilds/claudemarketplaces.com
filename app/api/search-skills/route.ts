@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { searchSkillFiles, fetchSkillFile } from "@/lib/search/github-skills-search";
 import { validateSkills } from "@/lib/search/skills-validator";
-import { mergeSkills, mergeSkillRepos } from "@/lib/search/skills-storage";
+import { mergeSkills, mergeSkillRepos } from "@/lib/search/supabase-storage";
 import { batchFetchStars } from "@/lib/search/github-stars";
 import { batchExecute } from "@/lib/search/rate-limit";
 import { repoToSlug } from "@/lib/utils/slug";
@@ -145,6 +145,7 @@ export async function GET(request: NextRequest) {
         starsFetchedAt: starMap.get(repo) !== null ? new Date().toISOString() : undefined,
         discoveredAt: firstSkill.discoveredAt,
         source: "auto",
+        voteCount: 0,
       });
     }
 

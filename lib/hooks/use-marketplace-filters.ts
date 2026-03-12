@@ -19,7 +19,9 @@ export function useMarketplaceFilters(
   // Validate filter preset from URL params
   const filterParam = searchParams.get("filter");
   const filterPreset: FilterPreset =
-    filterParam === "recently-published" ? filterParam : "all";
+    filterParam === "recently-published" || filterParam === "most-voted"
+      ? filterParam
+      : "all";
   const selectedCategories = useMemo(
     () => searchParams.get("categories")?.split(",").filter(Boolean) || [],
     [searchParams]
@@ -72,8 +74,11 @@ export function useMarketplaceFilters(
       );
     }
 
-    // Sort by stars (highest first)
+    // Sort: by votes if most-voted preset, otherwise by stars
     return filtered.sort((a, b) => {
+      if (filterPreset === "most-voted") {
+        return (b.voteCount ?? 0) - (a.voteCount ?? 0);
+      }
       const starsA = a.stars ?? 0;
       const starsB = b.stars ?? 0;
       return starsB - starsA;

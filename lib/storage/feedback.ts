@@ -1,81 +1,51 @@
-import { put, list } from "@vercel/blob";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { FeedbackSubmission } from "@/lib/schemas/feedback.schema";
-import fs from "fs/promises";
-import path from "path";
 
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
-const BLOB_PATHNAME = "feedback-submissions.json";
-const FEEDBACK_FILE = path.join(
-  process.cwd(),
-  "lib/data/feedback-submissions.json"
-);
-
-/**
- * Read feedback submissions from Vercel Blob (if available) or local file
- */
 export async function readFeedbackSubmissions(): Promise<FeedbackSubmission[]> {
-  try {
-    // Try to read from Vercel Blob first (production)
-    if (BLOB_TOKEN) {
-      try {
-        const { blobs } = await list({
-          prefix: BLOB_PATHNAME,
-          token: BLOB_TOKEN,
-          limit: 1,
-        });
+  const admin = createAdminClient();
+  const { data, error } = await admin
+    .from("feedback_submissions")
+    .select("*")
+    .order("submitted_at", { ascending: false });
 
-        if (blobs.length > 0) {
-          const blobUrl = blobs[0].url;
-          const response = await fetch(blobUrl);
-          if (response.ok) {
-            const data = await response.json();
-            console.log(`Loaded feedback from Vercel Blob: ${blobUrl}`);
-            return data;
-          }
-        }
-
-        console.log("Blob not found, falling back to local file");
-      } catch (error) {
-        console.log("Vercel Blob error, falling back to local file:", error);
-      }
-    }
-
-    // Fallback to local file
-    const fileContent = await fs.readFile(FEEDBACK_FILE, "utf-8");
-    const data = JSON.parse(fileContent);
-    console.log("Loaded feedback from local file");
-    return data;
-  } catch (error) {
+  if (error) {
     console.error("Error reading feedback:", error);
     return [];
   }
+
+  return (data || []).map((row) => ({
+    id: row.id,
+    name: row.name || undefined,
+    email: row.email,
+    message: row.message,
+    submittedAt: row.submitted_at,
+    userAgent: row.user_agent || undefined,
+  }));
 }
 
-/**
- * Write feedback submissions to Vercel Blob and local file
- */
 export async function writeFeedbackSubmissions(
   submissions: FeedbackSubmission[]
 ): Promise<void> {
-  const jsonData = JSON.stringify(submissions, null, 2);
+  // For the feedback API, we only ever append one submission at a time.
+  // The caller reads all, pushes one, writes all back.
+  // With Supabase we just insert the last one (the new one).
+  const latest = submissions[submissions.length - 1];
+  if (!latest) return;
 
-  try {
-    // Write to Vercel Blob (production)
-    if (BLOB_TOKEN) {
-      const blob = await put(BLOB_PATHNAME, jsonData, {
-        access: "public", // Note: Vercel Blob only supports public access
-        token: BLOB_TOKEN,
-        contentType: "application/json",
-        addRandomSuffix: false,
-        allowOverwrite: true,
-      });
-      console.log(`Saved feedback to Vercel Blob: ${blob.url}`);
-    } else {
-      // Write to local file in development (no BLOB_TOKEN)
-      await fs.writeFile(FEEDBACK_FILE, jsonData, "utf-8");
-      console.log("Saved feedback to local file (development mode)");
-    }
-  } catch (error) {
+  const admin = createAdminClient();
+  const { error } = await admin.from("feedback_submissions").upsert(
+    {
+      id: latest.id,
+      name: latest.name || null,
+      email: latest.email,
+      message: latest.message,
+      submitted_at: latest.submittedAt,
+      user_agent: latest.userAgent || null,
+    },
+    { onConflict: "id" }
+  );
+
+  if (error) {
     console.error("Error writing feedback:", error);
     throw error;
   }

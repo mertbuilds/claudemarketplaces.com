@@ -1,81 +1,86 @@
 import { Skill, SkillRepo } from "@/lib/types";
-import { readSkills, readSkillRepos } from "@/lib/search/skills-storage";
-import { repoToSlug } from "@/lib/utils/slug";
+import { getDataClient } from "@/lib/supabase/data-client";
+import {
+  mapSkillRow,
+  mapSkillRepoRow,
+  SkillRow,
+  SkillRepoRow,
+} from "@/lib/supabase/mappers";
 
 /**
- * Fetch all skills with slugs computed
- * Optionally filter out skills from empty repos
+ * Fetch all skills from Supabase
+ * Optionally filter out empty/placeholder skills
  */
 export async function getAllSkills(options?: {
   includeEmpty?: boolean;
 }): Promise<Skill[]> {
-  const { includeEmpty = true } = options || {};
-
-  try {
-    const skills = await readSkills();
-
-    // Add repoSlug to each skill
-    const withSlugs = skills.map((s) => ({
-      ...s,
-      repoSlug: repoToSlug(s.repo),
-    }));
-
-    if (!includeEmpty) {
-      // Filter out skills that might be placeholders
-      return withSlugs.filter((s) => s.name && s.description);
-    }
-
-    return withSlugs;
-  } catch (error) {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase.from("skills").select("*");
+  if (error) {
     console.error("Error fetching skills:", error);
     return [];
   }
+  let skills = (data as SkillRow[]).map(mapSkillRow);
+  if (!options?.includeEmpty) {
+    skills = skills.filter((s) => s.name && s.description);
+  }
+  return skills;
 }
 
 /**
  * Get a single skill by id
  */
 export async function getSkillById(id: string): Promise<Skill | null> {
-  const skills = await getAllSkills();
-  return skills.find((s) => s.id === id) || null;
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("skills")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error || !data) return null;
+  return mapSkillRow(data as SkillRow);
 }
 
 /**
  * Get all skills from a specific repo
  */
 export async function getSkillsByRepo(repo: string): Promise<Skill[]> {
-  const skills = await getAllSkills();
-  return skills.filter((s) => s.repo === repo);
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("skills")
+    .select("*")
+    .eq("repo", repo);
+
+  if (error) {
+    console.error("Error fetching skills by repo:", error);
+    return [];
+  }
+  return (data as SkillRow[]).map(mapSkillRow);
 }
 
 /**
- * Fetch all skill repos with slugs computed
+ * Fetch all skill repos from Supabase
  * Optionally filter out repos with 0 skills
  */
 export async function getAllSkillRepos(options?: {
   includeEmpty?: boolean;
 }): Promise<SkillRepo[]> {
   const { includeEmpty = true } = options || {};
+  const supabase = await getDataClient();
 
-  try {
-    const skillRepos = await readSkillRepos();
+  let query = supabase.from("skill_repos").select("*");
+  if (!includeEmpty) {
+    query = query.gt("skill_count", 0);
+  }
 
-    // Add slug to each skill repo
-    const withSlugs = skillRepos.map((r) => ({
-      ...r,
-      slug: repoToSlug(r.repo),
-    }));
-
-    // Filter empty repos if requested
-    if (!includeEmpty) {
-      return withSlugs.filter((r) => r.skillCount > 0);
-    }
-
-    return withSlugs;
-  } catch (error) {
+  const { data, error } = await query;
+  if (error) {
     console.error("Error fetching skill repos:", error);
     return [];
   }
+
+  return (data as SkillRepoRow[]).map(mapSkillRepoRow);
 }
 
 /**
@@ -84,6 +89,13 @@ export async function getAllSkillRepos(options?: {
 export async function getSkillRepoBySlug(
   slug: string
 ): Promise<SkillRepo | null> {
-  const skillRepos = await getAllSkillRepos();
-  return skillRepos.find((r) => r.slug === slug) || null;
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("skill_repos")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+
+  if (error || !data) return null;
+  return mapSkillRepoRow(data as SkillRepoRow);
 }

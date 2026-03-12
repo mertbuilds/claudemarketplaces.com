@@ -11,7 +11,7 @@
 
 import { searchMarketplaceFiles, fetchMarketplaceFile } from "../lib/search/github-search";
 import { validateMarketplaces } from "../lib/search/validator";
-import { mergeMarketplaces, writePlugins } from "../lib/search/storage";
+import { mergeMarketplaces, upsertPlugins } from "../lib/search/supabase-storage";
 import { batchFetchStars } from "../lib/search/github-stars";
 import { extractPluginsFromMarketplaces, aggregatePluginKeywords } from "../lib/search/plugin-extractor";
 
@@ -298,7 +298,7 @@ async function runSearch() {
       logSuccess(`Marketplaces - Total: ${mergeResult.total}`);
 
       // Save plugins
-      await writePlugins(allPlugins);
+      await upsertPlugins(allPlugins);
       logSuccess(`Plugins - Saved: ${allPlugins.length} plugins`);
     }
 

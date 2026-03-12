@@ -5,7 +5,7 @@ import {
   fetchMarketplaceFile,
 } from "@/lib/search/github-search";
 import { validateMarketplaces } from "@/lib/search/validator";
-import { mergeMarketplaces, writePlugins } from "@/lib/search/storage";
+import { mergeMarketplaces, upsertPlugins } from "@/lib/search/supabase-storage";
 import { batchFetchStars } from "@/lib/search/github-stars";
 import {
   extractPluginsFromMarketplaces,
@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
     );
 
     // Step 7: Write plugins to storage
-    await writePlugins(allPlugins);
+    await upsertPlugins(allPlugins);
     console.log(`Saved ${allPlugins.length} plugins to storage`);
 
     // Step 8: Revalidate the home page to show updated content immediately

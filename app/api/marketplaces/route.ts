@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
-import { readMarketplaces } from "@/lib/search/storage";
+import { getAllMarketplaces } from "@/lib/data/marketplaces";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300; // Revalidate every 5 minutes
 
 /**
  * GET /api/marketplaces
- * Returns all marketplaces from Vercel Blob or local file
+ * Returns all marketplaces from Supabase
  */
 export async function GET() {
   try {
-    const marketplaces = await readMarketplaces();
+    const marketplaces = await getAllMarketplaces();
 
     return NextResponse.json(marketplaces, {
       headers: {

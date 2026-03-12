@@ -1,16 +1,16 @@
 import { NextResponse } from "next/server";
-import { readSkills } from "@/lib/search/skills-storage";
+import { getAllSkills } from "@/lib/data/skills";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 300; // Revalidate every 5 minutes
 
 /**
  * GET /api/skills
- * Returns all skills from Vercel Blob or local file
+ * Returns all skills from Supabase
  */
 export async function GET() {
   try {
-    const skills = await readSkills();
+    const skills = await getAllSkills();
 
     return NextResponse.json(skills, {
       headers: {

@@ -62,6 +62,7 @@ export function extractPluginsFromMarketplace(
         hooks: normalizeToArray(plugin.hooks as string | string[] | undefined),
         mcpServers: normalizeToArray(plugin.mcpServers as string | string[] | undefined),
         installCommand,
+        voteCount: 0,
       };
 
       return transformedPlugin;

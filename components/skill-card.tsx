@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skill } from "@/lib/types";
 import { Copy, Check, ExternalLink, Star } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
+import { VoteButton } from "@/components/vote-button";
 import { useState } from "react";
 
 interface SkillCardProps {
@@ -49,6 +50,7 @@ export function SkillCard({ skill }: SkillCardProps) {
             </a>
           </div>
           <div className="flex items-center gap-3">
+            <VoteButton itemType="skill" itemId={skill.id} initialVoteCount={skill.voteCount} />
             {skill.stars !== undefined && skill.stars > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground">
                 <Star className="h-3.5 w-3.5 fill-current" />

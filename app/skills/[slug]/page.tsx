@@ -20,6 +20,8 @@ import {
 } from "@/lib/data/skills";
 import { slugToRepo } from "@/lib/utils/slug";
 
+export const revalidate = 300;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

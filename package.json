@@ -12,7 +12,8 @@
     "search:dry": "bun run scripts/search.ts --dry-run",
     "search:skills": "bun run scripts/search-skills.ts",
     "search:skills:test": "bun run scripts/search-skills.ts --limit 10",
-    "search:skills:dry": "bun run scripts/search-skills.ts --dry-run"
+    "search:skills:dry": "bun run scripts/search-skills.ts --dry-run",
+    "seed": "bun run scripts/seed-supabase.ts"
   },
   "dependencies": {
     "@octokit/rest": "^22.0.0",
@@ -23,7 +24,6 @@
     "@radix-ui/react-tabs": "^1.1.13",
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.99.1",
-    "@vercel/blob": "^2.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.545.0",

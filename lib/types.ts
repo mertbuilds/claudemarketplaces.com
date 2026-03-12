@@ -21,6 +21,7 @@ export interface Plugin {
   hooks?: string[];
   mcpServers?: string[];
   installCommand: string;
+  voteCount: number;
 }
 
 export interface Marketplace {
@@ -29,12 +30,13 @@ export interface Marketplace {
   description: string;
   pluginCount: number;
   categories: string[];
-  pluginKeywords?: string[]; // Aggregated keywords from all plugins for searchability
+  pluginKeywords?: string[];
   discoveredAt?: string;
   lastUpdated?: string;
   source?: 'manual' | 'auto';
   stars?: number;
   starsFetchedAt?: string;
+  voteCount: number;
 }
 
 export interface Author {
@@ -50,17 +52,18 @@ export interface Video {
 }
 
 export interface Skill {
-  id: string;              // "owner-repo/skill-name"
-  name: string;            // from SKILL.md frontmatter
-  description: string;     // from SKILL.md frontmatter
-  repo: string;            // "owner/repo"
-  repoSlug: string;        // "owner-repo"
-  path: string;            // "skills/pdf" or ".claude/skills/pdf"
+  id: string;
+  name: string;
+  description: string;
+  repo: string;
+  repoSlug: string;
+  path: string;
   license?: string;
   stars?: number;
-  installCommand: string;  // "claude skill add owner/repo:skill-name"
+  installCommand: string;
   discoveredAt?: string;
   lastUpdated?: string;
+  voteCount: number;
 }
 
 export interface SkillRepo {
@@ -73,4 +76,15 @@ export interface SkillRepo {
   discoveredAt?: string;
   lastUpdated?: string;
   source?: 'manual' | 'auto';
+  voteCount: number;
+}
+
+export interface Vote {
+  id: string;
+  userId: string;
+  itemType: 'marketplace' | 'plugin' | 'skill' | 'skill_repo';
+  itemId: string;
+  value: 1 | -1;
+  createdAt: string;
+  updatedAt: string;
 }
