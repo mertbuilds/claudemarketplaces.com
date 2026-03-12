@@ -37,10 +37,10 @@ export function IdeabrowserInFeedCard() {
             <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-5 w-5 shrink-0" />
             <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
               <a
-                href="https://ideabrowser.com"
+                href="https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="after:absolute after:inset-0"
+                className="after:absolute after:inset-0 cursor-pointer"
                 onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "ideabrowser" }); }}
               >
                 ideabrowser.com
@@ -70,7 +70,7 @@ export function IdeabrowserInFeedCard() {
           </div>
           <div className="mt-2 pt-3 border-t border-border">
             <a
-              href="https://ideabrowser.com"
+              href="https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
               target="_blank"
               rel="noopener noreferrer"
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"

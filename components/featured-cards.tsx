@@ -40,10 +40,10 @@ export function FeaturedCards() {
               <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://ideabrowser.com"
+                  href="https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="after:absolute after:inset-0 after:cursor-pointer"
+                  className="after:absolute after:inset-0 cursor-pointer"
                   onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser" }); }}
                 >
                   ideabrowser.com
@@ -69,7 +69,7 @@ export function FeaturedCards() {
                   href="https://supastarter.dev?atp=vinena"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="after:absolute after:inset-0 after:cursor-pointer"
+                  className="after:absolute after:inset-0 cursor-pointer"
                   onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "supastarter" }); }}
                 >
                   supastarter
@@ -92,10 +92,10 @@ export function FeaturedCards() {
               <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://ideabrowser.com"
+                  href="https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="after:absolute after:inset-0 after:cursor-pointer"
+                  className="after:absolute after:inset-0 cursor-pointer"
                   onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser-newsletter" }); }}
                 >
                   Ideabrowser Newsletter

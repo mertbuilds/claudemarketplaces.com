@@ -8,7 +8,7 @@ const banners = [
     id: "ideabrowser",
     text: "ideabrowser.com — find trending startup ideas with real demand",
     cta: "Try it",
-    href: "https://ideabrowser.com",
+    href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
     external: true,
   },
   {
