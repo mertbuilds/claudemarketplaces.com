@@ -1,5 +1,29 @@
 [
   {
+    "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
+    "name": "dash0-observability",
+    "description": "The Dash0 Observability Connector for Claude agents and MCP servers. Instruments every Anthropic API call with OTel GenAI Semantic Convention spans (gen_ai.usage.input_tokens, gen_ai.client.operation.duration), handles graceful sdk.shutdown()/forceFlush() for short-lived CLI processes, and auto-provisions a Dash0 dashboard via REST API. The reference implementation for OTel-native Claude plugins.",
+    "version": "1.0.0",
+    "author": {
+      "name": "husein-askraba-bridge"
+    },
+    "source": ".claude/skills/dash0-observability",
+    "marketplace": "husein-askraba-bridge-dash0-claude-marketplace-observability",
+    "marketplaceUrl": "https://github.com/husein-askraba-bridge/dash0-claude-marketplace-observability",
+    "category": "observability",
+    "installCommand": "claude skill add husein-askraba-bridge/dash0-claude-marketplace-observability:dash0-observability",
+    "tags": [
+      "observability",
+      "opentelemetry",
+      "dash0",
+      "tracing",
+      "metrics",
+      "genai",
+      "mcp",
+      "connector"
+    ]
+  },
+  {
     "id": "payloadcms-payload/payload",
     "name": "payload",
     "description": "",
@@ -4545,7 +4569,7 @@
     "description": "Drizzle ORM and Postgres database management tools for Bun + Hono backend applications",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/db-tools",
@@ -4570,7 +4594,7 @@
     "description": "shadcn/ui and Tailwind CSS component generation and design utilities",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/ui",
@@ -4594,7 +4618,7 @@
     "description": "Vercel AI SDK integration helpers and patterns for Bun + Hono backend applications",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/ai-sdk",
@@ -4620,7 +4644,7 @@
     "description": "Testing, linting, and code quality tools for modern web applications",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/quality",
@@ -4668,7 +4692,7 @@
     "description": "Git workflow automation with intelligent skills and quick commands for conventional commits and PR creation",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/git",
@@ -4693,7 +4717,7 @@
     "description": "CodeRabbit AI review management - download, organize, and fix PR review comments systematically",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/reviewer",
@@ -4717,7 +4741,7 @@
     "description": "Browser automation and web testing with Playwright - auto-detects dev servers, creates test scripts, captures screenshots",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/ui-tests",
@@ -4741,7 +4765,7 @@
     "description": "Architecture and design patterns with SOLID principles, Clean Code standards, and TypeScript best practices for building maintainable applications",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/architecture-design",
@@ -4763,10 +4787,10 @@
   {
     "id": "marcioaltoe-claude-craftkit/product-engineering",
     "name": "product-engineering",
-    "description": "Complete workflow from idea to implementation: Discovery → Spec → Design → Plan → Validate with MCP integration, architecture gates, and full traceability",
+    "description": "Complete workflow from idea to implementation: Discovery \u2192 Spec \u2192 Design \u2192 Plan \u2192 Validate with MCP integration, architecture gates, and full traceability",
     "version": "1.0.0",
     "author": {
-      "name": "Marcio Altoé",
+      "name": "Marcio Alto\u00e9",
       "email": "marcio.altoe@gmail.com"
     },
     "source": "./plugins/product-engineering",
@@ -5401,7 +5425,7 @@
   {
     "id": "ccplugins-awesome-claude-code-plugins/ultrathink",
     "name": "ultrathink",
-    "description": "Use /ultrathink <TASK_DESCRIPTION> to launch a Coordinator Agent that directs four specialist sub-agents—Architect, Research, Coder, and Tester—to analyze, design, implement, and validate your coding task. The process breaks the task into clear steps, gathers insights, and synthesizes a cohesive solution with actionable outputs. Relevant files can be referenced ad-hoc using @ filename syntax.",
+    "description": "Use /ultrathink <TASK_DESCRIPTION> to launch a Coordinator Agent that directs four specialist sub-agents\u2014Architect, Research, Coder, and Tester\u2014to analyze, design, implement, and validate your coding task. The process breaks the task into clear steps, gathers insights, and synthesizes a cohesive solution with actionable outputs. Relevant files can be referenced ad-hoc using @ filename syntax.",
     "version": "1.0.0",
     "author": {
       "name": "Jeronim Morina"
@@ -6395,7 +6419,7 @@
     "description": "Use this agent when setting up CI/CD pipelines, configuring Docker containers, deploying applications to cloud platforms, setting up Kubernetes clusters, implementing infrastructure as code, or automating deployment workflows. Examples: <example>Context: User is setting up a new project and needs deployment automation. user: \"I've built a FastAPI application and need to deploy it to production with proper CI/CD\" assistant: \"I'll use the deployment-engineer agent to set up a complete deployment pipeline with Docker, GitHub Actions, and production-ready configurations.\"</example> <example>Context: User mentions containerization or deployment issues. user: \"Our deployment process is manual and error-prone. We need to automate it.\" assistant: \"Let me use the deployment-engineer agent to design an automated CI/CD pipeline that eliminates manual steps and ensures reliable deployments.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://github.com/ccplugins/awesome-claude-code-plugins/tree/main/plugins/deployment-engineer",
     "source": "./plugins/deployment-engineer",
@@ -6773,7 +6797,7 @@
     "description": "Use this agent when you need to design, build, or validate n8n automation workflows. This agent specializes in creating efficient n8n workflows using proper validation techniques and MCP tools integration.\\n\\nExamples:\\n- <example>\\n  Context: User wants to create a Slack notification workflow when a new GitHub issue is created.\\n  user: \"I need to create an n8n workflow that sends a Slack message whenever a new GitHub issue is opened\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to design and build this GitHub-to-Slack automation workflow with proper validation.\"\\n  <commentary>\\n  The user needs n8n workflow creation, so use the n8n-workflow-builder agent to handle the complete workflow design, validation, and deployment process.\\n  </commentary>\\n</example>\\n- <example>\\n  Context: User has an existing n8n workflow that needs debugging and optimization.\\n  user: \"My n8n workflow keeps failing at the HTTP Request node, can you help me fix it?\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to analyze and debug your workflow, focusing on the HTTP Request node configuration.\"\\n  <commentary>\\n  Since this involves n8n workflow troubleshooting and validation, use the n8n-workflow-builder agent to diagnose and fix the issue.\\n  </commentary>\\n</example>\\n- <example>\\n  Context: User wants to understand n8n best practices and available nodes for a specific use case.\\n  user: \"What are the best n8n nodes for processing CSV data and sending email reports?\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to explore the available nodes and recommend the best approach for CSV processing and email automation.\"\\n  <commentary>\\n  This requires n8n expertise and node discovery, so use the n8n-workflow-builder agent to provide comprehensive guidance.\\n  </commentary>\\n</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://github.com/ccplugins/awesome-claude-code-plugins/tree/main/plugins/n8n-workflow-builder",
     "source": "./plugins/n8n-workflow-builder",
@@ -6845,7 +6869,7 @@
     "description": "Use this agent when you need to create comprehensive Product Requirements Documents (PRDs) that combine business strategy, technical architecture, and user research. Examples: <example>Context: The user needs to create a PRD for a new feature or product launch. user: \"I need to create a PRD for our new user authentication system that will support SSO and multi-factor authentication\" assistant: \"I'll use the prd-specialist agent to create a comprehensive PRD that covers the strategic foundation, technical requirements, and implementation blueprint for your authentication system.\"</example> <example>Context: The user is planning a major product initiative and needs strategic documentation. user: \"We're launching a mobile app for our e-commerce platform and need a detailed PRD to guide development\" assistant: \"Let me engage the prd-specialist agent to develop a thorough PRD that includes market analysis, user research integration, technical architecture, and implementation roadmap for your mobile app initiative.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://github.com/ccplugins/awesome-claude-code-plugins/tree/main/plugins/prd-specialist",
     "source": "./plugins/prd-specialist",
@@ -6953,7 +6977,7 @@
     "description": "Use this agent when working with Python code that requires advanced features, performance optimization, or comprehensive refactoring. Examples: <example>Context: User needs to optimize a slow Python function that processes large datasets. user: \"This function is taking too long to process our data, can you help optimize it?\" assistant: \"I'll use the python-expert agent to analyze and optimize your Python code with advanced techniques and performance profiling.\"</example> <example>Context: User wants to implement async/await patterns in their existing synchronous Python code. user: \"I need to convert this synchronous code to use async/await for better performance\" assistant: \"Let me use the python-expert agent to refactor your code with proper async/await patterns and concurrent programming techniques.\"</example> <example>Context: User needs help implementing complex Python design patterns. user: \"I want to implement a factory pattern with decorators for my API endpoints\" assistant: \"I'll use the python-expert agent to implement advanced Python patterns with decorators and proper design principles.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://github.com/ccplugins/awesome-claude-code-plugins/tree/main/plugins/python-expert",
     "source": "./plugins/python-expert",
@@ -7602,7 +7626,7 @@
   {
     "id": "ananddtyagi-claude-code-marketplace/ultrathink",
     "name": "ultrathink",
-    "description": "Use /ultrathink <TASK_DESCRIPTION> to launch a Coordinator Agent that directs four specialist sub-agents—Architect, Research, Coder, and Tester—to analyze, design, implement, and validate your coding task. The process breaks the task into clear steps, gathers insights, and synthesizes a cohesive solution with actionable outputs. Relevant files can be referenced ad-hoc using @ filename syntax.",
+    "description": "Use /ultrathink <TASK_DESCRIPTION> to launch a Coordinator Agent that directs four specialist sub-agents\u2014Architect, Research, Coder, and Tester\u2014to analyze, design, implement, and validate your coding task. The process breaks the task into clear steps, gathers insights, and synthesizes a cohesive solution with actionable outputs. Relevant files can be referenced ad-hoc using @ filename syntax.",
     "version": "1.0.0",
     "author": {
       "name": "Jeronim Morina"
@@ -8596,7 +8620,7 @@
     "description": "Use this agent when setting up CI/CD pipelines, configuring Docker containers, deploying applications to cloud platforms, setting up Kubernetes clusters, implementing infrastructure as code, or automating deployment workflows. Examples: <example>Context: User is setting up a new project and needs deployment automation. user: \"I've built a FastAPI application and need to deploy it to production with proper CI/CD\" assistant: \"I'll use the deployment-engineer agent to set up a complete deployment pipeline with Docker, GitHub Actions, and production-ready configurations.\"</example> <example>Context: User mentions containerization or deployment issues. user: \"Our deployment process is manual and error-prone. We need to automate it.\" assistant: \"Let me use the deployment-engineer agent to design an automated CI/CD pipeline that eliminates manual steps and ensures reliable deployments.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://claudecodecommands.directory/agents/deployment-engineer",
     "source": "./plugins/deployment-engineer",
@@ -8974,7 +8998,7 @@
     "description": "Use this agent when you need to design, build, or validate n8n automation workflows. This agent specializes in creating efficient n8n workflows using proper validation techniques and MCP tools integration.\\n\\nExamples:\\n- <example>\\n  Context: User wants to create a Slack notification workflow when a new GitHub issue is created.\\n  user: \"I need to create an n8n workflow that sends a Slack message whenever a new GitHub issue is opened\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to design and build this GitHub-to-Slack automation workflow with proper validation.\"\\n  <commentary>\\n  The user needs n8n workflow creation, so use the n8n-workflow-builder agent to handle the complete workflow design, validation, and deployment process.\\n  </commentary>\\n</example>\\n- <example>\\n  Context: User has an existing n8n workflow that needs debugging and optimization.\\n  user: \"My n8n workflow keeps failing at the HTTP Request node, can you help me fix it?\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to analyze and debug your workflow, focusing on the HTTP Request node configuration.\"\\n  <commentary>\\n  Since this involves n8n workflow troubleshooting and validation, use the n8n-workflow-builder agent to diagnose and fix the issue.\\n  </commentary>\\n</example>\\n- <example>\\n  Context: User wants to understand n8n best practices and available nodes for a specific use case.\\n  user: \"What are the best n8n nodes for processing CSV data and sending email reports?\"\\n  assistant: \"I'll use the n8n-workflow-builder agent to explore the available nodes and recommend the best approach for CSV processing and email automation.\"\\n  <commentary>\\n  This requires n8n expertise and node discovery, so use the n8n-workflow-builder agent to provide comprehensive guidance.\\n  </commentary>\\n</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://claudecodecommands.directory/agents/n8n-workflow-builder",
     "source": "./plugins/n8n-workflow-builder",
@@ -9046,7 +9070,7 @@
     "description": "Use this agent when you need to create comprehensive Product Requirements Documents (PRDs) that combine business strategy, technical architecture, and user research. Examples: <example>Context: The user needs to create a PRD for a new feature or product launch. user: \"I need to create a PRD for our new user authentication system that will support SSO and multi-factor authentication\" assistant: \"I'll use the prd-specialist agent to create a comprehensive PRD that covers the strategic foundation, technical requirements, and implementation blueprint for your authentication system.\"</example> <example>Context: The user is planning a major product initiative and needs strategic documentation. user: \"We're launching a mobile app for our e-commerce platform and need a detailed PRD to guide development\" assistant: \"Let me engage the prd-specialist agent to develop a thorough PRD that includes market analysis, user research integration, technical architecture, and implementation roadmap for your mobile app initiative.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://claudecodecommands.directory/agents/prd-specialist",
     "source": "./plugins/prd-specialist",
@@ -9154,7 +9178,7 @@
     "description": "Use this agent when working with Python code that requires advanced features, performance optimization, or comprehensive refactoring. Examples: <example>Context: User needs to optimize a slow Python function that processes large datasets. user: \"This function is taking too long to process our data, can you help optimize it?\" assistant: \"I'll use the python-expert agent to analyze and optimize your Python code with advanced techniques and performance profiling.\"</example> <example>Context: User wants to implement async/await patterns in their existing synchronous Python code. user: \"I need to convert this synchronous code to use async/await for better performance\" assistant: \"Let me use the python-expert agent to refactor your code with proper async/await patterns and concurrent programming techniques.\"</example> <example>Context: User needs help implementing complex Python design patterns. user: \"I want to implement a factory pattern with decorators for my API endpoints\" assistant: \"I'll use the python-expert agent to implement advanced Python patterns with decorators and proper design principles.\"</example>",
     "version": "1.0.0",
     "author": {
-      "name": "Jure Šunić"
+      "name": "Jure \u0160uni\u0107"
     },
     "homepage": "https://claudecodecommands.directory/agents/python-expert",
     "source": "./plugins/python-expert",
@@ -10020,7 +10044,7 @@
   {
     "id": "korosuke613-coding-agent-recipe/git",
     "name": "git",
-    "description": "Git操作を支援するコマンド集（ブランチ作成、コミット作成）",
+    "description": "Git\u64cd\u4f5c\u3092\u652f\u63f4\u3059\u308b\u30b3\u30de\u30f3\u30c9\u96c6\uff08\u30d6\u30e9\u30f3\u30c1\u4f5c\u6210\u3001\u30b3\u30df\u30c3\u30c8\u4f5c\u6210\uff09",
     "version": "1.0.0",
     "author": {
       "name": "korosuke613"
@@ -10034,7 +10058,7 @@
   {
     "id": "korosuke613-coding-agent-recipe/doc",
     "name": "doc",
-    "description": "ドキュメント更新を支援するコマンド集（README更新）",
+    "description": "\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8\u66f4\u65b0\u3092\u652f\u63f4\u3059\u308b\u30b3\u30de\u30f3\u30c9\u96c6\uff08README\u66f4\u65b0\uff09",
     "version": "1.0.0",
     "author": {
       "name": "korosuke613"
@@ -10048,7 +10072,7 @@
   {
     "id": "korosuke613-coding-agent-recipe/engineer",
     "name": "engineer",
-    "description": "エンジニアリング支援エージェント集（コードレビュー、デバッグ、TDD）",
+    "description": "\u30a8\u30f3\u30b8\u30cb\u30a2\u30ea\u30f3\u30b0\u652f\u63f4\u30a8\u30fc\u30b8\u30a7\u30f3\u30c8\u96c6\uff08\u30b3\u30fc\u30c9\u30ec\u30d3\u30e5\u30fc\u3001\u30c7\u30d0\u30c3\u30b0\u3001TDD\uff09",
     "version": "1.0.0",
     "author": {
       "name": "korosuke613"
@@ -10062,7 +10086,7 @@
   {
     "id": "korosuke613-coding-agent-recipe/security",
     "name": "security",
-    "description": "セキュリティとワークフロー制御のためのフック集（ファイル編集制限、通知）",
+    "description": "\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u3068\u30ef\u30fc\u30af\u30d5\u30ed\u30fc\u5236\u5fa1\u306e\u305f\u3081\u306e\u30d5\u30c3\u30af\u96c6\uff08\u30d5\u30a1\u30a4\u30eb\u7de8\u96c6\u5236\u9650\u3001\u901a\u77e5\uff09",
     "version": "1.0.0",
     "author": {
       "name": "korosuke613"
@@ -11094,7 +11118,7 @@
     "description": "Complete bundle: 7 expert skills for building flawless n8n workflows using n8n-mcp MCP server. Includes skills for expression syntax, MCP tools usage, workflow patterns, validation, node configuration, JavaScript code, and Python code.",
     "version": "1.0.0",
     "author": {
-      "name": "Romuald Członkowski",
+      "name": "Romuald Cz\u0142onkowski",
       "url": "https://www.aiadvisors.pl/en"
     },
     "homepage": "https://github.com/czlonkowski/n8n-skills",
@@ -11199,7 +11223,7 @@
   {
     "id": "martybonacci-specswarm/speckit",
     "name": "speckit",
-    "description": "⚠️ DEPRECATED - Merged into SpecSwarm v2.0+. Use SpecSwarm instead for spec-driven development workflows.",
+    "description": "\u26a0\ufe0f DEPRECATED - Merged into SpecSwarm v2.0+. Use SpecSwarm instead for spec-driven development workflows.",
     "version": "1.0.1",
     "source": "./plugins/speckit",
     "marketplace": "martybonacci-specswarm",
@@ -11210,7 +11234,7 @@
   {
     "id": "martybonacci-specswarm/spectest",
     "name": "spectest",
-    "description": "⚠️ DEPRECATED - Merged into SpecSwarm v2.0+. Performance enhancements now included in SpecSwarm.",
+    "description": "\u26a0\ufe0f DEPRECATED - Merged into SpecSwarm v2.0+. Performance enhancements now included in SpecSwarm.",
     "version": "1.0.1",
     "source": "./plugins/spectest",
     "marketplace": "martybonacci-specswarm",
@@ -11221,7 +11245,7 @@
   {
     "id": "martybonacci-specswarm/speclab",
     "name": "speclab",
-    "description": "⚠️ DEPRECATED - Merged into SpecSwarm v2.0+. Lifecycle workflows now included in SpecSwarm.",
+    "description": "\u26a0\ufe0f DEPRECATED - Merged into SpecSwarm v2.0+. Lifecycle workflows now included in SpecSwarm.",
     "version": "1.1.0",
     "source": "./plugins/speclab",
     "marketplace": "martybonacci-specswarm",
@@ -11232,7 +11256,7 @@
   {
     "id": "martybonacci-specswarm/project-orchestrator",
     "name": "project-orchestrator",
-    "description": "⚠️ DEPRECATED - Merged into SpecLabs v1.0+. Autonomous development now unified with advanced debugging in experimental SpecLabs plugin",
+    "description": "\u26a0\ufe0f DEPRECATED - Merged into SpecLabs v1.0+. Autonomous development now unified with advanced debugging in experimental SpecLabs plugin",
     "version": "0.1.1",
     "source": "./plugins/project-orchestrator",
     "marketplace": "martybonacci-specswarm",
@@ -11243,7 +11267,7 @@
   {
     "id": "martybonacci-specswarm/debug-coordinate",
     "name": "debug-coordinate",
-    "description": "⚠️ DEPRECATED - Merged into SpecLabs v1.0+. Advanced debugging now unified with autonomous development in experimental SpecLabs plugin",
+    "description": "\u26a0\ufe0f DEPRECATED - Merged into SpecLabs v1.0+. Advanced debugging now unified with autonomous development in experimental SpecLabs plugin",
     "version": "1.0.0",
     "source": "./plugins/debug-coordinate",
     "marketplace": "martybonacci-specswarm",
