@@ -85,28 +85,28 @@ export function FeaturedCards() {
           </CardHeader>
         </Card>
 
-        {/* Card 3: Ideabrowser Newsletter */}
+        {/* Card 3: Ideabrowser Workshop */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
+                  href="https://www.ideabrowser.com/workshop/build-a-startup-with-me-Mar-18?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0 cursor-pointer"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser-newsletter" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser-workshop" }); }}
                 >
-                  Ideabrowser Newsletter
+                  How to build a startup using AI
                 </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Get free trending startup ideas you can build.
+              Free workshop to use AI to turn ideas into companies. See the tools and workflows to build businesses.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Show me today&apos;s idea →
+              Join free workshop →
             </span>
           </CardHeader>
         </Card>
