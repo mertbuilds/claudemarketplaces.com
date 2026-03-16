@@ -1,5 +1,17 @@
 [
   {
+    "id": "husein-askraba-bridge-dash0-claude-marketplace-observability/dash0-observability",
+    "name": "dash0-observability",
+    "description": "Community companion to the Dash0 MCP Server. Reference implementation for instrumenting any Claude Marketplace plugin with OTel GenAI Semantic Conventions — traces, token histograms, latency metrics, and graceful forceFlush for short-lived MCP processes.",
+    "repo": "husein-askraba-bridge/dash0-claude-marketplace-observability",
+    "repoSlug": "husein-askraba-bridge-dash0-claude-marketplace-observability",
+    "path": ".claude/skills/dash0-observability/skill.md",
+    "stars": 1,
+    "installCommand": "claude skill add husein-askraba-bridge/dash0-claude-marketplace-observability:dash0-observability",
+    "discoveredAt": "2026-03-08T00:00:00.000Z",
+    "lastUpdated": "2026-03-08T00:00:00.000Z"
+  },
+  {
     "id": "facebook-react/fix",
     "name": "fix",
     "description": "Use when you have lint errors, formatting issues, or before committing code to ensure it passes CI.",
