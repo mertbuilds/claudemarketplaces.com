@@ -25,12 +25,32 @@ async function MarketplaceData() {
     getCategories(),
   ]);
 
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Plugin Marketplaces",
+    description: "Browse curated plugin marketplaces for Claude Code.",
+    numberOfItems: marketplaces.length,
+    itemListElement: marketplaces.slice(0, 10).map((m, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://claudemarketplaces.com/plugins/${m.slug}`,
+      name: m.repo,
+    })),
+  };
+
   return (
-    <MarketplaceContent
-      marketplaces={marketplaces}
-      categories={categories}
-      newsletterSeed={[Math.random(), Math.random()]}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <MarketplaceContent
+        marketplaces={marketplaces}
+        categories={categories}
+        newsletterSeed={[Math.random(), Math.random()]}
+      />
+    </>
   );
 }
 

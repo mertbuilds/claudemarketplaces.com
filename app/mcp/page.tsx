@@ -33,11 +33,32 @@ export const metadata: Metadata = {
 
 async function McpData() {
   const servers = await getAllMcpServers({ includeEmpty: false });
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "MCP Servers",
+    description: "Browse and discover MCP servers for Claude Code.",
+    numberOfItems: servers.length,
+    itemListElement: servers.slice(0, 10).map((server, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://claudemarketplaces.com/mcp/${server.slug}`,
+      name: server.displayName || server.name,
+    })),
+  };
+
   return (
-    <McpServersContent
-      servers={servers}
-      newsletterSeed={[Math.random(), Math.random()]}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <McpServersContent
+        servers={servers}
+        newsletterSeed={[Math.random(), Math.random()]}
+      />
+    </>
   );
 }
 

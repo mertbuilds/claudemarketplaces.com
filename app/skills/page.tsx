@@ -33,11 +33,32 @@ export const metadata: Metadata = {
 
 async function SkillsData() {
   const skills = await getAllSkills();
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Claude Code Skills",
+    description: "Browse and discover Claude Code agent skills.",
+    numberOfItems: skills.length,
+    itemListElement: skills.slice(0, 10).map((skill, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `https://claudemarketplaces.com/skills/${skill.id}`,
+      name: skill.name,
+    })),
+  };
+
   return (
-    <SkillsContent
-      skills={skills}
-      newsletterSeed={[Math.random(), Math.random()]}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+      <SkillsContent
+        skills={skills}
+        newsletterSeed={[Math.random(), Math.random()]}
+      />
+    </>
   );
 }
 

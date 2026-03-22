@@ -242,12 +242,36 @@ export default async function McpServerDetailPage({ params }: PageProps) {
       }
     : null;
 
+  const softwareSchema = server
+    ? {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: server.displayName || server.name,
+        description: server.description || `${server.displayName || server.name} - an MCP server for Claude Code`,
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Any",
+        url: `https://claudemarketplaces.com/mcp/${server.slug}`,
+        codeRepository: `https://github.com/${slug.slice(0, 2).join("/")}`,
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+      }
+    : null;
+
   return (
     <div className="min-h-screen flex flex-col">
       {breadcrumbSchema && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
+      {softwareSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
       )}
       <Header />

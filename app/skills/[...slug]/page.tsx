@@ -654,37 +654,15 @@ export default async function SkillDetailPage({ params }: PageProps) {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: skill.name,
-        description: skill.description,
-        url: `https://claudemarketplaces.com/skills/${id}`,
+        description: skill.description || `${skill.name} - a Claude Code skill`,
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Any",
+        url: `https://claudemarketplaces.com/skills/${id}`,
+        codeRepository: `https://github.com/${skill.repo}`,
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
-        },
-        breadcrumb: {
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Skills",
-              item: "https://claudemarketplaces.com/skills",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: skill.repo,
-              item: `https://claudemarketplaces.com/skills/${skill.repo}`,
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: skill.name,
-              item: `https://claudemarketplaces.com/skills/${id}`,
-            },
-          ],
         },
       }
     : null;
