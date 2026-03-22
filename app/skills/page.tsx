@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Script from "next/script";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills } from "@/lib/data/skills";
@@ -29,8 +30,24 @@ async function SkillsData() {
 }
 
 export default function SkillsPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Claude Code Skills",
+    description:
+      "Browse and discover Claude Code agent skills. Find reusable skill definitions to enhance your Claude Code workflows.",
+    url: "https://claudemarketplaces.com/skills",
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="skills-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+      >
+        {JSON.stringify(structuredData)}
+      </Script>
       <Header />
       <main className="flex-1">
         <Suspense

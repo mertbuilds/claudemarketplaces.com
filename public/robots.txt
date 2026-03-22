@@ -1,6 +1,9 @@
 # Allow all crawlers by default
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /login
+Disallow: /profile
 
 # Explicitly allow AI/LLM bots
 User-agent: GPTBot

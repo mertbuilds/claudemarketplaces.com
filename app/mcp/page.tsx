@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Script from "next/script";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMcpServers } from "@/lib/data/mcp-servers";
@@ -29,8 +30,24 @@ async function McpData() {
 }
 
 export default function McpPage() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "MCP Servers",
+    description:
+      "Browse and discover MCP servers for Claude Code. Find Model Context Protocol servers to extend your AI workflows.",
+    url: "https://claudemarketplaces.com/mcp",
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
+      <Script
+        id="mcp-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+      >
+        {JSON.stringify(structuredData)}
+      </Script>
       <Header />
       <main className="flex-1">
         <Suspense
