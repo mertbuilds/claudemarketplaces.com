@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Seed local Supabase from marketplaces_cleaned.json, skills-only.json, and mcp-only.json
+ * Seed local Supabase from marketplaces.json, skills-only.json, and mcp-only.json
  *
  * Usage: bun run scripts/seed.ts
  */
@@ -39,27 +39,10 @@ async function main() {
   // 1. Upsert mode — no deletes, vote_count preserved
   console.log("[1/6] Upserting data (vote counts preserved)...");
 
-  // 2. Seed marketplaces (merge cleaned + uncleaned for full coverage)
+  // 2. Seed marketplaces
   console.log("\n[2/6] Reading marketplace data...");
-  const cleanedRaw: any[] = await Bun.file(`${dataDir}/marketplaces_cleaned.json`).json();
-  const uncleanedRaw: any[] = await Bun.file(`${dataDir}/marketplaces.json`).json();
-
-  // Merge: cleaned takes priority, then fill in any missing from uncleaned
-  const seenRepos = new Set<string>();
-  const allMarketplaces: any[] = [];
-  for (const m of cleanedRaw) {
-    seenRepos.add(m.repo);
-    allMarketplaces.push(m);
-  }
-  let addedFromUncleaned = 0;
-  for (const m of uncleanedRaw) {
-    if (!seenRepos.has(m.repo)) {
-      seenRepos.add(m.repo);
-      allMarketplaces.push(m);
-      addedFromUncleaned++;
-    }
-  }
-  console.log(`  ${cleanedRaw.length} cleaned + ${addedFromUncleaned} from uncleaned = ${allMarketplaces.length} total`);
+  const allMarketplaces: any[] = await Bun.file(`${dataDir}/marketplaces.json`).json();
+  console.log(`  ${allMarketplaces.length} marketplaces found`);
 
   console.log("[3/6] Upserting marketplaces...");
   const marketplaceRows = allMarketplaces.map((m) => ({

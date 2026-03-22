@@ -173,7 +173,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary group-hover:underline">
-                    Browse 14,800+ servers &rarr;
+                    Browse 770+ servers &rarr;
                   </span>
                 </CardContent>
               </Card>
@@ -191,7 +191,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent>
                   <span className="text-sm text-primary group-hover:underline">
-                    Browse 450+ marketplaces &rarr;
+                    Browse 95+ marketplaces &rarr;
                   </span>
                 </CardContent>
               </Card>
