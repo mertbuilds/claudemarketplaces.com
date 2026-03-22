@@ -17,6 +17,18 @@ export const metadata: Metadata = {
     "ai skills",
     "claude code",
   ],
+  openGraph: {
+    title: "Claude Code Skills | Discover Agent Skills",
+    description:
+      "Browse and discover Claude Code agent skills. Find reusable skill definitions to enhance your Claude Code workflows.",
+    url: "https://claudemarketplaces.com/skills",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Claude Code Skills | Discover Agent Skills",
+    description:
+      "Browse and discover Claude Code agent skills. Find reusable skill definitions to enhance your Claude Code workflows.",
+  },
 };
 
 async function SkillsData() {
@@ -50,6 +62,9 @@ export default function SkillsPage() {
       </Script>
       <Header />
       <main className="flex-1">
+        <div className="container mx-auto px-4 pt-8">
+          <h1 className="text-3xl md:text-4xl font-bold">Claude Code Skills</h1>
+        </div>
         <Suspense
           fallback={
             <div className="container mx-auto px-4 py-8">

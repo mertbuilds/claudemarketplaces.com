@@ -17,6 +17,18 @@ export const metadata: Metadata = {
     "ai tools",
     "claude code",
   ],
+  openGraph: {
+    title: "MCP Servers | Discover Model Context Protocol Servers",
+    description:
+      "Browse and discover MCP servers for Claude Code. Find Model Context Protocol servers to extend your AI workflows.",
+    url: "https://claudemarketplaces.com/mcp",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MCP Servers | Discover Model Context Protocol Servers",
+    description:
+      "Browse and discover MCP servers for Claude Code. Find Model Context Protocol servers to extend your AI workflows.",
+  },
 };
 
 async function McpData() {
@@ -50,6 +62,9 @@ export default function McpPage() {
       </Script>
       <Header />
       <main className="flex-1">
+        <div className="container mx-auto px-4 pt-8">
+          <h1 className="text-3xl md:text-4xl font-bold">MCP Servers</h1>
+        </div>
         <Suspense
           fallback={
             <div className="container mx-auto px-4 py-8">

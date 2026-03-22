@@ -73,7 +73,7 @@ export async function generateMetadata({
       type: "website",
       images: [
         {
-          url: "https://claudemarketplaces.com/og-image.png",
+          url: "https://claudemarketplaces.com/opengraph-image",
           width: 1200,
           height: 630,
           alt: `${marketplace.repo} Plugins`,
@@ -84,7 +84,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["https://claudemarketplaces.com/og-image.png"],
+      images: ["https://claudemarketplaces.com/opengraph-image"],
     },
   };
 }
