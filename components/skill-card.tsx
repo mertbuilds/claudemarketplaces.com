@@ -45,21 +45,9 @@ export function SkillCard({ skill }: SkillCardProps) {
     >
       <CardHeader>
         <div className="flex flex-col gap-2">
-          <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
-              {skill.name}
-            </CardTitle>
-            <a
-              href={repoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded-none transition-colors"
-              aria-label="View on GitHub"
-            >
-              <ExternalLink className="h-4 w-4 text-muted-foreground" />
-            </a>
-          </div>
+          <CardTitle className="text-xl line-clamp-2 leading-7">
+            {skill.name}
+          </CardTitle>
           <p className="text-xs text-muted-foreground truncate">
             {skill.repo}
           </p>

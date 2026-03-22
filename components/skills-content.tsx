@@ -7,6 +7,7 @@ import { SkillsGrid } from "@/components/skills-grid";
 import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
 import { Skill } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
 
 const ITEMS_PER_PAGE = 22;
@@ -17,7 +18,7 @@ interface SkillsContentProps {
 }
 
 export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
-  const { searchQuery, setSearchQuery, filteredSkills, repoFilter } = useSkillsFilters(skills);
+  const { searchQuery, setSearchQuery, filteredSkills, repoFilter, sortBy, setSortBy } = useSkillsFilters(skills);
   const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
@@ -44,9 +45,9 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Search Bar */}
-      <div className="mb-6">
-        <div className="relative">
+      {/* Search Bar + Sort */}
+      <div className="mb-6 flex gap-3">
+        <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
@@ -56,6 +57,22 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
             className="pl-10"
           />
         </div>
+        <Select
+          value={sortBy}
+          onValueChange={(value: "installs" | "stars" | "votes") => {
+            setSortBy(value);
+            setCurrentPage(1);
+          }}
+        >
+          <SelectTrigger className="w-[160px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="installs">Most installed</SelectItem>
+            <SelectItem value="stars">Most stars</SelectItem>
+            <SelectItem value="votes">Most voted</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Featured Cards - only on page 1 with no filters */}

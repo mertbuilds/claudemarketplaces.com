@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { AuthButton } from "@/components/auth-button";
 
 const links = [
-  { href: "/", label: "Marketplaces" },
   { href: "/skills", label: "Skills" },
+  { href: "/marketplaces", label: "Marketplaces" },
   { href: "/mcp", label: "MCP" },
   { href: "/learn", label: "Learn" },
   { href: "/advertise", label: "Advertise" },
@@ -28,7 +28,7 @@ export function Header() {
         <nav className="flex w-full flex-col gap-4 md:w-auto md:flex-row md:items-center md:justify-end md:gap-6">
           <div className="flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.12em] text-muted-foreground">
             {links.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.href !== "/" && pathname.startsWith(link.href));
               return (
                 <Link
                   key={link.href}

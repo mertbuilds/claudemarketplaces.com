@@ -36,23 +36,8 @@ async function main() {
   const t0 = Date.now();
   console.log("=== Seed Supabase ===\n");
 
-  // 1. Clear existing data (order matters: plugins FK → marketplaces)
-  console.log("[1/6] Clearing existing data...");
-  const { error: delMcp } = await supabase.from("mcp_servers").delete().neq("slug", "");
-  if (delMcp) throw new Error(`Delete mcp_servers: ${delMcp.message}`);
-  console.log("  Deleted mcp_servers");
-
-  const { error: delPlugins } = await supabase.from("plugins").delete().neq("id", "");
-  if (delPlugins) throw new Error(`Delete plugins: ${delPlugins.message}`);
-  console.log("  Deleted plugins");
-
-  const { error: delSkills } = await supabase.from("skills").delete().neq("id", "");
-  if (delSkills) throw new Error(`Delete skills: ${delSkills.message}`);
-  console.log("  Deleted skills");
-
-  const { error: delMkt } = await supabase.from("marketplaces").delete().neq("repo", "");
-  if (delMkt) throw new Error(`Delete marketplaces: ${delMkt.message}`);
-  console.log("  Deleted marketplaces");
+  // 1. Upsert mode — no deletes, vote_count preserved
+  console.log("[1/6] Upserting data (vote counts preserved)...");
 
   // 2. Seed marketplaces (merge cleaned + uncleaned for full coverage)
   console.log("\n[2/6] Reading marketplace data...");
@@ -143,14 +128,45 @@ async function main() {
   }
   console.log(`  ${pluginsInserted} plugins upserted${pluginsErrors ? `, ${pluginsErrors} batches failed` : ""}`);
 
-  // 4. Seed skills
-  console.log("\n[5/6] Reading skills-only.json...");
+  // 4. Seed skills (prefer crawled data, fallback to skills-only.json)
+  const crawledPath = `${dataDir}/skills-crawled.json`;
+  const fallbackPath = `${dataDir}/skills-only.json`;
+  const hasCrawled = await Bun.file(crawledPath).exists();
+  const skillsSource = hasCrawled ? crawledPath : fallbackPath;
+  console.log(`\n[5/6] Reading ${hasCrawled ? "skills-crawled.json" : "skills-only.json"}...`);
+
   const skillsFile: { crawledAt: string; total: number; skills: any[] } =
-    await Bun.file(`${dataDir}/skills-only.json`).json();
+    await Bun.file(skillsSource).json();
   const skillsRaw = skillsFile.skills;
+
+  // If using fallback, also try to load crawled data for installs/stars merge
+  let crawledMap: Map<string, { installs: number; stars: number }> | null = null;
+  if (!hasCrawled) {
+    // no merge needed
+  } else {
+    // crawled data might lack descriptions — load old data for descriptions
+    const hasOld = await Bun.file(fallbackPath).exists();
+    if (hasOld) {
+      const oldFile: { skills: any[] } = await Bun.file(fallbackPath).json();
+      crawledMap = new Map();
+      for (const s of oldFile.skills) {
+        if (s.slug && s.description) {
+          crawledMap.set(s.slug, { installs: 0, stars: 0 });
+        }
+      }
+      // Merge descriptions from old data into crawled skills
+      const descMap = new Map(oldFile.skills.map((s: any) => [s.slug, s.description ?? ""]));
+      for (const s of skillsRaw) {
+        if (!s.description && descMap.has(s.slug)) {
+          s.description = descMap.get(s.slug);
+        }
+      }
+    }
+  }
+
   console.log(`  ${skillsRaw.length} skills found`);
 
-  const skillRows = skillsRaw.map((s) => {
+  const skillRows = skillsRaw.map((s: any) => {
     const slug: string = s.slug ?? "";
     const sourceRepo: string = s.sourceRepo ?? "";
     const repoSlug = sourceRepo.replace(/\//g, "-");

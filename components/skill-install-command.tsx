@@ -14,7 +14,7 @@ export function SkillInstallCommand({ command }: { command: string }) {
 
   return (
     <div className="relative group">
-      <pre className="bg-muted border rounded-none px-4 py-3 pr-12 text-sm font-mono overflow-x-auto">
+      <pre className="bg-muted border rounded-none px-4 py-3 pr-12 text-sm font-mono overflow-hidden truncate">
         <code>{command}</code>
       </pre>
       <button

@@ -20,11 +20,7 @@ export async function getAllSkills(options?: {
     console.error("Error fetching skills:", error);
     return [];
   }
-  let skills = (data as SkillRow[]).map(mapSkillRow);
-  if (!options?.includeEmpty) {
-    skills = skills.filter((s) => s.name && s.description);
-  }
-  return skills;
+  return (data as SkillRow[]).map(mapSkillRow);
 }
 
 /**
