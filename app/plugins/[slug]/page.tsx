@@ -23,6 +23,8 @@ import {
   getPluginCategories,
 } from "@/lib/data/plugins";
 
+export const revalidate = 300;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SkillsGrid } from "@/components/skills-grid";
 import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
 import { Skill } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
-
-const ITEMS_PER_PAGE = 22;
 
 interface SkillsContentProps {
   skills: Skill[];
@@ -17,42 +15,55 @@ interface SkillsContentProps {
 }
 
 export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
-  const { searchQuery, setSearchQuery, filteredSkills } = useSkillsFilters(skills);
-  const [currentPage, setCurrentPage] = useState(1);
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredSkills,
+    paginatedSkills,
+    repoFilter,
+    sortBy,
+    setSortBy,
+    currentPage,
+    totalPages,
+    setPage,
+  } = useSkillsFilters(skills);
 
-  const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
-
-  const paginatedSkills = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredSkills.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredSkills, currentPage]);
-
-  const hasActiveFilters = searchQuery.length > 0;
-
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1);
-  };
+  const hasActiveFilters = searchQuery.length > 0 || !!repoFilter;
 
   const clearFilters = () => {
     setSearchQuery("");
-    setCurrentPage(1);
+    if (repoFilter) {
+      window.history.pushState({}, "", "/skills");
+    }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Search Bar */}
-      <div className="mb-6">
-        <div className="relative">
+      {/* Search Bar + Sort */}
+      <div className="mb-6 flex gap-3">
+        <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
             placeholder="Search skills..."
             value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
+        <Select
+          value={sortBy}
+          onValueChange={(value: "installs" | "stars" | "votes") => setSortBy(value)}
+        >
+          <SelectTrigger className="w-[190px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="installs">Most installed</SelectItem>
+            <SelectItem value="stars">Most stars</SelectItem>
+            <SelectItem value="votes">Most voted</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Featured Cards - only on page 1 with no filters */}
@@ -76,7 +87,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
       {/* Skills Grid */}
       {paginatedSkills.length > 0 ? (
         <>
-          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} />
+          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -84,7 +95,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -96,7 +107,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
               >
                 Next

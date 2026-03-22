@@ -39,16 +39,6 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://x.com/AnthropicAI/status/1878133858093199712"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Announcement (X)
-                </a>
-              </li>
-              <li>
-                <a
                   href="https://docs.claude.com/en/docs/claude-code/plugins-reference"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                   target="_blank"

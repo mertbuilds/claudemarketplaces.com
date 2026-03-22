@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import Script from "next/script";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import "./globals.css";
 import { FloatingBanner } from "@/components/floating-banner";
@@ -26,6 +27,7 @@ const bbhSans = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://claudemarketplaces.com"),
   title: "Claude Code Plugin Marketplace | AI Tools & Extensions",
   description:
     "Explore the ultimate Claude Code plugin marketplace. Discover powerful AI development tools, productivity extensions, and innovative integrations from top developers. Find the perfect plugins for your workflow.",
@@ -55,6 +57,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/favicon/site.webmanifest",
+  alternates: { canonical: "./" },
   other: {
     "llms-txt": "/llms.txt",
     "llms-full-txt": "/llms-full.txt",
@@ -96,6 +99,11 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -103,6 +111,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body
         className={`${crimsonPro.variable} ${jetbrainsMono.variable} ${bbhSans.variable} antialiased`}
       >

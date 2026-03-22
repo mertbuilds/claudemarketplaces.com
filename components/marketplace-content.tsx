@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { MarketplaceGrid } from "@/components/marketplace-grid";
 import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
@@ -9,9 +8,8 @@ import { useMarketplaceFilters } from "@/lib/hooks/use-marketplace-filters";
 import { Marketplace } from "@/lib/types";
 import { FILTER_PRESETS, type FilterPreset } from "@/lib/config/filter-presets";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
-
-const ITEMS_PER_PAGE = 22;
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
@@ -24,58 +22,48 @@ export function MarketplaceContent({
   categories,
   newsletterSeed,
 }: MarketplaceContentProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-
   const {
+    searchQuery,
+    setSearchQuery,
+    sortBy,
+    setSortBy,
     filterPreset,
     selectedCategories,
-    filteredMarketplaces,
+    paginatedMarketplaces,
     filteredCount,
+    currentPage,
+    totalPages,
+    setPage,
     setFilterPreset,
     toggleCategory,
-    clearFilters: clearUrlFilters,
-  } = useMarketplaceFilters(marketplaces, searchQuery);
-
-  const totalPages = Math.ceil(filteredCount / ITEMS_PER_PAGE);
-
-  const paginatedMarketplaces = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredMarketplaces.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredMarketplaces, currentPage]);
-
-  // Reset to page 1 when filters change
-  const handleFilterPreset = (id: FilterPreset) => {
-    setFilterPreset(id);
-    setCurrentPage(1);
-  };
-
-  const handleToggleCategory = (category: string) => {
-    toggleCategory(category);
-    setCurrentPage(1);
-  };
-
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1);
-  };
+    clearFilters,
+  } = useMarketplaceFilters(marketplaces);
 
   const hasActiveFilters =
     searchQuery ||
     selectedCategories.length > 0 ||
     (filterPreset && filterPreset !== "all");
 
-  const clearFilters = () => {
-    setSearchQuery("");
-    clearUrlFilters();
-    setCurrentPage(1);
-  };
-
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Search Bar */}
-      <div className="mb-6">
-        <MarketplaceSearch value={searchQuery} onChange={handleSearchChange} />
+      {/* Search Bar + Sort */}
+      <div className="mb-6 flex gap-3">
+        <div className="flex-1">
+          <MarketplaceSearch value={searchQuery} onChange={setSearchQuery} />
+        </div>
+        <Select
+          value={sortBy}
+          onValueChange={(value: "stars" | "plugins" | "votes") => setSortBy(value)}
+        >
+          <SelectTrigger className="w-[190px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="stars">Most stars</SelectItem>
+            <SelectItem value="plugins">Most plugins</SelectItem>
+            <SelectItem value="votes">Most voted</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {/* Horizontal Scrollable Filter Presets and Categories */}
@@ -87,7 +75,7 @@ export function MarketplaceContent({
               key={preset.id}
               variant={filterPreset === preset.id ? "default" : "outline"}
               className="cursor-pointer capitalize shrink-0"
-              onClick={() => handleFilterPreset(preset.id)}
+              onClick={() => setFilterPreset(preset.id)}
             >
               {preset.label}
             </Badge>
@@ -100,7 +88,7 @@ export function MarketplaceContent({
                 key={category}
                 variant={isSelected ? "default" : "outline"}
                 className="cursor-pointer capitalize shrink-0"
-                onClick={() => handleToggleCategory(category)}
+                onClick={() => toggleCategory(category)}
               >
                 {category}
               </Badge>
@@ -130,7 +118,7 @@ export function MarketplaceContent({
       {/* Marketplace Grid */}
       {paginatedMarketplaces.length > 0 ? (
         <>
-          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} />
+          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (
@@ -138,7 +126,7 @@ export function MarketplaceContent({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -150,7 +138,7 @@ export function MarketplaceContent({
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
               >
                 Next

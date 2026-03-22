@@ -41,8 +41,10 @@ export function extractSkillFromFrontmatter(
     path: skillPath,
     license: frontmatter.license as string | undefined,
     stars,
+    installs: 0,
     installCommand: `claude skill add ${repo}:${skillName}`,
     discoveredAt: new Date().toISOString(),
+    voteCount: 0,
   };
 }
 

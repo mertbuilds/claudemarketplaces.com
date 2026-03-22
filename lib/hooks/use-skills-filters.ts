@@ -1,20 +1,61 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useCallback } from "react";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Skill } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
-export function useSkillsFilters(skills: Skill[]) {
-  const [searchQuery, setSearchQuery] = useState("");
+const ITEMS_PER_PAGE = 22;
 
-  // Debounce search query for better filtering performance
+export function useSkillsFilters(skills: Skill[]) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const repoFilter = searchParams.get("repo");
+  const searchQuery = searchParams.get("search") || "";
+  const sortBy = (searchParams.get("sort") as "installs" | "stars" | "votes") || "installs";
+  const currentPage = Number(searchParams.get("page")) || 1;
+
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  // Filter skills
+  const updateURL = useCallback(
+    (params: Record<string, string | null>) => {
+      const newParams = new URLSearchParams(searchParams);
+      Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+          newParams.set(key, value);
+        } else {
+          newParams.delete(key);
+        }
+      });
+      router.replace(`${pathname}?${newParams.toString()}`, { scroll: false });
+    },
+    [searchParams, router, pathname]
+  );
+
+  const setSearchQuery = useCallback(
+    (query: string) => updateURL({ search: query || null, page: null }),
+    [updateURL]
+  );
+
+  const setSortBy = useCallback(
+    (sort: "installs" | "stars" | "votes") => updateURL({ sort: sort === "installs" ? null : sort, page: null }),
+    [updateURL]
+  );
+
+  const setPage = useCallback(
+    (page: number) => updateURL({ page: page === 1 ? null : String(page) }),
+    [updateURL]
+  );
+
   const filteredSkills = useMemo(() => {
     let filtered = skills;
 
-    // Search filter (matches name, description, repo)
+    if (repoFilter) {
+      filtered = filtered.filter((s) => s.repo === repoFilter);
+    }
+
     if (debouncedSearchQuery) {
       const query = debouncedSearchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -25,17 +66,30 @@ export function useSkillsFilters(skills: Skill[]) {
       );
     }
 
-    // Sort by stars (highest first)
-    return filtered.sort((a, b) => {
-      const starsA = a.stars ?? 0;
-      const starsB = b.stars ?? 0;
-      return starsB - starsA;
+    return [...filtered].sort((a, b) => {
+      if (sortBy === "stars") return (b.stars ?? 0) - (a.stars ?? 0);
+      if (sortBy === "votes") return (b.voteCount ?? 0) - (a.voteCount ?? 0);
+      return b.installs - a.installs;
     });
-  }, [skills, debouncedSearchQuery]);
+  }, [skills, repoFilter, debouncedSearchQuery, sortBy]);
+
+  const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
+
+  const paginatedSkills = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredSkills.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredSkills, currentPage]);
 
   return {
     searchQuery,
     setSearchQuery,
     filteredSkills,
+    paginatedSkills,
+    sortBy,
+    setSortBy,
+    repoFilter,
+    currentPage,
+    totalPages,
+    setPage,
   };
 }

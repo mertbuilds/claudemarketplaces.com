@@ -4,7 +4,7 @@ import { Marketplace } from "@/lib/types";
  * Filter preset identifiers
  * Presets are mutually exclusive with category filters
  */
-export type FilterPreset = "all" | "recently-published";
+export type FilterPreset = "all" | "recently-published" | "most-voted";
 
 /**
  * Configuration for a filter preset
@@ -48,6 +48,12 @@ export const FILTER_PRESETS: FilterPresetConfig[] = [
     label: "Recently published",
     description: "Show marketplaces discovered in the last 24 hours",
     predicate: isRecentlyPublished,
+  },
+  {
+    id: "most-voted",
+    label: "Most voted",
+    description: "Show marketplaces sorted by vote count",
+    predicate: () => true,
   },
 ];
 

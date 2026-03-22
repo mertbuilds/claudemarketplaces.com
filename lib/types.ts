@@ -21,6 +21,7 @@ export interface Plugin {
   hooks?: string[];
   mcpServers?: string[];
   installCommand: string;
+  voteCount: number;
 }
 
 export interface Marketplace {
@@ -29,12 +30,13 @@ export interface Marketplace {
   description: string;
   pluginCount: number;
   categories: string[];
-  pluginKeywords?: string[]; // Aggregated keywords from all plugins for searchability
+  pluginKeywords?: string[];
   discoveredAt?: string;
   lastUpdated?: string;
   source?: 'manual' | 'auto';
   stars?: number;
   starsFetchedAt?: string;
+  voteCount: number;
 }
 
 export interface Author {
@@ -49,20 +51,40 @@ export interface Video {
   author: Author;
 }
 
-export interface Skill {
-  id: string;              // "owner-repo/skill-name"
-  name: string;            // from SKILL.md frontmatter
-  description: string;     // from SKILL.md frontmatter
-  repo: string;            // "owner/repo"
-  repoSlug: string;        // "owner-repo"
-  path: string;            // "skills/pdf" or ".claude/skills/pdf"
-  license?: string;
-  stars?: number;
-  installCommand: string;  // "claude skill add owner/repo:skill-name"
-  discoveredAt?: string;
-  lastUpdated?: string;
+export interface Article {
+  url: string; // X post/article URL
+  title: string;
+  description: string;
+  image?: string; // Preview image URL
+  author: Author;
+  date: string; // ISO date string
 }
 
+export interface LearnLink {
+  url: string;
+  title: string;
+  description: string;
+  source: string; // e.g. "Anthropic", "GitHub"
+}
+
+export interface Skill {
+  id: string;
+  name: string;
+  description: string;
+  repo: string;
+  repoSlug: string;
+  path: string;
+  license?: string;
+  stars?: number;
+  installs: number;
+  installCommand: string;
+  discoveredAt?: string;
+  lastUpdated?: string;
+  voteCount: number;
+}
+
+
+/** @deprecated - skill_repos table removed, kept for legacy script compatibility */
 export interface SkillRepo {
   repo: string;
   slug: string;
@@ -73,4 +95,31 @@ export interface SkillRepo {
   discoveredAt?: string;
   lastUpdated?: string;
   source?: 'manual' | 'auto';
+  voteCount: number;
+}
+
+export interface McpServer {
+  slug: string;
+  name: string;
+  displayName: string;
+  description: string;
+  sourceRepo: string;
+  source: string;
+  userName: string;
+  collection: string;
+  tags: string[];
+  url?: string;
+  stars?: number;
+  lastUpdated?: string;
+  voteCount: number;
+}
+
+export interface Vote {
+  id: string;
+  userId: string;
+  itemType: 'marketplace' | 'plugin' | 'skill' | 'mcp_server';
+  itemId: string;
+  value: 1 | -1;
+  createdAt: string;
+  updatedAt: string;
 }

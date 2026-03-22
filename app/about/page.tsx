@@ -9,16 +9,16 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Search, RefreshCw, Github, Mail } from "lucide-react";
+import { ExternalLink, Search, Github, Mail, Star, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Claude Code Marketplaces - How It Works & Discovery Process",
+  title: "About | Claude Code Marketplaces",
   description:
-    "Learn how Claude Code Marketplaces automatically discovers and catalogs Anthropic Claude plugin repositories from GitHub. Understand our validation process, daily updates, and how to create your own marketplace.",
+    "A curated, community-driven directory of high-quality Claude Code plugins, skills, and MCP servers. Learn how we maintain quality through curation and community features.",
   openGraph: {
-    title: "About Claude Code Marketplaces - How It Works",
+    title: "About | Claude Code Marketplaces",
     description:
-      "Automated discovery of Claude Code plugins, extensions, and tools. Learn about our GitHub search process and marketplace validation.",
+      "A curated, community-driven directory of high-quality Claude Code plugins, skills, and MCP servers.",
     url: "https://claudemarketplaces.com/about",
     type: "website",
   },
@@ -37,10 +37,9 @@ export default function AboutPage() {
               <p className="text-xs text-muted-foreground">
                 <strong>Disclaimer:</strong> This is an independent,
                 community-run directory and is not officially affiliated with
-                Anthropic or Claude. All marketplace listings are automatically
-                discovered from public GitHub repositories. Users should review
-                plugin code and marketplace repositories before installation to
-                ensure they meet their security and quality standards.
+                Anthropic or Claude. Users should review plugin code and
+                repositories before installation to ensure they meet their
+                security and quality standards.
               </p>
             </CardContent>
           </Card>
@@ -51,39 +50,31 @@ export default function AboutPage() {
               <CardTitle>What is this site?</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-4">
-                <p className="text-lg font-semibold text-foreground">
-                  The fastest way to discover Claude Code plugins and
-                  extensions.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Claude Code Marketplaces</strong> is the only
-                  automated directory that continuously searches GitHub to find
-                  and catalog every available{" "}
-                  <strong>Claude Code plugin marketplace</strong>. Instead of
-                  manually searching through hundreds of repositories, our
-                  system does the heavy lifting for you—discovering, validating,
-                  and updating marketplace information daily.
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  <strong>Plugin marketplaces</strong> are GitHub repositories
-                  containing collections of <strong>Claude Code plugins</strong>{" "}
-                  that extend Claude Code&apos;s functionality with new tools,
-                  commands, and integrations. Whether you&apos;re looking for
-                  development tools, productivity extensions, testing utilities,
-                  or specialized integrations, our directory gives you instant
-                  access to the entire Claude Code plugin ecosystem.
-                </p>
-              </div>
+              <p className="text-lg font-semibold text-foreground">
+                A curated, community-driven directory of high-quality Claude
+                Code extensions.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                <strong>Claude Code Marketplaces</strong> is a hand-picked
+                directory of plugins, skills, and MCP servers for Claude Code.
+                Unlike raw aggregators, we filter by quality — only extensions
+                with proven adoption (500+ installs), active GitHub repos, and
+                community trust make it here.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Community features like <strong>voting</strong> and{" "}
+                <strong>commenting (coming soon)</strong> help surface the best
+                tools and let developers share their experiences.
+              </p>
             </CardContent>
           </Card>
 
-          {/* How it works */}
+          {/* Quality Curation */}
           <Card className="mb-8">
             <CardHeader>
               <div className="flex items-center gap-3">
-                <Search className="h-6 w-6 text-primary" />
-                <CardTitle>How does it work?</CardTitle>
+                <Shield className="h-6 w-6 text-primary" />
+                <CardTitle>How we maintain quality</CardTitle>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -93,15 +84,10 @@ export default function AboutPage() {
                     1
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Automatic Discovery</h4>
+                    <h4 className="font-semibold mb-1">Install threshold</h4>
                     <p className="text-sm text-muted-foreground">
-                      Our search automatically discovers GitHub repositories
-                      containing valid
-                      <code className="bg-muted px-1.5 py-0.5 rounded mx-1">
-                        .claude-plugin/marketplace.json
-                      </code>
-                      files. This happens daily to ensure we capture new
-                      marketplaces as they&apos;re created.
+                      Skills must have 500+ installs to be listed. This filters
+                      out abandoned, test, and low-quality entries.
                     </p>
                   </div>
                 </div>
@@ -111,14 +97,11 @@ export default function AboutPage() {
                     2
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">
-                      Validation & Metadata
-                    </h4>
+                    <h4 className="font-semibold mb-1">GitHub stars</h4>
                     <p className="text-sm text-muted-foreground">
-                      Each discovered marketplace is validated to ensure it
-                      follows the official Claude Code marketplace schema. We
-                      extract key information like description, plugin count,
-                      and categories.
+                      We track GitHub star counts as a proxy for community trust
+                      and project maturity. Sort by stars to find the most
+                      trusted extensions.
                     </p>
                   </div>
                 </div>
@@ -128,11 +111,11 @@ export default function AboutPage() {
                     3
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">GitHub Star Tracking</h4>
+                    <h4 className="font-semibold mb-1">Community voting</h4>
                     <p className="text-sm text-muted-foreground">
-                      We fetch and update GitHub star counts daily for all
-                      marketplaces, allowing you to sort and discover popular
-                      marketplaces based on community engagement.
+                      Logged-in users can upvote or downvote any skill, plugin,
+                      or MCP server. Community signals help surface the best
+                      tools.
                     </p>
                   </div>
                 </div>
@@ -142,16 +125,63 @@ export default function AboutPage() {
                     4
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Quality Filter</h4>
+                    <h4 className="font-semibold mb-1">
+                      Comments (coming soon)
+                    </h4>
                     <p className="text-sm text-muted-foreground">
-                      Only marketplaces with 5 or more GitHub stars are included
-                      in our directory. This quality threshold ensures that listed
-                      marketplaces have demonstrated community interest and
-                      reliability.
+                      Soon you&apos;ll be able to leave reviews and share
+                      experiences on any listing, helping others make informed
+                      decisions.
                     </p>
                   </div>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+
+          {/* How discovery works */}
+          <Card className="mb-8">
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Search className="h-6 w-6 text-primary" />
+                <CardTitle>How discovery works</CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-sm text-muted-foreground">
+                We crawl multiple sources to find extensions, then apply our
+                quality filters:
+              </p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span>
+                    <strong>Skills</strong> are crawled from skills.sh with
+                    install counts and filtered to 500+ installs
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span>
+                    <strong>Plugin marketplaces</strong> are discovered from
+                    GitHub repositories with valid marketplace schemas
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span>
+                    <strong>MCP servers</strong> are aggregated from community
+                    directories
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span>
+                    GitHub star counts are refreshed regularly across all
+                    listings
+                  </span>
+                </li>
+              </ul>
             </CardContent>
           </Card>
 
@@ -169,12 +199,12 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground">
-                Simply create a GitHub repository with a valid
+                Create a GitHub repository with a valid
                 <code className="bg-muted px-1.5 py-0.5 rounded mx-1">
                   .claude-plugin/marketplace.json
                 </code>
-                file following the official schema. Our search will
-                automatically discover and list it within 24 hours.
+                file following the official schema. Our crawler will
+                discover and list it automatically.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button variant="default" asChild>
@@ -203,91 +233,58 @@ export default function AboutPage() {
             </CardContent>
           </Card>
 
-          {/* Updates */}
-          <Card className="mb-8">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <RefreshCw className="h-6 w-6 text-primary" />
-                <CardTitle>Automatic Updates</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>
-                    New marketplaces are discovered daily through GitHub search
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>GitHub star counts are refreshed daily</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>
-                    Marketplace metadata (description, plugin count, categories)
-                    is updated during each search
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>No manual submission or approval process required</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+          {/* Contact & Open Source */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Mail className="h-6 w-6 text-primary" />
+                  <CardTitle>Contact</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Questions, issues, or want to get your extension listed?
+                  Reach out.
+                </p>
+                <Button variant="outline" asChild>
+                  <a
+                    href="mailto:mert@vinena.studio?subject=Claude Code Marketplaces"
+                    className="flex items-center gap-2"
+                  >
+                    <Mail className="h-4 w-4" />
+                    mert@vinena.studio
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Validation Issues */}
-          <Card className="mb-8">
-            <CardHeader>
-              <div className="flex items-center gap-3">
-                <Mail className="h-6 w-6 text-primary" />
-                <CardTitle>Validation Issues?</CardTitle>
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                If you believe your marketplace is valid but couldn&apos;t be
-                validated by our search, please reach out so we can investigate
-                the issue.
-              </p>
-              <Button variant="outline" asChild>
-                <a
-                  href="mailto:mert@vinena.studio?subject=Marketplace Validation Issue"
-                  className="flex items-center gap-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  Contact: mert@vinena.studio
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
-
-          {/* Open Source */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Open Source</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                This site is open source and built with Claude Code. The search
-                functionality and website code are available on GitHub.
-              </p>
-              <Button variant="outline" asChild>
-                <a
-                  href="https://github.com/mert-duzgun/claudemarketplaces.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2"
-                >
-                  <Github className="h-4 w-4" />
-                  View on GitHub
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </Button>
-            </CardContent>
-          </Card>
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <Star className="h-6 w-6 text-primary" />
+                  <CardTitle>Open Source</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  This site is open source and built with Claude Code.
+                </p>
+                <Button variant="outline" asChild>
+                  <a
+                    href="https://github.com/mert-duzgun/claudemarketplaces.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2"
+                  >
+                    <Github className="h-4 w-4" />
+                    View on GitHub
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </main>
 
