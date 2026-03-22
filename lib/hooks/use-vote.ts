@@ -10,6 +10,7 @@ export function useVote(itemType: string, itemId: string) {
   const [userVote, setUserVote] = useState<VoteValue>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   // Check auth status and fetch initial vote data
   useEffect(() => {
@@ -27,6 +28,7 @@ export function useVote(itemType: string, itemId: string) {
       .then((data) => {
         setVoteCount(data.voteCount ?? 0);
         setUserVote(data.userVote ?? null);
+        setLoaded(true);
       })
       .catch(console.error);
   }, [itemType, itemId]);
@@ -87,5 +89,5 @@ export function useVote(itemType: string, itemId: string) {
     [itemType, itemId, voteCount, userVote, isAuthenticated, isLoading]
   );
 
-  return { voteCount, userVote, vote, isLoading, isAuthenticated };
+  return { voteCount, userVote, vote, isLoading, isAuthenticated, loaded };
 }

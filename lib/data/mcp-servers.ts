@@ -9,16 +9,12 @@ export async function getAllMcpServers(options?: {
   const { data, error } = await supabase
     .from("mcp_servers")
     .select("*")
-    .order("vote_count", { ascending: false });
+    .order("stars", { ascending: false, nullsFirst: false });
   if (error) {
     console.error("Error fetching MCP servers:", error);
     return [];
   }
-  let servers = (data as McpServerRow[]).map(mapMcpServerRow);
-  if (!options?.includeEmpty) {
-    servers = servers.filter((s) => s.name && s.description);
-  }
-  return servers;
+  return (data as McpServerRow[]).map(mapMcpServerRow);
 }
 
 export async function getMcpServerBySlug(slug: string): Promise<McpServer | null> {

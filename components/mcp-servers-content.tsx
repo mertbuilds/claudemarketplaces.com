@@ -1,15 +1,13 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { McpServersGrid } from "@/components/mcp-servers-grid";
 import { useMcpFilters } from "@/lib/hooks/use-mcp-filters";
 import { McpServer } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
-
-const ITEMS_PER_PAGE = 22;
 
 interface McpServersContentProps {
   servers: McpServer[];
@@ -17,41 +15,49 @@ interface McpServersContentProps {
 }
 
 export function McpServersContent({ servers, newsletterSeed }: McpServersContentProps) {
-  const { searchQuery, setSearchQuery, filteredServers } = useMcpFilters(servers);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(filteredServers.length / ITEMS_PER_PAGE);
-
-  const paginatedServers = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredServers.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredServers, currentPage]);
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredServers,
+    paginatedServers,
+    sortBy,
+    setSortBy,
+    currentPage,
+    totalPages,
+    setPage,
+  } = useMcpFilters(servers);
 
   const hasActiveFilters = searchQuery.length > 0;
 
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1);
-  };
-
   const clearFilters = () => {
     setSearchQuery("");
-    setCurrentPage(1);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-6">
-        <div className="relative">
+      <div className="mb-6 flex gap-3">
+        <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
             placeholder="Search MCP servers..."
             value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
+        <Select
+          value={sortBy}
+          onValueChange={(value: "stars" | "votes") => setSortBy(value)}
+        >
+          <SelectTrigger className="w-[190px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="stars">Most stars</SelectItem>
+            <SelectItem value="votes">Most voted</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
@@ -79,7 +85,7 @@ export function McpServersContent({ servers, newsletterSeed }: McpServersContent
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -91,7 +97,7 @@ export function McpServersContent({ servers, newsletterSeed }: McpServersContent
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
               >
                 Next

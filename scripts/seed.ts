@@ -212,10 +212,14 @@ async function main() {
 
   console.log(`  ${inserted} skills upserted${errors ? `, ${errors} batches failed` : ""}`);
 
-  // 5. Seed MCP servers
-  console.log("\n[6/6] Reading mcp-only.json...");
+  // 5. Seed MCP servers (prefer crawled data, fallback to mcp-only.json)
+  const mcpCrawledPath = `${dataDir}/mcp-crawled.json`;
+  const mcpFallbackPath = `${dataDir}/mcp-only.json`;
+  const hasMcpCrawled = await Bun.file(mcpCrawledPath).exists();
+  const mcpSource = hasMcpCrawled ? mcpCrawledPath : mcpFallbackPath;
+  console.log(`\n[6/6] Reading ${hasMcpCrawled ? "mcp-crawled.json" : "mcp-only.json"}...`);
   const mcpFile: { crawledAt: string; total: number; servers: any[] } =
-    await Bun.file(`${dataDir}/mcp-only.json`).json();
+    await Bun.file(mcpSource).json();
   const mcpRaw = mcpFile.servers;
   console.log(`  ${mcpRaw.length} MCP servers found`);
 
@@ -230,6 +234,7 @@ async function main() {
     collection: s.collection ?? "",
     tags: s.tags ?? [],
     url: s.url ?? null,
+    stars: s.stars ?? null,
     last_updated: s.lastmod ?? null,
   }));
 

@@ -15,12 +15,12 @@ export function VoteButton({
   itemId,
   initialVoteCount = 0,
 }: VoteButtonProps) {
-  const { voteCount, userVote, vote, isLoading, isAuthenticated } = useVote(
+  const { voteCount, userVote, vote, isLoading, isAuthenticated, loaded } = useVote(
     itemType,
     itemId
   );
   const router = useRouter();
-  const displayCount = voteCount || initialVoteCount;
+  const displayCount = loaded ? voteCount : initialVoteCount;
 
   const handleVote = (value: 1 | -1) => (e: React.MouseEvent) => {
     e.preventDefault();

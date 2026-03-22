@@ -107,6 +107,7 @@ export interface McpServer {
   collection: string;
   tags: string[];
   url?: string;
+  stars?: number;
   lastUpdated?: string;
   voteCount: number;
 }

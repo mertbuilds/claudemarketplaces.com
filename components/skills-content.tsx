@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SkillsGrid } from "@/components/skills-grid";
@@ -10,34 +9,29 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
 
-const ITEMS_PER_PAGE = 22;
-
 interface SkillsContentProps {
   skills: Skill[];
   newsletterSeed: [number, number];
 }
 
 export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
-  const { searchQuery, setSearchQuery, filteredSkills, repoFilter, sortBy, setSortBy } = useSkillsFilters(skills);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
-
-  const paginatedSkills = useMemo(() => {
-    const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredSkills.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredSkills, currentPage]);
+  const {
+    searchQuery,
+    setSearchQuery,
+    filteredSkills,
+    paginatedSkills,
+    repoFilter,
+    sortBy,
+    setSortBy,
+    currentPage,
+    totalPages,
+    setPage,
+  } = useSkillsFilters(skills);
 
   const hasActiveFilters = searchQuery.length > 0 || !!repoFilter;
 
-  const handleSearchChange = (value: string) => {
-    setSearchQuery(value);
-    setCurrentPage(1);
-  };
-
   const clearFilters = () => {
     setSearchQuery("");
-    setCurrentPage(1);
     if (repoFilter) {
       window.history.pushState({}, "", "/skills");
     }
@@ -53,18 +47,15 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
             type="text"
             placeholder="Search skills..."
             value={searchQuery}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10"
           />
         </div>
         <Select
           value={sortBy}
-          onValueChange={(value: "installs" | "stars" | "votes") => {
-            setSortBy(value);
-            setCurrentPage(1);
-          }}
+          onValueChange={(value: "installs" | "stars" | "votes") => setSortBy(value)}
         >
-          <SelectTrigger className="w-[160px]">
+          <SelectTrigger className="w-[190px]">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -104,7 +95,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -116,7 +107,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
                 disabled={currentPage === totalPages}
               >
                 Next
