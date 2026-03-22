@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -20,6 +20,7 @@ export function AuthButton() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const supabase = createClient();
@@ -60,7 +61,7 @@ export function AuthButton() {
   if (!user) {
     return (
       <Link
-        href="/login"
+        href={`/login?next=${encodeURIComponent(pathname)}`}
         className="text-xs uppercase tracking-[0.12em] text-primary transition-colors hover:text-primary/80"
       >
         Login

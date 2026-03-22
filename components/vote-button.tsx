@@ -2,7 +2,13 @@
 
 import { useVote } from "@/lib/hooks/use-vote";
 import { ChevronUp, ChevronDown } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface VoteButtonProps {
   itemType: string;
@@ -20,19 +26,20 @@ export function VoteButton({
     itemId
   );
   const router = useRouter();
+  const pathname = usePathname();
   const displayCount = loaded ? voteCount : initialVoteCount;
 
   const handleVote = (value: 1 | -1) => (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (!isAuthenticated) {
-      router.push("/login");
+      router.push(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
     vote(value);
   };
 
-  return (
+  const buttons = (
     <div className="flex items-center gap-1">
       <button
         onClick={handleVote(1)}
@@ -71,4 +78,19 @@ export function VoteButton({
       </button>
     </div>
   );
+
+  if (!isAuthenticated) {
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>{buttons}</TooltipTrigger>
+          <TooltipContent>
+            <p>Login to vote and help surface the best tools</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  }
+
+  return buttons;
 }
