@@ -13,15 +13,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: BASE_URL, changeFrequency: "daily", priority: 1.0 },
-    { url: `${BASE_URL}/skills`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/mcp`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/marketplaces`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${BASE_URL}/learn`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE_URL}/about`, changeFrequency: "weekly", priority: 0.5 },
-    { url: `${BASE_URL}/feedback`, changeFrequency: "weekly", priority: 0.5 },
-    { url: `${BASE_URL}/advertise`, changeFrequency: "weekly", priority: 0.5 },
-    { url: `${BASE_URL}/privacy`, changeFrequency: "weekly", priority: 0.5 },
+    { url: BASE_URL, changeFrequency: "daily", priority: 1.0, lastModified: new Date() },
+    { url: `${BASE_URL}/skills`, changeFrequency: "weekly", priority: 0.9, lastModified: new Date() },
+    { url: `${BASE_URL}/mcp`, changeFrequency: "weekly", priority: 0.9, lastModified: new Date() },
+    { url: `${BASE_URL}/marketplaces`, changeFrequency: "weekly", priority: 0.9, lastModified: new Date() },
+    { url: `${BASE_URL}/learn`, changeFrequency: "weekly", priority: 0.8, lastModified: new Date() },
+    { url: `${BASE_URL}/about`, changeFrequency: "weekly", priority: 0.5, lastModified: new Date() },
+    { url: `${BASE_URL}/feedback`, changeFrequency: "weekly", priority: 0.5, lastModified: new Date() },
+    { url: `${BASE_URL}/advertise`, changeFrequency: "weekly", priority: 0.5, lastModified: new Date() },
+    { url: `${BASE_URL}/privacy`, changeFrequency: "weekly", priority: 0.5, lastModified: new Date() },
   ];
 
   const pluginPages: MetadataRoute.Sitemap = marketplaces.map((m) => ({

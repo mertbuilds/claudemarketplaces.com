@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import Script from "next/script";
+
 import Link from "next/link";
 import { Metadata } from "next";
 import {
@@ -23,8 +23,14 @@ import { Skill } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { SkillMarkdown } from "@/components/skill-markdown";
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const skills = await getAllSkills();
+  return skills.map((s) => ({
+    slug: s.id.split("/"),
+  }));
+}
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -49,6 +55,7 @@ export async function generateMetadata({
     return {
       title,
       description,
+      alternates: { canonical: `/skills/${org}` },
       openGraph: {
         title,
         description,
@@ -86,6 +93,7 @@ export async function generateMetadata({
     return {
       title,
       description,
+      alternates: { canonical: `/skills/${repo}` },
       openGraph: {
         title,
         description,
@@ -126,6 +134,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: { canonical: `/skills/${id}` },
     keywords: [
       skill.name,
       "claude code skill",
@@ -683,13 +692,10 @@ export default async function SkillDetailPage({ params }: PageProps) {
   return (
     <div className="min-h-screen flex flex-col">
       {structuredData && (
-        <Script
-          id="schema-org"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
-        >
-          {JSON.stringify(structuredData)}
-        </Script>
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       )}
       <Header />
       <main className="flex-1">

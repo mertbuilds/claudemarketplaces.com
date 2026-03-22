@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Script from "next/script";
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills } from "@/lib/data/skills";
@@ -53,13 +53,10 @@ export default function SkillsPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Script
-        id="skills-schema"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(structuredData)}
-      </Script>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Header />
       <main className="flex-1">
         <div className="container mx-auto px-4 pt-8">

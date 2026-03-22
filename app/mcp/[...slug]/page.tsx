@@ -20,8 +20,15 @@ import { formatStarCount } from "@/lib/utils/format";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { SkillInstallCommand } from "@/components/skill-install-command";
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300;
+
+export async function generateStaticParams() {
+  const { getAllMcpServers } = await import("@/lib/data/mcp-servers");
+  const servers = await getAllMcpServers();
+  return servers.map((s) => ({
+    slug: s.slug.split("/"),
+  }));
+}
 
 interface PageProps {
   params: Promise<{ slug: string[] }>;
@@ -46,6 +53,7 @@ export async function generateMetadata({
   return {
     title,
     description,
+    alternates: { canonical: `/mcp/${serverSlug}` },
     keywords: [
       server.name,
       "mcp server",
@@ -211,9 +219,37 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
 
 export default async function McpServerDetailPage({ params }: PageProps) {
   const { slug } = await params;
+  const serverSlug = slug.join("/");
+  const server = await getMcpServerBySlug(serverSlug);
+
+  const breadcrumbSchema = server
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "MCP Servers",
+            item: "https://claudemarketplaces.com/mcp",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: server.displayName || server.name,
+          },
+        ],
+      }
+    : null;
 
   return (
     <div className="min-h-screen flex flex-col">
+      {breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
       <Header />
       <main className="flex-1">
         <Suspense

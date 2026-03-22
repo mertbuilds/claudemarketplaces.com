@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import Script from "next/script";
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { LearnContent } from "@/components/learn-content";
@@ -30,13 +30,10 @@ export default function LearnPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Script
-        id="learn-schema"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(structuredData)}
-      </Script>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Header />
 
       <main className="flex-1">

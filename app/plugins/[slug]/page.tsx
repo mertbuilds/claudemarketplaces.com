@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
-import Script from "next/script";
+
 import { Metadata } from "next";
 import {
   Breadcrumb,
@@ -187,13 +187,10 @@ export default async function PluginsPage({ params }: PageProps) {
   return (
     <div className="min-h-screen flex flex-col">
       {structuredData && (
-        <Script
-          id="schema-org"
+        <script
           type="application/ld+json"
-          strategy="afterInteractive"
-        >
-          {JSON.stringify(structuredData)}
-        </Script>
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
       )}
       <Header />
       <main className="flex-1">

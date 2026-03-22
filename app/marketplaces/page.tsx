@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Script from "next/script";
+
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -95,13 +95,10 @@ export default function MarketplacesPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Script
-        id="schema-org"
+      <script
         type="application/ld+json"
-        strategy="afterInteractive"
-      >
-        {JSON.stringify(structuredData)}
-      </Script>
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <Header />
 
       <main className="flex-1">
