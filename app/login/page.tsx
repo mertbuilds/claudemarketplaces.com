@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function LoginPage() {
+function LoginContent() {
   const supabase = createClient();
   const searchParams = useSearchParams();
   const next = searchParams.get("next") || "/";
@@ -19,8 +19,20 @@ export default function LoginPage() {
   }, [supabase, next]);
 
   return (
+    <p className="text-sm text-muted-foreground">Redirecting to GitHub...</p>
+  );
+}
+
+export default function LoginPage() {
+  return (
     <div className="min-h-screen flex items-center justify-center">
-      <p className="text-sm text-muted-foreground">Redirecting to GitHub...</p>
+      <Suspense
+        fallback={
+          <p className="text-sm text-muted-foreground">Loading...</p>
+        }
+      >
+        <LoginContent />
+      </Suspense>
     </div>
   );
 }
