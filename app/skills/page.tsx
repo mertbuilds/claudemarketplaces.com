@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 async function SkillsData() {
-  const skills = await getAllSkills({ includeEmpty: false });
+  const skills = await getAllSkills();
   return (
     <SkillsContent
       skills={skills}

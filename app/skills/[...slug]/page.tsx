@@ -38,7 +38,7 @@ export async function generateMetadata({
   if (slug.length === 1) {
     // Org page
     const org = slug[0];
-    const allSkills = await getAllSkills({ includeEmpty: false });
+    const allSkills = await getAllSkills();
     const orgSkills = allSkills.filter((s) => s.repo.startsWith(org + "/"));
     if (!orgSkills.length) return { title: "Organization Not Found" };
 
@@ -216,7 +216,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
 // ─── Org Page ────────────────────────────────────────────────
 
 async function OrgContent({ org }: { org: string }) {
-  const allSkills = await getAllSkills({ includeEmpty: false });
+  const allSkills = await getAllSkills();
   const orgSkills = allSkills.filter((s) => s.repo.startsWith(org + "/"));
 
   if (!orgSkills.length) {

@@ -83,6 +83,8 @@ export interface Skill {
   voteCount: number;
 }
 
+
+/** @deprecated - skill_repos table removed, kept for legacy script compatibility */
 export interface SkillRepo {
   repo: string;
   slug: string;
@@ -115,7 +117,7 @@ export interface McpServer {
 export interface Vote {
   id: string;
   userId: string;
-  itemType: 'marketplace' | 'plugin' | 'skill' | 'skill_repo' | 'mcp_server';
+  itemType: 'marketplace' | 'plugin' | 'skill' | 'mcp_server';
   itemId: string;
   value: 1 | -1;
   createdAt: string;

@@ -1,4 +1,4 @@
-import { Marketplace, McpServer, Plugin, Skill, SkillRepo } from "@/lib/types";
+import { Marketplace, McpServer, Plugin, Skill } from "@/lib/types";
 
 export interface MarketplaceRow {
   repo: string;
@@ -54,20 +54,6 @@ export interface SkillRow {
   install_command: string;
   discovered_at: string | null;
   last_updated: string | null;
-  vote_count: number;
-  created_at: string;
-}
-
-export interface SkillRepoRow {
-  repo: string;
-  slug: string;
-  description: string;
-  skill_count: number;
-  stars: number | null;
-  stars_fetched_at: string | null;
-  discovered_at: string | null;
-  last_updated: string | null;
-  source: string | null;
   vote_count: number;
   created_at: string;
 }
@@ -172,17 +158,3 @@ export function mapSkillRow(row: SkillRow): Skill {
   };
 }
 
-export function mapSkillRepoRow(row: SkillRepoRow): SkillRepo {
-  return {
-    repo: row.repo,
-    slug: row.slug,
-    description: row.description,
-    skillCount: row.skill_count,
-    stars: row.stars || undefined,
-    starsFetchedAt: row.stars_fetched_at || undefined,
-    discoveredAt: row.discovered_at || undefined,
-    lastUpdated: row.last_updated || undefined,
-    source: (row.source as "manual" | "auto") || undefined,
-    voteCount: row.vote_count,
-  };
-}

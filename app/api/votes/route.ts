@@ -5,13 +5,15 @@ const TABLE_MAP: Record<string, string> = {
   marketplace: "marketplaces",
   plugin: "plugins",
   skill: "skills",
-  skill_repo: "skill_repos",
+  mcp_server: "mcp_servers",
 };
 
 const VALID_TYPES = Object.keys(TABLE_MAP);
 
 function getPkColumn(itemType: string): string {
-  return itemType === "marketplace" || itemType === "skill_repo" ? "repo" : "id";
+  if (itemType === "marketplace") return "repo";
+  if (itemType === "mcp_server") return "slug";
+  return "id";
 }
 
 // GET: Get vote count and user's vote for an item
