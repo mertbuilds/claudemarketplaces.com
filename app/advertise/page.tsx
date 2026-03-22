@@ -91,7 +91,7 @@ export default function AdvertisePage() {
             <CardContent className="space-y-4">
               <div className="w-full overflow-hidden rounded-lg border">
                 <iframe
-                  src="https://analytics.vinena.studio/share/overview/hwyH1d"
+                  src="https://analytics.vinena.studio/share/overview/hwyH1d?range=30d"
                   className="w-full border-0"
                   style={{ height: "600px" }}
                   title="Claude Code Marketplaces Analytics"
