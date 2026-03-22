@@ -7,13 +7,17 @@
 
 import { createClient } from "@supabase/supabase-js";
 
-// Load .env.local for local dev
-const envFile = Bun.file(`${import.meta.dir}/../.env.local`);
-if (await envFile.exists()) {
-  const text = await envFile.text();
-  for (const line of text.split("\n")) {
-    const match = line.match(/^([^#=]+)=(.*)$/);
-    if (match) process.env[match[1].trim()] = match[2].trim();
+// Load .env.local only if env vars aren't already set
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+  const envFile = Bun.file(`${import.meta.dir}/../.env.local`);
+  if (await envFile.exists()) {
+    const text = await envFile.text();
+    for (const line of text.split("\n")) {
+      const match = line.match(/^([^#=]+)=(.*)$/);
+      if (match && !process.env[match[1].trim()]) {
+        process.env[match[1].trim()] = match[2].trim();
+      }
+    }
   }
 }
 
