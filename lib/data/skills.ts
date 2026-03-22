@@ -4,12 +4,28 @@ import { mapSkillRow, SkillRow } from "@/lib/supabase/mappers";
 
 export async function getAllSkills(): Promise<Skill[]> {
   const supabase = await getDataClient();
-  const { data, error } = await supabase.from("skills").select("*").order("installs", { ascending: false });
-  if (error) {
-    console.error("Error fetching skills:", error);
-    return [];
+  const allRows: SkillRow[] = [];
+  const pageSize = 1000;
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("skills")
+      .select("*")
+      .order("installs", { ascending: false })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Error fetching skills:", error);
+      return [];
+    }
+
+    allRows.push(...(data as SkillRow[]));
+    if (data.length < pageSize) break;
+    from += pageSize;
   }
-  return (data as SkillRow[]).map(mapSkillRow);
+
+  return allRows.map(mapSkillRow);
 }
 
 export async function getSkillById(id: string): Promise<Skill | null> {
