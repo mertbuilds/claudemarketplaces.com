@@ -15,7 +15,7 @@ export async function getAllSkills(options?: {
   includeEmpty?: boolean;
 }): Promise<Skill[]> {
   const supabase = await getDataClient();
-  const { data, error } = await supabase.from("skills").select("*");
+  const { data, error } = await supabase.from("skills").select("*").order("installs", { ascending: false });
   if (error) {
     console.error("Error fetching skills:", error);
     return [];
@@ -50,7 +50,8 @@ export async function getSkillsByRepo(repo: string): Promise<Skill[]> {
   const { data, error } = await supabase
     .from("skills")
     .select("*")
-    .eq("repo", repo);
+    .eq("repo", repo)
+    .order("stars", { ascending: false, nullsFirst: false });
 
   if (error) {
     console.error("Error fetching skills by repo:", error);
@@ -74,7 +75,7 @@ export async function getAllSkillRepos(options?: {
     query = query.gt("skill_count", 0);
   }
 
-  const { data, error } = await query;
+  const { data, error } = await query.order("stars", { ascending: false, nullsFirst: false });
   if (error) {
     console.error("Error fetching skill repos:", error);
     return [];

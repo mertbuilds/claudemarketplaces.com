@@ -63,7 +63,7 @@ export function AuthButton() {
         href="/login"
         className="text-xs uppercase tracking-[0.12em] text-primary transition-colors hover:text-primary/80"
       >
-        Sign in
+        Login
       </Link>
     );
   }

@@ -35,7 +35,14 @@ export function VideoCard({ video }: VideoCardProps) {
         />
         <div className="p-6 space-y-2">
           <CardTitle className="text-xl line-clamp-2 leading-7">
-            {video.title}
+            <a
+              href={video.url.replace("/embed/", "/watch?v=")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:underline"
+            >
+              {video.title}
+            </a>
           </CardTitle>
           <CardDescription className="line-clamp-3">
             {video.description}

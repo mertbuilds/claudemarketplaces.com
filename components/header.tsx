@@ -8,9 +8,9 @@ import { AuthButton } from "@/components/auth-button";
 const links = [
   { href: "/", label: "Marketplaces" },
   { href: "/skills", label: "Skills" },
+  { href: "/mcp", label: "MCP" },
   { href: "/learn", label: "Learn" },
   { href: "/advertise", label: "Advertise" },
-  { href: "/feedback", label: "Feedback" },
 ];
 
 export function Header() {

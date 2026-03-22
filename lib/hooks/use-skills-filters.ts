@@ -1,19 +1,25 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { Skill } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
 export function useSkillsFilters(skills: Skill[]) {
+  const searchParams = useSearchParams();
+  const repoFilter = searchParams.get("repo");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState<"stars" | "votes">("stars");
+  const [sortBy, setSortBy] = useState<"installs" | "votes">("installs");
 
-  // Debounce search query for better filtering performance
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  // Filter skills
   const filteredSkills = useMemo(() => {
     let filtered = skills;
+
+    // Repo filter from URL
+    if (repoFilter) {
+      filtered = filtered.filter((s) => s.repo === repoFilter);
+    }
 
     // Search filter (matches name, description, repo)
     if (debouncedSearchQuery) {
@@ -26,16 +32,14 @@ export function useSkillsFilters(skills: Skill[]) {
       );
     }
 
-    // Sort by votes or stars
+    // Sort by votes or installs
     return filtered.sort((a, b) => {
       if (sortBy === "votes") {
         return (b.voteCount ?? 0) - (a.voteCount ?? 0);
       }
-      const starsA = a.stars ?? 0;
-      const starsB = b.stars ?? 0;
-      return starsB - starsA;
+      return b.installs - a.installs;
     });
-  }, [skills, debouncedSearchQuery, sortBy]);
+  }, [skills, repoFilter, debouncedSearchQuery, sortBy]);
 
   return {
     searchQuery,
@@ -43,5 +47,6 @@ export function useSkillsFilters(skills: Skill[]) {
     filteredSkills,
     sortBy,
     setSortBy,
+    repoFilter,
   };
 }

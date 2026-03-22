@@ -3,31 +3,31 @@
 import { useState, useMemo } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SkillsGrid } from "@/components/skills-grid";
-import { useSkillsFilters } from "@/lib/hooks/use-skills-filters";
-import { Skill } from "@/lib/types";
+import { McpServersGrid } from "@/components/mcp-servers-grid";
+import { useMcpFilters } from "@/lib/hooks/use-mcp-filters";
+import { McpServer } from "@/lib/types";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { FeaturedCards } from "@/components/featured-cards";
 
 const ITEMS_PER_PAGE = 22;
 
-interface SkillsContentProps {
-  skills: Skill[];
+interface McpServersContentProps {
+  servers: McpServer[];
   newsletterSeed: [number, number];
 }
 
-export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
-  const { searchQuery, setSearchQuery, filteredSkills, repoFilter } = useSkillsFilters(skills);
+export function McpServersContent({ servers, newsletterSeed }: McpServersContentProps) {
+  const { searchQuery, setSearchQuery, filteredServers } = useMcpFilters(servers);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredServers.length / ITEMS_PER_PAGE);
 
-  const paginatedSkills = useMemo(() => {
+  const paginatedServers = useMemo(() => {
     const start = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredSkills.slice(start, start + ITEMS_PER_PAGE);
-  }, [filteredSkills, currentPage]);
+    return filteredServers.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredServers, currentPage]);
 
-  const hasActiveFilters = searchQuery.length > 0 || !!repoFilter;
+  const hasActiveFilters = searchQuery.length > 0;
 
   const handleSearchChange = (value: string) => {
     setSearchQuery(value);
@@ -37,20 +37,16 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
   const clearFilters = () => {
     setSearchQuery("");
     setCurrentPage(1);
-    if (repoFilter) {
-      window.history.pushState({}, "", "/skills");
-    }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Search Bar */}
       <div className="mb-6">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             type="text"
-            placeholder="Search skills..."
+            placeholder="Search MCP servers..."
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
             className="pl-10"
@@ -58,13 +54,11 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
         </div>
       </div>
 
-      {/* Featured Cards - only on page 1 with no filters */}
       {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
 
-      {/* Results info */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-muted-foreground">
-          {filteredSkills.length} {filteredSkills.length === 1 ? "skill" : "skills"}
+          {filteredServers.length} {filteredServers.length === 1 ? "server" : "servers"}
         </p>
         {hasActiveFilters && (
           <button
@@ -76,12 +70,10 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
         )}
       </div>
 
-      {/* Skills Grid */}
-      {paginatedSkills.length > 0 ? (
+      {paginatedServers.length > 0 ? (
         <>
-          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
+          <McpServersGrid servers={paginatedServers} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-8">
               <Button
@@ -111,7 +103,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
       ) : (
         <div className="text-center py-12">
           <p className="text-muted-foreground mb-4">
-            No skills found matching your criteria.
+            No MCP servers found matching your criteria.
           </p>
           {hasActiveFilters && (
             <button

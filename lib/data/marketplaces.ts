@@ -17,7 +17,7 @@ export async function getAllMarketplaces(options?: {
     query = query.gt("plugin_count", 0);
   }
 
-  const { data, error } = await query;
+  const { data, error } = await query.order("stars", { ascending: false, nullsFirst: false });
   if (error) {
     console.error("Error fetching marketplaces:", error);
     return [];
@@ -53,7 +53,8 @@ export async function getMarketplacesByCategory(
   const { data, error } = await supabase
     .from("marketplaces")
     .select("*")
-    .contains("categories", [category]);
+    .contains("categories", [category])
+    .order("stars", { ascending: false, nullsFirst: false });
 
   if (error) {
     console.error("Error fetching marketplaces by category:", error);

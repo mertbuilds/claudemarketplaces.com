@@ -35,16 +35,16 @@ export function VoteButton({
   return (
     <div className="flex items-center gap-1">
       <button
-        onClick={handleVote(-1)}
+        onClick={handleVote(1)}
         disabled={isLoading}
         className={`p-0.5 rounded-sm transition-colors cursor-pointer ${
-          userVote === -1
-            ? "text-destructive bg-destructive/10"
+          userVote === 1
+            ? "text-primary bg-primary/10"
             : "text-muted-foreground hover:text-foreground hover:bg-muted"
         }`}
-        aria-label="Downvote"
+        aria-label="Upvote"
       >
-        <ChevronDown className="h-4 w-4" />
+        <ChevronUp className="h-4 w-4" />
       </button>
       <span
         className={`text-xs font-medium tabular-nums ${
@@ -58,16 +58,16 @@ export function VoteButton({
         {displayCount}
       </span>
       <button
-        onClick={handleVote(1)}
+        onClick={handleVote(-1)}
         disabled={isLoading}
         className={`p-0.5 rounded-sm transition-colors cursor-pointer ${
-          userVote === 1
-            ? "text-primary bg-primary/10"
+          userVote === -1
+            ? "text-destructive bg-destructive/10"
             : "text-muted-foreground hover:text-foreground hover:bg-muted"
         }`}
-        aria-label="Upvote"
+        aria-label="Downvote"
       >
-        <ChevronUp className="h-4 w-4" />
+        <ChevronDown className="h-4 w-4" />
       </button>
     </div>
   );

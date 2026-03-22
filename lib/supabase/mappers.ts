@@ -1,4 +1,4 @@
-import { Marketplace, Plugin, Skill, SkillRepo } from "@/lib/types";
+import { Marketplace, McpServer, Plugin, Skill, SkillRepo } from "@/lib/types";
 
 export interface MarketplaceRow {
   repo: string;
@@ -50,6 +50,7 @@ export interface SkillRow {
   path: string;
   license: string | null;
   stars: number | null;
+  installs: number;
   install_command: string;
   discovered_at: string | null;
   last_updated: string | null;
@@ -69,6 +70,39 @@ export interface SkillRepoRow {
   source: string | null;
   vote_count: number;
   created_at: string;
+}
+
+export interface McpServerRow {
+  slug: string;
+  name: string;
+  display_name: string;
+  description: string;
+  source_repo: string;
+  source: string;
+  user_name: string;
+  collection: string;
+  tags: string[];
+  url: string | null;
+  last_updated: string | null;
+  vote_count: number;
+  created_at: string;
+}
+
+export function mapMcpServerRow(row: McpServerRow): McpServer {
+  return {
+    slug: row.slug,
+    name: row.name,
+    displayName: row.display_name,
+    description: row.description,
+    sourceRepo: row.source_repo,
+    source: row.source,
+    userName: row.user_name,
+    collection: row.collection,
+    tags: row.tags,
+    url: row.url || undefined,
+    lastUpdated: row.last_updated || undefined,
+    voteCount: row.vote_count,
+  };
 }
 
 export function mapMarketplaceRow(row: MarketplaceRow): Marketplace {
@@ -128,6 +162,7 @@ export function mapSkillRow(row: SkillRow): Skill {
     path: row.path,
     license: row.license || undefined,
     stars: row.stars || undefined,
+    installs: row.installs,
     installCommand: row.install_command,
     discoveredAt: row.discovered_at || undefined,
     lastUpdated: row.last_updated || undefined,

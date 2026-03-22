@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skill } from "@/lib/types";
-import { Copy, Check, ExternalLink, Star } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Copy, Check, ExternalLink, Star, Download } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
 import { useState } from "react";
@@ -20,8 +21,10 @@ interface SkillCardProps {
 
 export function SkillCard({ skill }: SkillCardProps) {
   const [copied, setCopied] = useState(false);
+  const router = useRouter();
 
   const repoUrl = `https://github.com/${skill.repo}`;
+  const skillUrl = `/skills/${skill.id}`;
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -31,8 +34,15 @@ export function SkillCard({ skill }: SkillCardProps) {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleCardClick = () => {
+    router.push(skillUrl);
+  };
+
   return (
-    <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50">
+    <Card
+      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer"
+      onClick={handleCardClick}
+    >
       <CardHeader>
         <div className="flex flex-col gap-2">
           <div className="flex items-start justify-between gap-2">
@@ -43,14 +53,26 @@ export function SkillCard({ skill }: SkillCardProps) {
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded-none transition-colors"
               aria-label="View on GitHub"
             >
               <ExternalLink className="h-4 w-4 text-muted-foreground" />
             </a>
           </div>
-          <div className="flex items-center gap-3">
+          <p className="text-xs text-muted-foreground truncate">
+            {skill.repo}
+          </p>
+          <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
             <VoteButton itemType="skill" itemId={skill.id} initialVoteCount={skill.voteCount} />
+            {skill.installs > 0 && (
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <Download className="h-3.5 w-3.5" />
+                <span className="text-sm font-medium">
+                  {formatStarCount(skill.installs)}
+                </span>
+              </div>
+            )}
             {skill.stars !== undefined && skill.stars > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground">
                 <Star className="h-3.5 w-3.5 fill-current" />
@@ -67,7 +89,6 @@ export function SkillCard({ skill }: SkillCardProps) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
-          {/* License */}
           {skill.license && (
             <div className="flex flex-wrap gap-1">
               <Badge variant="secondary" className="text-xs">
@@ -76,12 +97,6 @@ export function SkillCard({ skill }: SkillCardProps) {
             </div>
           )}
 
-          {/* Repo info */}
-          <p className="text-xs text-muted-foreground">
-            {skill.repo}
-          </p>
-
-          {/* Install Command */}
           <div className="mt-2 pt-3 border-t border-border">
             <div className="flex items-center gap-2">
               <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">

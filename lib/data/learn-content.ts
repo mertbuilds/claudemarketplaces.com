@@ -1,6 +1,17 @@
-import { Video } from "@/lib/types";
+import { Video, Article, LearnLink } from "@/lib/types";
 
 export const videos: Video[] = [
+  {
+    url: "https://www.youtube.com/embed/hX7yG1KVYhI",
+    title: "Building a REAL feature with Claude Code: every step explained",
+    description:
+      "Matt Pocock walks through the complete process of building a real feature with Claude Code, explaining every step from start to finish. A practical, hands-on look at how to leverage Claude Code for real-world development work.",
+    author: {
+      name: "Matt Pocock",
+      image:
+        "https://yt3.googleusercontent.com/pSHatpqJ1olaZiyikhjdx3nbSJNdo71kzFYyyBpNhFAeK6v-zmfJPIp7HMtkWQ4bt0DRkU8X_-8=s160-c-k-c0x00ffffff-no-rj",
+    },
+  },
   {
     url: "https://www.youtube.com/embed/kZ-zzHVUrO4",
     title: "How I use Claude Code for real engineering",
@@ -44,5 +55,46 @@ export const videos: Video[] = [
       image:
         "https://yt3.googleusercontent.com/8lU3h1nLUeI6paldg8cvclJ5YwK_N3UyzARPS3xqy88lc6ltmnZKR_5TOQB1pJeVB9__8h_GxA=s160-c-k-c0x00ffffff-no-rj",
     },
+  },
+];
+
+export const articles: Article[] = [
+  {
+    url: "https://x.com/trq212/status/2033949937936085378",
+    title: "Lessons from using Claude Code skills at Anthropic",
+    description:
+      "Skills have become one of the most used extension points in Claude Code. They're flexible, easy to make, and simple to distribute. Lessons learned from hundreds of skills in active use at Anthropic — what types are worth making, how to write good ones, and when to share them.",
+    image:
+      "https://pbs.twimg.com/media/HDl2jn9a0AAZkyz?format=jpg&name=medium",
+    author: {
+      name: "Thariq",
+      image:
+        "https://pbs.twimg.com/profile_images/1976939058741039104/r3GgzqRh_400x400.jpg",
+    },
+    date: "2026-03-22",
+  },
+  {
+    url: "https://x.com/trq212/status/2024574133011673516",
+    title: "Lessons from Building Claude Code: Prompt Caching Is Everything",
+    description:
+      "Long running agentic products like Claude Code are made feasible by prompt caching which allows us to reuse computation from previous roundtrips and significantly decrease latency and cost. At Claude Code, the entire harness is built around prompt caching — a high cache hit rate decreases costs and enables more generous rate limits.",
+    image:
+      "https://pbs.twimg.com/media/HBixJgAbsAAM61V?format=jpg&name=4096x4096",
+    author: {
+      name: "Thariq",
+      image:
+        "https://pbs.twimg.com/profile_images/1976939058741039104/r3GgzqRh_400x400.jpg",
+    },
+    date: "2026-03-06",
+  },
+];
+
+export const links: LearnLink[] = [
+  {
+    url: "https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf",
+    title: "The Complete Guide to Building Skills for Claude",
+    description:
+      "Official Anthropic guide covering everything you need to know about building skills for Claude Code — from getting started to advanced patterns and distribution.",
+    source: "Anthropic",
   },
 ];
