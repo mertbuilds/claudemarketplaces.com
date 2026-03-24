@@ -92,7 +92,7 @@ export function FeaturedCards() {
               <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
               <CardTitle className="text-base">
                 <a
-                  href="https://www.ideabrowser.com/workshop/build-a-startup-with-me-Mar-18?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
+                  href="https://www.ideabrowser.com/workshop/build-a-startup-with-me-Mar-25?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="after:absolute after:inset-0 cursor-pointer"
