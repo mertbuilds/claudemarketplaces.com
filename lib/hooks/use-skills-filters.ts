@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Skill } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -13,7 +13,7 @@ export function useSkillsFilters(skills: Skill[]) {
   const searchParams = useSearchParams();
 
   const repoFilter = searchParams.get("repo");
-  const searchQuery = searchParams.get("search") || "";
+  const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
   const sortBy = (searchParams.get("sort") as "installs" | "stars" | "votes") || "installs";
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -34,10 +34,15 @@ export function useSkillsFilters(skills: Skill[]) {
     [searchParams, router, pathname]
   );
 
-  const setSearchQuery = useCallback(
-    (query: string) => updateURL({ search: query || null, page: null }),
-    [updateURL]
-  );
+  const prevDebouncedRef = useRef(debouncedSearchQuery);
+  useEffect(() => {
+    if (prevDebouncedRef.current !== debouncedSearchQuery) {
+      prevDebouncedRef.current = debouncedSearchQuery;
+      updateURL({ search: debouncedSearchQuery || null, page: null });
+    }
+  }, [debouncedSearchQuery, updateURL]);
+
+  const setSearchQuery = setLocalSearch;
 
   const setSortBy = useCallback(
     (sort: "installs" | "stars" | "votes") => updateURL({ sort: sort === "installs" ? null : sort, page: null }),

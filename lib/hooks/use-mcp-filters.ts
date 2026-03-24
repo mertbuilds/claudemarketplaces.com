@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState, useEffect, useRef } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { McpServer } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -12,7 +12,7 @@ export function useMcpFilters(servers: McpServer[]) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const searchQuery = searchParams.get("search") || "";
+  const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
   const sortBy = (searchParams.get("sort") as "stars" | "votes") || "stars";
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -33,10 +33,15 @@ export function useMcpFilters(servers: McpServer[]) {
     [searchParams, router, pathname]
   );
 
-  const setSearchQuery = useCallback(
-    (query: string) => updateURL({ search: query || null, page: null }),
-    [updateURL]
-  );
+  const prevDebouncedRef = useRef(debouncedSearchQuery);
+  useEffect(() => {
+    if (prevDebouncedRef.current !== debouncedSearchQuery) {
+      prevDebouncedRef.current = debouncedSearchQuery;
+      updateURL({ search: debouncedSearchQuery || null, page: null });
+    }
+  }, [debouncedSearchQuery, updateURL]);
+
+  const setSearchQuery = setLocalSearch;
 
   const setSortBy = useCallback(
     (sort: "stars" | "votes") => updateURL({ sort: sort === "stars" ? null : sort, page: null }),

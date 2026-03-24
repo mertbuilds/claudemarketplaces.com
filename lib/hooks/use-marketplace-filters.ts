@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useMemo, useCallback } from "react";
+import { useMemo, useCallback, useState, useEffect, useRef } from "react";
 import { Marketplace } from "@/lib/types";
 import { FilterPreset, getFilterPreset } from "@/lib/config/filter-presets";
 import { useDebounce } from "@/lib/hooks/use-debounce";
@@ -13,7 +13,7 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const searchQuery = searchParams.get("search") || "";
+  const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -44,10 +44,15 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
     [searchParams, router, pathname]
   );
 
-  const setSearchQuery = useCallback(
-    (query: string) => updateURL({ search: query || null, page: null }),
-    [updateURL]
-  );
+  const prevDebouncedRef = useRef(debouncedSearchQuery);
+  useEffect(() => {
+    if (prevDebouncedRef.current !== debouncedSearchQuery) {
+      prevDebouncedRef.current = debouncedSearchQuery;
+      updateURL({ search: debouncedSearchQuery || null, page: null });
+    }
+  }, [debouncedSearchQuery, updateURL]);
+
+  const setSearchQuery = setLocalSearch;
 
   const setPage = useCallback(
     (page: number) => updateURL({ page: page === 1 ? null : String(page) }),
@@ -132,6 +137,9 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
         page: null,
       });
     },
-    clearFilters: () => updateURL({ categories: null, filter: null, search: null, page: null }),
+    clearFilters: () => {
+      setLocalSearch("");
+      updateURL({ categories: null, filter: null, search: null, page: null });
+    },
   };
 }
