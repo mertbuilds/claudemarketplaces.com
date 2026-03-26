@@ -43,4 +43,4 @@ yarn-error.log*
 next-env.d.ts
 
 # temporary file for convenience
-TEMP.md
+TEMP.md.env.prod

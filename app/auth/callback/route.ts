@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
+import { addContact, AUDIENCES } from "@/lib/email";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -20,6 +21,17 @@ export async function GET(request: Request) {
           .single();
 
         if (profile && !profile.onboarding_completed) {
+          // New user — add to transactional list before redirecting
+          const email = user.email;
+          const name = user.user_metadata?.full_name || user.user_metadata?.name;
+          if (email) {
+            try {
+              await addContact(email, AUDIENCES.transactional, name);
+            } catch (err) {
+              console.error("[email] Failed to add to transactional:", err);
+            }
+          }
+
           const welcomeUrl = new URL("/welcome", origin);
           welcomeUrl.searchParams.set("next", next);
           return NextResponse.redirect(welcomeUrl);
