@@ -137,7 +137,7 @@ export default function AdvertisePage() {
                   <div className="flex justify-end">
                   <Button size="sm" asChild>
                     <a
-                      href="https://vinena.lemonsqueezy.com/checkout/buy/014f30de-3215-4f7c-874b-525e8ce8a62d"
+                      href="https://whop.com/claude-code-marketplaces/all-placements/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -218,7 +218,7 @@ export default function AdvertisePage() {
                   <div className="mt-3 pt-3 border-t border-border flex justify-end">
                   <Button size="sm" asChild>
                     <a
-                      href="https://vinena.lemonsqueezy.com/checkout/buy/b913dcd2-0882-40e0-88de-d7dcd020be12"
+                      href="https://whop.com/claude-code-marketplaces/pinned-card/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -315,7 +315,7 @@ export default function AdvertisePage() {
                   <div className="mt-3 pt-3 border-t border-border flex justify-end">
                   <Button size="sm" asChild>
                     <a
-                      href="https://vinena.lemonsqueezy.com/checkout/buy/3089afc8-406a-4527-94ba-4bac33378fe7"
+                      href="https://whop.com/claude-code-marketplaces/in-feed-card/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -357,7 +357,7 @@ export default function AdvertisePage() {
                   <div className="mt-3 pt-3 border-t border-border flex justify-end">
                   <Button size="sm" asChild>
                     <a
-                      href="https://vinena.lemonsqueezy.com/checkout/buy/4e1e19ee-cf01-47ef-b648-0787e5d75824"
+                      href="https://whop.com/claude-code-marketplaces/floating-banner/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -384,7 +384,7 @@ export default function AdvertisePage() {
                   <div className="flex justify-end">
                   <Button size="sm" asChild>
                     <a
-                      href="https://vinena.lemonsqueezy.com/checkout/buy/cb2daedf-c722-4c84-a5e9-c73ea375141f"
+                      href="https://whop.com/claude-code-marketplaces/job-listing/"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
