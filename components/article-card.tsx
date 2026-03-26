@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Article } from "@/lib/types";
+import Image from "next/image";
 
 interface ArticleCardProps {
   article: Article;
@@ -40,11 +41,15 @@ export function ArticleCard({ article }: ArticleCardProps) {
       <Card className="pt-0 h-full transition-all hover:shadow-lg hover:border-primary/50">
         <CardHeader className="p-0 space-y-0">
           {article.image ? (
-            <img
-              src={article.image}
-              alt={article.title}
-              className="w-full aspect-video object-cover"
-            />
+            <div className="relative w-full aspect-video">
+              <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </div>
           ) : (
             <div className="w-full aspect-video bg-muted flex items-center justify-center">
               <svg

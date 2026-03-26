@@ -2,7 +2,7 @@ import { McpServer } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMcpServerRow, McpServerRow } from "@/lib/supabase/mappers";
 
-export async function getAllMcpServers(options?: {
+export async function getAllMcpServers(_options?: {
   includeEmpty?: boolean;
 }): Promise<McpServer[]> {
   const supabase = await getDataClient();

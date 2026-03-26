@@ -125,7 +125,7 @@ async function queryBatch(
   if (json.errors && json.errors.length > 0) {
     // Count NOT_FOUND vs other errors
     const notFound = json.errors.filter(
-      (e: any) => e.type === "NOT_FOUND"
+      (e: { type?: string }) => e.type === "NOT_FOUND"
     ).length;
     const other = json.errors.length - notFound;
     if (other > 0) {

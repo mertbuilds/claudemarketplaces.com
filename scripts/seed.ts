@@ -7,6 +7,66 @@
 
 import { createClient } from "@supabase/supabase-js";
 
+interface RawMarketplace {
+  repo: string;
+  slug: string;
+  description?: string;
+  pluginCount?: number;
+  categories?: string[];
+  pluginKeywords?: string[];
+  discoveredAt?: string | null;
+  lastUpdated?: string | null;
+  source?: string | null;
+  stars?: number | null;
+  starsFetchedAt?: string | null;
+}
+
+interface RawPlugin {
+  id: string;
+  name: string;
+  description?: string;
+  version?: string | null;
+  author?: { name?: string; email?: string; url?: string };
+  homepage?: string | null;
+  repository?: string | null;
+  source?: string;
+  marketplace: string;
+  marketplaceUrl?: string;
+  category?: string;
+  license?: string | null;
+  keywords?: string[];
+  commands?: string[];
+  agents?: string[];
+  hooks?: string[];
+  mcpServers?: string[];
+  installCommand?: string;
+}
+
+interface RawSkill {
+  slug?: string;
+  name?: string;
+  description?: string;
+  sourceRepo?: string;
+  stars?: number | null;
+  installs?: number;
+  lastmod?: string | null;
+}
+
+interface RawMcpServer {
+  slug?: string;
+  name?: string;
+  displayName?: string;
+  description?: string;
+  sourceRepo?: string;
+  source?: string;
+  user?: string;
+  collection?: string;
+  tags?: string[];
+  url?: string | null;
+  stars?: number | null;
+  lastmod?: string | null;
+}
+
 // Load .env.local only if env vars aren't already set
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
   const envFile = Bun.file(`${import.meta.dir}/../.env.local`);
@@ -45,7 +105,7 @@ async function main() {
 
   // 2. Seed marketplaces
   console.log("\n[2/6] Reading marketplace data...");
-  const allMarketplaces: any[] = await Bun.file(`${dataDir}/marketplaces.json`).json();
+  const allMarketplaces: RawMarketplace[] = await Bun.file(`${dataDir}/marketplaces.json`).json();
   console.log(`  ${allMarketplaces.length} marketplaces found`);
 
   console.log("[3/6] Upserting marketplaces...");
@@ -74,7 +134,7 @@ async function main() {
 
   // 3. Seed plugins (all plugins now have valid marketplace refs)
   console.log("\n[4/6] Reading plugins.json...");
-  const pluginsRaw: any[] = await Bun.file(`${dataDir}/plugins.json`).json();
+  const pluginsRaw: RawPlugin[] = await Bun.file(`${dataDir}/plugins.json`).json();
   const pluginRows = pluginsRaw.map((p) => ({
       id: p.id ?? "",
       name: p.name ?? "",
@@ -122,7 +182,7 @@ async function main() {
   const skillsSource = hasCrawled ? crawledPath : fallbackPath;
   console.log(`\n[5/6] Reading ${hasCrawled ? "skills-crawled.json" : "skills-only.json"}...`);
 
-  const skillsFile: { crawledAt: string; total: number; skills: any[] } =
+  const skillsFile: { crawledAt: string; total: number; skills: RawSkill[] } =
     await Bun.file(skillsSource).json();
   const skillsRaw = skillsFile.skills;
 
@@ -134,7 +194,7 @@ async function main() {
     // crawled data might lack descriptions — load old data for descriptions
     const hasOld = await Bun.file(fallbackPath).exists();
     if (hasOld) {
-      const oldFile: { skills: any[] } = await Bun.file(fallbackPath).json();
+      const oldFile: { skills: RawSkill[] } = await Bun.file(fallbackPath).json();
       crawledMap = new Map();
       for (const s of oldFile.skills) {
         if (s.slug && s.description) {
@@ -142,7 +202,7 @@ async function main() {
         }
       }
       // Merge descriptions from old data into crawled skills
-      const descMap = new Map(oldFile.skills.map((s: any) => [s.slug, s.description ?? ""]));
+      const descMap = new Map(oldFile.skills.map((s: RawSkill) => [s.slug, s.description ?? ""]));
       for (const s of skillsRaw) {
         if (!s.description && descMap.has(s.slug)) {
           s.description = descMap.get(s.slug);
@@ -153,7 +213,7 @@ async function main() {
 
   console.log(`  ${skillsRaw.length} skills found`);
 
-  const skillRows = skillsRaw.map((s: any) => {
+  const skillRows = skillsRaw.map((s: RawSkill) => {
     const slug: string = s.slug ?? "";
     const sourceRepo: string = s.sourceRepo ?? "";
     const repoSlug = sourceRepo.replace(/\//g, "-");
@@ -205,12 +265,12 @@ async function main() {
   const hasMcpCrawled = await Bun.file(mcpCrawledPath).exists();
   const mcpSource = hasMcpCrawled ? mcpCrawledPath : mcpFallbackPath;
   console.log(`\n[6/6] Reading ${hasMcpCrawled ? "mcp-crawled.json" : "mcp-only.json"}...`);
-  const mcpFile: { crawledAt: string; total: number; servers: any[] } =
+  const mcpFile: { crawledAt: string; total: number; servers: RawMcpServer[] } =
     await Bun.file(mcpSource).json();
   const mcpRaw = mcpFile.servers;
   console.log(`  ${mcpRaw.length} MCP servers found`);
 
-  const mcpRows = mcpRaw.map((s: any) => ({
+  const mcpRows = mcpRaw.map((s: RawMcpServer) => ({
     slug: s.slug ?? "",
     name: s.name ?? "",
     display_name: s.displayName ?? "",

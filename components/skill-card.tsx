@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skill } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { Copy, Check, ExternalLink, Star, Download } from "lucide-react";
+import { Copy, Check, Star, Download } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
 import { useState } from "react";
@@ -23,7 +23,6 @@ export function SkillCard({ skill }: SkillCardProps) {
   const [copied, setCopied] = useState(false);
   const router = useRouter();
 
-  const repoUrl = `https://github.com/${skill.repo}`;
   const skillUrl = `/skills/${skill.id}`;
 
   const handleCopy = async (e: React.MouseEvent) => {
