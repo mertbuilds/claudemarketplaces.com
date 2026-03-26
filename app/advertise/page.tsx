@@ -134,16 +134,22 @@ export default function AdvertisePage() {
                   <p className="text-xs font-medium text-primary">
                     Best value — includes every placement type
                   </p>
-                  <div className="flex justify-end">
-                  <Button size="sm" asChild>
+                  <div className="flex items-center justify-end gap-4">
                     <a
-                      href="https://whop.com/claude-code-marketplaces/all-placements/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="mailto:mert@vinena.studio?subject=Question about All Placements on Claude Code Marketplaces"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Buy Now
+                      Have questions? Email mert@vinena.studio
                     </a>
-                  </Button>
+                    <Button size="sm" asChild>
+                      <a
+                        href="https://whop.com/claude-code-marketplaces/all-placements/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </Button>
                   </div>
                 </div>
 
@@ -215,16 +221,22 @@ export default function AdvertisePage() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
-                  <Button size="sm" asChild>
+                  <div className="mt-3 pt-3 border-t border-border flex items-center justify-end gap-4">
                     <a
-                      href="https://whop.com/claude-code-marketplaces/pinned-card/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="mailto:mert@vinena.studio?subject=Question about Pinned Cards on Claude Code Marketplaces"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Buy Now
+                      Have questions? Email mert@vinena.studio
                     </a>
-                  </Button>
+                    <Button size="sm" asChild>
+                      <a
+                        href="https://whop.com/claude-code-marketplaces/pinned-card/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </Button>
                   </div>
                 </div>
 
@@ -312,16 +324,22 @@ export default function AdvertisePage() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
-                  <Button size="sm" asChild>
+                  <div className="mt-3 pt-3 border-t border-border flex items-center justify-end gap-4">
                     <a
-                      href="https://whop.com/claude-code-marketplaces/in-feed-card/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="mailto:mert@vinena.studio?subject=Question about In-Feed Cards on Claude Code Marketplaces"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Buy Now
+                      Have questions? Email mert@vinena.studio
                     </a>
-                  </Button>
+                    <Button size="sm" asChild>
+                      <a
+                        href="https://whop.com/claude-code-marketplaces/in-feed-card/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </Button>
                   </div>
                 </div>
 
@@ -354,16 +372,22 @@ export default function AdvertisePage() {
                       </div>
                     </div>
                   </div>
-                  <div className="mt-3 pt-3 border-t border-border flex justify-end">
-                  <Button size="sm" asChild>
+                  <div className="mt-3 pt-3 border-t border-border flex items-center justify-end gap-4">
                     <a
-                      href="https://whop.com/claude-code-marketplaces/floating-banner/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="mailto:mert@vinena.studio?subject=Question about Floating Banner on Claude Code Marketplaces"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Buy Now
+                      Have questions? Email mert@vinena.studio
                     </a>
-                  </Button>
+                    <Button size="sm" asChild>
+                      <a
+                        href="https://whop.com/claude-code-marketplaces/floating-banner/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </Button>
                   </div>
                 </div>
 
@@ -381,16 +405,22 @@ export default function AdvertisePage() {
                     Post AI and developer job openings to reach qualified
                     candidates.
                   </p>
-                  <div className="flex justify-end">
-                  <Button size="sm" asChild>
+                  <div className="flex items-center justify-end gap-4">
                     <a
-                      href="https://whop.com/claude-code-marketplaces/job-listing/"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="mailto:mert@vinena.studio?subject=Question about Job Listings on Claude Code Marketplaces"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
-                      Buy Now
+                      Have questions? Email mert@vinena.studio
                     </a>
-                  </Button>
+                    <Button size="sm" asChild>
+                      <a
+                        href="https://whop.com/claude-code-marketplaces/job-listing/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Buy Now
+                      </a>
+                    </Button>
                   </div>
                 </div>
               </div>

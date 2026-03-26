@@ -153,6 +153,7 @@ export default async function Image() {
               src="https://claudemarketplaces.com/favicon/android-chrome-192x192.png"
               width="40"
               height="40"
+              alt=""
               style={{ borderRadius: "4px" }}
             />
             <span
