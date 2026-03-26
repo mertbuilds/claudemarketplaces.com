@@ -12,6 +12,14 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Users, BarChart3, Megaphone, Check } from "lucide-react";
 
+const TRAFFIC_STATS = [
+  { label: "Monthly Visitors", value: "100,000+" },
+  { label: "Daily Sessions", value: "4,000+" },
+  { label: "Daily Page Views", value: "20,000+" },
+  { label: "Avg. Session", value: "3m 21s" },
+  { label: "Bounce Rate", value: "< 45%" },
+];
+
 export const metadata: Metadata = {
   title: "Advertise - Claude Code Marketplaces",
   description:
@@ -89,6 +97,17 @@ export default function AdvertisePage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
+                {TRAFFIC_STATS.map((stat) => (
+                  <div key={stat.label} className="text-center">
+                    <p className="text-lg font-bold text-foreground">{stat.value}</p>
+                    <p className="text-xs text-muted-foreground">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-xs text-center text-muted-foreground mb-2">
+                Growing monthly
+              </p>
               <div className="w-full overflow-hidden rounded-lg border">
                 <iframe
                   src="https://analytics.vinena.studio/share/overview/hwyH1d?range=30d"
