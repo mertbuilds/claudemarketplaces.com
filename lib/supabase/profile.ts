@@ -7,6 +7,9 @@ export type Profile = {
   avatar_url: string | null;
   created_at: string;
   updated_at: string;
+  email_marketing_consent: boolean;
+  email_marketing_consent_at: string | null;
+  onboarding_completed: boolean;
 };
 
 export async function getProfileByUsername(username: string): Promise<Profile | null> {

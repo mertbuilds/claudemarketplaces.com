@@ -40,5 +40,6 @@ export const config = {
     "/profile/:path*",
     "/api/:path*",
     "/login",
+    "/welcome",
   ],
 };
