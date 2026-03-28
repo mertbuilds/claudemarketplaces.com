@@ -13,6 +13,7 @@ export interface MarketplaceRow {
   stars: number | null;
   stars_fetched_at: string | null;
   vote_count: number;
+  comment_count: number;
   created_at: string;
 }
 
@@ -55,6 +56,7 @@ export interface SkillRow {
   discovered_at: string | null;
   last_updated: string | null;
   vote_count: number;
+  comment_count: number;
   created_at: string;
 }
 
@@ -72,6 +74,7 @@ export interface McpServerRow {
   stars: number | null;
   last_updated: string | null;
   vote_count: number;
+  comment_count: number;
   created_at: string;
 }
 
@@ -90,6 +93,7 @@ export function mapMcpServerRow(row: McpServerRow): McpServer {
     stars: row.stars || undefined,
     lastUpdated: row.last_updated || undefined,
     voteCount: row.vote_count,
+    commentCount: row.comment_count,
   };
 }
 
@@ -107,6 +111,7 @@ export function mapMarketplaceRow(row: MarketplaceRow): Marketplace {
     stars: row.stars || undefined,
     starsFetchedAt: row.stars_fetched_at || undefined,
     voteCount: row.vote_count,
+    commentCount: row.comment_count,
   };
 }
 
@@ -155,6 +160,7 @@ export function mapSkillRow(row: SkillRow): Skill {
     discoveredAt: row.discovered_at || undefined,
     lastUpdated: row.last_updated || undefined,
     voteCount: row.vote_count,
+    commentCount: row.comment_count,
   };
 }
 

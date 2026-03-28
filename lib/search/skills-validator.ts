@@ -45,6 +45,7 @@ export function extractSkillFromFrontmatter(
     installCommand: `claude skill add ${repo}:${skillName}`,
     discoveredAt: new Date().toISOString(),
     voteCount: 0,
+    commentCount: 0,
   };
 }
 

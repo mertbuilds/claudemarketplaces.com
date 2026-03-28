@@ -11,9 +11,10 @@ interface PluginContentProps {
   plugins: Plugin[];
   categories: string[];
   expectedPluginCount?: number;
+  className?: string;
 }
 
-export function PluginContent({ plugins, categories, expectedPluginCount }: PluginContentProps) {
+export function PluginContent({ plugins, categories, expectedPluginCount, className }: PluginContentProps) {
   // Local state for search query (not in URL)
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -42,7 +43,7 @@ export function PluginContent({ plugins, categories, expectedPluginCount }: Plug
   };
 
   return (
-    <div className="container mx-auto px-4 pt-4 pb-8">
+    <div className={className ?? "container mx-auto px-4 pt-4 pb-8"}>
       {/* Search Bar */}
       <div className="mb-6">
         <MarketplaceSearch

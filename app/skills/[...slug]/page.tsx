@@ -22,6 +22,7 @@ import { getSkillById, getAllSkills, getSkillsByRepo } from "@/lib/data/skills";
 import { Skill } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { SkillMarkdown } from "@/components/skill-markdown";
+import { CommentSidebar } from "@/components/comment-sidebar";
 
 export const revalidate = 300;
 
@@ -490,7 +491,7 @@ async function SkillDetailContent({ id }: { id: string }) {
           </div>
 
           {/* Right column / sidebar */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 space-y-4">
             <Card>
               <CardContent className="space-y-4">
                 {/* Installs */}
@@ -564,6 +565,7 @@ async function SkillDetailContent({ id }: { id: string }) {
                 </div>
               </CardContent>
             </Card>
+            <CommentSidebar itemType="skill" itemId={skill.id} initialCommentCount={skill.commentCount} />
           </div>
         </div>
       </div>

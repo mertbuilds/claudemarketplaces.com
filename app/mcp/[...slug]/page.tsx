@@ -19,6 +19,7 @@ import { getMcpServerBySlug } from "@/lib/data/mcp-servers";
 import { formatStarCount } from "@/lib/utils/format";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { SkillInstallCommand } from "@/components/skill-install-command";
+import { CommentSidebar } from "@/components/comment-sidebar";
 
 export const revalidate = 300;
 
@@ -170,7 +171,7 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
           </div>
 
           {/* Right column / sidebar */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-4 space-y-4">
             <Card>
               <CardContent className="space-y-4">
                 {/* Stars */}
@@ -210,6 +211,7 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
                 </div>
               </CardContent>
             </Card>
+            <CommentSidebar itemType="mcp_server" itemId={server.slug} initialCommentCount={server.commentCount} />
           </div>
         </div>
       </div>

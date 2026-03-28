@@ -7,7 +7,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { McpServer } from "@/lib/types";
-import { ExternalLink, Star } from "lucide-react";
+import { ExternalLink, Star, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
 import { useRouter } from "next/navigation";
@@ -57,6 +57,12 @@ export function McpServerCard({ server }: McpServerCardProps) {
                 <span className="text-sm font-medium">
                   {formatStarCount(server.stars)}
                 </span>
+              </div>
+            )}
+            {server.commentCount > 0 && (
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span className="text-sm">{server.commentCount}</span>
               </div>
             )}
           </div>

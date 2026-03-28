@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Marketplace } from "@/lib/types";
-import { Package, ExternalLink, Copy, Check, Star } from "lucide-react";
+import { Package, ExternalLink, Copy, Check, Star, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
@@ -75,6 +75,12 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                   {marketplace.pluginCount === 1 ? "plugin" : "plugins"}
                 </span>
               </div>
+              {marketplace.commentCount > 0 && (
+                <div className="flex items-center gap-1 text-muted-foreground">
+                  <MessageSquare className="h-3.5 w-3.5" />
+                  <span className="text-sm">{marketplace.commentCount}</span>
+                </div>
+              )}
             </div>
           </div>
           <CardDescription className="line-clamp-3">
