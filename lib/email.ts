@@ -22,25 +22,30 @@ export async function sendEmail({
 /** Add user to marketing segment as a contact. Call when user consents. */
 export async function addToMarketing(email: string, firstName?: string) {
   try {
+    // Create contact first (idempotent — won't duplicate if exists)
     await resend.contacts.create({
       email,
       ...(firstName ? { firstName } : {}),
-      segments: [{ id: MARKETING_SEGMENT_ID }],
+    });
+    // Then add to marketing segment
+    await resend.contacts.segments.add({
+      email,
+      segmentId: MARKETING_SEGMENT_ID,
     });
   } catch (err) {
     console.error("[email] Failed to add to marketing:", err);
   }
 }
 
-/** Unsubscribe user from all broadcasts. Call when user revokes consent. */
+/** Remove user from marketing segment. Call when user revokes consent. */
 export async function removeFromMarketing(email: string) {
   try {
-    await resend.contacts.update({
+    await resend.contacts.segments.remove({
       email,
-      unsubscribed: true,
+      segmentId: MARKETING_SEGMENT_ID,
     });
   } catch (err) {
-    console.error("[email] Failed to unsubscribe:", err);
+    console.error("[email] Failed to remove from marketing:", err);
   }
 }
 
