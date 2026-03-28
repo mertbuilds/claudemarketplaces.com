@@ -146,7 +146,7 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left column */}
           <div className="lg:col-span-8 space-y-6">
-            <h1 className="text-3xl md:text-4xl font-bold">
+            <h1 className="text-sm uppercase tracking-[0.12em]">
               {server.displayName || server.name}
             </h1>
 

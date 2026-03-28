@@ -272,7 +272,7 @@ async function OrgContent({ org }: { org: string }) {
 
       {/* Header section */}
       <div className="container mx-auto px-4 pb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">{org}</h1>
+        <h1 className="text-sm uppercase tracking-[0.12em] mb-3">{org}</h1>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
           <span>
@@ -375,7 +375,7 @@ async function RepoContent({ repo }: { repo: string }) {
 
       {/* Header section */}
       <div className="container mx-auto px-4 pb-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-3">{repo}</h1>
+        <h1 className="text-sm uppercase tracking-[0.12em] mb-3">{repo}</h1>
 
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground mb-4">
           <span>
@@ -464,7 +464,7 @@ async function SkillDetailContent({ id }: { id: string }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left column */}
           <div className="lg:col-span-8 space-y-6">
-            <h1 className="text-3xl md:text-4xl font-bold">{skill.name}</h1>
+            <h1 className="text-sm uppercase tracking-[0.12em]">{skill.name}</h1>
 
             <div>
               <h2 className="text-sm font-medium text-muted-foreground mb-2">

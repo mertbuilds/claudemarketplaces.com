@@ -38,7 +38,7 @@ export default function LearnPage() {
 
       <main className="flex-1">
         <div className="container mx-auto px-4 pt-8">
-          <h1 className="text-3xl md:text-4xl font-bold">Learn Claude Code</h1>
+          <h1 className="text-sm uppercase tracking-[0.12em]">Learn Claude Code</h1>
         </div>
         <div className="container mx-auto px-4 py-12">
           <LearnContent videos={videos} articles={articles} links={links} />

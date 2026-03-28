@@ -43,18 +43,6 @@ export const FILTER_PRESETS: FilterPresetConfig[] = [
     description: "Show all marketplaces",
     predicate: () => true,
   },
-  {
-    id: "recently-published",
-    label: "Recently published",
-    description: "Show marketplaces discovered in the last 24 hours",
-    predicate: isRecentlyPublished,
-  },
-  {
-    id: "most-voted",
-    label: "Most voted",
-    description: "Show marketplaces sorted by vote count",
-    predicate: () => true,
-  },
 ];
 
 /**

@@ -81,7 +81,7 @@ export default function SkillsPage() {
       <Header />
       <main className="flex-1">
         <div className="container mx-auto px-4 pt-8">
-          <h1 className="text-3xl md:text-4xl font-bold">Skills</h1>
+          <h1 className="text-sm uppercase tracking-[0.12em]">Skills</h1>
         </div>
         <Suspense
           fallback={

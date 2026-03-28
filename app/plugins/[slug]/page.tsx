@@ -120,7 +120,7 @@ async function PluginData({ slug }: { slug: string }) {
       {/* Marketplace Header */}
       <div className="container mx-auto px-4 pb-0">
         <div className="mb-6">
-          <h1 className="text-4xl font-bold mb-2">
+          <h1 className="text-sm uppercase tracking-[0.12em] mb-2">
             {marketplace.repo}
           </h1>
           <p className="text-lg text-muted-foreground mb-4">
