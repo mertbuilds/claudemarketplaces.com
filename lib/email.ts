@@ -4,11 +4,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_ADDRESS = "Claude Code Marketplaces <noreply@claudemarketplaces.com>";
 
-export const AUDIENCES = {
-  transactional: process.env.RESEND_TRANSACTIONAL_AUDIENCE_ID!,
-  marketing: process.env.RESEND_MARKETING_AUDIENCE_ID!,
-};
+const MARKETING_SEGMENT_ID = process.env.RESEND_MARKETING_SEGMENT_ID!;
 
+/** Send a transactional email directly (no contact list needed). */
 export async function sendEmail({
   to,
   subject,
@@ -21,56 +19,40 @@ export async function sendEmail({
   return resend.emails.send({ from: FROM_ADDRESS, to, subject, html });
 }
 
-export async function addContact(
-  email: string,
-  audienceId: string,
-  firstName?: string
-) {
-  return resend.contacts.create({
-    email,
-    audienceId,
-    ...(firstName ? { firstName } : {}),
-  });
-}
-
-export async function removeContact(email: string, audienceId: string) {
-  // Resend accepts email as the id parameter
-  return resend.contacts.remove({ audienceId, id: email });
-}
-
-/** Add user to transactional list. Optionally add to marketing if consented. */
-export async function syncNewUser(
-  email: string,
-  marketingConsent: boolean,
-  firstName?: string
-) {
-  const results = await Promise.allSettled([
-    addContact(email, AUDIENCES.transactional, firstName),
-    ...(marketingConsent
-      ? [addContact(email, AUDIENCES.marketing, firstName)]
-      : []),
-  ]);
-
-  for (const r of results) {
-    if (r.status === "rejected") {
-      console.error("[email] Failed to sync contact:", r.reason);
-    }
+/** Add user to marketing segment as a contact. Call when user consents. */
+export async function addToMarketing(email: string, firstName?: string) {
+  try {
+    await resend.contacts.create({
+      email,
+      ...(firstName ? { firstName } : {}),
+      segments: [{ id: MARKETING_SEGMENT_ID }],
+    });
+  } catch (err) {
+    console.error("[email] Failed to add to marketing:", err);
   }
 }
 
-/** Sync marketing list when consent changes. */
+/** Unsubscribe user from all broadcasts. Call when user revokes consent. */
+export async function removeFromMarketing(email: string) {
+  try {
+    await resend.contacts.update({
+      email,
+      unsubscribed: true,
+    });
+  } catch (err) {
+    console.error("[email] Failed to unsubscribe:", err);
+  }
+}
+
+/** Sync marketing consent: add to segment or unsubscribe. */
 export async function syncMarketingConsent(
   email: string,
   consent: boolean,
   firstName?: string
 ) {
-  try {
-    if (consent) {
-      await addContact(email, AUDIENCES.marketing, firstName);
-    } else {
-      await removeContact(email, AUDIENCES.marketing);
-    }
-  } catch (err) {
-    console.error("[email] Failed to sync marketing consent:", err);
+  if (consent) {
+    await addToMarketing(email, firstName);
+  } else {
+    await removeFromMarketing(email);
   }
 }

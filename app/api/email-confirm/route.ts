@@ -56,20 +56,14 @@ export async function GET(request: Request) {
     })
     .eq("id", tokenRow.user_id);
 
-  // Also add to Resend marketing audience
+  // Add to Resend marketing segment
   try {
-    const { Resend } = await import("resend");
-    const resend = new Resend(process.env.RESEND_API_KEY);
-
-    // Get user email from auth.users
+    const { addToMarketing } = await import("@/lib/email");
     const {
       data: { user },
     } = await supabase.auth.admin.getUserById(tokenRow.user_id);
     if (user?.email) {
-      await resend.contacts.create({
-        email: user.email,
-        audienceId: process.env.RESEND_MARKETING_AUDIENCE_ID!,
-      });
+      await addToMarketing(user.email);
     }
   } catch (err) {
     console.error("[email-confirm] Failed to sync Resend:", err);
