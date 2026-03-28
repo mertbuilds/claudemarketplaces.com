@@ -140,22 +140,19 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Fetch comment to verify ownership and get item info
+  // Fetch comment info before deleting (for getting item_type/item_id for count query)
   const { data: comment } = await supabase
     .from("comments")
-    .select("id, user_id, item_type, item_id")
+    .select("item_type, item_id")
     .eq("id", commentId)
+    .eq("user_id", user.id)
     .single();
 
   if (!comment) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json({ error: "Not found or forbidden" }, { status: 404 });
   }
 
-  if (comment.user_id !== user.id) {
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
-  }
-
-  const { error } = await supabase.from("comments").delete().eq("id", commentId);
+  const { error } = await supabase.from("comments").delete().eq("id", commentId).eq("user_id", user.id);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

@@ -6,7 +6,7 @@ ALTER TABLE mcp_servers ADD COLUMN comment_count integer NOT NULL DEFAULT 0;
 -- Comments table
 CREATE TABLE comments (
   id uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-  user_id uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  user_id uuid NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   item_type text NOT NULL CHECK (item_type IN ('skill', 'marketplace', 'mcp_server')),
   item_id text NOT NULL,
   body text NOT NULL CHECK (char_length(body) >= 1 AND char_length(body) <= 1000),
@@ -47,7 +47,7 @@ BEGIN
   END IF;
 
   EXECUTE format(
-    'UPDATE %I SET comment_count = comment_count + $1 WHERE %I = $2',
+    'UPDATE %I SET comment_count = GREATEST(comment_count + $1, 0) WHERE %I = $2',
     target_table, pk_column
   ) USING delta, target_id;
 

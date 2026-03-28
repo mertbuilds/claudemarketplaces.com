@@ -27,7 +27,7 @@ export function useComments(itemType: string, itemId: string, initialCommentCoun
         setCommentCount(data.commentCount ?? initialCommentCount);
       })
       .finally(() => setIsLoading(false));
-  }, [itemType, itemId, initialCommentCount]);
+  }, [itemType, itemId]);
 
   const submitComment = useCallback(async (body: string) => {
     if (!currentUserId || isSubmitting) return;
@@ -67,11 +67,13 @@ export function useComments(itemType: string, itemId: string, initialCommentCoun
   }, [currentUserId, isSubmitting, itemType, itemId]);
 
   const deleteComment = useCallback(async (commentId: string) => {
-    const removed = comments.find((c) => c.id === commentId);
-    if (!removed) return;
+    let removed: Comment | undefined;
 
     // Optimistic remove
-    setComments((prev) => prev.filter((c) => c.id !== commentId));
+    setComments((prev) => {
+      removed = prev.find((c) => c.id === commentId);
+      return prev.filter((c) => c.id !== commentId);
+    });
     setCommentCount((prev) => prev - 1);
 
     try {
@@ -81,12 +83,16 @@ export function useComments(itemType: string, itemId: string, initialCommentCoun
       setCommentCount(data.commentCount);
     } catch {
       // Revert
-      setComments((prev) => [...prev, removed].sort(
-        (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      ));
-      setCommentCount((prev) => prev + 1);
+      if (removed) {
+        setComments((prev) =>
+          [...prev, removed!].sort(
+            (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+        );
+        setCommentCount((prev) => prev + 1);
+      }
     }
-  }, [comments]);
+  }, []);
 
   return { comments, commentCount, isLoading, isSubmitting, currentUserId, submitComment, deleteComment };
 }

@@ -105,6 +105,7 @@ export function CommentSidebar({ itemType, itemId, initialCommentCount = 0 }: Co
                     onClick={() => deleteComment(comment.id)}
                     className="opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:text-destructive"
                     title="Delete comment"
+                    aria-label="Delete comment"
                   >
                     <Trash2 className="h-3 w-3" />
                   </button>
