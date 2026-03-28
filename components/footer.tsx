@@ -6,8 +6,8 @@ export function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-semibold mb-3">Claude Code Marketplaces</h3>
-            <p className="text-sm text-muted-foreground">
+            <h3 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-3">Claude Code Marketplaces</h3>
+            <p className="text-xs text-muted-foreground leading-relaxed">
               Discover Claude Code plugins, extensions, and tools. Automatically
               updated directory of Anthropic Claude AI marketplaces with
               development tools, productivity plugins, and integrations.
@@ -15,8 +15,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Resources</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-3">Resources</h3>
+            <ul className="space-y-2 text-xs">
               <li>
                 <a
                   href="https://docs.claude.com/en/docs/claude-code/plugin-marketplaces#marketplace-schema"
@@ -61,8 +61,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-3">Community</h3>
-            <ul className="space-y-2 text-sm">
+            <h3 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-3">Community</h3>
+            <ul className="space-y-2 text-xs">
               <li>
                 <Link
                   href="/about"
@@ -120,11 +120,9 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
             <p>Built for the Claude Code community with Claude Code by <a href="https://x.com/mertduzgun" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground">@mertduzgun</a></p>
-            <div className="flex items-center gap-3">
-              <span>Independent project, not affiliated with Anthropic</span>
-            </div>
+            <span>Independent project, not affiliated with Anthropic</span>
           </div>
         </div>
       </div>

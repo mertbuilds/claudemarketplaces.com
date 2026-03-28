@@ -3,13 +3,6 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-} from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Claude Code Plugins | Skills, MCP Servers & Marketplace Directory",
@@ -116,169 +109,93 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 md:py-24 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+        {/* Hero */}
+        <section className="container mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24">
+          <h1 className="font-serif text-2xl md:text-3xl font-normal max-w-xl mb-4">
             Curated plugins, skills, and MCP servers for Claude Code
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            A hand-picked directory of high-quality extensions with community voting and commenting (soon). Only the best tools make it here.
+          <p className="text-sm text-muted-foreground max-w-md mb-8">
+            A hand-picked directory of high-quality extensions. Community voting and commenting soon.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
+          <div className="flex gap-3">
             <Link
               href="/skills"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
+              className="text-xs uppercase tracking-[0.1em] px-4 py-2.5 bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors"
             >
               Browse skills
             </Link>
             <Link
               href="/mcp"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors"
+              className="text-xs uppercase tracking-[0.1em] px-4 py-2.5 border border-border font-medium hover:bg-muted transition-colors"
             >
-              Browse MCP servers
+              MCP servers
             </Link>
           </div>
         </section>
 
-        {/* Directory Cards */}
-        <section className="container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Link href="/skills" className="group">
-              <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50">
-                <CardHeader>
-                  <CardTitle className="text-xl">Agent Skills</CardTitle>
-                  <CardDescription>
-                    Reusable instructions that teach your agent how to perform
-                    specific tasks. Install with a single command.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-sm text-primary group-hover:underline">
-                    Browse 2,300+ skills &rarr;
-                  </span>
-                </CardContent>
-              </Card>
+        {/* Directory */}
+        <section className="container mx-auto px-4 pb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-border">
+            <Link href="/skills" className="group p-6 hover:bg-muted/50 transition-colors">
+              <p className="text-sm font-medium mb-1.5">Agent Skills</p>
+              <p className="text-xs text-muted-foreground mb-4">
+                Reusable instructions that teach your agent specific tasks. Install with a single command.
+              </p>
+              <span className="text-xs text-primary group-hover:underline">
+                2,300+ skills &rarr;
+              </span>
             </Link>
-            <Link href="/mcp" className="group">
-              <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50">
-                <CardHeader>
-                  <CardTitle className="text-xl">MCP Servers</CardTitle>
-                  <CardDescription>
-                    Model Context Protocol servers that extend your agent with
-                    additional tools, APIs, and integrations.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-sm text-primary group-hover:underline">
-                    Browse 770+ servers &rarr;
-                  </span>
-                </CardContent>
-              </Card>
+            <Link href="/mcp" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
+              <p className="text-sm font-medium mb-1.5">MCP Servers</p>
+              <p className="text-xs text-muted-foreground mb-4">
+                Extend your agent with additional tools, APIs, and integrations via Model Context Protocol.
+              </p>
+              <span className="text-xs text-primary group-hover:underline">
+                770+ servers &rarr;
+              </span>
             </Link>
-            <Link href="/marketplaces" className="group">
-              <Card className="h-full transition-all hover:shadow-lg hover:border-primary/50">
-                <CardHeader>
-                  <CardTitle className="text-xl">
-                    Plugin Marketplaces
-                  </CardTitle>
-                  <CardDescription>
-                    Curated GitHub repositories containing collections of
-                    plugins, tools, and extensions for AI coding agents.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <span className="text-sm text-primary group-hover:underline">
-                    Browse 95+ marketplaces &rarr;
-                  </span>
-                </CardContent>
-              </Card>
+            <Link href="/marketplaces" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
+              <p className="text-sm font-medium mb-1.5">Plugin Marketplaces</p>
+              <p className="text-xs text-muted-foreground mb-4">
+                Curated GitHub repositories containing collections of plugins and tools for AI agents.
+              </p>
+              <span className="text-xs text-primary group-hover:underline">
+                95+ marketplaces &rarr;
+              </span>
             </Link>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="container mx-auto px-4 py-16 border-t">
-          <h2 className="text-2xl font-bold mb-8 text-center">
-            Frequently asked questions
+        {/* FAQ */}
+        <section className="container mx-auto px-4 py-16 border-t border-border">
+          <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-8">
+            FAQ
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 max-w-3xl">
             <div>
-              <h3 className="font-semibold mb-2">
-                What are Claude Code skills?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Reusable instruction sets that teach your Claude Code agent how
-                to perform specific tasks. Install with a single command and
-                start using immediately.
+              <h3 className="text-sm font-medium mb-1.5">What are Claude Code skills?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Reusable instruction sets that teach your agent specific tasks. Install with a single command.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">How is quality maintained?</h3>
-              <p className="text-sm text-muted-foreground">
-                We curate by install count, GitHub stars, and community votes.
-                Only high-quality, actively used extensions are listed.
-                Voting and commenting (soon) help surface the best tools.
+              <h3 className="text-sm font-medium mb-1.5">What are MCP servers?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Protocol servers that extend your agent with tools, APIs, and integrations to external services.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Is this free?</h3>
-              <p className="text-sm text-muted-foreground">
-                Yes, completely free and open directory. Browse and install any
-                skills, MCP servers, or plugins at no cost.
+              <h3 className="text-sm font-medium mb-1.5">How is quality maintained?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Curated by install count, GitHub stars, and community votes. Only actively used extensions are listed.
               </p>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">What are MCP servers?</h3>
-              <p className="text-sm text-muted-foreground">
-                Model Context Protocol servers provide additional tools and
-                capabilities to AI coding agents. They extend your agent by
-                connecting to external services, databases, APIs, and more.
+              <h3 className="text-sm font-medium mb-1.5">Is this free?</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Yes. Completely free and open. Browse and install anything at no cost.
               </p>
             </div>
-            <div>
-              <h3 className="font-semibold mb-2">
-                How do I install a skill?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Copy the install command from any skill page and run it in your
-                terminal. Most skills can be installed with a single command and
-                are ready to use immediately.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2">
-                What are plugin marketplaces?
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                GitHub repositories containing collections of plugins, skills,
-                and tools curated by the community. They aggregate extensions
-                from multiple sources into organized, browsable directories.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="container mx-auto px-4 py-16 text-center">
-          <h2 className="text-2xl font-bold mb-4">
-            Ready to enhance your workflow?
-          </h2>
-          <p className="text-muted-foreground mb-8">
-            Curated extensions, community-driven quality.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <Link
-              href="/skills"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 transition-colors"
-            >
-              Browse skills
-            </Link>
-            <Link
-              href="/marketplaces"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-md font-medium hover:bg-muted transition-colors"
-            >
-              Browse marketplaces
-            </Link>
           </div>
         </section>
       </main>
