@@ -43,4 +43,8 @@ yarn-error.log*
 next-env.d.ts
 
 # temporary file for convenience
-TEMP.md.env.prod
+TEMP.md
+
+# email scripts with sensitive data
+scripts/send-permission-confirmation.ts
+scripts/already-emailed.json
