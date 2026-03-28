@@ -19,45 +19,27 @@ export async function sendEmail({
   return resend.emails.send({ from: FROM_ADDRESS, to, subject, html });
 }
 
-/** Add user to marketing segment as a contact. Call when user consents. */
-export async function addToMarketing(email: string, firstName?: string) {
+/** Create contact in Resend (idempotent). Call for all signups. */
+export async function createContact(email: string, firstName?: string) {
   try {
-    // Create contact first (idempotent — won't duplicate if exists)
     await resend.contacts.create({
       email,
       ...(firstName ? { firstName } : {}),
     });
-    // Then add to marketing segment
-    await resend.contacts.segments.add({
+  } catch (err) {
+    console.error("[email] Failed to create contact:", err);
+  }
+}
+
+/** Create contact and add to marketing segment. Call when user consents. */
+export async function addToMarketing(email: string, firstName?: string) {
+  try {
+    await resend.contacts.create({
       email,
-      segmentId: MARKETING_SEGMENT_ID,
+      ...(firstName ? { firstName } : {}),
+      segments: [{ id: MARKETING_SEGMENT_ID }],
     });
   } catch (err) {
     console.error("[email] Failed to add to marketing:", err);
-  }
-}
-
-/** Remove user from marketing segment. Call when user revokes consent. */
-export async function removeFromMarketing(email: string) {
-  try {
-    await resend.contacts.segments.remove({
-      email,
-      segmentId: MARKETING_SEGMENT_ID,
-    });
-  } catch (err) {
-    console.error("[email] Failed to remove from marketing:", err);
-  }
-}
-
-/** Sync marketing consent: add to segment or unsubscribe. */
-export async function syncMarketingConsent(
-  email: string,
-  consent: boolean,
-  firstName?: string
-) {
-  if (consent) {
-    await addToMarketing(email, firstName);
-  } else {
-    await removeFromMarketing(email);
   }
 }

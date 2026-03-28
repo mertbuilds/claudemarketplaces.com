@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
-import { syncMarketingConsent } from "@/lib/email";
+import { createContact, addToMarketing } from "@/lib/email";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -26,10 +26,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  // Sync marketing list before responding (must complete before function terminates)
-  const email = user.email;
-  if (email) {
-    await syncMarketingConsent(email, consent === true);
+  if (user.email) {
+    if (consent === true) {
+      await addToMarketing(user.email);
+    } else {
+      await createContact(user.email);
+    }
   }
 
   return NextResponse.json({ success: true });
