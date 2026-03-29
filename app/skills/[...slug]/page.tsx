@@ -22,6 +22,7 @@ import { getSkillById, getAllSkills, getSkillsByRepo } from "@/lib/data/skills";
 import { Skill } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { SkillMarkdown } from "@/components/skill-markdown";
+import { VoteProvider } from "@/lib/contexts/vote-context";
 
 export const revalidate = 300;
 
@@ -520,11 +521,13 @@ async function SkillDetailContent({ id }: { id: string }) {
                 {/* Votes */}
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Votes</span>
-                  <VoteButton
-                    itemType="skill"
-                    itemId={skill.id}
-                    initialVoteCount={skill.voteCount}
-                  />
+                  <VoteProvider itemType="skill" itemIds={[skill.id]}>
+                    <VoteButton
+                      itemType="skill"
+                      itemId={skill.id}
+                      initialVoteCount={skill.voteCount}
+                    />
+                  </VoteProvider>
                 </div>
 
                 {/* First Seen */}

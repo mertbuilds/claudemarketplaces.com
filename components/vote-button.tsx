@@ -21,13 +21,13 @@ export function VoteButton({
   itemId,
   initialVoteCount = 0,
 }: VoteButtonProps) {
-  const { voteCount, userVote, vote, isLoading, isAuthenticated, loaded } = useVote(
+  const { voteCount, userVote, vote, isLoading, isAuthenticated } = useVote(
     itemType,
-    itemId
+    itemId,
+    initialVoteCount
   );
   const router = useRouter();
   const pathname = usePathname();
-  const displayCount = loaded ? voteCount : initialVoteCount;
 
   const handleVote = (value: 1 | -1) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -55,14 +55,14 @@ export function VoteButton({
       </button>
       <span
         className={`text-xs font-medium tabular-nums ${
-          displayCount > 0
+          voteCount > 0
             ? "text-foreground"
-            : displayCount < 0
+            : voteCount < 0
               ? "text-destructive"
               : "text-muted-foreground"
         }`}
       >
-        {displayCount}
+        {voteCount}
       </span>
       <button
         onClick={handleVote(-1)}

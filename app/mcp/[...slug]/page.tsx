@@ -18,6 +18,7 @@ import { VoteButton } from "@/components/vote-button";
 import { getMcpServerBySlug } from "@/lib/data/mcp-servers";
 import { formatStarCount } from "@/lib/utils/format";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
+import { VoteProvider } from "@/lib/contexts/vote-context";
 import { SkillInstallCommand } from "@/components/skill-install-command";
 
 export const revalidate = 300;
@@ -189,11 +190,13 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
                 {/* Votes */}
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Votes</span>
-                  <VoteButton
-                    itemType="mcp_server"
-                    itemId={server.slug}
-                    initialVoteCount={server.voteCount}
-                  />
+                  <VoteProvider itemType="mcp_server" itemIds={[server.slug]}>
+                    <VoteButton
+                      itemType="mcp_server"
+                      itemId={server.slug}
+                      initialVoteCount={server.voteCount}
+                    />
+                  </VoteProvider>
                 </div>
 
                 {/* Divider */}

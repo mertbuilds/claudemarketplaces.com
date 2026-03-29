@@ -1,37 +1,14 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import { createClient } from "@/lib/supabase/client";
+import { useState, useCallback } from "react";
+import { useVoteContext } from "@/lib/contexts/vote-context";
 
-type VoteValue = 1 | -1 | null;
-
-export function useVote(itemType: string, itemId: string) {
-  const [voteCount, setVoteCount] = useState(0);
-  const [userVote, setUserVote] = useState<VoteValue>(null);
+export function useVote(itemType: string, itemId: string, initialVoteCount: number) {
+  const { userVotes, isAuthenticated, loaded, setUserVote } = useVoteContext();
+  const [voteCount, setVoteCount] = useState(initialVoteCount);
   const [isLoading, setIsLoading] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loaded, setLoaded] = useState(false);
 
-  // Check auth status and fetch initial vote data
-  useEffect(() => {
-    const supabase = createClient();
-
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setIsAuthenticated(!!user);
-    });
-
-    // Fetch vote data
-    fetch(
-      `/api/votes?itemType=${itemType}&itemId=${encodeURIComponent(itemId)}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setVoteCount(data.voteCount ?? 0);
-        setUserVote(data.userVote ?? null);
-        setLoaded(true);
-      })
-      .catch(console.error);
-  }, [itemType, itemId]);
+  const userVote = userVotes[itemId] ?? null;
 
   const vote = useCallback(
     async (value: 1 | -1) => {
@@ -40,27 +17,22 @@ export function useVote(itemType: string, itemId: string) {
 
       setIsLoading(true);
 
-      // Optimistic update
       const prevVoteCount = voteCount;
       const prevUserVote = userVote;
 
-      const newValue = userVote === value ? 0 : value; // Toggle off if same
+      const newValue = userVote === value ? 0 : value;
 
-      // Calculate optimistic count
       let countDelta = 0;
       if (newValue === 0) {
-        // Removing vote
         countDelta = -(prevUserVote ?? 0);
       } else if (prevUserVote === null) {
-        // New vote
         countDelta = newValue;
       } else {
-        // Changing vote
         countDelta = newValue - prevUserVote;
       }
 
       setVoteCount((prev) => prev + countDelta);
-      setUserVote(newValue === 0 ? null : (newValue as 1 | -1));
+      setUserVote(itemId, newValue === 0 ? null : (newValue as 1 | -1));
 
       try {
         const res = await fetch("/api/votes", {
@@ -70,23 +42,21 @@ export function useVote(itemType: string, itemId: string) {
         });
 
         if (!res.ok) {
-          // Revert on error
           setVoteCount(prevVoteCount);
-          setUserVote(prevUserVote);
+          setUserVote(itemId, prevUserVote);
         } else {
           const data = await res.json();
           setVoteCount(data.voteCount);
-          setUserVote(data.userVote);
+          setUserVote(itemId, data.userVote);
         }
       } catch {
-        // Revert on error
         setVoteCount(prevVoteCount);
-        setUserVote(prevUserVote);
+        setUserVote(itemId, prevUserVote);
       } finally {
         setIsLoading(false);
       }
     },
-    [itemType, itemId, voteCount, userVote, isAuthenticated, isLoading]
+    [itemType, itemId, voteCount, userVote, isAuthenticated, isLoading, setUserVote]
   );
 
   return { voteCount, userVote, vote, isLoading, isAuthenticated, loaded };

@@ -6,6 +6,7 @@ import { MarketplaceSearch } from "@/components/marketplace-search";
 import { Badge } from "@/components/ui/badge";
 import { usePluginFilters } from "@/lib/hooks/use-plugin-filters";
 import { Plugin } from "@/lib/types";
+import { VoteProvider } from "@/lib/contexts/vote-context";
 
 interface PluginContentProps {
   plugins: Plugin[];
@@ -89,11 +90,13 @@ export function PluginContent({ plugins, categories, expectedPluginCount }: Plug
 
       {/* Plugin Grid */}
       {filteredPlugins.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredPlugins.map((plugin) => (
-            <PluginCard key={plugin.id} plugin={plugin} />
-          ))}
-        </div>
+        <VoteProvider itemType="plugin" itemIds={filteredPlugins.map(p => p.id)}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredPlugins.map((plugin) => (
+              <PluginCard key={plugin.id} plugin={plugin} />
+            ))}
+          </div>
+        </VoteProvider>
       ) : (
         <div className="text-center py-12">
           {hasDataSyncIssue ? (
