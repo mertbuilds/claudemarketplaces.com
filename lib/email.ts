@@ -41,7 +41,7 @@ export async function addToMarketing(email: string, firstName?: string) {
     if (data?.id) {
       await resend.contacts.segments.add({
         segmentId: MARKETING_SEGMENT_ID,
-        contactIds: [data.id],
+        contactId: data.id,
       });
     }
   } catch (err) {
