@@ -21,30 +21,32 @@ export async function sendEmail({
 
 /** Create contact in Resend (idempotent). Call for all signups. */
 export async function createContact(email: string, firstName?: string) {
-  try {
-    await resend.contacts.create({
-      email,
-      ...(firstName ? { firstName } : {}),
-    });
-  } catch (err) {
-    console.error("[email] Failed to create contact:", err);
+  const { error } = await resend.contacts.create({
+    email,
+    ...(firstName ? { firstName } : {}),
+  });
+  if (error) {
+    console.error("[email] Failed to create contact:", error.message);
   }
 }
 
 /** Create contact and add to marketing segment. Call when user consents. */
 export async function addToMarketing(email: string, firstName?: string) {
-  try {
-    const { data } = await resend.contacts.create({
-      email,
-      ...(firstName ? { firstName } : {}),
-    });
-    if (data?.id) {
-      await resend.contacts.segments.add({
-        segmentId: MARKETING_SEGMENT_ID,
-        contactId: data.id,
-      });
-    }
-  } catch (err) {
-    console.error("[email] Failed to add to marketing:", err);
+  const { data, error } = await resend.contacts.create({
+    email,
+    ...(firstName ? { firstName } : {}),
+  });
+  if (error) {
+    console.error("[email] Failed to create contact for marketing:", error.message);
+    return;
+  }
+  if (!data?.id) return;
+
+  const { error: segmentError } = await resend.contacts.segments.add({
+    segmentId: MARKETING_SEGMENT_ID,
+    contactId: data.id,
+  });
+  if (segmentError) {
+    console.error("[email] Failed to add to marketing segment:", segmentError.message);
   }
 }
