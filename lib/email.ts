@@ -34,11 +34,16 @@ export async function createContact(email: string, firstName?: string) {
 /** Create contact and add to marketing segment. Call when user consents. */
 export async function addToMarketing(email: string, firstName?: string) {
   try {
-    await resend.contacts.create({
+    const { data } = await resend.contacts.create({
       email,
       ...(firstName ? { firstName } : {}),
-      segments: [{ id: MARKETING_SEGMENT_ID }],
     });
+    if (data?.id) {
+      await resend.contacts.segments.add({
+        segmentId: MARKETING_SEGMENT_ID,
+        contactIds: [data.id],
+      });
+    }
   } catch (err) {
     console.error("[email] Failed to add to marketing:", err);
   }
