@@ -17,7 +17,7 @@ const banners = [
     id: "mockhero",
     text: "MockHero — generate realistic test data with one API call. 156 field types, 22 locales, JSON/CSV/SQL output.",
     cta: "Try Free",
-    href: "https://mockhero.dev",
+    href: "https://mockhero.dev/?utm_source=claudemarketplaces&utm_medium=floating_banner&utm_campaign=mar_apr2026",
     icon: "/mockhero.png",
     external: true,
   },
