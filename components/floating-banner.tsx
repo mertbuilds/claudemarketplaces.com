@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { X } from "lucide-react";
 const banners = [
   {
@@ -9,13 +10,15 @@ const banners = [
     text: "ideabrowser.com — find trending startup ideas with real demand",
     cta: "Try it",
     href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
+    icon: "/ideabrowser-symbol.webp",
     external: true,
   },
   {
-    id: "supastarter",
-    text: "supastarter — production-ready SaaS starter kit for Next.js",
-    cta: "Try it",
-    href: "https://supastarter.dev?atp=vinena",
+    id: "mockhero",
+    text: "MockHero — generate realistic test data with one API call. 156 field types, 22 locales, JSON/CSV/SQL output.",
+    cta: "Try Free",
+    href: "https://mockhero.dev",
+    icon: "/mockhero.png",
     external: true,
   },
 ];
@@ -50,10 +53,11 @@ export function FloatingBanner() {
   const banner = banners[activeIndex];
 
   return (
-    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-5 sm:right-5 z-50 max-w-[384px] bg-background border border-primary/30 rounded-md p-4 flex items-center gap-3 shadow-lg">
+    <div className="fixed bottom-3 left-3 right-3 sm:left-auto sm:bottom-5 sm:right-5 z-50 max-w-[384px] sm:max-w-[480px] bg-background border border-primary/30 rounded-md p-4 flex items-center gap-3 shadow-lg">
       <div
         className={`flex items-center gap-3 flex-1 transition-opacity duration-300 ${fading ? "opacity-0" : "opacity-100"}`}
       >
+        <Image src={banner.icon} alt={banner.id} width={20} height={20} className="shrink-0 h-5 w-5 rounded-sm" />
         <p className="text-sm font-medium text-foreground leading-snug">
           {banner.text}
         </p>

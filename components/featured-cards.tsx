@@ -59,28 +59,26 @@ export function FeaturedCards() {
           </CardHeader>
         </Card>
 
-        {/* Card 2: supastarter */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+        {/* Card 2: Advertise Here */}
+        <Card className="relative border-dashed border-muted-foreground/40 transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
-              <Image src="/supastarter-logo.svg" alt="supastarter" width={16} height={16} className="h-4 w-4" />
+              <span className="text-base">📣</span>
               <CardTitle className="text-base">
                 <a
-                  href="https://supastarter.dev?atp=vinena"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/advertise"
                   className="after:absolute after:inset-0 cursor-pointer"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "supastarter" }); }}
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "advertise-here" }); }}
                 >
-                  supastarter
+                  Your Tool Here
                 </a>
               </CardTitle>
             </div>
             <CardDescription className="text-sm">
-              Production-ready SaaS starter kit for Next.js and Nuxt. Auth, billing, i18n, multi-tenancy — save months of setup.
+              Reach thousands of developers browsing Claude Code tools every day. Feature your product in this spot.
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Get supastarter →
+              Learn about advertising →
             </span>
           </CardHeader>
         </Card>
