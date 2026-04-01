@@ -162,7 +162,7 @@ export default function AdvertisePage() {
                     </a>
                     <Button size="sm" asChild>
                       <a
-                        href="https://whop.com/claude-code-marketplaces/all-placements/"
+                        href="https://vinena.lemonsqueezy.com/checkout/buy/014f30de-3215-4f7c-874b-525e8ce8a62d"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -249,7 +249,7 @@ export default function AdvertisePage() {
                     </a>
                     <Button size="sm" asChild>
                       <a
-                        href="https://whop.com/claude-code-marketplaces/pinned-card/"
+                        href="https://vinena.lemonsqueezy.com/checkout/buy/b913dcd2-0882-40e0-88de-d7dcd020be12"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -352,7 +352,7 @@ export default function AdvertisePage() {
                     </a>
                     <Button size="sm" asChild>
                       <a
-                        href="https://whop.com/claude-code-marketplaces/in-feed-card/"
+                        href="https://vinena.lemonsqueezy.com/checkout/buy/3089afc8-406a-4527-94ba-4bac33378fe7"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -400,7 +400,7 @@ export default function AdvertisePage() {
                     </a>
                     <Button size="sm" asChild>
                       <a
-                        href="https://whop.com/claude-code-marketplaces/floating-banner/"
+                        href="https://vinena.lemonsqueezy.com/checkout/buy/4e1e19ee-cf01-47ef-b648-0787e5d75824"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -433,7 +433,7 @@ export default function AdvertisePage() {
                     </a>
                     <Button size="sm" asChild>
                       <a
-                        href="https://whop.com/claude-code-marketplaces/job-listing/"
+                        href="https://vinena.lemonsqueezy.com/checkout/buy/cb2daedf-c722-4c84-a5e9-c73ea375141f"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
