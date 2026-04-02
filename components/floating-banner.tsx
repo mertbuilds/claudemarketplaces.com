@@ -6,19 +6,19 @@ import Image from "next/image";
 import { X } from "lucide-react";
 const banners = [
   {
-    id: "ideabrowser",
-    text: "ideabrowser.com — find trending startup ideas with real demand",
-    cta: "Try it",
-    href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
-    icon: "/ideabrowser-symbol.webp",
-    external: true,
-  },
-  {
     id: "mockhero",
     text: "MockHero — generate realistic test data with one API call. 156 field types, 22 locales, JSON/CSV/SQL output.",
     cta: "Try Free",
     href: "https://mockhero.dev/?utm_source=claudemarketplaces&utm_medium=floating_banner&utm_campaign=mar_apr2026",
     icon: "/mockhero.png",
+    external: true,
+  },
+  {
+    id: "ideabrowser",
+    text: "ideabrowser.com — find trending startup ideas with real demand",
+    cta: "Try it",
+    href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
+    icon: "/ideabrowser-symbol.webp",
     external: true,
   },
 ];
