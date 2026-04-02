@@ -1,5 +1,7 @@
 import { Suspense } from "react";
 
+export const revalidate = 3600;
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills } from "@/lib/data/skills";

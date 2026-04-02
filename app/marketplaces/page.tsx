@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 
 import type { Metadata } from "next";
+
+export const revalidate = 3600;
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
