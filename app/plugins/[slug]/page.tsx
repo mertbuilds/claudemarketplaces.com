@@ -107,7 +107,7 @@ async function PluginData({ slug }: { slug: string }) {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="/">Marketplaces</BreadcrumbLink>
+              <BreadcrumbLink href="/marketplaces">Marketplaces</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
@@ -167,7 +167,7 @@ export default async function PluginsPage({ params }: PageProps) {
               "@type": "ListItem",
               position: 1,
               name: "Marketplaces",
-              item: "https://claudemarketplaces.com",
+              item: "https://claudemarketplaces.com/marketplaces",
             },
             {
               "@type": "ListItem",
