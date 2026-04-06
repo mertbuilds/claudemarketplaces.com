@@ -10,8 +10,7 @@ const links = [
   { href: "/marketplaces", label: "Marketplaces" },
   { href: "/mcp", label: "MCP" },
   { href: "/learn", label: "Learn" },
-  { href: "/saved", label: "Saved" },
-  { href: "/advertise", label: "Advertise" },
+{ href: "/advertise", label: "Advertise" },
 ];
 
 export function Header() {

@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut, Settings, User } from "lucide-react";
+import { Bookmark, LogOut, Settings, User } from "lucide-react";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { getProfileByUserId, type Profile } from "@/lib/supabase/profile";
 
@@ -97,6 +97,10 @@ export function AuthButton() {
             Profile
           </DropdownMenuItem>
         )}
+        <DropdownMenuItem onClick={() => router.push("/saved")}>
+          <Bookmark className="mr-2 h-4 w-4" />
+          Saved
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/profile")}>
           <Settings className="mr-2 h-4 w-4" />
           Settings
