@@ -24,15 +24,18 @@ export function useBookmarkContext() {
 interface BookmarkProviderProps {
   itemType: string;
   itemIds: string[];
+  initialBookmarks?: Record<string, boolean>;
   children: React.ReactNode;
 }
 
-export function BookmarkProvider({ itemType, itemIds, children }: BookmarkProviderProps) {
-  const [userBookmarks, setUserBookmarks] = useState<Record<string, boolean>>({});
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+export function BookmarkProvider({ itemType, itemIds, initialBookmarks, children }: BookmarkProviderProps) {
+  const [userBookmarks, setUserBookmarks] = useState<Record<string, boolean>>(initialBookmarks ?? {});
+  const [isAuthenticated, setIsAuthenticated] = useState(!!initialBookmarks);
+  const [loaded, setLoaded] = useState(!!initialBookmarks);
 
   useEffect(() => {
+    if (initialBookmarks) return;
+
     const supabase = createClient();
 
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -60,7 +63,7 @@ export function BookmarkProvider({ itemType, itemIds, children }: BookmarkProvid
         });
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemType, itemIds.join(",")]);
+  }, [itemType, itemIds.join(","), !!initialBookmarks]);
 
   const setUserBookmark = useCallback((itemId: string, value: boolean) => {
     setUserBookmarks((prev) => ({ ...prev, [itemId]: value }));

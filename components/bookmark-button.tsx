@@ -18,7 +18,7 @@ interface BookmarkButtonProps {
 }
 
 export function BookmarkButton({ itemType, itemId }: BookmarkButtonProps) {
-  const { isBookmarked, toggleBookmark, isLoading, isAuthenticated } = useBookmark(itemType, itemId);
+  const { isBookmarked, toggleBookmark, isLoading, isAuthenticated, loaded } = useBookmark(itemType, itemId);
   const router = useRouter();
   const pathname = usePathname();
   const [showSavedTip, setShowSavedTip] = useState(false);
@@ -45,6 +45,14 @@ export function BookmarkButton({ itemType, itemId }: BookmarkButtonProps) {
     setShowSavedTip(false);
     toggleBookmark();
   };
+
+  if (!loaded) {
+    return (
+      <div className="p-1">
+        <Bookmark className="h-4 w-4 text-muted-foreground/30" />
+      </div>
+    );
+  }
 
   const button = (
     <button

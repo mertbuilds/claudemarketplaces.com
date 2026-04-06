@@ -195,7 +195,7 @@ export default function SavedPage() {
                   MCP Servers
                 </h2>
                 <VoteProvider itemType="mcp_server" itemIds={savedItems!.mcp_servers.map(s => s.slug)}>
-                  <BookmarkProvider itemType="mcp_server" itemIds={savedItems!.mcp_servers.map(s => s.slug)}>
+                  <BookmarkProvider itemType="mcp_server" itemIds={savedItems!.mcp_servers.map(s => s.slug)} initialBookmarks={Object.fromEntries(savedItems!.mcp_servers.map(s => [s.slug, true]))}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {savedItems!.mcp_servers.map((server) => (
                         <McpServerCard key={server.slug} server={server} />
@@ -212,7 +212,7 @@ export default function SavedPage() {
                   Marketplaces
                 </h2>
                 <VoteProvider itemType="marketplace" itemIds={savedItems!.marketplaces.map(m => m.repo)}>
-                  <BookmarkProvider itemType="marketplace" itemIds={savedItems!.marketplaces.map(m => m.repo)}>
+                  <BookmarkProvider itemType="marketplace" itemIds={savedItems!.marketplaces.map(m => m.repo)} initialBookmarks={Object.fromEntries(savedItems!.marketplaces.map(m => [m.repo, true]))}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {savedItems!.marketplaces.map((marketplace) => (
                         <MarketplaceCard key={marketplace.repo} marketplace={marketplace} />
@@ -229,7 +229,7 @@ export default function SavedPage() {
                   Plugins
                 </h2>
                 <VoteProvider itemType="plugin" itemIds={savedItems!.plugins.map(p => p.id)}>
-                  <BookmarkProvider itemType="plugin" itemIds={savedItems!.plugins.map(p => p.id)}>
+                  <BookmarkProvider itemType="plugin" itemIds={savedItems!.plugins.map(p => p.id)} initialBookmarks={Object.fromEntries(savedItems!.plugins.map(p => [p.id, true]))}>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {savedItems!.plugins.map((plugin) => (
                         <PluginCard key={plugin.id} plugin={plugin} />
@@ -246,7 +246,7 @@ export default function SavedPage() {
                   Skills
                 </h2>
                 <VoteProvider itemType="skill" itemIds={savedItems!.skills.map(s => s.id)}>
-                  <BookmarkProvider itemType="skill" itemIds={savedItems!.skills.map(s => s.id)}>
+                  <BookmarkProvider itemType="skill" itemIds={savedItems!.skills.map(s => s.id)} initialBookmarks={Object.fromEntries(savedItems!.skills.map(s => [s.id, true]))}>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {savedItems!.skills.map((skill) => (
                         <SkillCard key={skill.id} skill={skill} />
