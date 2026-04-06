@@ -11,21 +11,31 @@ export async function getAllMarketplaces(options?: {
 }): Promise<Marketplace[]> {
   const { includeEmpty = true } = options || {};
   const supabase = await getDataClient();
+  const allRows: MarketplaceRow[] = [];
+  const pageSize = 1000;
+  let from = 0;
 
-  let query = supabase.from("marketplaces").select("*");
-  if (!includeEmpty) {
-    query = query.gt("plugin_count", 0);
+  while (true) {
+    let query = supabase.from("marketplaces").select("*");
+    if (!includeEmpty) {
+      query = query.gt("plugin_count", 0);
+    }
+
+    const { data, error } = await query
+      .order("stars", { ascending: false, nullsFirst: false })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Error fetching marketplaces:", error);
+      return [];
+    }
+
+    allRows.push(...(data as MarketplaceRow[]));
+    if (data.length < pageSize) break;
+    from += pageSize;
   }
 
-  const { data, error } = await query
-    .order("stars", { ascending: false, nullsFirst: false })
-    .range(0, 4999);
-  if (error) {
-    console.error("Error fetching marketplaces:", error);
-    return [];
-  }
-
-  return (data as MarketplaceRow[]).map(mapMarketplaceRow);
+  return allRows.map(mapMarketplaceRow);
 }
 
 /**
@@ -52,19 +62,29 @@ export async function getMarketplacesByCategory(
   category: string
 ): Promise<Marketplace[]> {
   const supabase = await getDataClient();
-  const { data, error } = await supabase
-    .from("marketplaces")
-    .select("*")
-    .contains("categories", [category])
-    .order("stars", { ascending: false, nullsFirst: false })
-    .range(0, 4999);
+  const allRows: MarketplaceRow[] = [];
+  const pageSize = 1000;
+  let from = 0;
 
-  if (error) {
-    console.error("Error fetching marketplaces by category:", error);
-    return [];
+  while (true) {
+    const { data, error } = await supabase
+      .from("marketplaces")
+      .select("*")
+      .contains("categories", [category])
+      .order("stars", { ascending: false, nullsFirst: false })
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Error fetching marketplaces by category:", error);
+      return [];
+    }
+
+    allRows.push(...(data as MarketplaceRow[]));
+    if (data.length < pageSize) break;
+    from += pageSize;
   }
 
-  return (data as MarketplaceRow[]).map(mapMarketplaceRow);
+  return allRows.map(mapMarketplaceRow);
 }
 
 /**
