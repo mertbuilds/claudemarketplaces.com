@@ -2,16 +2,17 @@
 
 import { Marketplace } from "@/lib/types";
 import { MarketplaceCard } from "@/components/marketplace-card";
-import { IdeabrowserInFeedCard } from "@/components/ideabrowser-infeed-card";
-import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
+import { SponsoredInFeedCard } from "@/components/sponsored-infeed-card";
+import type { AdConfig } from "@/lib/ads";
 
 interface MarketplaceGridProps {
   marketplaces: Marketplace[];
   newsletterSeed: [number, number];
+  infeedAds: [AdConfig, AdConfig];
   isSearching?: boolean;
 }
 
-export function MarketplaceGrid({ marketplaces, newsletterSeed, isSearching }: MarketplaceGridProps) {
+export function MarketplaceGrid({ marketplaces, newsletterSeed, infeedAds, isSearching }: MarketplaceGridProps) {
   if (isSearching) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -21,6 +22,8 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed, isSearching }: M
       </div>
     );
   }
+
+  const [ad1, ad2] = infeedAds;
 
   const cols = 3;
   const totalSlots = marketplaces.length + 2;
@@ -36,8 +39,8 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed, isSearching }: M
 
   const positions = [topPos, bottomPos];
   const infeedCards = [
-    <IdeabrowserInFeedCard key="ideabrowser-card" />,
-    <NewsletterInFeedCard key="newsletter-card" />,
+    <SponsoredInFeedCard key={`infeed-${ad1.id}`} ad={ad1} />,
+    <SponsoredInFeedCard key={`infeed-${ad2.id}`} ad={ad2} />,
   ];
 
   const items: React.ReactNode[] = [];

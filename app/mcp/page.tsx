@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMcpServers } from "@/lib/data/mcp-servers";
 import { McpServersContent } from "@/components/mcp-servers-content";
+import { getInFeedAdsForPage } from "@/lib/ads";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -59,6 +60,7 @@ async function McpData() {
       <McpServersContent
         servers={servers}
         newsletterSeed={[Math.random(), Math.random()]}
+        infeedAds={getInFeedAdsForPage("mcp")}
       />
     </>
   );

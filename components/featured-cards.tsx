@@ -33,7 +33,59 @@ export function FeaturedCards() {
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Card 1: Ideabrowser */}
+        {/* Card 1: 1inch */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+          <CardHeader className="flex flex-col justify-between h-full">
+            <div className="flex items-center gap-2">
+              <Image src="/1inch.png" alt="1inch" width={16} height={16} className="h-4 w-4" />
+              <CardTitle className="text-base">
+                <a
+                  href="https://business.1inch.com/1inch-mcp?utm_source=claudemarketplaces&utm_medium=cpm&utm_campaign=1inch-mcp-awareness&utm_content=pinned-card"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="after:absolute after:inset-0 cursor-pointer"
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "1inch" }); }}
+                >
+                  Make your agent a DeFi expert
+                </a>
+              </CardTitle>
+            </div>
+            <CardDescription className="text-sm">
+              Give it real-time data across 13 networks, powered by 1inch.
+            </CardDescription>
+            <span className="text-sm font-medium text-primary hover:underline mt-auto">
+              Install now →
+            </span>
+          </CardHeader>
+        </Card>
+
+        {/* Card 2: AppSignal */}
+        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+          <CardHeader className="flex flex-col justify-between h-full">
+            <div className="flex items-center gap-2">
+              <Image src="/appsignal.svg" alt="AppSignal" width={16} height={16} className="h-4 w-4" />
+              <CardTitle className="text-base">
+                <a
+                  href="https://www.appsignal.com/?utm_source=native&utm_medium=paid&utm_campaign=claudemarketplaces"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="after:absolute after:inset-0 cursor-pointer"
+                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "appsignal" }); }}
+                >
+                  AppSignal
+                </a>
+              </CardTitle>
+            </div>
+            <CardDescription className="text-sm">
+              Monitor with ease. Code with confidence.
+            </CardDescription>
+            <span className="text-sm font-medium text-primary hover:underline mt-auto">
+              Start Free Trial →
+            </span>
+          </CardHeader>
+        </Card>
+
+        {/* Card 3: Ideabrowser */}
         <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
@@ -55,56 +107,6 @@ export function FeaturedCards() {
             </CardDescription>
             <span className="text-sm font-medium text-primary hover:underline mt-auto">
               Get trending startup ideas →
-            </span>
-          </CardHeader>
-        </Card>
-
-        {/* Card 2: Advertise Here */}
-        <Card className="relative border-dashed border-muted-foreground/40 transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer">
-          <CardHeader className="flex flex-col justify-between h-full">
-            <div className="flex items-center gap-2">
-              <span className="text-base">📣</span>
-              <CardTitle className="text-base">
-                <a
-                  href="/advertise"
-                  className="after:absolute after:inset-0 cursor-pointer"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "advertise-here" }); }}
-                >
-                  Your Tool Here
-                </a>
-              </CardTitle>
-            </div>
-            <CardDescription className="text-sm">
-              Reach thousands of developers browsing Claude Code tools every day. Feature your product in this spot.
-            </CardDescription>
-            <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Learn about advertising →
-            </span>
-          </CardHeader>
-        </Card>
-
-        {/* Card 3: Ideabrowser Workshop */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
-          <CardHeader className="flex flex-col justify-between h-full">
-            <div className="flex items-center gap-2">
-              <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
-              <CardTitle className="text-base">
-                <a
-                  href="https://www.ideabrowser.com/workshop?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="after:absolute after:inset-0 cursor-pointer"
-                  onClick={() => { if (typeof window.op === "function") window.op!("track", "featured_card_clicked", { card: "ideabrowser-workshop" }); }}
-                >
-                  How to build a startup using AI
-                </a>
-              </CardTitle>
-            </div>
-            <CardDescription className="text-sm">
-              Free workshop to use AI to turn ideas into companies. See the tools and workflows to build businesses.
-            </CardDescription>
-            <span className="text-sm font-medium text-primary hover:underline mt-auto">
-              Join free workshop →
             </span>
           </CardHeader>
         </Card>

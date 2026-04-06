@@ -1,0 +1,127 @@
+export interface AdConfig {
+  id: string;
+  title: string;
+  description: string;
+  href: string;
+  cta: string;
+  icon: string;
+  tags?: string[];
+}
+
+export interface BannerConfig {
+  id: string;
+  text: string;
+  cta: string;
+  href: string;
+  icon: string;
+  external: boolean;
+}
+
+// — In-Feed Card configs (full-package advertisers only) —
+
+const oneinchInFeed: AdConfig = {
+  id: "1inch",
+  title: "DeFi MCP",
+  description:
+    "Connect your Claude agent to onchain data via 1inch: prices, trade routes and wallet activity.",
+  href: "https://business.1inch.com/1inch-mcp?utm_source=claudemarketplaces&utm_medium=cpm&utm_campaign=1inch-mcp-awareness&utm_content=in-feed-card",
+  cta: "Install now",
+  icon: "/1inch.png",
+  tags: ["defi", "mcp", "crypto"],
+};
+
+const appsignalInFeed: AdConfig = {
+  id: "appsignal",
+  title: "AppSignal",
+  description: "Monitor with ease. Code with confidence.",
+  href: "https://www.appsignal.com/?utm_source=native&utm_medium=paid&utm_campaign=claudemarketplaces",
+  cta: "Start Free Trial",
+  icon: "/appsignal.svg",
+  tags: ["monitoring", "apm", "devtools"],
+};
+
+const ideabrowserInFeed: AdConfig = {
+  id: "ideabrowser",
+  title: "ideabrowser.com",
+  description:
+    "Find trending startup ideas with real demand. Launch with a team of AI agents.",
+  href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
+  cta: "Get trending startup ideas →",
+  icon: "/ideabrowser-symbol.webp",
+  tags: ["startups", "ai agents", "ideas"],
+};
+
+const INFEED_ADS = [oneinchInFeed, appsignalInFeed, ideabrowserInFeed];
+
+const PAGE_INDEX: Record<string, number> = {
+  skills: 0,
+  marketplaces: 1,
+  mcp: 2,
+};
+
+/**
+ * Returns the 2 in-feed ads for a given page today.
+ * Each advertiser appears on exactly 2 of the 3 pages per day.
+ * The assignment rotates daily so all pages get equal visibility over time.
+ *
+ * Call this from server components only — passing the result as a prop avoids
+ * hydration mismatches and gives stable output across SSR/SSG revalidation.
+ */
+export function getInFeedAdsForPage(pageId: string): [AdConfig, AdConfig] {
+  const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
+  const offset = daysSinceEpoch % 3;
+  const p = PAGE_INDEX[pageId] ?? 0;
+  return [
+    INFEED_ADS[(p + offset) % 3],
+    INFEED_ADS[(p + offset + 1) % 3],
+  ];
+}
+
+// — Floating Banner configs —
+
+export const FLOATING_BANNERS: BannerConfig[] = [
+  {
+    id: "mockhero",
+    text: "MockHero — generate realistic test data with one API call. 156 field types, 22 locales, JSON/CSV/SQL output.",
+    cta: "Try Free",
+    href: "https://mockhero.dev/?utm_source=claudemarketplaces&utm_medium=floating_banner&utm_campaign=mar_apr2026",
+    icon: "/mockhero.png",
+    external: true,
+  },
+  {
+    id: "1inch",
+    text: "Agent, run crypto. Access onchain data & trade routes via 1inch",
+    cta: "Try now",
+    href: "https://business.1inch.com/1inch-mcp?utm_source=claudemarketplaces&utm_medium=cpm&utm_campaign=1inch-mcp-awareness&utm_content=floating-banner",
+    icon: "/1inch.png",
+    external: true,
+  },
+  {
+    id: "appsignal",
+    text: "AppSignal — Monitor with ease. Code with confidence.",
+    cta: "Start Free Trial",
+    href: "https://www.appsignal.com/?utm_source=native&utm_medium=paid&utm_campaign=claudemarketplaces",
+    icon: "/appsignal.svg",
+    external: true,
+  },
+  {
+    id: "ideabrowser",
+    text: "ideabrowser.com — find trending startup ideas with real demand",
+    cta: "Install now",
+    href: "https://www.ideabrowser.com/join?utm_source=claudecode_marketplace&utm_medium=paid&utm_campaign=march-2026",
+    icon: "/ideabrowser-symbol.webp",
+    external: true,
+  },
+];
+
+/**
+ * Returns the index of the banner to show first today. Rotates daily so each
+ * advertiser gets equal first-impression visibility over time.
+ *
+ * Call this from server components only — passing the result as a prop avoids
+ * the brief flash of the wrong initial banner during hydration.
+ */
+export function getInitialFloatingBannerIndex(): number {
+  const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
+  return daysSinceEpoch % FLOATING_BANNERS.length;
+}

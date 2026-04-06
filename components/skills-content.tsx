@@ -10,13 +10,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
 import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
+import type { AdConfig } from "@/lib/ads";
 
 interface SkillsContentProps {
   skills: Skill[];
   newsletterSeed: [number, number];
+  infeedAds: [AdConfig, AdConfig];
 }
 
-export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
+export function SkillsContent({ skills, newsletterSeed, infeedAds }: SkillsContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -90,7 +92,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
       {paginatedSkills.length > 0 ? (
         <VoteProvider itemType="skill" itemIds={paginatedSkills.map(s => s.id)}>
           <BookmarkProvider itemType="skill" itemIds={paginatedSkills.map(s => s.id)}>
-          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
+          <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} infeedAds={infeedAds} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (

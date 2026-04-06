@@ -6,6 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills } from "@/lib/data/skills";
 import { SkillsContent } from "@/components/skills-content";
+import { getInFeedAdsForPage } from "@/lib/ads";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -59,6 +60,7 @@ async function SkillsData() {
       <SkillsContent
         skills={skills}
         newsletterSeed={[Math.random(), Math.random()]}
+        infeedAds={getInFeedAdsForPage("skills")}
       />
     </>
   );

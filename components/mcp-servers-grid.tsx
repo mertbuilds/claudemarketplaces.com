@@ -2,16 +2,17 @@
 
 import { McpServer } from "@/lib/types";
 import { McpServerCard } from "@/components/mcp-server-card";
-import { IdeabrowserInFeedCard } from "@/components/ideabrowser-infeed-card";
-import { NewsletterInFeedCard } from "@/components/newsletter-infeed-card";
+import { SponsoredInFeedCard } from "@/components/sponsored-infeed-card";
+import type { AdConfig } from "@/lib/ads";
 
 interface McpServersGridProps {
   servers: McpServer[];
   newsletterSeed: [number, number];
+  infeedAds: [AdConfig, AdConfig];
   isSearching?: boolean;
 }
 
-export function McpServersGrid({ servers, newsletterSeed, isSearching }: McpServersGridProps) {
+export function McpServersGrid({ servers, newsletterSeed, infeedAds, isSearching }: McpServersGridProps) {
   if (isSearching) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -21,6 +22,8 @@ export function McpServersGrid({ servers, newsletterSeed, isSearching }: McpServ
       </div>
     );
   }
+
+  const [ad1, ad2] = infeedAds;
 
   const cols = 3;
   const totalSlots = servers.length + 2;
@@ -32,8 +35,8 @@ export function McpServersGrid({ servers, newsletterSeed, isSearching }: McpServ
 
   const positions = [topPos, bottomPos];
   const infeedCards = [
-    <IdeabrowserInFeedCard key="ideabrowser-card" />,
-    <NewsletterInFeedCard key="newsletter-card" />,
+    <SponsoredInFeedCard key={`infeed-${ad1.id}`} ad={ad1} />,
+    <SponsoredInFeedCard key={`infeed-${ad2.id}`} ad={ad2} />,
   ];
 
   const items: React.ReactNode[] = [];

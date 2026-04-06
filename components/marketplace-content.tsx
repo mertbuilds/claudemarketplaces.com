@@ -12,17 +12,20 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
 import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
+import type { AdConfig } from "@/lib/ads";
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
   categories: string[];
   newsletterSeed: [number, number];
+  infeedAds: [AdConfig, AdConfig];
 }
 
 export function MarketplaceContent({
   marketplaces,
   categories,
   newsletterSeed,
+  infeedAds,
 }: MarketplaceContentProps) {
   const {
     searchQuery,
@@ -121,7 +124,7 @@ export function MarketplaceContent({
       {paginatedMarketplaces.length > 0 ? (
         <VoteProvider itemType="marketplace" itemIds={paginatedMarketplaces.map(m => m.repo)}>
           <BookmarkProvider itemType="marketplace" itemIds={paginatedMarketplaces.map(m => m.repo)}>
-          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
+          <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} infeedAds={infeedAds} isSearching={!!searchQuery} />
 
           {/* Pagination */}
           {totalPages > 1 && (

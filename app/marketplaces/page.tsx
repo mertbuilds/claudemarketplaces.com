@@ -7,6 +7,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
+import { getInFeedAdsForPage } from "@/lib/ads";
 
 export const metadata: Metadata = {
   title: "Plugin Marketplaces | Claude Code Plugin Directory",
@@ -51,6 +52,7 @@ async function MarketplaceData() {
         marketplaces={marketplaces}
         categories={categories}
         newsletterSeed={[Math.random(), Math.random()]}
+        infeedAds={getInFeedAdsForPage("marketplaces")}
       />
     </>
   );

@@ -5,6 +5,7 @@ import Script from "next/script";
 import { OpenPanelComponent } from "@openpanel/nextjs";
 import "./globals.css";
 import { FloatingBanner } from "@/components/floating-banner";
+import { getInitialFloatingBannerIndex } from "@/lib/ads";
 
 // Crimson Pro for elegant headings
 const crimsonPro = Crimson_Pro({
@@ -133,7 +134,7 @@ export default function RootLayout({
           trackAttributes={false}
         />
         {children}
-        <FloatingBanner />
+        <FloatingBanner initialIndex={getInitialFloatingBannerIndex()} />
       </body>
     </html>
   );

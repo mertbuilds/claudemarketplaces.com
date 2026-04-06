@@ -10,13 +10,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
 import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
+import type { AdConfig } from "@/lib/ads";
 
 interface McpServersContentProps {
   servers: McpServer[];
   newsletterSeed: [number, number];
+  infeedAds: [AdConfig, AdConfig];
 }
 
-export function McpServersContent({ servers, newsletterSeed }: McpServersContentProps) {
+export function McpServersContent({ servers, newsletterSeed, infeedAds }: McpServersContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -81,7 +83,7 @@ export function McpServersContent({ servers, newsletterSeed }: McpServersContent
       {paginatedServers.length > 0 ? (
         <VoteProvider itemType="mcp_server" itemIds={paginatedServers.map(s => s.slug)}>
           <BookmarkProvider itemType="mcp_server" itemIds={paginatedServers.map(s => s.slug)}>
-          <McpServersGrid servers={paginatedServers} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
+          <McpServersGrid servers={paginatedServers} newsletterSeed={newsletterSeed} infeedAds={infeedAds} isSearching={!!searchQuery} />
 
           {totalPages > 1 && (
             <div className="flex items-center justify-center gap-2 mt-8">
