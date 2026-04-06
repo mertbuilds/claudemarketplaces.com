@@ -22,15 +22,16 @@ export function BookmarkButton({ itemType, itemId }: BookmarkButtonProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [showSavedTip, setShowSavedTip] = useState(false);
-  const prevBookmarked = useRef(isBookmarked);
+  const clickedRef = useRef(false);
 
   useEffect(() => {
-    if (isBookmarked && !prevBookmarked.current) {
+    if (isBookmarked && clickedRef.current) {
       setShowSavedTip(true);
       const timer = setTimeout(() => setShowSavedTip(false), 3000);
+      clickedRef.current = false;
       return () => clearTimeout(timer);
     }
-    prevBookmarked.current = isBookmarked;
+    clickedRef.current = false;
   }, [isBookmarked]);
 
   const handleClick = (e: React.MouseEvent) => {
@@ -40,6 +41,7 @@ export function BookmarkButton({ itemType, itemId }: BookmarkButtonProps) {
       router.push(`/login?next=${encodeURIComponent(pathname)}`);
       return;
     }
+    clickedRef.current = true;
     setShowSavedTip(false);
     toggleBookmark();
   };
