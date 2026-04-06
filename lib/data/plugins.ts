@@ -7,12 +7,27 @@ import { mapPluginRow, PluginRow } from "@/lib/supabase/mappers";
  */
 export async function getAllPlugins(): Promise<Plugin[]> {
   const supabase = await getDataClient();
-  const { data, error } = await supabase.from("plugins").select("*");
-  if (error) {
-    console.error("Error fetching plugins:", error);
-    return [];
+  const allRows: PluginRow[] = [];
+  const pageSize = 1000;
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from("plugins")
+      .select("*")
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error("Error fetching plugins:", error);
+      return [];
+    }
+
+    allRows.push(...(data as PluginRow[]));
+    if (data.length < pageSize) break;
+    from += pageSize;
   }
-  return (data as PluginRow[]).map(mapPluginRow);
+
+  return allRows.map(mapPluginRow);
 }
 
 /**

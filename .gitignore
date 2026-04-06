@@ -48,3 +48,4 @@ TEMP.md
 # email scripts with sensitive data
 scripts/send-permission-confirmation.ts
 scripts/already-emailed.json
+scripts/.dedup-cache.json

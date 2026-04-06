@@ -62,8 +62,69 @@ async function main() {
   const skillRepos = readJson<SkillRepo[]>("skill-repos.json");
   logInfo(`${marketplaces.length} marketplaces, ${plugins.length} plugins, ${skills.length} skills, ${skillRepos.length} skill repos`);
 
-  // Step 2: Upsert marketplaces first (plugins FK dependency)
-  logStep(2, 4, "Upserting marketplaces...");
+  // Step 2: Delete stale data, then upsert marketplaces (plugins FK dependency)
+  logStep(2, 5, "Cleaning stale data & upserting marketplaces...");
+
+  // Get existing repos/slugs from Supabase
+  const { data: existingMarketplaces } = await supabase
+    .from("marketplaces")
+    .select("repo, slug");
+  const existingRepos = new Set((existingMarketplaces || []).map((m) => m.repo));
+  const existingSlugs = new Set((existingMarketplaces || []).map((m) => m.slug));
+
+  const localRepos = new Set(marketplaces.map((m) => m.repo));
+  const localSlugs = new Set(marketplaces.map((m) => m.slug));
+  const localPluginIds = new Set(plugins.map((p) => p.id));
+
+  // Delete plugins that reference marketplaces we're about to remove
+  const staleSlugs = [...existingSlugs].filter((s) => !localSlugs.has(s));
+  if (staleSlugs.length > 0) {
+    // Delete in batches to avoid query size limits
+    for (let i = 0; i < staleSlugs.length; i += 100) {
+      const batch = staleSlugs.slice(i, i + 100);
+      const { error: dpErr } = await supabase
+        .from("plugins")
+        .delete()
+        .in("marketplace", batch);
+      if (dpErr) logErr(`Delete plugins batch failed: ${dpErr.message}`);
+    }
+    logInfo(`Deleted plugins for ${staleSlugs.length} stale marketplace slugs`);
+  }
+
+  // Also delete plugins not in local JSON
+  const { data: existingPlugins } = await supabase
+    .from("plugins")
+    .select("id");
+  const stalePluginIds = (existingPlugins || [])
+    .map((p) => p.id)
+    .filter((id) => !localPluginIds.has(id));
+  if (stalePluginIds.length > 0) {
+    for (let i = 0; i < stalePluginIds.length; i += 100) {
+      const batch = stalePluginIds.slice(i, i + 100);
+      const { error: dpErr } = await supabase
+        .from("plugins")
+        .delete()
+        .in("id", batch);
+      if (dpErr) logErr(`Delete stale plugins failed: ${dpErr.message}`);
+    }
+    logInfo(`Deleted ${stalePluginIds.length} stale plugins`);
+  }
+
+  // Delete stale marketplaces
+  const staleRepos = [...existingRepos].filter((r) => !localRepos.has(r));
+  if (staleRepos.length > 0) {
+    for (let i = 0; i < staleRepos.length; i += 100) {
+      const batch = staleRepos.slice(i, i + 100);
+      const { error: dmErr } = await supabase
+        .from("marketplaces")
+        .delete()
+        .in("repo", batch);
+      if (dmErr) logErr(`Delete marketplaces batch failed: ${dmErr.message}`);
+    }
+    logInfo(`Deleted ${staleRepos.length} stale marketplaces`);
+  }
+
+  // Upsert marketplaces
   const marketplaceRows = marketplaces.map((m) => ({
     repo: m.repo,
     slug: m.slug,
@@ -78,18 +139,21 @@ async function main() {
     stars_fetched_at: m.starsFetchedAt ?? null,
   }));
 
-  const { error: mErr } = await supabase
-    .from("marketplaces")
-    .upsert(marketplaceRows, { onConflict: "repo" });
-
-  if (mErr) {
-    logErr(`Marketplaces failed: ${mErr.message}`);
-    process.exit(1);
+  // Batch upsert to avoid payload size limits
+  for (let i = 0; i < marketplaceRows.length; i += 500) {
+    const batch = marketplaceRows.slice(i, i + 500);
+    const { error: mErr } = await supabase
+      .from("marketplaces")
+      .upsert(batch, { onConflict: "repo" });
+    if (mErr) {
+      logErr(`Marketplaces batch ${i} failed: ${mErr.message}`);
+      process.exit(1);
+    }
   }
   logOk(`${marketplaceRows.length} marketplaces upserted`);
 
-  // Step 3: Upsert plugins, skills, skill_repos in parallel
-  logStep(3, 4, "Upserting plugins, skills, skill_repos in parallel...");
+  // Step 3: Upsert plugins, skills, skill_repos
+  logStep(3, 5, "Upserting plugins, skills, skill_repos...");
 
   const pluginRows = plugins.map((p) => ({
     id: p.id,
@@ -140,41 +204,47 @@ async function main() {
     source: sr.source ?? null,
   }));
 
-  const [pluginResult, skillResult, skillRepoResult] = await Promise.all([
-    supabase.from("plugins").upsert(pluginRows, { onConflict: "id" }),
-    supabase.from("skills").upsert(skillRows, { onConflict: "id" }),
-    supabase.from("skill_repos").upsert(skillRepoRows, { onConflict: "repo" }),
-  ]);
-
-  let hasError = false;
-
-  if (pluginResult.error) {
-    logErr(`Plugins failed: ${pluginResult.error.message}`);
-    hasError = true;
-  } else {
-    logOk(`${pluginRows.length} plugins upserted`);
+  // Batch upsert plugins
+  for (let i = 0; i < pluginRows.length; i += 500) {
+    const batch = pluginRows.slice(i, i + 500);
+    const { error } = await supabase
+      .from("plugins")
+      .upsert(batch, { onConflict: "id" });
+    if (error) {
+      logErr(`Plugins batch ${i} failed: ${error.message}`);
+      process.exit(1);
+    }
   }
+  logOk(`${pluginRows.length} plugins upserted`);
+
+  const skillResult = await supabase
+    .from("skills")
+    .upsert(skillRows, { onConflict: "id" });
 
   if (skillResult.error) {
     logErr(`Skills failed: ${skillResult.error.message}`);
-    hasError = true;
-  } else {
-    logOk(`${skillRows.length} skills upserted`);
+    process.exit(1);
   }
+  logOk(`${skillRows.length} skills upserted`);
+
+  // skill_repos table was dropped in prod — skip if not present
+  const skillRepoResult = await supabase
+    .from("skill_repos")
+    .upsert(skillRepoRows, { onConflict: "repo" });
 
   if (skillRepoResult.error) {
-    logErr(`Skill repos failed: ${skillRepoResult.error.message}`);
-    hasError = true;
+    if (skillRepoResult.error.message.includes("schema cache")) {
+      logInfo(`Skipping skill_repos (table not in prod)`);
+    } else {
+      logErr(`Skill repos failed: ${skillRepoResult.error.message}`);
+      process.exit(1);
+    }
   } else {
     logOk(`${skillRepoRows.length} skill repos upserted`);
   }
 
-  if (hasError) {
-    process.exit(1);
-  }
-
   // Done
-  logStep(4, 4, "Complete!");
+  logStep(5, 5, "Complete!");
   const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
   log(`\n  Seeded in ${elapsed}s`, c.green);
 }

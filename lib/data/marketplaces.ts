@@ -17,7 +17,9 @@ export async function getAllMarketplaces(options?: {
     query = query.gt("plugin_count", 0);
   }
 
-  const { data, error } = await query.order("stars", { ascending: false, nullsFirst: false });
+  const { data, error } = await query
+    .order("stars", { ascending: false, nullsFirst: false })
+    .range(0, 4999);
   if (error) {
     console.error("Error fetching marketplaces:", error);
     return [];
@@ -54,7 +56,8 @@ export async function getMarketplacesByCategory(
     .from("marketplaces")
     .select("*")
     .contains("categories", [category])
-    .order("stars", { ascending: false, nullsFirst: false });
+    .order("stars", { ascending: false, nullsFirst: false })
+    .range(0, 4999);
 
   if (error) {
     console.error("Error fetching marketplaces by category:", error);
