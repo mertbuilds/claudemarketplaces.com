@@ -47,22 +47,22 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                   {marketplace.repo}
                 </Link>
               </CardTitle>
-              <a
-                href={repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative z-10 flex items-center justify-center shrink-0 h-7 p-1 hover:bg-muted rounded-none transition-colors"
-                aria-label="View on GitHub"
-              >
-                <ExternalLink className="h-4 w-4 text-muted-foreground" />
-              </a>
+              <div className="flex items-center gap-1 shrink-0 relative z-10">
+                <BookmarkButton itemType="marketplace" itemId={marketplace.repo} />
+                <a
+                  href={repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center h-7 p-1 hover:bg-muted rounded-none transition-colors"
+                  aria-label="View on GitHub"
+                >
+                  <ExternalLink className="h-4 w-4 text-muted-foreground" />
+                </a>
+              </div>
             </div>
             <div className="flex items-center gap-3">
               <div className="relative z-10">
                 <VoteButton itemType="marketplace" itemId={marketplace.repo} initialVoteCount={marketplace.voteCount} />
-              </div>
-              <div className="relative z-10">
-                <BookmarkButton itemType="marketplace" itemId={marketplace.repo} />
               </div>
               {marketplace.stars !== undefined && marketplace.stars > 0 && (
                 <div className="flex items-center gap-1 text-muted-foreground">

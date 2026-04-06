@@ -43,6 +43,7 @@ export function PluginCard({ plugin }: PluginCardProps) {
             {plugin.name}
           </CardTitle>
           <div className="flex items-center gap-1 shrink-0">
+            <BookmarkButton itemType="plugin" itemId={plugin.id} />
             {plugin.version && (
               <Badge variant="outline" className="text-xs">
                 v{plugin.version}
@@ -103,7 +104,6 @@ export function PluginCard({ plugin }: PluginCardProps) {
             )}
             <div className="flex items-center gap-1">
               <VoteButton itemType="plugin" itemId={plugin.id} initialVoteCount={plugin.voteCount} />
-              <BookmarkButton itemType="plugin" itemId={plugin.id} />
             </div>
           </div>
 
