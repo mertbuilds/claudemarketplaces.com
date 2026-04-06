@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { usePluginFilters } from "@/lib/hooks/use-plugin-filters";
 import { Plugin } from "@/lib/types";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 
 interface PluginContentProps {
   plugins: Plugin[];
@@ -92,11 +93,13 @@ export function PluginContent({ plugins, categories, expectedPluginCount, classN
       {/* Plugin Grid */}
       {filteredPlugins.length > 0 ? (
         <VoteProvider itemType="plugin" itemIds={filteredPlugins.map(p => p.id)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {filteredPlugins.map((plugin) => (
-              <PluginCard key={plugin.id} plugin={plugin} />
-            ))}
-          </div>
+          <BookmarkProvider itemType="plugin" itemIds={filteredPlugins.map(p => p.id)}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {filteredPlugins.map((plugin) => (
+                <PluginCard key={plugin.id} plugin={plugin} />
+              ))}
+            </div>
+          </BookmarkProvider>
         </VoteProvider>
       ) : (
         <div className="text-center py-12">

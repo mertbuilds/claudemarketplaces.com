@@ -139,3 +139,11 @@ export interface Comment {
     avatarUrl: string | null;
   };
 }
+
+export interface Bookmark {
+  id: string;
+  userId: string;
+  itemType: 'marketplace' | 'plugin' | 'skill' | 'mcp_server';
+  itemId: string;
+  createdAt: string;
+}

@@ -11,6 +11,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 
 interface MarketplaceContentProps {
   marketplaces: Marketplace[];
@@ -119,6 +120,7 @@ export function MarketplaceContent({
       {/* Marketplace Grid */}
       {paginatedMarketplaces.length > 0 ? (
         <VoteProvider itemType="marketplace" itemIds={paginatedMarketplaces.map(m => m.repo)}>
+          <BookmarkProvider itemType="marketplace" itemIds={paginatedMarketplaces.map(m => m.repo)}>
           <MarketplaceGrid marketplaces={paginatedMarketplaces} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
@@ -147,6 +149,7 @@ export function MarketplaceContent({
               </Button>
             </div>
           )}
+          </BookmarkProvider>
         </VoteProvider>
       ) : (
         <div className="text-center py-12">

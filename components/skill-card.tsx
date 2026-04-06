@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { Copy, Check, Star, Download, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
+import { BookmarkButton } from "@/components/bookmark-button";
 import { useState } from "react";
 
 interface SkillCardProps {
@@ -52,6 +53,7 @@ export function SkillCard({ skill }: SkillCardProps) {
           </p>
           <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
             <VoteButton itemType="skill" itemId={skill.id} initialVoteCount={skill.voteCount} />
+            <BookmarkButton itemType="skill" itemId={skill.id} />
             {skill.installs > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground">
                 <Download className="h-3.5 w-3.5" />

@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plugin } from "@/lib/types";
 import { Copy, Check, ExternalLink } from "lucide-react";
 import { VoteButton } from "@/components/vote-button";
+import { BookmarkButton } from "@/components/bookmark-button";
 import { useState } from "react";
 
 interface PluginCardProps {
@@ -100,7 +101,10 @@ export function PluginCard({ plugin }: PluginCardProps) {
                 by {plugin.author.name}
               </p>
             )}
-            <VoteButton itemType="plugin" itemId={plugin.id} initialVoteCount={plugin.voteCount} />
+            <div className="flex items-center gap-1">
+              <VoteButton itemType="plugin" itemId={plugin.id} initialVoteCount={plugin.voteCount} />
+              <BookmarkButton itemType="plugin" itemId={plugin.id} />
+            </div>
           </div>
 
           {/* Install Command */}

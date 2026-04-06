@@ -14,6 +14,7 @@ import { Package, ExternalLink, Copy, Check, Star, MessageSquare } from "lucide-
 import { useState } from "react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
+import { BookmarkButton } from "@/components/bookmark-button";
 
 interface MarketplaceCardProps {
   marketplace: Marketplace;
@@ -59,6 +60,9 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
             <div className="flex items-center gap-3">
               <div className="relative z-10">
                 <VoteButton itemType="marketplace" itemId={marketplace.repo} initialVoteCount={marketplace.voteCount} />
+              </div>
+              <div className="relative z-10">
+                <BookmarkButton itemType="marketplace" itemId={marketplace.repo} />
               </div>
               {marketplace.stars !== undefined && marketplace.stars > 0 && (
                 <div className="flex items-center gap-1 text-muted-foreground">

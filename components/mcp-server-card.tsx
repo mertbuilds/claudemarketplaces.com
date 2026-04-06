@@ -10,6 +10,7 @@ import { McpServer } from "@/lib/types";
 import { ExternalLink, Star, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
+import { BookmarkButton } from "@/components/bookmark-button";
 import { useRouter } from "next/navigation";
 
 interface McpServerCardProps {
@@ -51,6 +52,7 @@ export function McpServerCard({ server }: McpServerCardProps) {
           </p>
           <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
             <VoteButton itemType="mcp_server" itemId={server.slug} initialVoteCount={server.voteCount} />
+            <BookmarkButton itemType="mcp_server" itemId={server.slug} />
             {server.stars !== undefined && server.stars > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground">
                 <Star className="h-3.5 w-3.5 fill-current" />

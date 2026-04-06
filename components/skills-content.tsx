@@ -9,6 +9,7 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 
 interface SkillsContentProps {
   skills: Skill[];
@@ -88,6 +89,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
       {/* Skills Grid */}
       {paginatedSkills.length > 0 ? (
         <VoteProvider itemType="skill" itemIds={paginatedSkills.map(s => s.id)}>
+          <BookmarkProvider itemType="skill" itemIds={paginatedSkills.map(s => s.id)}>
           <SkillsGrid skills={paginatedSkills} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {/* Pagination */}
@@ -116,6 +118,7 @@ export function SkillsContent({ skills, newsletterSeed }: SkillsContentProps) {
               </Button>
             </div>
           )}
+          </BookmarkProvider>
         </VoteProvider>
       ) : (
         <div className="text-center py-12">

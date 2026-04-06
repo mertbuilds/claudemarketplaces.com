@@ -9,6 +9,7 @@ import { Search, ChevronLeft, ChevronRight } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 
 interface McpServersContentProps {
   servers: McpServer[];
@@ -79,6 +80,7 @@ export function McpServersContent({ servers, newsletterSeed }: McpServersContent
 
       {paginatedServers.length > 0 ? (
         <VoteProvider itemType="mcp_server" itemIds={paginatedServers.map(s => s.slug)}>
+          <BookmarkProvider itemType="mcp_server" itemIds={paginatedServers.map(s => s.slug)}>
           <McpServersGrid servers={paginatedServers} newsletterSeed={newsletterSeed} isSearching={!!searchQuery} />
 
           {totalPages > 1 && (
@@ -106,6 +108,7 @@ export function McpServersContent({ servers, newsletterSeed }: McpServersContent
               </Button>
             </div>
           )}
+          </BookmarkProvider>
         </VoteProvider>
       ) : (
         <div className="text-center py-12">
