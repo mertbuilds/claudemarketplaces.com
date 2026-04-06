@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skill } from "@/lib/types";
 import { useRouter } from "next/navigation";
-import { Copy, Check, Star, Download } from "lucide-react";
+import { Copy, Check, Star, Download, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
 import { useState } from "react";
@@ -66,6 +66,12 @@ export function SkillCard({ skill }: SkillCardProps) {
                 <span className="text-sm font-medium">
                   {formatStarCount(skill.stars)}
                 </span>
+              </div>
+            )}
+            {skill.commentCount > 0 && (
+              <div className="flex items-center gap-1 text-muted-foreground">
+                <MessageSquare className="h-3.5 w-3.5" />
+                <span className="text-sm">{skill.commentCount}</span>
               </div>
             )}
           </div>

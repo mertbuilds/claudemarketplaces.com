@@ -37,6 +37,7 @@ export interface Marketplace {
   stars?: number;
   starsFetchedAt?: string;
   voteCount: number;
+  commentCount: number;
 }
 
 export interface Author {
@@ -81,6 +82,7 @@ export interface Skill {
   discoveredAt?: string;
   lastUpdated?: string;
   voteCount: number;
+  commentCount: number;
 }
 
 
@@ -112,6 +114,7 @@ export interface McpServer {
   stars?: number;
   lastUpdated?: string;
   voteCount: number;
+  commentCount: number;
 }
 
 export interface Vote {
@@ -122,4 +125,17 @@ export interface Vote {
   value: 1 | -1;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Comment {
+  id: string;
+  userId: string;
+  itemType: 'skill' | 'marketplace' | 'mcp_server';
+  itemId: string;
+  body: string;
+  createdAt: string;
+  user: {
+    username: string;
+    avatarUrl: string | null;
+  };
 }

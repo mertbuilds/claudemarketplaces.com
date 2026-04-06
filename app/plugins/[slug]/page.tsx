@@ -10,10 +10,13 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Star } from "lucide-react";
+import { Star, Package } from "lucide-react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { PluginContent } from "@/components/plugin-content";
+import { VoteButton } from "@/components/vote-button";
+import { CommentSidebar } from "@/components/comment-sidebar";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   getMarketplaceBySlug,
   getAllMarketplaces,
@@ -117,33 +120,70 @@ async function PluginData({ slug }: { slug: string }) {
         </Breadcrumb>
       </div>
 
-      {/* Marketplace Header */}
-      <div className="container mx-auto px-4 pb-0">
-        <div className="mb-6">
-          <h1 className="text-sm uppercase tracking-[0.12em] mb-2">
-            {marketplace.repo}
-          </h1>
-          <p className="text-lg text-muted-foreground mb-4">
-            {marketplace.description}
-          </p>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <span>{marketplace.pluginCount} plugins</span>
-            {marketplace.stars !== undefined && marketplace.stars > 0 && (
-              <span className="flex items-center gap-1">
-                <Star className="h-3.5 w-3.5 fill-current" />
-                {marketplace.stars.toLocaleString()} stars
-              </span>
-            )}
+      {/* Two-column layout */}
+      <div className="container mx-auto px-4 pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left column */}
+          <div className="lg:col-span-8">
+            <div className="mb-6">
+              <h1 className="text-sm uppercase tracking-[0.12em] mb-2">
+                {marketplace.repo}
+              </h1>
+              <p className="text-lg text-muted-foreground mb-4">
+                {marketplace.description}
+              </p>
+            </div>
+            <PluginContent
+              plugins={plugins}
+              categories={categories}
+              expectedPluginCount={marketplace.pluginCount}
+              className="py-4 pb-8"
+            />
+          </div>
+
+          {/* Right column / sidebar */}
+          <div className="lg:col-span-4 space-y-4">
+            <Card>
+              <CardContent className="space-y-4">
+                {/* Stars */}
+                {marketplace.stars !== undefined && marketplace.stars > 0 && (
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                      <Star className="h-4 w-4" />
+                      GitHub Stars
+                    </span>
+                    <span className="text-sm font-medium">
+                      {marketplace.stars.toLocaleString()}
+                    </span>
+                  </div>
+                )}
+
+                {/* Plugin count */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                    <Package className="h-4 w-4" />
+                    Plugins
+                  </span>
+                  <span className="text-sm font-medium">
+                    {marketplace.pluginCount}
+                  </span>
+                </div>
+
+                {/* Votes */}
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Votes</span>
+                  <VoteButton
+                    itemType="marketplace"
+                    itemId={marketplace.repo}
+                    initialVoteCount={marketplace.voteCount}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <CommentSidebar itemType="marketplace" itemId={marketplace.repo} initialCommentCount={marketplace.commentCount} />
           </div>
         </div>
       </div>
-
-      {/* Plugin Content */}
-      <PluginContent
-        plugins={plugins}
-        categories={categories}
-        expectedPluginCount={marketplace.pluginCount}
-      />
     </>
   );
 }
