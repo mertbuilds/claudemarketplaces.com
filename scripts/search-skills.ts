@@ -11,11 +11,10 @@
 
 import { searchSkillFiles, fetchSkillFile } from "../lib/search/github-skills-search";
 import { validateSkills } from "../lib/search/skills-validator";
-import { mergeSkills, mergeSkillRepos } from "../lib/search/supabase-storage";
+import { mergeSkills } from "../lib/search/supabase-storage";
 import { batchFetchStars } from "../lib/search/github-stars";
 import { batchExecute } from "../lib/search/rate-limit";
 import { repoToSlug } from "../lib/utils/slug";
-import { SkillRepo } from "../lib/types";
 
 // CLI argument parsing
 interface CliArgs {
@@ -293,15 +292,41 @@ async function runSearch() {
       }
       logSuccess(`Skills - Total: ${skillsMergeResult.total}`);
 
-      // Save skill repos
-      const allDiscoveredRepos = new Set(skillRepos.map((r) => r.repo));
-      const reposMergeResult = await mergeSkillRepos(skillRepos, allDiscoveredRepos);
+      // Step 9: Notify IndexNow about new skill URLs
+      if (skillsMergeResult.added > 0) {
+        logStep(9, "Notifying IndexNow about new URLs...");
+        const INDEXNOW_KEY = "8eb3f748244ce9970ad6ade3e34c3f53";
+        const BASE_URL = "https://claudemarketplaces.com";
 
-      logSuccess(`Skill Repos - Added: ${reposMergeResult.added}, Updated: ${reposMergeResult.updated}`);
-      if (reposMergeResult.removed > 0) {
-        logWarning(`Skill Repos - Removed: ${reposMergeResult.removed} invalid entries`);
+        const changedUrls = [
+          `${BASE_URL}/skills`,
+          ...validSkills.map((s) => `${BASE_URL}/skills/${s.id}`),
+        ];
+
+        try {
+          const indexNowRes = await fetch("https://api.indexnow.org/IndexNow", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              host: "claudemarketplaces.com",
+              key: INDEXNOW_KEY,
+              keyLocation: `${BASE_URL}/${INDEXNOW_KEY}.txt`,
+              urlList: changedUrls,
+            }),
+          });
+
+          if (indexNowRes.ok) {
+            logSuccess(`IndexNow notified: ${changedUrls.length} URLs submitted`);
+          } else {
+            const body = await indexNowRes.text();
+            logWarning(`IndexNow returned ${indexNowRes.status}: ${body}`);
+          }
+        } catch (e) {
+          logWarning(`IndexNow failed: ${e instanceof Error ? e.message : String(e)}`);
+        }
+      } else {
+        logStep(9, "Skipping IndexNow (no new skills)");
       }
-      logSuccess(`Skill Repos - Total: ${reposMergeResult.total}`);
     }
 
     // Summary

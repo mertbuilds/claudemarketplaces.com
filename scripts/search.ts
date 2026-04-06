@@ -77,8 +77,8 @@ function log(message: string, color: string = colors.reset) {
   console.log(`${color}${message}${colors.reset}`);
 }
 
-function logStep(step: number, message: string) {
-  log(`\n${colors.bright}[${step}/8]${colors.reset} ${colors.cyan}${message}${colors.reset}`);
+function logStep(step: number | string, message: string) {
+  log(`\n${colors.bright}[${step}]${colors.reset} ${colors.cyan}${message}${colors.reset}`);
 }
 
 function logSuccess(message: string) {
@@ -302,6 +302,47 @@ async function runSearch() {
       logSuccess(`Plugins - Saved: ${allPlugins.length} plugins`);
     }
 
+    // Step 9: Notify IndexNow about changed URLs
+    if (!args.dryRun && mergeResult.added > 0) {
+      logStep(9, "Notifying IndexNow about new URLs...");
+      const INDEXNOW_KEY = "8eb3f748244ce9970ad6ade3e34c3f53";
+      const BASE_URL = "https://claudemarketplaces.com";
+
+      // Submit URLs for newly added/updated marketplaces
+      const changedUrls = marketplacesWithKeywords.map(
+        (m) => `${BASE_URL}/plugins/${m.slug}`
+      );
+      // Always include the listing pages
+      changedUrls.unshift(
+        `${BASE_URL}/marketplaces`,
+        `${BASE_URL}/`,
+      );
+
+      try {
+        const indexNowRes = await fetch("https://api.indexnow.org/IndexNow", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            host: "claudemarketplaces.com",
+            key: INDEXNOW_KEY,
+            keyLocation: `${BASE_URL}/${INDEXNOW_KEY}.txt`,
+            urlList: changedUrls,
+          }),
+        });
+
+        if (indexNowRes.ok) {
+          logSuccess(`IndexNow notified: ${changedUrls.length} URLs submitted`);
+        } else {
+          const body = await indexNowRes.text();
+          logWarning(`IndexNow returned ${indexNowRes.status}: ${body}`);
+        }
+      } catch (e) {
+        logWarning(`IndexNow failed: ${e instanceof Error ? e.message : String(e)}`);
+      }
+    } else if (!args.dryRun) {
+      logStep(9, "Skipping IndexNow (no new marketplaces)");
+    }
+
     // Summary
     const duration = ((Date.now() - startTime) / 1000).toFixed(2);
     const apiCallsSaved = filteredOutCount;
@@ -309,13 +350,13 @@ async function runSearch() {
     log("\n" + "━".repeat(60), colors.cyan);
     log("  Search Complete!", colors.bright);
     log("━".repeat(60), colors.cyan);
-    log(`  ⏱️  Duration: ${duration}s`, colors.gray);
-    log(`  📊 Success Rate: ${((validMarketplaces.length / validFiles.length) * 100).toFixed(1)}%`, colors.gray);
-    log(`  🚀 API Calls Saved: ${apiCallsSaved} (quality filter before fetch)`, colors.gray);
+    log(`  Duration: ${duration}s`, colors.gray);
+    log(`  Success Rate: ${((validMarketplaces.length / validFiles.length) * 100).toFixed(1)}%`, colors.gray);
+    log(`  API Calls Saved: ${apiCallsSaved} (quality filter before fetch)`, colors.gray);
 
     if (!args.dryRun) {
-      log(`  💾 Marketplaces saved to lib/data/marketplaces.json`, colors.green);
-      log(`  💾 Plugins saved to lib/data/plugins.json`, colors.green);
+      log(`  Marketplaces saved to Supabase`, colors.green);
+      log(`  Plugins saved to Supabase`, colors.green);
     }
 
     log("━".repeat(60) + "\n", colors.cyan);
