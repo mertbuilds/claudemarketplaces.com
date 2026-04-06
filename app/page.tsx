@@ -1,8 +1,12 @@
 import Link from "next/link";
+import { Suspense } from "react";
 
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { getAllMarketplaces } from "@/lib/data/marketplaces";
+import { getAllSkills } from "@/lib/data/skills";
+import { getAllMcpServers } from "@/lib/data/mcp-servers";
 
 export const metadata: Metadata = {
   title: "Claude Code Plugins | Skills, MCP Servers & Marketplace Directory",
@@ -16,6 +20,60 @@ export const metadata: Metadata = {
     url: "https://claudemarketplaces.com",
   },
 };
+
+export const revalidate = 3600;
+
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(Math.floor(n / 100) * 100).toLocaleString()}+`;
+  if (n >= 100) return `${Math.floor(n / 10) * 10}+`;
+  return `${n}`;
+}
+
+async function DirectoryCards() {
+  const [marketplaces, skills, mcpServers] = await Promise.all([
+    getAllMarketplaces({ includeEmpty: false }),
+    getAllSkills(),
+    getAllMcpServers(),
+  ]);
+
+  const counts = {
+    skills: formatCount(skills.length),
+    mcp: formatCount(mcpServers.length),
+    marketplaces: formatCount(marketplaces.length),
+  };
+
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-border">
+      <Link href="/skills" className="group p-6 hover:bg-muted/50 transition-colors">
+        <p className="text-sm font-medium mb-1.5">Agent Skills</p>
+        <p className="text-xs text-muted-foreground mb-4">
+          Reusable instructions that teach your agent specific tasks. Install with a single command.
+        </p>
+        <span className="text-xs text-primary group-hover:underline">
+          {counts.skills} skills &rarr;
+        </span>
+      </Link>
+      <Link href="/mcp" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
+        <p className="text-sm font-medium mb-1.5">MCP Servers</p>
+        <p className="text-xs text-muted-foreground mb-4">
+          Extend your agent with additional tools, APIs, and integrations via Model Context Protocol.
+        </p>
+        <span className="text-xs text-primary group-hover:underline">
+          {counts.mcp} servers &rarr;
+        </span>
+      </Link>
+      <Link href="/marketplaces" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
+        <p className="text-sm font-medium mb-1.5">Plugin Marketplaces</p>
+        <p className="text-xs text-muted-foreground mb-4">
+          Curated GitHub repositories containing collections of plugins and tools for AI agents.
+        </p>
+        <span className="text-xs text-primary group-hover:underline">
+          {counts.marketplaces} marketplaces &rarr;
+        </span>
+      </Link>
+    </div>
+  );
+}
 
 export default function Home() {
   const structuredData = {
@@ -115,7 +173,7 @@ export default function Home() {
             Curated plugins, skills, and MCP servers for Claude Code
           </h1>
           <p className="text-sm text-muted-foreground max-w-md mb-8">
-            A hand-picked directory of high-quality extensions. Community voting and commenting soon.
+            A hand-picked directory of high-quality extensions with community voting and commenting.
           </p>
           <div className="flex gap-3">
             <Link
@@ -135,35 +193,21 @@ export default function Home() {
 
         {/* Directory */}
         <section className="container mx-auto px-4 pb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-border">
-            <Link href="/skills" className="group p-6 hover:bg-muted/50 transition-colors">
-              <p className="text-sm font-medium mb-1.5">Agent Skills</p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Reusable instructions that teach your agent specific tasks. Install with a single command.
-              </p>
-              <span className="text-xs text-primary group-hover:underline">
-                2,300+ skills &rarr;
-              </span>
-            </Link>
-            <Link href="/mcp" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
-              <p className="text-sm font-medium mb-1.5">MCP Servers</p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Extend your agent with additional tools, APIs, and integrations via Model Context Protocol.
-              </p>
-              <span className="text-xs text-primary group-hover:underline">
-                770+ servers &rarr;
-              </span>
-            </Link>
-            <Link href="/marketplaces" className="group p-6 border-t md:border-t-0 md:border-l border-border hover:bg-muted/50 transition-colors">
-              <p className="text-sm font-medium mb-1.5">Plugin Marketplaces</p>
-              <p className="text-xs text-muted-foreground mb-4">
-                Curated GitHub repositories containing collections of plugins and tools for AI agents.
-              </p>
-              <span className="text-xs text-primary group-hover:underline">
-                95+ marketplaces &rarr;
-              </span>
-            </Link>
-          </div>
+          <Suspense
+            fallback={
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-px border border-border">
+                {[...Array(3)].map((_, i) => (
+                  <div key={i} className={`p-6 ${i > 0 ? "border-t md:border-t-0 md:border-l border-border" : ""}`}>
+                    <div className="h-4 w-24 bg-muted mb-1.5" />
+                    <div className="h-3 w-full bg-muted mb-4" />
+                    <div className="h-3 w-20 bg-muted" />
+                  </div>
+                ))}
+              </div>
+            }
+          >
+            <DirectoryCards />
+          </Suspense>
         </section>
 
         {/* FAQ */}
