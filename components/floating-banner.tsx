@@ -11,15 +11,23 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [fading, setFading] = useState(false);
 
+  // Fire a per-banner impression each time the active banner changes (and on
+  // first mount). Polls briefly for window.op in case the SDK script is still
+  // loading. Skips entirely if the banner has been dismissed.
   useEffect(() => {
+    if (dismissed) return;
+    const banner = FLOATING_BANNERS[activeIndex];
+    const fire = () => {
+      if (typeof window.op !== "function") return false;
+      window.op!("track", "floating_banner_viewed", { banner: banner.id });
+      return true;
+    };
+    if (fire()) return;
     const id = setInterval(() => {
-      if (typeof window.op === "function") {
-        window.op!("track", "floating_banner_viewed");
-        clearInterval(id);
-      }
+      if (fire()) clearInterval(id);
     }, 200);
     return () => clearInterval(id);
-  }, []);
+  }, [activeIndex, dismissed]);
 
   useEffect(() => {
     const interval = setInterval(() => {

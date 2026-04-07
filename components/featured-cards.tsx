@@ -8,16 +8,16 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Image from "next/image";
-export function FeaturedCards() {
-  const sectionRef = useRef<HTMLDivElement>(null);
 
+function useImpression(card: string) {
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = sectionRef.current;
+    const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && typeof window.op === "function") {
-          window.op!("track", "featured_section_viewed");
+          window.op!("track", "featured_card_viewed", { card });
           observer.disconnect();
         }
       },
@@ -25,16 +25,23 @@ export function FeaturedCards() {
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [card]);
+  return ref;
+}
+
+export function FeaturedCards() {
+  const oneinchRef = useImpression("1inch");
+  const appsignalRef = useImpression("appsignal");
+  const ideabrowserRef = useImpression("ideabrowser");
 
   return (
-    <div ref={sectionRef} className="mb-8">
+    <div className="mb-8">
       <p className="text-xs uppercase tracking-wider text-muted-foreground mb-3">
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* Card 1: 1inch */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+        <Card ref={oneinchRef} className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Image src="/1inch.png" alt="1inch" width={16} height={16} className="h-4 w-4" />
@@ -60,7 +67,7 @@ export function FeaturedCards() {
         </Card>
 
         {/* Card 2: AppSignal */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+        <Card ref={appsignalRef} className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Image src="/appsignal.svg" alt="AppSignal" width={16} height={16} className="h-4 w-4" />
@@ -86,7 +93,7 @@ export function FeaturedCards() {
         </Card>
 
         {/* Card 3: Ideabrowser */}
-        <Card className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
+        <Card ref={ideabrowserRef} className="relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer">
           <CardHeader className="flex flex-col justify-between h-full">
             <div className="flex items-center gap-2">
               <Image src="/ideabrowser-symbol.webp" alt="ideabrowser.com" width={16} height={16} className="h-4 w-4" />
