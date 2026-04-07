@@ -11,6 +11,37 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Users, BarChart3, Megaphone, Check } from "lucide-react";
+import { TIER_INVENTORY, getSlotsRemaining, type AdTierId } from "@/lib/ads";
+
+function SlotsBadge({ tierId }: { tierId: AdTierId }) {
+  const { total } = TIER_INVENTORY[tierId];
+  const remaining = getSlotsRemaining(tierId);
+
+  if (remaining === 0) {
+    return (
+      <Badge
+        variant="outline"
+        className="text-[10px] border-destructive text-destructive"
+      >
+        Sold out
+      </Badge>
+    );
+  }
+
+  const isLow = remaining <= Math.ceil(total / 3);
+  return (
+    <Badge
+      variant="outline"
+      className={
+        isLow
+          ? "text-[10px] border-primary text-primary"
+          : "text-[10px] text-muted-foreground"
+      }
+    >
+      {remaining} of {total} slots left
+    </Badge>
+  );
+}
 
 const TRAFFIC_STATS = [
   { label: "Monthly Visitors", value: "100,000+" },
@@ -139,9 +170,12 @@ export default function AdvertisePage() {
                 {/* All Placements */}
                 <div className="rounded-lg border border-primary bg-primary/5 p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">
-                      All Placements
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground">
+                        All Placements
+                      </h4>
+                      <SlotsBadge tierId="all-placements" />
+                    </div>
                     <span className="text-lg font-bold text-primary">
                       $999/mo
                     </span>
@@ -175,9 +209,12 @@ export default function AdvertisePage() {
                 {/* Pinned Cards */}
                 <div className="rounded-lg border border-border p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">
-                      Pinned Cards
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground">
+                        Pinned Cards
+                      </h4>
+                      <SlotsBadge tierId="pinned-cards" />
+                    </div>
                     <span className="text-lg font-bold text-primary">
                       $499/mo
                     </span>
@@ -262,9 +299,12 @@ export default function AdvertisePage() {
                 {/* In-Feed Cards */}
                 <div className="rounded-lg border border-border p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">
-                      In-Feed Cards
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground">
+                        In-Feed Cards
+                      </h4>
+                      <SlotsBadge tierId="in-feed-cards" />
+                    </div>
                     <span className="text-lg font-bold text-primary">
                       $349/mo
                     </span>
@@ -365,9 +405,12 @@ export default function AdvertisePage() {
                 {/* Floating Banner */}
                 <div className="rounded-lg border border-border p-4 space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-semibold text-foreground">
-                      Floating Banner
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-semibold text-foreground">
+                        Floating Banner
+                      </h4>
+                      <SlotsBadge tierId="floating-banner" />
+                    </div>
                     <span className="text-lg font-bold text-primary">
                       $299/mo
                     </span>

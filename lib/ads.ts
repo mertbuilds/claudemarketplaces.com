@@ -125,3 +125,34 @@ export function getInitialFloatingBannerIndex(): number {
   const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
   return daysSinceEpoch % FLOATING_BANNERS.length;
 }
+
+// — Tier inventory (for /advertise scarcity badges) —
+
+export type AdTierId =
+  | "all-placements"
+  | "pinned-cards"
+  | "in-feed-cards"
+  | "floating-banner";
+
+export interface TierInventory {
+  total: number;
+  taken: number;
+}
+
+/**
+ * Hand-tuned slot inventory per ad tier. All-Placements customers count
+ * toward each lower tier because they rotate through every surface.
+ *
+ * Update `taken` when a sale closes or a customer churns.
+ */
+export const TIER_INVENTORY: Record<AdTierId, TierInventory> = {
+  "all-placements": { total: 6, taken: 3 },
+  "pinned-cards": { total: 6, taken: 3 },
+  "in-feed-cards": { total: 6, taken: 3 },
+  "floating-banner": { total: 6, taken: 4 },
+};
+
+export function getSlotsRemaining(tierId: AdTierId): number {
+  const tier = TIER_INVENTORY[tierId];
+  return Math.max(0, tier.total - tier.taken);
+}
