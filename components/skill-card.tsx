@@ -40,13 +40,13 @@ export function SkillCard({ skill }: SkillCardProps) {
 
   return (
     <Card
-      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer"
+      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-0 gap-0"
       onClick={handleCardClick}
     >
-      <CardHeader>
-        <div className="flex flex-col gap-2">
+      <CardHeader className="p-4 pb-0">
+        <div className="flex flex-col gap-1.5">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
+            <CardTitle className="text-base line-clamp-1 flex-1 min-w-0 leading-6">
               {skill.name}
             </CardTitle>
             <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
@@ -82,11 +82,11 @@ export function SkillCard({ skill }: SkillCardProps) {
             )}
           </div>
         </div>
-        <CardDescription className="line-clamp-3">
+        <CardDescription className="line-clamp-2 text-xs">
           {skill.description}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-4 pt-2">
         <div className="flex flex-col gap-3">
           {skill.license && (
             <div className="flex flex-wrap gap-1">

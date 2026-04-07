@@ -16,9 +16,10 @@ interface SkillsContentProps {
   skills: Skill[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  hideSearch?: boolean;
 }
 
-export function SkillsContent({ skills, newsletterSeed, infeedAds }: SkillsContentProps) {
+export function SkillsContent({ skills, newsletterSeed, infeedAds, hideSearch }: SkillsContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -42,40 +43,42 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds }: SkillsConte
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 pt-0 pb-4">
       {/* Search Bar + Sort */}
-      <div className="mb-6 flex gap-3">
-        <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            type="text"
-            placeholder="Search skills..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+      {!hideSearch && (
+        <div className="mb-6 flex gap-3">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="text"
+              placeholder="Search skills..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <Select
+            value={sortBy}
+            onValueChange={(value: "installs" | "stars" | "votes") => setSortBy(value)}
+          >
+            <SelectTrigger className="w-[190px]">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="installs">Most installed</SelectItem>
+              <SelectItem value="stars">Most stars</SelectItem>
+              <SelectItem value="votes">Most voted</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        <Select
-          value={sortBy}
-          onValueChange={(value: "installs" | "stars" | "votes") => setSortBy(value)}
-        >
-          <SelectTrigger className="w-[190px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="installs">Most installed</SelectItem>
-            <SelectItem value="stars">Most stars</SelectItem>
-            <SelectItem value="votes">Most voted</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      )}
 
       {/* Featured Cards - only on page 1 with no filters */}
       {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
 
       {/* Results info */}
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm uppercase tracking-[0.12em] text-muted-foreground">
           {filteredSkills.length} {filteredSkills.length === 1 ? "skill" : "skills"}
         </p>
         {hasActiveFilters && (

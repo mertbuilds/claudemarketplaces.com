@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Skill } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
-const ITEMS_PER_PAGE = 22;
+const ITEMS_PER_PAGE = 32;
 
 export function useSkillsFilters(skills: Skill[]) {
   const router = useRouter();
