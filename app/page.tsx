@@ -132,29 +132,6 @@ function formatCount(n: number): string {
   return `${n}`;
 }
 
-async function HeroCountStrip() {
-  const [marketplaces, skills, mcpServers] = await Promise.all([
-    getAllMarketplaces({ includeEmpty: false }),
-    getAllSkills(),
-    getAllMcpServers(),
-  ]);
-  const parts = [
-    `${formatCount(skills.length)} skills`,
-    `${formatCount(mcpServers.length)} MCP servers`,
-    `${formatCount(marketplaces.length)} marketplaces`,
-  ];
-  return (
-    <p className="mt-8 text-xs text-muted-foreground font-mono">
-      {parts.map((p, i) => (
-        <span key={p}>
-          {i > 0 && <span className="mx-2 text-border">·</span>}
-          {p}
-        </span>
-      ))}
-    </p>
-  );
-}
-
 async function DirectoryCards() {
   const [marketplaces, skills, mcpServers] = await Promise.all([
     getAllMarketplaces({ includeEmpty: false }),
@@ -361,10 +338,6 @@ function RecentSkeleton() {
   );
 }
 
-function HeroCountSkeleton() {
-  return <div className="mt-8 h-3 w-64 bg-muted" />;
-}
-
 export default function Home() {
   const structuredData = {
     "@context": "https://schema.org",
@@ -474,7 +447,7 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="container mx-auto px-4 pt-12 pb-16 md:pt-20 md:pb-24">
+        <section className="container mx-auto px-4 pt-12 pb-8 md:pt-20 md:pb-12">
           <h1 className="font-serif text-2xl md:text-3xl font-normal max-w-xl mb-4">
             Curated plugins, skills, and MCP servers for Claude Code
           </h1>
@@ -482,9 +455,6 @@ export default function Home() {
             A hand-picked directory of high-quality extensions with community
             voting and commenting.
           </p>
-          <Suspense fallback={<HeroCountSkeleton />}>
-            <HeroCountStrip />
-          </Suspense>
         </section>
 
         {/* 01 / Browse */}
