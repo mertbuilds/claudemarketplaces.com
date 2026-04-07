@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { Skill } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
-const ITEMS_PER_PAGE = 32;
+const ITEMS_PER_PAGE = 26;
 
 export function useSkillsFilters(skills: Skill[]) {
   const router = useRouter();
@@ -16,6 +16,12 @@ export function useSkillsFilters(skills: Skill[]) {
   const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
   const sortBy = (searchParams.get("sort") as "installs" | "stars" | "votes") || "installs";
   const currentPage = Number(searchParams.get("page")) || 1;
+
+  // Sync local state when URL changes externally (e.g. from SkillsSearchBar)
+  const urlSearch = searchParams.get("search") || "";
+  useEffect(() => {
+    setLocalSearch(urlSearch);
+  }, [urlSearch]);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
@@ -62,13 +68,11 @@ export function useSkillsFilters(skills: Skill[]) {
     }
 
     if (debouncedSearchQuery) {
-      const query = debouncedSearchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (s) =>
-          s.name.toLowerCase().includes(query) ||
-          s.description.toLowerCase().includes(query) ||
-          s.repo.toLowerCase().includes(query)
-      );
+      const words = debouncedSearchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+      filtered = filtered.filter((s) => {
+        const haystack = `${s.name} ${s.description} ${s.repo}`.toLowerCase();
+        return words.every((w) => haystack.includes(w));
+      });
     }
 
     return [...filtered].sort((a, b) => {

@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FeaturedCards } from "@/components/featured-cards";
 import { VoteProvider } from "@/lib/contexts/vote-context";
 import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
+import { useRouter, usePathname } from "next/navigation";
 import type { AdConfig } from "@/lib/ads";
 
 interface SkillsContentProps {
@@ -33,13 +34,13 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, hideSearch }:
     setPage,
   } = useSkillsFilters(skills);
 
+  const router = useRouter();
+  const pathname = usePathname();
   const hasActiveFilters = searchQuery.length > 0 || !!repoFilter;
 
   const clearFilters = () => {
     setSearchQuery("");
-    if (repoFilter) {
-      window.history.pushState({}, "", "/skills");
-    }
+    router.replace(pathname, { scroll: false });
   };
 
   return (
@@ -73,22 +74,20 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, hideSearch }:
         </div>
       )}
 
-      {/* Featured Cards - only on page 1 with no filters */}
-      {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
+      {/* Featured Cards - always visible on page 1 */}
+      {currentPage === 1 && <FeaturedCards />}
 
       {/* Results info */}
       <div className="flex items-center justify-between mt-6 mb-3">
         <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
           {filteredSkills.length} {filteredSkills.length === 1 ? "skill" : "skills"}
         </p>
-        {hasActiveFilters && (
-          <button
-            onClick={clearFilters}
-            className="text-sm text-primary hover:underline"
-          >
-            Clear filters
-          </button>
-        )}
+        <button
+          onClick={clearFilters}
+          className={`text-sm text-primary hover:underline ${hasActiveFilters ? "visible" : "invisible"}`}
+        >
+          Clear filters
+        </button>
       </div>
 
       {/* Skills Grid */}

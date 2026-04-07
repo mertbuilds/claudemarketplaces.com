@@ -21,6 +21,13 @@ export function SkillsSearchBar() {
   const [searchQuery, setSearchQuery] = useState(
     searchParams.get("search") || ""
   );
+
+  // Sync local state when URL params change externally (e.g. "Clear filters")
+  const urlSearch = searchParams.get("search") || "";
+  useEffect(() => {
+    setSearchQuery(urlSearch);
+  }, [urlSearch]);
+
   const sortBy =
     (searchParams.get("sort") as "installs" | "stars" | "votes") || "installs";
   const debouncedSearch = useDebounce(searchQuery, 300);
