@@ -8,19 +8,12 @@ import { FeaturedCards } from "@/components/featured-cards";
 import {
   getAllMarketplaces,
   getTopMarketplaces,
-  getLatestMarketplaces,
 } from "@/lib/data/marketplaces";
-import {
-  getAllSkills,
-  getTopSkills,
-  getLatestSkills,
-} from "@/lib/data/skills";
-import {
-  getAllMcpServers,
-  getTopMcpServers,
-  getLatestMcpServers,
-} from "@/lib/data/mcp-servers";
-import type { Skill, McpServer, Marketplace } from "@/lib/types";
+import { getAllSkills, getTopSkills } from "@/lib/data/skills";
+import { getAllMcpServers, getTopMcpServers } from "@/lib/data/mcp-servers";
+import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
+import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
+import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 
 export const metadata: Metadata = {
   title: "Claude Code Plugins | Skills, MCP Servers & Marketplace Directory",
@@ -37,71 +30,7 @@ export const metadata: Metadata = {
 
 export const revalidate = 3600;
 
-type ItemType = "skill" | "mcp" | "marketplace";
-
-type MixedItem = {
-  type: ItemType;
-  id: string;
-  href: string;
-  name: string;
-  description: string;
-  voteCount: number;
-  createdAt?: string;
-};
-
-function toMixedFromSkill(s: Skill): MixedItem {
-  return {
-    type: "skill",
-    id: s.id,
-    href: `/skills/${s.id}`,
-    name: s.name,
-    description: s.description,
-    voteCount: s.voteCount,
-    createdAt: s.createdAt,
-  };
-}
-
-function toMixedFromMcp(m: McpServer): MixedItem {
-  return {
-    type: "mcp",
-    id: m.slug,
-    href: `/mcp/${m.slug}`,
-    name: m.displayName || m.name,
-    description: m.description,
-    voteCount: m.voteCount,
-    createdAt: m.createdAt,
-  };
-}
-
-function toMixedFromMarketplace(mp: Marketplace): MixedItem {
-  return {
-    type: "marketplace",
-    id: mp.slug,
-    href: `/plugins/${mp.slug}`,
-    name: mp.repo,
-    description: mp.description,
-    voteCount: mp.voteCount,
-    createdAt: mp.createdAt,
-  };
-}
-
-function formatRelativeDate(iso?: string): string {
-  if (!iso) return "—";
-  const then = new Date(iso);
-  if (Number.isNaN(then.getTime())) return "—";
-  const now = Date.now();
-  const diffMs = now - then.getTime();
-  const hour = 60 * 60 * 1000;
-  const day = 24 * hour;
-  if (diffMs < hour) return "now";
-  if (diffMs < day) {
-    const hours = Math.max(1, Math.floor(diffMs / hour));
-    return `${hours}h ago`;
-  }
-  const diffDays = Math.floor(diffMs / day);
-  if (diffDays < 14) return `${diffDays}d ago`;
-  return then.toLocaleDateString("en-US", { month: "short", day: "2-digit" });
-}
+/* ── Helpers ─────────────────────────────────────────────────────────── */
 
 function SectionLabel({ number, title }: { number: string; title: string }) {
   return (
@@ -116,20 +45,49 @@ function SectionLabel({ number, title }: { number: string; title: string }) {
   );
 }
 
-function TypeTag({ type }: { type: ItemType }) {
-  const label =
-    type === "mcp" ? "MCP" : type === "skill" ? "SKILL" : "MARKETPLACE";
-  return (
-    <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground font-mono">
-      {label}
-    </span>
-  );
-}
-
 function formatCount(n: number): string {
   if (n >= 1000) return `${(Math.floor(n / 100) * 100).toLocaleString()}+`;
   if (n >= 100) return `${Math.floor(n / 10) * 10}+`;
   return `${n}`;
+}
+
+function formatStars(n?: number): string | null {
+  if (!n) return null;
+  if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, "")}k`;
+  return `${n}`;
+}
+
+/* ── Async data sections ─────────────────────────────────────────────── */
+
+async function CountStrip() {
+  const [marketplaces, skills, mcpServers] = await Promise.all([
+    getAllMarketplaces({ includeEmpty: false }),
+    getAllSkills(),
+    getAllMcpServers(),
+  ]);
+
+  return (
+    <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted-foreground font-mono">
+      <span>
+        <span className="text-foreground font-medium">
+          {formatCount(skills.length)}
+        </span>{" "}
+        skills
+      </span>
+      <span>
+        <span className="text-foreground font-medium">
+          {formatCount(mcpServers.length)}
+        </span>{" "}
+        MCP servers
+      </span>
+      <span>
+        <span className="text-foreground font-medium">
+          {formatCount(marketplaces.length)}
+        </span>{" "}
+        marketplaces
+      </span>
+    </div>
+  );
 }
 
 async function DirectoryCards() {
@@ -190,91 +148,97 @@ async function DirectoryCards() {
   );
 }
 
-async function TrendingGrid() {
-  const [skills, mcps, marketplaces] = await Promise.all([
-    getTopSkills(2),
-    getTopMcpServers(2),
-    getTopMarketplaces(2),
-  ]);
-  const items: MixedItem[] = [
-    ...skills.map(toMixedFromSkill),
-    ...mcps.map(toMixedFromMcp),
-    ...marketplaces.map(toMixedFromMarketplace),
-  ].sort((a, b) => (b.voteCount ?? 0) - (a.voteCount ?? 0));
-
+async function TopSkills() {
+  const skills = await getTopSkills(6);
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
-      {items.map((item) => (
+      {skills.map((s) => (
         <Link
-          key={`${item.type}-${item.id}`}
-          href={item.href}
-          className="group flex flex-col p-6 bg-background hover:bg-muted/50 transition-colors min-h-[10rem]"
+          key={s.id}
+          href={`/skills/${s.id}`}
+          className="group flex flex-col p-6 bg-background hover:bg-muted/50 transition-colors"
         >
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:underline pr-4">
-              {item.name}
-            </p>
-            <TypeTag type={item.type} />
-          </div>
-          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-            {item.description}
+          <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:underline mb-2">
+            {s.name}
           </p>
-          <span className="mt-auto pt-4 text-[10px] text-muted-foreground font-mono whitespace-nowrap">
-            &uarr; <span className="font-mono">{item.voteCount ?? 0}</span>
-          </span>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {s.description}
+          </p>
+          <div className="mt-auto pt-4 flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+            {s.installs > 0 && <span>{formatCount(s.installs)} installs</span>}
+            {formatStars(s.stars) && <span>&#9733; {formatStars(s.stars)}</span>}
+          </div>
         </Link>
       ))}
     </div>
   );
 }
 
-async function RecentlyAddedList() {
-  const [skills, mcps, marketplaces] = await Promise.all([
-    getLatestSkills(3),
-    getLatestMcpServers(3),
-    getLatestMarketplaces(3),
-  ]);
-  const items: MixedItem[] = [
-    ...skills.map(toMixedFromSkill),
-    ...mcps.map(toMixedFromMcp),
-    ...marketplaces.map(toMixedFromMarketplace),
-  ]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt ?? 0).getTime() -
-        new Date(a.createdAt ?? 0).getTime()
-    )
-    .slice(0, 9);
-
+async function TopMarketplaces() {
+  const marketplaces = await getTopMarketplaces(6);
   return (
-    <div className="border border-border">
-      {items.map((item, i) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+      {marketplaces.map((mp) => (
         <Link
-          key={`${item.type}-${item.id}`}
-          href={item.href}
-          className={`group grid grid-cols-[5rem_1fr] md:grid-cols-[6rem_1fr_7rem] items-center gap-4 px-4 py-4 hover:bg-muted/50 transition-colors ${
-            i > 0 ? "border-t border-border" : ""
-          }`}
+          key={mp.slug}
+          href={`/plugins/${mp.slug}`}
+          className="group flex flex-col p-6 bg-background hover:bg-muted/50 transition-colors"
         >
-          <span className="text-xs text-muted-foreground font-mono whitespace-nowrap self-start md:self-center pt-0.5 md:pt-0">
-            {formatRelativeDate(item.createdAt)}
-          </span>
-          <div className="min-w-0">
-            <p className="text-sm font-medium truncate group-hover:underline">
-              {item.name}
-            </p>
-            <p className="text-xs text-muted-foreground truncate leading-relaxed">
-              {item.description}
-            </p>
-            <div className="md:hidden mt-1">
-              <TypeTag type={item.type} />
-            </div>
-          </div>
-          <div className="hidden md:block text-right">
-            <TypeTag type={item.type} />
+          <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:underline mb-2">
+            {mp.repo}
+          </p>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {mp.description}
+          </p>
+          <div className="mt-auto pt-4 flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+            {mp.pluginCount > 0 && (
+              <span>{mp.pluginCount} plugins</span>
+            )}
+            {formatStars(mp.stars) && (
+              <span>&#9733; {formatStars(mp.stars)}</span>
+            )}
           </div>
         </Link>
       ))}
+    </div>
+  );
+}
+
+async function TopMcpServers() {
+  const mcps = await getTopMcpServers(6);
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
+      {mcps.map((m) => (
+        <Link
+          key={m.slug}
+          href={`/mcp/${m.slug}`}
+          className="group flex flex-col p-6 bg-background hover:bg-muted/50 transition-colors"
+        >
+          <p className="text-sm font-medium leading-snug line-clamp-2 group-hover:underline mb-2">
+            {m.displayName || m.name}
+          </p>
+          <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            {m.description}
+          </p>
+          <div className="mt-auto pt-4 flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
+            {formatStars(m.stars) && (
+              <span>&#9733; {formatStars(m.stars)}</span>
+            )}
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+/* ── Skeletons ───────────────────────────────────────────────────────── */
+
+function CountStripSkeleton() {
+  return (
+    <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs font-mono">
+      <span className="h-4 w-16 bg-muted rounded" />
+      <span className="h-4 w-24 bg-muted rounded" />
+      <span className="h-4 w-28 bg-muted rounded" />
     </div>
   );
 }
@@ -298,45 +262,22 @@ function DirectorySkeleton() {
   );
 }
 
-function TrendingSkeleton() {
+function ItemGridSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border">
       {[...Array(6)].map((_, i) => (
-        <div key={i} className="p-6 min-h-[10rem] flex flex-col bg-background">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div className="h-4 w-3/4 bg-muted" />
-            <div className="h-3 w-12 bg-muted" />
-          </div>
+        <div key={i} className="p-6 flex flex-col bg-background">
+          <div className="h-4 w-3/4 bg-muted mb-2" />
           <div className="h-3 w-full bg-muted mb-1.5" />
           <div className="h-3 w-2/3 bg-muted" />
-          <div className="h-3 w-10 bg-muted mt-auto" />
+          <div className="h-3 w-16 bg-muted mt-auto pt-4" />
         </div>
       ))}
     </div>
   );
 }
 
-function RecentSkeleton() {
-  return (
-    <div className="border border-border">
-      {[...Array(9)].map((_, i) => (
-        <div
-          key={i}
-          className={`grid grid-cols-[5rem_1fr] md:grid-cols-[6rem_1fr_7rem] items-center gap-4 px-4 py-4 ${
-            i > 0 ? "border-t border-border" : ""
-          }`}
-        >
-          <div className="h-3 w-12 bg-muted" />
-          <div>
-            <div className="h-3.5 w-1/2 bg-muted mb-1" />
-            <div className="h-3 w-3/4 bg-muted" />
-          </div>
-          <div className="hidden md:block h-3 w-16 bg-muted justify-self-end" />
-        </div>
-      ))}
-    </div>
-  );
-}
+/* ── Page ─────────────────────────────────────────────────────────────── */
 
 export default function Home() {
   const structuredData = {
@@ -446,18 +387,25 @@ export default function Home() {
       <Header />
 
       <main className="flex-1">
-        {/* Hero */}
-        <section className="container mx-auto px-4 pt-12 pb-8 md:pt-20 md:pb-12">
-          <h1 className="font-serif text-2xl md:text-3xl font-normal max-w-xl mb-4">
-            Curated plugins, skills, and MCP servers for Claude Code
+        {/* ── Hero + counts + Featured — all in initial viewport ────── */}
+        <section className="container mx-auto px-4 pt-10 pb-6 md:pt-14 md:pb-8">
+          <h1 className="font-serif text-2xl md:text-3xl font-normal max-w-xl mb-2">
+            Find the best plugins, skills, and MCP servers for Claude Code
           </h1>
-          <p className="text-sm text-muted-foreground max-w-md mb-8">
-            A hand-picked directory of high-quality extensions with community
-            voting and commenting.
+          <p className="text-sm text-muted-foreground max-w-lg mb-4">
+            The largest directory of Claude Code extensions. Discover tools
+            used by thousands of developers, sorted by installs and GitHub
+            stars.
           </p>
+          <div className="mb-6">
+            <Suspense fallback={<CountStripSkeleton />}>
+              <CountStrip />
+            </Suspense>
+          </div>
+          <FeaturedCards />
         </section>
 
-        {/* 01 / Browse */}
+        {/* ── 01 / Browse ─────────────────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
           <SectionLabel number="01" title="Browse" />
           <Suspense fallback={<DirectorySkeleton />}>
@@ -465,28 +413,134 @@ export default function Home() {
           </Suspense>
         </section>
 
-        {/* Sponsored (label lives inside FeaturedCards) */}
+        {/* ── 02 / Popular Skills ─────────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <FeaturedCards />
-        </section>
-
-        {/* 02 / Trending */}
-        <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="02" title="Trending" />
-          <Suspense fallback={<TrendingSkeleton />}>
-            <TrendingGrid />
+          <SectionLabel number="02" title="Popular Skills" />
+          <Suspense fallback={<ItemGridSkeleton />}>
+            <TopSkills />
           </Suspense>
+          <div className="mt-3 text-right">
+            <Link
+              href="/skills"
+              className="text-xs text-primary hover:underline"
+            >
+              All skills &rarr;
+            </Link>
+          </div>
         </section>
 
-        {/* 03 / Recently added */}
+        {/* ── 03 / Popular Marketplaces ───────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="03" title="Recently added" />
-          <Suspense fallback={<RecentSkeleton />}>
-            <RecentlyAddedList />
+          <SectionLabel number="03" title="Popular Marketplaces" />
+          <Suspense fallback={<ItemGridSkeleton />}>
+            <TopMarketplaces />
           </Suspense>
+          <div className="mt-3 text-right">
+            <Link
+              href="/marketplaces"
+              className="text-xs text-primary hover:underline"
+            >
+              All marketplaces &rarr;
+            </Link>
+          </div>
         </section>
 
-        {/* FAQ */}
+        {/* ── 04 / Popular MCP Servers ────────────────────────────── */}
+        <section className="container mx-auto px-4 pb-16">
+          <SectionLabel number="04" title="Popular MCP Servers" />
+          <Suspense fallback={<ItemGridSkeleton />}>
+            <TopMcpServers />
+          </Suspense>
+          <div className="mt-3 text-right">
+            <Link
+              href="/mcp"
+              className="text-xs text-primary hover:underline"
+            >
+              All MCP servers &rarr;
+            </Link>
+          </div>
+        </section>
+
+        {/* ── 05 / Browse by Category ─────────────────────────────── */}
+        <section className="container mx-auto px-4 pb-16">
+          <SectionLabel number="05" title="Browse by Category" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground mb-3">
+                Skill categories
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {SKILL_CATEGORIES.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/skills/category/${cat.slug}`}
+                    className="inline-flex items-center px-3 py-1.5 border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground mb-3">
+                Marketplace categories
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {MARKETPLACE_CATEGORIES.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/marketplaces/category/${cat.slug}`}
+                    className="inline-flex items-center px-3 py-1.5 border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground mb-3">
+                MCP server categories
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {MCP_CATEGORIES.map((cat) => (
+                  <Link
+                    key={cat.slug}
+                    href={`/mcp/category/${cat.slug}`}
+                    className="inline-flex items-center px-3 py-1.5 border border-border text-xs text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Advertise CTA ───────────────────────────────────────── */}
+        <section className="container mx-auto px-4 pb-16">
+          <Link
+            href="/advertise"
+            className="block border border-dashed border-muted-foreground/25 p-8 md:p-10 hover:border-primary/40 hover:bg-primary/5 transition-all"
+          >
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-medium mb-1">
+                  Reach 100K+ AI developers monthly
+                </p>
+                <p className="text-xs text-muted-foreground max-w-md">
+                  Feature your tool in front of developers actively building
+                  with Claude Code. Pinned cards, in-feed placements, and
+                  banner ads available.
+                </p>
+              </div>
+              <span className="shrink-0 text-xs font-medium text-primary">
+                See ad options &rarr;
+              </span>
+            </div>
+          </Link>
+        </section>
+
+        {/* ── FAQ ─────────────────────────────────────────────────── */}
         <section className="container mx-auto px-4 py-16 border-t border-border">
           <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-8">
             FAQ

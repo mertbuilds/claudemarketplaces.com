@@ -1,19 +1,9 @@
-import { Skill } from "@/lib/types";
+import { Category, Skill } from "@/lib/types";
 
-export interface SkillCategory {
-  slug: string;
-  name: string;
-  title: string; // SEO title
-  description: string; // SEO meta description
-  headline: string; // H1 on the page
-  intro: string; // Editorial paragraph below H1
-  keywords: string[]; // Terms matched against skill name + description + repo
-  icon: string; // Lucide icon name (used in UI)
-  faq: { question: string; answer: string }[];
-  relatedSlugs: string[]; // Cross-linked categories
-}
+/** @deprecated Use `Category` from `@/lib/types` instead */
+export type SkillCategory = Category;
 
-export const SKILL_CATEGORIES: SkillCategory[] = [
+export const SKILL_CATEGORIES: Category[] = [
   {
     slug: "frontend",
     name: "Frontend Development",
@@ -555,6 +545,6 @@ export function classifyAllSkills(
 
 export function getCategoryBySlug(
   slug: string
-): SkillCategory | undefined {
+): Category | undefined {
   return SKILL_CATEGORIES.find((c) => c.slug === slug);
 }

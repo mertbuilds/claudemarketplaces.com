@@ -59,8 +59,8 @@ export async function getTopSkills(limit: number = 2): Promise<Skill[]> {
   const { data, error } = await supabase
     .from("skills")
     .select("*")
-    .order("vote_count", { ascending: false, nullsFirst: false })
     .order("installs", { ascending: false })
+    .order("stars", { ascending: false, nullsFirst: false })
     .limit(limit);
 
   if (error) {

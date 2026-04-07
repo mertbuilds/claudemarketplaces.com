@@ -1,19 +1,9 @@
-import { Marketplace } from "@/lib/types";
+import { Category, Marketplace } from "@/lib/types";
 
-export interface MarketplaceCategory {
-  slug: string;
-  name: string;
-  title: string; // SEO title
-  description: string; // SEO meta description
-  headline: string; // H1 on the page
-  intro: string; // Editorial paragraph below H1
-  keywords: string[]; // Terms matched against marketplace fields
-  icon: string; // Lucide icon name (used in UI)
-  faq: { question: string; answer: string }[];
-  relatedSlugs: string[]; // Cross-linked categories
-}
+/** @deprecated Use `Category` from `@/lib/types` instead */
+export type MarketplaceCategory = Category;
 
-export const MARKETPLACE_CATEGORIES: MarketplaceCategory[] = [
+export const MARKETPLACE_CATEGORIES: Category[] = [
   {
     slug: "ai-agents",
     name: "AI Agents & Orchestration",
@@ -827,6 +817,6 @@ export function classifyAllMarketplaces(
 
 export function getMarketplaceCategoryBySlug(
   slug: string
-): MarketplaceCategory | undefined {
+): Category | undefined {
   return MARKETPLACE_CATEGORIES.find((c) => c.slug === slug);
 }

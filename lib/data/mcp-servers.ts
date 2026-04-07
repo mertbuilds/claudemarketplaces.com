@@ -39,7 +39,6 @@ export async function getTopMcpServers(limit: number = 2): Promise<McpServer[]> 
   const { data, error } = await supabase
     .from("mcp_servers")
     .select("*")
-    .order("vote_count", { ascending: false, nullsFirst: false })
     .order("stars", { ascending: false, nullsFirst: false })
     .limit(limit);
 

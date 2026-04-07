@@ -51,8 +51,8 @@ export async function getTopMarketplaces(limit: number = 2): Promise<Marketplace
     .from("marketplaces")
     .select("*")
     .gt("plugin_count", 0)
-    .order("vote_count", { ascending: false, nullsFirst: false })
     .order("stars", { ascending: false, nullsFirst: false })
+    .order("plugin_count", { ascending: false })
     .limit(limit);
 
   if (error) {
