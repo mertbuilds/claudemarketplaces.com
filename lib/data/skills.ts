@@ -40,6 +40,37 @@ export async function getSkillById(id: string): Promise<Skill | null> {
   return mapSkillRow(data as SkillRow);
 }
 
+export async function getTopSkills(limit: number = 2): Promise<Skill[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("skills")
+    .select("*")
+    .order("vote_count", { ascending: false, nullsFirst: false })
+    .order("installs", { ascending: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching top skills:", error);
+    return [];
+  }
+  return (data as SkillRow[]).map(mapSkillRow);
+}
+
+export async function getLatestSkills(limit: number = 2): Promise<Skill[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("skills")
+    .select("*")
+    .order("created_at", { ascending: false, nullsFirst: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching latest skills:", error);
+    return [];
+  }
+  return (data as SkillRow[]).map(mapSkillRow);
+}
+
 export async function getSkillsByRepo(repo: string): Promise<Skill[]> {
   const supabase = await getDataClient();
   const { data, error } = await supabase

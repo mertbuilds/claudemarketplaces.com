@@ -38,6 +38,7 @@ export interface Marketplace {
   starsFetchedAt?: string;
   voteCount: number;
   commentCount: number;
+  createdAt?: string;
 }
 
 export interface Author {
@@ -83,6 +84,7 @@ export interface Skill {
   lastUpdated?: string;
   voteCount: number;
   commentCount: number;
+  createdAt?: string;
 }
 
 
@@ -115,6 +117,7 @@ export interface McpServer {
   lastUpdated?: string;
   voteCount: number;
   commentCount: number;
+  createdAt?: string;
 }
 
 export interface Vote {

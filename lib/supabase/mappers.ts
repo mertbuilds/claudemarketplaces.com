@@ -94,6 +94,7 @@ export function mapMcpServerRow(row: McpServerRow): McpServer {
     lastUpdated: row.last_updated || undefined,
     voteCount: row.vote_count,
     commentCount: row.comment_count,
+    createdAt: row.created_at || undefined,
   };
 }
 
@@ -112,6 +113,7 @@ export function mapMarketplaceRow(row: MarketplaceRow): Marketplace {
     starsFetchedAt: row.stars_fetched_at || undefined,
     voteCount: row.vote_count,
     commentCount: row.comment_count,
+    createdAt: row.created_at || undefined,
   };
 }
 
@@ -161,6 +163,7 @@ export function mapSkillRow(row: SkillRow): Skill {
     lastUpdated: row.last_updated || undefined,
     voteCount: row.vote_count,
     commentCount: row.comment_count,
+    createdAt: row.created_at || undefined,
   };
 }
 

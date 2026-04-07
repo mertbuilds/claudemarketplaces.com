@@ -30,6 +30,37 @@ export async function getAllMcpServers(_options?: {
   return allRows.map(mapMcpServerRow);
 }
 
+export async function getTopMcpServers(limit: number = 2): Promise<McpServer[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("mcp_servers")
+    .select("*")
+    .order("vote_count", { ascending: false, nullsFirst: false })
+    .order("stars", { ascending: false, nullsFirst: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching top MCP servers:", error);
+    return [];
+  }
+  return (data as McpServerRow[]).map(mapMcpServerRow);
+}
+
+export async function getLatestMcpServers(limit: number = 2): Promise<McpServer[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("mcp_servers")
+    .select("*")
+    .order("created_at", { ascending: false, nullsFirst: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching latest MCP servers:", error);
+    return [];
+  }
+  return (data as McpServerRow[]).map(mapMcpServerRow);
+}
+
 export async function getMcpServerBySlug(slug: string): Promise<McpServer | null> {
   const supabase = await getDataClient();
   const { data, error } = await supabase

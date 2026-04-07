@@ -39,6 +39,45 @@ export async function getAllMarketplaces(options?: {
 }
 
 /**
+ * Get top-voted marketplaces (with at least 1 plugin).
+ */
+export async function getTopMarketplaces(limit: number = 2): Promise<Marketplace[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("marketplaces")
+    .select("*")
+    .gt("plugin_count", 0)
+    .order("vote_count", { ascending: false, nullsFirst: false })
+    .order("stars", { ascending: false, nullsFirst: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching top marketplaces:", error);
+    return [];
+  }
+  return (data as MarketplaceRow[]).map(mapMarketplaceRow);
+}
+
+/**
+ * Get most recently added marketplaces (with at least 1 plugin).
+ */
+export async function getLatestMarketplaces(limit: number = 2): Promise<Marketplace[]> {
+  const supabase = await getDataClient();
+  const { data, error } = await supabase
+    .from("marketplaces")
+    .select("*")
+    .gt("plugin_count", 0)
+    .order("created_at", { ascending: false, nullsFirst: false })
+    .limit(limit);
+
+  if (error) {
+    console.error("Error fetching latest marketplaces:", error);
+    return [];
+  }
+  return (data as MarketplaceRow[]).map(mapMarketplaceRow);
+}
+
+/**
  * Get a single marketplace by slug
  */
 export async function getMarketplaceBySlug(
