@@ -28,7 +28,7 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
         setActiveIndex((i) => (i + 1) % FLOATING_BANNERS.length);
         setFading(false);
       }, 300);
-    }, 3000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
