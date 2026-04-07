@@ -52,10 +52,17 @@ export async function generateMetadata({
     server.description ||
     `${server.displayName || server.name} - an MCP server for Claude Code.`;
 
+  // Noindex detail pages that have zero original signal (no votes, no comments).
+  // The body is mirrored from the upstream README.md, which Google already indexes
+  // at higher authority. Once a server earns a vote or comment on this site, it
+  // graduates and becomes indexable on the next ISR revalidation.
+  const hasOriginalSignal = server.voteCount + server.commentCount > 0;
+
   return {
     title,
     description,
     alternates: { canonical: `/mcp/${serverSlug}` },
+    robots: hasOriginalSignal ? undefined : { index: false, follow: true },
     keywords: [
       server.name,
       "mcp server",

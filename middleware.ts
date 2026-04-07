@@ -2,6 +2,21 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  // 410 Gone for malformed plugin paths. The /plugins/[slug] route is
+  // single-segment, so any /plugins/<x>/<more>... URL is crawl debris from
+  // an earlier version of the site. Returning 410 (instead of the default
+  // 404) tells Google to drop these from the index faster.
+  const { pathname } = request.nextUrl;
+  if (pathname.startsWith("/plugins/") && pathname.split("/").length > 3) {
+    return new NextResponse("Gone", {
+      status: 410,
+      headers: {
+        "Content-Type": "text/plain",
+        "Cache-Control": "public, max-age=86400",
+      },
+    });
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -41,5 +56,6 @@ export const config = {
     "/api/:path*",
     "/login",
     "/welcome",
+    "/plugins/:slug/:rest+",
   ],
 };

@@ -19,6 +19,7 @@ import { Footer } from "@/components/footer";
 import { VoteButton } from "@/components/vote-button";
 import { SkillInstallCommand } from "@/components/skill-install-command";
 import { getSkillById, getAllSkills, getSkillsByRepo } from "@/lib/data/skills";
+import { classifySkill, getCategoryBySlug } from "@/lib/data/skill-categories";
 import { Skill } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { SkillMarkdown } from "@/components/skill-markdown";
@@ -133,10 +134,17 @@ export async function generateMetadata({
     skill.description ||
     `Install ${skill.name} skill for Claude Code from ${skill.repo}.`;
 
+  // Noindex detail pages that have zero original signal (no votes, no comments).
+  // The body is mirrored from the upstream SKILL.md, which Google already indexes
+  // at higher authority. Once a skill earns a vote or comment on this site, it
+  // graduates and becomes indexable on the next ISR revalidation.
+  const hasOriginalSignal = skill.voteCount + skill.commentCount > 0;
+
   return {
     title,
     description,
     alternates: { canonical: `/skills/${id}` },
+    robots: hasOriginalSignal ? undefined : { index: false, follow: true },
     keywords: [
       skill.name,
       "claude code skill",
@@ -553,6 +561,36 @@ async function SkillDetailContent({ id }: { id: string }) {
                     <Badge variant="secondary">{skill.license}</Badge>
                   </div>
                 )}
+
+                {/* Categories */}
+                {(() => {
+                  const cats = classifySkill(skill)
+                    .map(getCategoryBySlug)
+                    .filter(Boolean);
+                  if (!cats.length) return null;
+                  return (
+                    <div className="border-t pt-4">
+                      <span className="text-sm text-muted-foreground block mb-2">
+                        Categories
+                      </span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {cats.map((cat) => (
+                          <Link
+                            key={cat!.slug}
+                            href={`/skills/category/${cat!.slug}`}
+                          >
+                            <Badge
+                              variant="secondary"
+                              className="hover:bg-primary/10 transition-colors cursor-pointer"
+                            >
+                              {cat!.name}
+                            </Badge>
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })()}
 
                 {/* Divider */}
                 <div className="border-t pt-4">
