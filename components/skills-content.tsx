@@ -77,8 +77,8 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, hideSearch }:
       {currentPage === 1 && !hasActiveFilters && <FeaturedCards />}
 
       {/* Results info */}
-      <div className="flex items-center justify-between mb-6">
-        <p className="text-sm uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="flex items-center justify-between mt-6 mb-3">
+        <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground">
           {filteredSkills.length} {filteredSkills.length === 1 ? "skill" : "skills"}
         </p>
         {hasActiveFilters && (

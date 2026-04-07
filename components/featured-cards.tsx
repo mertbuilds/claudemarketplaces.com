@@ -37,7 +37,7 @@ export function FeaturedCards() {
 
   return (
     <div className="mb-4">
-      <p className="text-sm uppercase tracking-[0.12em] text-muted-foreground mb-2">
+      <p className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-2">
         Featured
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-start">
