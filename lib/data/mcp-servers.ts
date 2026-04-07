@@ -1,6 +1,10 @@
 import { McpServer } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMcpServerRow, McpServerRow } from "@/lib/supabase/mappers";
+import {
+  classifyAllMcpServers,
+  MCP_CATEGORIES,
+} from "@/lib/data/mcp-categories";
 
 export async function getAllMcpServers(_options?: {
   includeEmpty?: boolean;
@@ -70,4 +74,32 @@ export async function getMcpServerBySlug(slug: string): Promise<McpServer | null
     .single();
   if (error || !data) return null;
   return mapMcpServerRow(data as McpServerRow);
+}
+
+/**
+ * Returns MCP servers classified into the given category slug.
+ * Classification is keyword-based against name + description + sourceRepo + tags.
+ */
+export async function getMcpServersByCategory(
+  slug: string
+): Promise<McpServer[]> {
+  const all = await getAllMcpServers();
+  const classified = classifyAllMcpServers(all);
+  return classified[slug] ?? [];
+}
+
+/**
+ * Returns category counts: { slug: number } for all defined categories.
+ * Used for the category navigation section.
+ */
+export async function getMcpCategoryCounts(): Promise<
+  Record<string, number>
+> {
+  const all = await getAllMcpServers();
+  const classified = classifyAllMcpServers(all);
+  const counts: Record<string, number> = {};
+  for (const cat of MCP_CATEGORIES) {
+    counts[cat.slug] = classified[cat.slug]?.length ?? 0;
+  }
+  return counts;
 }

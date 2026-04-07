@@ -1,6 +1,10 @@
 import { Marketplace } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMarketplaceRow, MarketplaceRow } from "@/lib/supabase/mappers";
+import {
+  MARKETPLACE_CATEGORIES,
+  classifyAllMarketplaces,
+} from "@/lib/data/marketplace-categories";
 
 /**
  * Fetch all marketplaces from Supabase
@@ -133,4 +137,32 @@ export async function getCategories(): Promise<string[]> {
   const marketplaces = await getAllMarketplaces();
   const categories = new Set(marketplaces.flatMap((m) => m.categories));
   return Array.from(categories).sort();
+}
+
+/**
+ * Get marketplaces for a curated category (keyword + DB-category classification).
+ * Named differently from getMarketplacesByCategory which queries the DB directly.
+ */
+export async function getMarketplacesByNewCategory(
+  slug: string
+): Promise<Marketplace[]> {
+  const all = await getAllMarketplaces({ includeEmpty: false });
+  const classified = classifyAllMarketplaces(all);
+  return classified[slug] ?? [];
+}
+
+/**
+ * Returns curated category counts: { slug: number } for all defined marketplace categories.
+ * Used for the category navigation section.
+ */
+export async function getMarketplaceCategoryCounts(): Promise<
+  Record<string, number>
+> {
+  const all = await getAllMarketplaces({ includeEmpty: false });
+  const classified = classifyAllMarketplaces(all);
+  const counts: Record<string, number> = {};
+  for (const cat of MARKETPLACE_CATEGORIES) {
+    counts[cat.slug] = classified[cat.slug]?.length ?? 0;
+  }
+  return counts;
 }

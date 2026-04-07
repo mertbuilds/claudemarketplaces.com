@@ -3,6 +3,8 @@ import { getAllMarketplaces } from "@/lib/data/marketplaces";
 import { getAllSkills } from "@/lib/data/skills";
 import { getAllMcpServers } from "@/lib/data/mcp-servers";
 import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
+import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
+import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 
 const BASE_URL = "https://claudemarketplaces.com";
 
@@ -61,9 +63,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     lastModified: new Date(),
   }));
 
+  const marketplaceCategoryPages: MetadataRoute.Sitemap = MARKETPLACE_CATEGORIES.map((cat) => ({
+    url: `${BASE_URL}/marketplaces/category/${cat.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+    lastModified: new Date(),
+  }));
+
+  const mcpCategoryPages: MetadataRoute.Sitemap = MCP_CATEGORIES.map((cat) => ({
+    url: `${BASE_URL}/mcp/category/${cat.slug}`,
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+    lastModified: new Date(),
+  }));
+
   return [
     ...staticPages,
     ...categoryPages,
+    ...marketplaceCategoryPages,
+    ...mcpCategoryPages,
     ...pluginPages,
     ...skillPages,
     ...mcpPages,

@@ -14,6 +14,7 @@ import { Star, Package } from "lucide-react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { PluginContent } from "@/components/plugin-content";
+import { CopyCommand } from "@/components/copy-command";
 import { VoteButton } from "@/components/vote-button";
 import { CommentSidebar } from "@/components/comment-sidebar";
 import { Card, CardContent } from "@/components/ui/card";
@@ -106,7 +107,7 @@ async function PluginData({ slug }: { slug: string }) {
   return (
     <>
       {/* Breadcrumb Navigation */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-8 pb-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -126,10 +127,10 @@ async function PluginData({ slug }: { slug: string }) {
           {/* Left column */}
           <div className="lg:col-span-8">
             <div className="mb-6">
-              <h1 className="text-sm uppercase tracking-[0.12em] mb-2">
+              <h1 className="font-serif text-2xl md:text-3xl font-normal mb-3">
                 {marketplace.repo}
               </h1>
-              <p className="text-lg text-muted-foreground mb-4">
+              <p className="text-sm text-muted-foreground max-w-md">
                 {marketplace.description}
               </p>
             </div>
@@ -177,6 +178,14 @@ async function PluginData({ slug }: { slug: string }) {
                     itemId={marketplace.repo}
                     initialVoteCount={marketplace.voteCount}
                   />
+                </div>
+
+                {/* Install command */}
+                <div className="pt-2 border-t border-border">
+                  <p className="text-xs text-muted-foreground mb-1.5">
+                    Add marketplace
+                  </p>
+                  <CopyCommand command={`/plugin marketplace add ${marketplace.repo}`} />
                 </div>
               </CardContent>
             </Card>
@@ -236,18 +245,65 @@ export default async function PluginsPage({ params }: PageProps) {
       <main className="flex-1">
         <Suspense
           fallback={
-            <div className="container mx-auto px-4 py-8">
-              <div className="animate-pulse space-y-6">
-                <div className="h-9 bg-muted rounded-md" />
-                <div className="flex gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="h-7 w-20 bg-muted rounded-md" />
-                  ))}
+            <div className="animate-pulse">
+              {/* Breadcrumb */}
+              <div className="container mx-auto px-4 pt-8 pb-6">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-24 bg-muted" />
+                  <div className="h-3 w-2 bg-muted" />
+                  <div className="h-3 w-32 bg-muted" />
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-64 bg-muted rounded-lg" />
-                  ))}
+              </div>
+              {/* Two-column layout */}
+              <div className="container mx-auto px-4 pb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  {/* Left column */}
+                  <div className="lg:col-span-8">
+                    <div className="mb-6">
+                      <div className="h-7 w-2/5 bg-muted mb-3" />
+                      <div className="h-3 w-3/5 bg-muted" />
+                    </div>
+                    {/* Category chips */}
+                    <div className="flex gap-2 py-4 mb-4">
+                      {[...Array(5)].map((_, i) => (
+                        <div key={i} className="h-7 w-20 bg-muted" />
+                      ))}
+                    </div>
+                    {/* Plugin grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {[...Array(6)].map((_, i) => (
+                        <div key={i} className="border border-border bg-card p-4 space-y-2.5">
+                          <div className="h-4 w-3/5 bg-muted" />
+                          <div className="h-3 w-2/5 bg-muted" />
+                          <div className="space-y-1.5 pt-1">
+                            <div className="h-3 w-full bg-muted" />
+                            <div className="h-3 w-4/5 bg-muted" />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  {/* Sidebar */}
+                  <div className="lg:col-span-4">
+                    <div className="border border-border bg-card p-4 space-y-4">
+                      <div className="flex justify-between">
+                        <div className="h-3 w-24 bg-muted" />
+                        <div className="h-3 w-12 bg-muted" />
+                      </div>
+                      <div className="flex justify-between">
+                        <div className="h-3 w-16 bg-muted" />
+                        <div className="h-3 w-8 bg-muted" />
+                      </div>
+                      <div className="flex justify-between">
+                        <div className="h-3 w-12 bg-muted" />
+                        <div className="h-5 w-14 bg-muted" />
+                      </div>
+                      <div className="pt-2 border-t border-border">
+                        <div className="h-3 w-28 bg-muted mb-2" />
+                        <div className="h-7 w-full bg-muted" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

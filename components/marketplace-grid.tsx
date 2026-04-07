@@ -15,7 +15,7 @@ interface MarketplaceGridProps {
 export function MarketplaceGrid({ marketplaces, newsletterSeed, infeedAds, isSearching }: MarketplaceGridProps) {
   if (isSearching) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {marketplaces.map((marketplace) => (
           <MarketplaceCard key={marketplace.repo} marketplace={marketplace} />
         ))}
@@ -24,32 +24,31 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed, infeedAds, isSea
   }
 
   const [ad1, ad2] = infeedAds;
-
   const cols = 3;
-  const totalSlots = marketplaces.length + 2;
+
+  // Ad 1: left column (col 0), row 2-3 area → grid index 3
+  const ad1Pos = cols * 1; // index 3 = col 0
+
+  // Ad 2: right column (col 2), near bottom
+  // Total items = marketplaces + 2 ads (each takes 2 slots due to row-span-2)
+  const totalSlots = marketplaces.length + 4; // 2 ads × 2 rows each
   const totalRows = Math.ceil(totalSlots / cols);
-
-  // First card: random slot in 2nd row (indices 3, 4, 5)
-  const topPos = cols + Math.floor(newsletterSeed[0] * cols);
-
-  // Second card: random slot in the bottom 2 rows
-  const bottomRowStart = Math.max(cols * 2, (totalRows - 2) * cols);
-  const bottomPos =
-    bottomRowStart + Math.floor(newsletterSeed[1] * (totalSlots - bottomRowStart));
-
-  const positions = [topPos, bottomPos];
-  const infeedCards = [
-    <SponsoredInFeedCard key={`infeed-${ad1.id}`} ad={ad1} />,
-    <SponsoredInFeedCard key={`infeed-${ad2.id}`} ad={ad2} />,
-  ];
+  const ad2Row = totalRows - 3; // 3rd row from bottom
+  const ad2Pos = ad2Row * cols + 2; // col 2 (right side)
 
   const items: React.ReactNode[] = [];
   let inserted = 0;
+  const adConfigs = [ad1, ad2];
+  const adPositions = [ad1Pos, ad2Pos];
 
   marketplaces.forEach((marketplace, index) => {
-    const currentIndex = index + inserted;
-    if (inserted < 2 && positions.includes(currentIndex)) {
-      items.push(infeedCards[inserted]);
+    const currentIndex = index + (inserted * 2); // each ad takes 2 visual slots
+    if (inserted < 2 && currentIndex >= adPositions[inserted]) {
+      items.push(
+        <div key={`infeed-${adConfigs[inserted].id}`} className="row-span-2">
+          <SponsoredInFeedCard ad={adConfigs[inserted]} />
+        </div>
+      );
       inserted++;
     }
     items.push(
@@ -58,12 +57,16 @@ export function MarketplaceGrid({ marketplaces, newsletterSeed, infeedAds, isSea
   });
 
   while (inserted < 2) {
-    items.push(infeedCards[inserted]);
+    items.push(
+      <div key={`infeed-${adConfigs[inserted].id}`} className="row-span-2">
+        <SponsoredInFeedCard ad={adConfigs[inserted]} />
+      </div>
+    );
     inserted++;
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {items}
     </div>
   );

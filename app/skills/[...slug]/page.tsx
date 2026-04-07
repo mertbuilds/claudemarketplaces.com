@@ -266,7 +266,7 @@ async function OrgContent({ org }: { org: string }) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-8 pb-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -365,7 +365,7 @@ async function RepoContent({ repo }: { repo: string }) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-8 pb-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -447,7 +447,7 @@ async function SkillDetailContent({ id }: { id: string }) {
   return (
     <>
       {/* Breadcrumb */}
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 pt-8 pb-6">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

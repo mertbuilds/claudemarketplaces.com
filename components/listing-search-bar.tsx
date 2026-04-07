@@ -13,7 +13,22 @@ import {
 import { Search } from "lucide-react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
-export function SkillsSearchBar() {
+export interface SortOption {
+  value: string;
+  label: string;
+}
+
+interface ListingSearchBarProps {
+  placeholder: string;
+  sortOptions: SortOption[];
+  defaultSort: string;
+}
+
+export function ListingSearchBar({
+  placeholder,
+  sortOptions,
+  defaultSort,
+}: ListingSearchBarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -22,14 +37,12 @@ export function SkillsSearchBar() {
     searchParams.get("search") || ""
   );
 
-  // Sync local state when URL params change externally (e.g. "Clear filters")
   const urlSearch = searchParams.get("search") || "";
   useEffect(() => {
     setSearchQuery(urlSearch);
   }, [urlSearch]);
 
-  const sortBy =
-    (searchParams.get("sort") as "installs" | "stars" | "votes") || "installs";
+  const sortBy = searchParams.get("sort") || defaultSort;
   const debouncedSearch = useDebounce(searchQuery, 300);
 
   const updateURL = useCallback(
@@ -61,7 +74,7 @@ export function SkillsSearchBar() {
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
         <Input
           type="text"
-          placeholder="Search skills..."
+          placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="!h-8 pl-9 text-xs"
@@ -69,17 +82,19 @@ export function SkillsSearchBar() {
       </div>
       <Select
         value={sortBy}
-        onValueChange={(value: "installs" | "stars" | "votes") =>
-          updateURL({ sort: value === "installs" ? null : value, page: null })
+        onValueChange={(value) =>
+          updateURL({ sort: value === defaultSort ? null : value, page: null })
         }
       >
         <SelectTrigger size="sm" className="w-[160px] text-xs">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="installs">Most installed</SelectItem>
-          <SelectItem value="stars">Most stars</SelectItem>
-          <SelectItem value="votes">Most voted</SelectItem>
+          {sortOptions.map((opt) => (
+            <SelectItem key={opt.value} value={opt.value}>
+              {opt.label}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>

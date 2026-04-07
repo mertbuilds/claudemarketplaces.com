@@ -1,3 +1,16 @@
+export interface Category {
+  slug: string;
+  name: string;
+  title: string; // SEO title
+  description: string; // SEO meta description
+  headline: string; // H1 on the page
+  intro: string; // Editorial paragraph below H1
+  keywords: string[]; // Terms matched against item fields
+  icon: string; // Lucide icon name (used in UI)
+  faq: { question: string; answer: string }[];
+  relatedSlugs: string[]; // Cross-linked categories
+}
+
 export interface Plugin {
   id: string;
   name: string;

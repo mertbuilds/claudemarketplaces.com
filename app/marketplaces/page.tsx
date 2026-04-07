@@ -1,13 +1,18 @@
 import { Suspense } from "react";
+import Link from "next/link";
 
 import type { Metadata } from "next";
 
 export const revalidate = 3600;
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { getAllMarketplaces, getCategories } from "@/lib/data/marketplaces";
+import { getAllMarketplaces, getMarketplaceCategoryCounts } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
+import { ListingSearchBar } from "@/components/listing-search-bar";
 import { getInFeedAdsForPage } from "@/lib/ads";
+import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
+import { CategoryChips } from "@/components/category-chips";
+import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
 
 export const metadata: Metadata = {
   title: "Plugin Marketplaces | Claude Code Plugin Directory",
@@ -22,11 +27,25 @@ export const metadata: Metadata = {
   },
 };
 
+// ── Category navigation ────────────────────────────────────────────────
+
+async function CategoryNav() {
+  const counts = await getMarketplaceCategoryCounts();
+
+  const categories = MARKETPLACE_CATEGORIES.map((cat) => ({
+    slug: cat.slug,
+    name: cat.name,
+    count: counts[cat.slug] ?? 0,
+    href: `/marketplaces/category/${cat.slug}`,
+  }));
+
+  return <CategoryChips categories={categories} />;
+}
+
+// ── Marketplace grid with search/sort/pagination ──────────────────────
+
 async function MarketplaceData() {
-  const [marketplaces, categories] = await Promise.all([
-    getAllMarketplaces({ includeEmpty: false }),
-    getCategories(),
-  ]);
+  const marketplaces = await getAllMarketplaces({ includeEmpty: false });
 
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -50,7 +69,6 @@ async function MarketplaceData() {
       />
       <MarketplaceContent
         marketplaces={marketplaces}
-        categories={categories}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("marketplaces")}
       />
@@ -126,28 +144,47 @@ export default function MarketplacesPage() {
       <Header />
 
       <main className="flex-1">
-        <div className="container mx-auto px-4 pt-8">
-          <h1 className="text-sm uppercase tracking-[0.12em]">Plugin Marketplaces</h1>
-        </div>
-        <Suspense
-          fallback={
-            <div className="container mx-auto px-4 py-8">
-              <div className="animate-pulse space-y-6">
-                <div className="h-9 bg-muted rounded-md" />
-                <div className="flex gap-2">
-                  {[...Array(5)].map((_, i) => (
-                    <div key={i} className="h-7 w-20 bg-muted rounded-md" />
-                  ))}
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-64 bg-muted rounded-lg" />
-                  ))}
-                </div>
-              </div>
+        {/* ── Hero: two-column layout ── */}
+        <section className="container mx-auto px-4 pt-10 pb-4 md:pt-12 md:pb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+            {/* Left: title + description */}
+            <div>
+              <h1 className="font-serif text-2xl md:text-3xl font-normal mb-3">
+                Plugin Marketplaces
+              </h1>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Curated collections of Claude Code plugins and extensions.
+                Browse GitHub repositories that aggregate tools for AI-powered
+                development.
+              </p>
             </div>
-          }
-        >
+
+            {/* Right: search + categories */}
+            <div>
+              <ListingSearchBar
+                placeholder="Search marketplaces..."
+                sortOptions={[
+                  { value: "stars", label: "Most stars" },
+                  { value: "plugins", label: "Most plugins" },
+                  { value: "votes", label: "Most voted" },
+                ]}
+                defaultSort="stars"
+              />
+              <div className="flex items-center gap-4 mt-8 mb-3">
+                <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
+                  Categories
+                </span>
+                <div className="flex-1 border-t border-border" />
+              </div>
+              <Suspense fallback={<CategoryChipsSkeleton />}>
+                <CategoryNav />
+              </Suspense>
+            </div>
+          </div>
+        </section>
+
+        {/* ── All marketplaces grid ── */}
+        <Suspense fallback={<ListingGridSkeleton variant="marketplace" showFeatured />}>
           <MarketplaceData />
         </Suspense>
       </main>

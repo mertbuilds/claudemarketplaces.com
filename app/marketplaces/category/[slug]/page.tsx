@@ -13,13 +13,16 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { SkillsContent } from "@/components/skills-content";
-import { getSkillsByCategory, getCategoryCounts } from "@/lib/data/skills";
+import { MarketplaceContent } from "@/components/marketplace-content";
+import {
+  getMarketplacesByNewCategory,
+  getMarketplaceCategoryCounts,
+} from "@/lib/data/marketplaces";
 import { getInFeedAdsForPage } from "@/lib/ads";
 import {
-  SKILL_CATEGORIES,
-  getCategoryBySlug,
-} from "@/lib/data/skill-categories";
+  MARKETPLACE_CATEGORIES,
+  getMarketplaceCategoryBySlug,
+} from "@/lib/data/marketplace-categories";
 import { ListingGridSkeleton } from "@/components/listing-grid-skeleton";
 
 export const revalidate = 3600; // 1 hour ISR
@@ -27,7 +30,7 @@ export const revalidate = 3600; // 1 hour ISR
 // ── Static params for SSG ──────────────────────────────────────────────
 
 export function generateStaticParams() {
-  return SKILL_CATEGORIES.map((cat) => ({ slug: cat.slug }));
+  return MARKETPLACE_CATEGORIES.map((cat) => ({ slug: cat.slug }));
 }
 
 // ── Dynamic metadata ───────────────────────────────────────────────────
@@ -38,28 +41,28 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const cat = getCategoryBySlug(slug);
+  const cat = getMarketplaceCategoryBySlug(slug);
   if (!cat) return {};
 
-  const skills = await getSkillsByCategory(slug);
-  const count = skills.length;
-  const title = `${cat.title} | Claude Code Skills`;
-  const description = `${cat.description} Browse ${count}+ skills.`;
+  const marketplaces = await getMarketplacesByNewCategory(slug);
+  const count = marketplaces.length;
+  const title = `${cat.title} | Claude Code Plugin Marketplace`;
+  const description = `${cat.description} Browse ${count}+ marketplaces.`;
 
   return {
     title,
     description,
     keywords: [
-      `claude ${cat.name.toLowerCase()} skills`,
+      `claude ${cat.name.toLowerCase()} marketplaces`,
       `claude code ${cat.name.toLowerCase()}`,
-      `${cat.name.toLowerCase()} ai skills`,
-      "claude code skills",
-      "claude skills",
+      `${cat.name.toLowerCase()} plugin marketplaces`,
+      "claude code marketplaces",
+      "claude code plugins",
     ],
     openGraph: {
       title,
       description,
-      url: `https://claudemarketplaces.com/skills/category/${slug}`,
+      url: `https://claudemarketplaces.com/marketplaces/category/${slug}`,
       siteName: "Claude Code Plugin Marketplace",
       type: "website",
     },
@@ -69,29 +72,29 @@ export async function generateMetadata({
       description,
     },
     alternates: {
-      canonical: `https://claudemarketplaces.com/skills/category/${slug}`,
+      canonical: `https://claudemarketplaces.com/marketplaces/category/${slug}`,
     },
   };
 }
 
-// ── Skills list with search/sort/pagination ────────────────────────────
+// ── Marketplaces list with search/sort/pagination ─────────────────────
 
-async function CategorySkills({ slug }: { slug: string }) {
-  const skills = await getSkillsByCategory(slug);
-  const cat = getCategoryBySlug(slug)!;
+async function CategoryMarketplaces({ slug }: { slug: string }) {
+  const marketplaces = await getMarketplacesByNewCategory(slug);
+  const cat = getMarketplaceCategoryBySlug(slug)!;
 
   // Structured data: ItemList
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: `${cat.name} Claude Code Skills`,
+    name: `${cat.name} Claude Code Plugin Marketplaces`,
     description: cat.description,
-    numberOfItems: skills.length,
-    itemListElement: skills.slice(0, 20).map((skill, i) => ({
+    numberOfItems: marketplaces.length,
+    itemListElement: marketplaces.slice(0, 20).map((m, i) => ({
       "@type": "ListItem",
       position: i + 1,
-      url: `https://claudemarketplaces.com/skills/${skill.id}`,
-      name: skill.name,
+      url: `https://claudemarketplaces.com/plugins/${m.slug}`,
+      name: m.repo,
     })),
   };
 
@@ -124,10 +127,10 @@ async function CategorySkills({ slug }: { slug: string }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
       )}
-      <SkillsContent
-        skills={skills}
+      <MarketplaceContent
+        marketplaces={marketplaces}
         newsletterSeed={[Math.random(), Math.random()]}
-        infeedAds={getInFeedAdsForPage("skills")}
+        infeedAds={getInFeedAdsForPage("marketplaces")}
       />
     </>
   );
@@ -136,16 +139,16 @@ async function CategorySkills({ slug }: { slug: string }) {
 // ── Related categories ─────────────────────────────────────────────────
 
 async function RelatedCategories({ slug }: { slug: string }) {
-  const [categoryCounts] = await Promise.all([getCategoryCounts()]);
-  const cat = getCategoryBySlug(slug)!;
+  const categoryCounts = await getMarketplaceCategoryCounts();
+  const cat = getMarketplaceCategoryBySlug(slug)!;
 
   const relatedCategories = cat.relatedSlugs
     .map((s) => {
-      const related = getCategoryBySlug(s);
+      const related = getMarketplaceCategoryBySlug(s);
       if (!related) return null;
       return { ...related, count: categoryCounts[s] ?? 0 };
     })
-    .filter(Boolean) as (typeof SKILL_CATEGORIES[number] & {
+    .filter(Boolean) as (typeof MARKETPLACE_CATEGORIES[number] & {
     count: number;
   })[];
 
@@ -160,7 +163,7 @@ async function RelatedCategories({ slug }: { slug: string }) {
         {relatedCategories.map((rc) => (
           <Link
             key={rc.slug}
-            href={`/skills/category/${rc.slug}`}
+            href={`/marketplaces/category/${rc.slug}`}
             className="group inline-flex items-center gap-2 px-3 py-1.5 border border-border text-xs uppercase tracking-[0.08em] text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
           >
             <span>{rc.name}</span>
@@ -176,13 +179,13 @@ async function RelatedCategories({ slug }: { slug: string }) {
 
 // ── Page component ─────────────────────────────────────────────────────
 
-export default async function CategoryPage({
+export default async function MarketplaceCategoryPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const cat = getCategoryBySlug(slug);
+  const cat = getMarketplaceCategoryBySlug(slug);
   if (!cat) notFound();
 
   const breadcrumbSchema = {
@@ -192,14 +195,14 @@ export default async function CategoryPage({
       {
         "@type": "ListItem",
         position: 1,
-        name: "Skills",
-        item: "https://claudemarketplaces.com/skills",
+        name: "Marketplaces",
+        item: "https://claudemarketplaces.com/marketplaces",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: cat.name,
-        item: `https://claudemarketplaces.com/skills/category/${slug}`,
+        item: `https://claudemarketplaces.com/marketplaces/category/${slug}`,
       },
     ],
   };
@@ -207,9 +210,9 @@ export default async function CategoryPage({
   const collectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `${cat.name} — Claude Code Skills`,
+    name: `${cat.name} — Claude Code Plugin Marketplaces`,
     description: cat.description,
-    url: `https://claudemarketplaces.com/skills/category/${slug}`,
+    url: `https://claudemarketplaces.com/marketplaces/category/${slug}`,
   };
 
   return (
@@ -228,12 +231,12 @@ export default async function CategoryPage({
       />
       <Header />
       <main className="flex-1">
-        <div className="container mx-auto px-4 pt-8 pb-8">
+        <div className="container mx-auto px-4 pt-8">
           {/* Breadcrumb */}
           <Breadcrumb className="mb-8">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/skills">Skills</BreadcrumbLink>
+                <BreadcrumbLink href="/marketplaces">Marketplaces</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -251,9 +254,9 @@ export default async function CategoryPage({
           </p>
         </div>
 
-        {/* Skills with search, sort, pagination */}
-        <Suspense fallback={<ListingGridSkeleton variant="skill" />}>
-          <CategorySkills slug={slug} />
+        {/* Marketplaces with search, sort, pagination */}
+        <Suspense fallback={<ListingGridSkeleton variant="marketplace" />}>
+          <CategoryMarketplaces slug={slug} />
         </Suspense>
 
         <div className="container mx-auto px-4 pb-16">

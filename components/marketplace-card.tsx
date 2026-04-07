@@ -6,12 +6,9 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Marketplace } from "@/lib/types";
-import { Package, ExternalLink, Copy, Check, Star, MessageSquare } from "lucide-react";
-import { useState } from "react";
+import { Package, ExternalLink, Star, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
 import { BookmarkButton } from "@/components/bookmark-button";
@@ -23,23 +20,13 @@ interface MarketplaceCardProps {
 export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
   const repoUrl = `https://github.com/${marketplace.repo}`;
   const pluginsUrl = `/plugins/${marketplace.slug}`;
-  const installCommand = `/plugin marketplace add ${marketplace.repo}`;
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    await navigator.clipboard.writeText(installCommand);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   return (
-    <Card className="relative h-full transition-all hover:shadow-lg hover:border-primary/50 overflow-auto">
-        <CardHeader>
-          <div className="flex flex-col gap-2">
+    <Card className="relative h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-0 gap-0">
+        <CardHeader className="p-4">
+          <div className="flex flex-col gap-1.5">
             <div className="flex items-start justify-between gap-2">
-              <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
+              <CardTitle className="text-base line-clamp-1 flex-1 min-w-0 leading-6">
                 <Link
                   href={pluginsUrl}
                   className="after:absolute after:inset-0"
@@ -60,10 +47,8 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                 </a>
               </div>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="relative z-10">
-                <VoteButton itemType="marketplace" itemId={marketplace.repo} initialVoteCount={marketplace.voteCount} />
-              </div>
+            <div className="flex items-center gap-3 relative z-10">
+              <VoteButton itemType="marketplace" itemId={marketplace.repo} initialVoteCount={marketplace.voteCount} />
               {marketplace.stars !== undefined && marketplace.stars > 0 && (
                 <div className="flex items-center gap-1 text-muted-foreground">
                   <Star className="h-3.5 w-3.5 fill-current" />
@@ -73,7 +58,7 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
                 </div>
               )}
               <div className="flex items-center gap-1 text-muted-foreground">
-                <Package className="h-4 w-4" />
+                <Package className="h-3.5 w-3.5" />
                 <span className="text-sm">
                   {marketplace.pluginCount}{" "}
                   {marketplace.pluginCount === 1 ? "plugin" : "plugins"}
@@ -87,46 +72,10 @@ export function MarketplaceCard({ marketplace }: MarketplaceCardProps) {
               )}
             </div>
           </div>
-          <CardDescription className="line-clamp-3">
+          <CardDescription className="line-clamp-2 text-xs">
             {marketplace.description}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-3">
-            {marketplace.categories && marketplace.categories.length > 0 && (
-              <div className="flex flex-wrap gap-1">
-                {marketplace.categories.slice(0, 4).map((category) => (
-                  <Badge
-                    key={category}
-                    variant="secondary"
-                    className="text-xs capitalize"
-                  >
-                    {category}
-                  </Badge>
-                ))}
-              </div>
-            )}
-
-            <div className="mt-2 pt-3 border-t border-border">
-              <div className="flex items-center gap-2">
-                <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">
-                  {installCommand}
-                </code>
-                <button
-                  onClick={handleCopy}
-                  className="relative z-10 shrink-0 p-1.5 hover:bg-muted rounded-none transition-colors cursor-pointer"
-                  title="Copy to clipboard"
-                >
-                  {copied ? (
-                    <Check className="h-3.5 w-3.5 text-green-500" />
-                  ) : (
-                    <Copy className="h-3.5 w-3.5 text-muted-foreground" />
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
-        </CardContent>
     </Card>
   );
 }

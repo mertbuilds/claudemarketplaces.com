@@ -2,15 +2,16 @@ import { Suspense } from "react";
 
 export const revalidate = 3600;
 
-import Link from "next/link";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills, getCategoryCounts } from "@/lib/data/skills";
 import { SkillsContent } from "@/components/skills-content";
 import { getInFeedAdsForPage } from "@/lib/ads";
 import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
+import { CategoryChips } from "@/components/category-chips";
 import { CopyCommand } from "@/components/copy-command";
-import { SkillsSearchBar } from "@/components/skills-search-bar";
+import { ListingSearchBar } from "@/components/listing-search-bar";
+import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,25 +45,14 @@ export const metadata: Metadata = {
 async function CategoryNav() {
   const counts = await getCategoryCounts();
 
-  return (
-    <div className="flex flex-wrap gap-x-1 gap-y-1">
-      {SKILL_CATEGORIES.map((cat) => {
-        const count = counts[cat.slug] ?? 0;
-        return (
-          <Link
-            key={cat.slug}
-            href={`/skills/category/${cat.slug}`}
-            className="group inline-flex items-center gap-2 px-3 py-1.5 border border-border text-xs uppercase tracking-[0.08em] text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
-          >
-            <span>{cat.name}</span>
-            <span className="font-mono text-[10px] text-muted-foreground/60 group-hover:text-primary transition-colors">
-              {count}
-            </span>
-          </Link>
-        );
-      })}
-    </div>
-  );
+  const categories = SKILL_CATEGORIES.map((cat) => ({
+    slug: cat.slug,
+    name: cat.name,
+    count: counts[cat.slug] ?? 0,
+    href: `/skills/category/${cat.slug}`,
+  }));
+
+  return <CategoryChips categories={categories} />;
 }
 
 // ── Skills grid with search/sort/pagination ────────────────────────────
@@ -94,7 +84,6 @@ async function SkillsData() {
         skills={skills}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("skills")}
-        hideSearch
       />
     </>
   );
@@ -162,25 +151,22 @@ export default function SkillsPage() {
 
             {/* Right: search + categories */}
             <div>
-              <SkillsSearchBar />
+              <ListingSearchBar
+                placeholder="Search skills..."
+                sortOptions={[
+                  { value: "installs", label: "Most installed" },
+                  { value: "stars", label: "Most stars" },
+                  { value: "votes", label: "Most voted" },
+                ]}
+                defaultSort="installs"
+              />
               <div className="flex items-center gap-4 mt-8 mb-3">
                 <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
                   Categories
                 </span>
                 <div className="flex-1 border-t border-border" />
               </div>
-              <Suspense
-                fallback={
-                  <div className="flex flex-wrap gap-1">
-                    {[...Array(10)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="h-7 w-28 bg-muted animate-pulse"
-                      />
-                    ))}
-                  </div>
-                }
-              >
+              <Suspense fallback={<CategoryChipsSkeleton />}>
                 <CategoryNav />
               </Suspense>
             </div>
@@ -188,19 +174,7 @@ export default function SkillsPage() {
         </section>
 
         {/* ── All skills grid ── */}
-        <Suspense
-          fallback={
-            <div className="container mx-auto px-4 py-8">
-              <div className="animate-pulse space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-64 bg-muted" />
-                  ))}
-                </div>
-              </div>
-            </div>
-          }
-        >
+        <Suspense fallback={<ListingGridSkeleton variant="skill" showFeatured />}>
           <SkillsData />
         </Suspense>
       </main>

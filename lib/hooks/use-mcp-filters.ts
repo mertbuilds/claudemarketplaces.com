@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { McpServer } from "@/lib/types";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
-const ITEMS_PER_PAGE = 22;
+const ITEMS_PER_PAGE = 23;
 
 export function useMcpFilters(servers: McpServer[]) {
   const router = useRouter();
@@ -15,6 +15,12 @@ export function useMcpFilters(servers: McpServer[]) {
   const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
   const sortBy = (searchParams.get("sort") as "stars" | "votes") || "stars";
   const currentPage = Number(searchParams.get("page")) || 1;
+
+  // Sync local state when URL changes externally (e.g. from McpSearchBar)
+  const urlSearch = searchParams.get("search") || "";
+  useEffect(() => {
+    setLocalSearch(urlSearch);
+  }, [urlSearch]);
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
@@ -57,14 +63,11 @@ export function useMcpFilters(servers: McpServer[]) {
     let filtered = servers;
 
     if (debouncedSearchQuery) {
-      const query = debouncedSearchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (s) =>
-          s.name.toLowerCase().includes(query) ||
-          s.description.toLowerCase().includes(query) ||
-          s.sourceRepo.toLowerCase().includes(query) ||
-          s.tags.some((t) => t.toLowerCase().includes(query))
-      );
+      const words = debouncedSearchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+      filtered = filtered.filter((s) => {
+        const haystack = `${s.name} ${s.description} ${s.sourceRepo} ${s.tags.join(" ")}`.toLowerCase();
+        return words.every((w) => haystack.includes(w));
+      });
     }
 
     return [...filtered].sort((a, b) => {

@@ -27,13 +27,13 @@ export function McpServerCard({ server }: McpServerCardProps) {
 
   return (
     <Card
-      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer"
+      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-0 gap-0"
       onClick={handleCardClick}
     >
-      <CardHeader>
-        <div className="flex flex-col gap-2">
+      <CardHeader className="p-4">
+        <div className="flex flex-col gap-1.5">
           <div className="flex items-start justify-between gap-2">
-            <CardTitle className="text-xl line-clamp-2 flex-1 min-w-0 leading-7">
+            <CardTitle className="text-base line-clamp-1 flex-1 min-w-0 leading-6">
               {server.displayName || server.name}
             </CardTitle>
             <div className="flex items-center gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
@@ -70,7 +70,7 @@ export function McpServerCard({ server }: McpServerCardProps) {
             )}
           </div>
         </div>
-        <CardDescription className="line-clamp-3">
+        <CardDescription className="line-clamp-2 text-xs">
           {server.description}
         </CardDescription>
       </CardHeader>

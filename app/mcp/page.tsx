@@ -4,9 +4,13 @@ export const revalidate = 3600;
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { getAllMcpServers } from "@/lib/data/mcp-servers";
+import { getAllMcpServers, getMcpCategoryCounts } from "@/lib/data/mcp-servers";
 import { McpServersContent } from "@/components/mcp-servers-content";
+import { ListingSearchBar } from "@/components/listing-search-bar";
 import { getInFeedAdsForPage } from "@/lib/ads";
+import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
+import { CategoryChips } from "@/components/category-chips";
+import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -33,6 +37,21 @@ export const metadata: Metadata = {
       "Browse and discover MCP servers for Claude Code. Find Model Context Protocol servers to extend your AI workflows.",
   },
 };
+
+// ── Category navigation ────────────────────────────────────────────────
+
+async function CategoryNav() {
+  const counts = await getMcpCategoryCounts();
+
+  const categories = MCP_CATEGORIES.map((cat) => ({
+    slug: cat.slug,
+    name: cat.name,
+    count: counts[cat.slug] ?? 0,
+    href: `/mcp/category/${cat.slug}`,
+  }));
+
+  return <CategoryChips categories={categories} />;
+}
 
 async function McpData() {
   const servers = await getAllMcpServers({ includeEmpty: false });
@@ -84,23 +103,46 @@ export default function McpPage() {
       />
       <Header />
       <main className="flex-1">
-        <div className="container mx-auto px-4 pt-8">
-          <h1 className="text-sm uppercase tracking-[0.12em]">MCP Servers</h1>
-        </div>
-        <Suspense
-          fallback={
-            <div className="container mx-auto px-4 py-8">
-              <div className="animate-pulse space-y-6">
-                <div className="h-9 bg-muted rounded-md" />
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[...Array(6)].map((_, i) => (
-                    <div key={i} className="h-64 bg-muted rounded-lg" />
-                  ))}
-                </div>
-              </div>
+        {/* ── Hero: two-column layout ── */}
+        <section className="container mx-auto px-4 pt-10 pb-4 md:pt-12 md:pb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+            {/* Left: title + description */}
+            <div>
+              <h1 className="font-serif text-2xl md:text-3xl font-normal mb-3">
+                MCP Servers
+              </h1>
+              <p className="text-sm text-muted-foreground max-w-md">
+                Model Context Protocol servers that extend your AI agent with
+                databases, APIs, browsers, and more. Browse the directory or
+                search for specific capabilities.
+              </p>
             </div>
-          }
-        >
+
+            {/* Right: search + categories */}
+            <div>
+              <ListingSearchBar
+                placeholder="Search MCP servers..."
+                sortOptions={[
+                  { value: "stars", label: "Most stars" },
+                  { value: "votes", label: "Most voted" },
+                ]}
+                defaultSort="stars"
+              />
+              <div className="flex items-center gap-4 mt-8 mb-3">
+                <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
+                  Categories
+                </span>
+                <div className="flex-1 border-t border-border" />
+              </div>
+              <Suspense fallback={<CategoryChipsSkeleton />}>
+                <CategoryNav />
+              </Suspense>
+            </div>
+          </div>
+        </section>
+
+        {/* ── All servers grid ── */}
+        <Suspense fallback={<ListingGridSkeleton variant="mcp" showFeatured />}>
           <McpData />
         </Suspense>
       </main>
