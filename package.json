@@ -13,6 +13,9 @@
     "search:skills": "bun run scripts/search-skills.ts",
     "search:skills:test": "bun run scripts/search-skills.ts --limit 10",
     "search:skills:dry": "bun run scripts/search-skills.ts --dry-run",
+    "backfill": "bun --env-file=.env.prod run scripts/backfill-plugins.ts",
+    "backfill:dry": "bun --env-file=.env.prod run scripts/backfill-plugins.ts --dry-run",
+    "backfill:local": "bun run scripts/backfill-plugins.ts --dry-run",
     "seed": "bun run scripts/seed-supabase.ts"
   },
   "dependencies": {

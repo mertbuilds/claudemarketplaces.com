@@ -7,14 +7,21 @@ const AuthorSchema = z.object({
   url: z.url().optional(), // Official docs include url field
 });
 
-// Source schema - can be a string path or an object with source type
+// Source schema - can be a string path or an object with a source discriminator.
+// The `source` discriminator is intentionally a free-form string rather than an enum:
+// real-world marketplaces use values beyond the docs' github/git/local set,
+// including "url" and "git-subdir". Keeping this open lets us accept future
+// discriminators without shipping a schema update. Extra fields are tolerated.
 const SourceSchema = z.union([
   z.string().min(1), // Simple path string
   z.object({
-    source: z.enum(["github", "git", "local"]),
+    source: z.string().min(1),
     repo: z.string().optional(),
     path: z.string().optional(),
-  }),
+    url: z.string().optional(),
+    ref: z.string().optional(),
+    sha: z.string().optional(),
+  }).loose(),
 ]);
 
 // Schema for a plugin within a marketplace
