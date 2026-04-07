@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { Star } from "lucide-react";
 
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
@@ -166,7 +167,7 @@ async function TopSkills() {
           </p>
           <div className="mt-auto pt-4 flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
             {s.installs > 0 && <span>{formatCount(s.installs)} installs</span>}
-            {formatStars(s.stars) && <span>&#9733; {formatStars(s.stars)}</span>}
+            {formatStars(s.stars) && <span className="inline-flex items-center gap-0.5"><Star className="h-2.5 w-2.5" />{formatStars(s.stars)}</span>}
           </div>
         </Link>
       ))}
@@ -195,7 +196,7 @@ async function TopMarketplaces() {
               <span>{mp.pluginCount} plugins</span>
             )}
             {formatStars(mp.stars) && (
-              <span>&#9733; {formatStars(mp.stars)}</span>
+              <span className="inline-flex items-center gap-0.5"><Star className="h-2.5 w-2.5" />{formatStars(mp.stars)}</span>
             )}
           </div>
         </Link>
@@ -222,7 +223,7 @@ async function TopMcpServers() {
           </p>
           <div className="mt-auto pt-4 flex items-center gap-3 text-[10px] text-muted-foreground font-mono">
             {formatStars(m.stars) && (
-              <span>&#9733; {formatStars(m.stars)}</span>
+              <span className="inline-flex items-center gap-0.5"><Star className="h-2.5 w-2.5" />{formatStars(m.stars)}</span>
             )}
           </div>
         </Link>
