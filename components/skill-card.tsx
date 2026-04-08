@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skill } from "@/lib/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Copy, Check, Star, Download, MessageSquare } from "lucide-react";
 import { formatStarCount } from "@/lib/utils/format";
 import { VoteButton } from "@/components/vote-button";
@@ -22,41 +22,35 @@ interface SkillCardProps {
 
 export function SkillCard({ skill }: SkillCardProps) {
   const [copied, setCopied] = useState(false);
-  const router = useRouter();
-
   const skillUrl = `/skills/${skill.id}`;
 
   const handleCopy = async (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     await navigator.clipboard.writeText(skill.installCommand);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleCardClick = () => {
-    router.push(skillUrl);
-  };
-
   return (
     <Card
-      className="h-full transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-0 gap-0"
-      onClick={handleCardClick}
+      className="relative h-full cursor-pointer transition-all hover:shadow-lg hover:border-primary/50 py-0 gap-0"
     >
       <CardHeader className="p-4 pb-0">
         <div className="flex flex-col gap-1.5">
           <div className="flex items-start justify-between gap-2">
             <CardTitle className="text-base line-clamp-1 flex-1 min-w-0 leading-6">
-              {skill.name}
+              <Link href={skillUrl} className="after:absolute after:inset-0 after:content-['']">
+                {skill.name}
+              </Link>
             </CardTitle>
-            <div className="shrink-0" onClick={(e) => e.stopPropagation()}>
+            <div className="relative z-10 shrink-0">
               <BookmarkButton itemType="skill" itemId={skill.id} />
             </div>
           </div>
           <p className="text-xs text-muted-foreground truncate">
             {skill.repo}
           </p>
-          <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+          <div className="relative z-10 flex items-center gap-3">
             <VoteButton itemType="skill" itemId={skill.id} initialVoteCount={skill.voteCount} />
             {skill.installs > 0 && (
               <div className="flex items-center gap-1 text-muted-foreground">
@@ -96,7 +90,7 @@ export function SkillCard({ skill }: SkillCardProps) {
             </div>
           )}
 
-          <div className="mt-2 pt-3 border-t border-border">
+          <div className="relative z-10 mt-2 pt-3 border-t border-border">
             <div className="flex items-center gap-2">
               <code className="text-xs bg-muted px-2 py-1 rounded-none flex-1 truncate min-w-0">
                 {skill.installCommand}

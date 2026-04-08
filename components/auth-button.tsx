@@ -92,18 +92,24 @@ export function AuthButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         {profile && (
-          <DropdownMenuItem onClick={() => router.push(`/u/${profile.username}`)}>
-            <User className="mr-2 h-4 w-4" />
-            Profile
+          <DropdownMenuItem asChild>
+            <Link href={`/u/${profile.username}`}>
+              <User className="mr-2 h-4 w-4" />
+              Profile
+            </Link>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem onClick={() => router.push("/saved")}>
-          <Bookmark className="mr-2 h-4 w-4" />
-          Saved
+        <DropdownMenuItem asChild>
+          <Link href="/saved">
+            <Bookmark className="mr-2 h-4 w-4" />
+            Saved
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => router.push("/profile")}>
-          <Settings className="mr-2 h-4 w-4" />
-          Settings
+        <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <Settings className="mr-2 h-4 w-4" />
+            Settings
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOut className="mr-2 h-4 w-4" />
