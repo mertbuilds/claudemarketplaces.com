@@ -63,8 +63,8 @@ export default function AboutPage() {
               </p>
               <p className="text-sm text-muted-foreground">
                 Community features like <strong>voting</strong> and{" "}
-                <strong>commenting (coming soon)</strong> help surface the best
-                tools and let developers share their experiences.
+                <strong>commenting</strong> help surface the best tools and
+                let developers share their experiences.
               </p>
             </CardContent>
           </Card>
@@ -125,13 +125,10 @@ export default function AboutPage() {
                     4
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">
-                      Comments (coming soon)
-                    </h4>
+                    <h4 className="font-semibold mb-1">Comments</h4>
                     <p className="text-sm text-muted-foreground">
-                      Soon you&apos;ll be able to leave reviews and share
-                      experiences on any listing, helping others make informed
-                      decisions.
+                      Leave reviews and share experiences on any listing,
+                      helping others make informed decisions.
                     </p>
                   </div>
                 </div>

@@ -54,27 +54,6 @@ export function PluginContent({ plugins, categories, expectedPluginCount, classN
         />
       </div>
 
-      {/* Category Filters */}
-      {categories.length > 0 && (
-        <div className="mb-6 -mx-4 px-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {categories.map((category) => {
-              const isSelected = selectedCategories.includes(category);
-              return (
-                <Badge
-                  key={category}
-                  variant={isSelected ? "default" : "outline"}
-                  className="cursor-pointer capitalize shrink-0"
-                  onClick={() => toggleCategory(category)}
-                >
-                  {category}
-                </Badge>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
       {/* Results info */}
       <div className="flex items-center justify-between mb-6">
         <p className="text-sm text-muted-foreground">

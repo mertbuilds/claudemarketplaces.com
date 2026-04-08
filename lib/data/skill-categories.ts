@@ -264,7 +264,7 @@ export const SKILL_CATEGORIES: Category[] = [
       "Meta-skills for creating Claude Code skills. If you want to build and publish your own skills, these will help Claude scaffold SKILL.md files, test skill behavior, and follow the skill authoring conventions.",
     keywords: [
       "skill-builder", "skill-creator", "skill-development", "creating-skills",
-      "writing-skills", "create-skill", "slash-command",
+      "writing-skills", "create-skill", "find-skill", "slash-command",
     ],
     icon: "Wrench",
     faq: [

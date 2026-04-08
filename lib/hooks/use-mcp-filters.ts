@@ -1,9 +1,8 @@
 "use client";
 
-import { useMemo, useCallback, useState, useEffect, useRef } from "react";
+import { useMemo, useCallback } from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { McpServer } from "@/lib/types";
-import { useDebounce } from "@/lib/hooks/use-debounce";
 
 const ITEMS_PER_PAGE = 23;
 
@@ -12,17 +11,9 @@ export function useMcpFilters(servers: McpServer[]) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
+  const searchQuery = searchParams.get("search") || "";
   const sortBy = (searchParams.get("sort") as "stars" | "votes") || "stars";
   const currentPage = Number(searchParams.get("page")) || 1;
-
-  // Sync local state when URL changes externally (e.g. from McpSearchBar)
-  const urlSearch = searchParams.get("search") || "";
-  useEffect(() => {
-    setLocalSearch(urlSearch);
-  }, [urlSearch]);
-
-  const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
   const updateURL = useCallback(
     (params: Record<string, string | null>) => {
@@ -39,15 +30,10 @@ export function useMcpFilters(servers: McpServer[]) {
     [searchParams, router, pathname]
   );
 
-  const prevDebouncedRef = useRef(debouncedSearchQuery);
-  useEffect(() => {
-    if (prevDebouncedRef.current !== debouncedSearchQuery) {
-      prevDebouncedRef.current = debouncedSearchQuery;
-      updateURL({ search: debouncedSearchQuery || null, page: null });
-    }
-  }, [debouncedSearchQuery, updateURL]);
-
-  const setSearchQuery = setLocalSearch;
+  const setSearchQuery = useCallback(
+    (q: string) => updateURL({ search: q || null, page: null }),
+    [updateURL]
+  );
 
   const setSortBy = useCallback(
     (sort: "stars" | "votes") => updateURL({ sort: sort === "stars" ? null : sort, page: null }),
@@ -62,8 +48,8 @@ export function useMcpFilters(servers: McpServer[]) {
   const filteredServers = useMemo(() => {
     let filtered = servers;
 
-    if (debouncedSearchQuery) {
-      const words = debouncedSearchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+    if (searchQuery) {
+      const words = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
       filtered = filtered.filter((s) => {
         const haystack = `${s.name} ${s.description} ${s.sourceRepo} ${s.tags.join(" ")}`.toLowerCase();
         return words.every((w) => haystack.includes(w));
@@ -74,7 +60,7 @@ export function useMcpFilters(servers: McpServer[]) {
       if (sortBy === "votes") return (b.voteCount ?? 0) - (a.voteCount ?? 0);
       return (b.stars ?? 0) - (a.stars ?? 0);
     });
-  }, [servers, debouncedSearchQuery, sortBy]);
+  }, [servers, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filteredServers.length / ITEMS_PER_PAGE);
 

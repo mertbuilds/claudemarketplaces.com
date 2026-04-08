@@ -15,7 +15,9 @@ import { Star, ExternalLink } from "lucide-react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { VoteButton } from "@/components/vote-button";
-import { getMcpServerBySlug } from "@/lib/data/mcp-servers";
+import { getMcpServerBySlug, getMcpServersByCategory } from "@/lib/data/mcp-servers";
+import { classifyMcpServer, getMcpCategoryBySlug } from "@/lib/data/mcp-categories";
+import { McpServer } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { VoteProvider } from "@/lib/contexts/vote-context";
@@ -222,10 +224,62 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
               </CardContent>
             </Card>
             <CommentSidebar itemType="mcp_server" itemId={server.slug} initialCommentCount={server.commentCount} />
+            <Suspense fallback={null}>
+              <RelatedMcpServers server={server} />
+            </Suspense>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+// ─── Related MCP Servers ────────────────────────────────────
+
+async function RelatedMcpServers({ server }: { server: McpServer }) {
+  const cats = classifyMcpServer(server);
+  if (!cats.length) return null;
+
+  const primaryCat = cats[0];
+  const category = getMcpCategoryBySlug(primaryCat);
+  const categoryServers = await getMcpServersByCategory(primaryCat);
+  const related = categoryServers
+    .filter((s) => s.slug !== server.slug)
+    .slice(0, 5);
+
+  if (!related.length) return null;
+
+  return (
+    <Card>
+      <CardContent className="space-y-2">
+        <span className="text-sm text-muted-foreground block mb-1">
+          Related {category?.name ?? ""} MCP Servers
+        </span>
+        {related.map((s) => (
+          <Link
+            key={s.slug}
+            href={`/mcp/${s.slug}`}
+            className="flex items-center justify-between py-1.5 hover:text-foreground transition-colors gap-2"
+          >
+            <span className="text-sm truncate">{s.displayName || s.name}</span>
+            {s.stars !== undefined && s.stars > 0 && (
+              <span className="text-xs text-muted-foreground flex items-center gap-1 shrink-0">
+                <Star className="h-3 w-3" />
+                {formatStarCount(s.stars)}
+              </span>
+            )}
+          </Link>
+        ))}
+        {category && (
+          <Link
+            href={`/mcp/category/${primaryCat}`}
+            className="block pt-2 border-t text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Browse all {category.name} servers &rarr;
+          </Link>
+        )}
+      </CardContent>
+    </Card>
   );
 }
 

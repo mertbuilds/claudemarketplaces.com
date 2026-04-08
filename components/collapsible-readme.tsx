@@ -6,9 +6,10 @@ import { SkillMarkdown } from "@/components/skill-markdown";
 
 interface CollapsibleReadmeProps {
   content: string;
+  label?: string;
 }
 
-export function CollapsibleReadme({ content }: CollapsibleReadmeProps) {
+export function CollapsibleReadme({ content, label = "README.md" }: CollapsibleReadmeProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,7 +23,7 @@ export function CollapsibleReadme({ content }: CollapsibleReadmeProps) {
         ) : (
           <ChevronRight className="h-4 w-4 text-muted-foreground" />
         )}
-        README.md
+        {label}
       </button>
       {open && (
         <div className="px-4 pb-4 border-t">

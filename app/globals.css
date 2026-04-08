@@ -36,7 +36,7 @@
 :root {
   --radius: 0;
   /* Claude Brand Colors - Light Mode */
-  --background: #fdfdf7; /* Pale cream */
+  --background: #ffffff;
   --foreground: #0e0e0e; /* Dark charcoal */
   --card: #ffffff;
   --card-foreground: #0e0e0e;

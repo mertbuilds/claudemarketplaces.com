@@ -8,7 +8,6 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMarketplaces, getMarketplaceCategoryCounts } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
-import { ListingSearchBar } from "@/components/listing-search-bar";
 import { getInFeedAdsForPage } from "@/lib/ads";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { CategoryChips } from "@/components/category-chips";
@@ -159,18 +158,9 @@ export default function MarketplacesPage() {
               </p>
             </div>
 
-            {/* Right: search + categories */}
+            {/* Right: categories */}
             <div>
-              <ListingSearchBar
-                placeholder="Search marketplaces..."
-                sortOptions={[
-                  { value: "stars", label: "Most stars" },
-                  { value: "plugins", label: "Most plugins" },
-                  { value: "votes", label: "Most voted" },
-                ]}
-                defaultSort="stars"
-              />
-              <div className="flex items-center gap-4 mt-8 mb-3">
+              <div className="flex items-center gap-4 mb-3">
                 <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
                   Categories
                 </span>
@@ -188,7 +178,7 @@ export default function MarketplacesPage() {
           <MarketplaceData />
         </Suspense>
       </main>
-      <Footer />
+      <Footer hideCategories />
     </div>
   );
 }

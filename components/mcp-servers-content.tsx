@@ -10,6 +10,7 @@ import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 import { ListingResultsBar } from "@/components/listing-results-bar";
 import { ListingPagination } from "@/components/listing-pagination";
 import { ListingEmptyState } from "@/components/listing-empty-state";
+import { ListingSearchBar } from "@/components/listing-search-bar";
 import type { AdConfig } from "@/lib/ads";
 
 interface McpServersContentProps {
@@ -41,6 +42,17 @@ export function McpServersContent({ servers, newsletterSeed, infeedAds }: McpSer
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
       {currentPage === 1 && <FeaturedCards />}
+
+      <div className="my-4">
+        <ListingSearchBar
+          placeholder="Search MCP servers..."
+          sortOptions={[
+            { value: "stars", label: "Most stars" },
+            { value: "votes", label: "Most voted" },
+          ]}
+          defaultSort="stars"
+        />
+      </div>
 
       <ListingResultsBar
         count={filteredServers.length}

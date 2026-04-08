@@ -8,7 +8,7 @@ const VISIBLE_COUNT = 10;
 interface CategoryChip {
   slug: string;
   name: string;
-  count: number;
+  count?: number;
   href: string;
 }
 
@@ -26,9 +26,11 @@ export function CategoryChips({ categories }: { categories: CategoryChip[] }) {
           className="group inline-flex items-center gap-2 px-3 py-1.5 border border-border text-xs uppercase tracking-[0.08em] text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/5 transition-all"
         >
           <span>{cat.name}</span>
-          <span className="font-mono text-[10px] text-muted-foreground/60 group-hover:text-primary transition-colors">
-            {cat.count}
-          </span>
+          {cat.count != null && cat.count > 0 && (
+            <span className="font-mono text-[10px] text-muted-foreground/60 group-hover:text-primary transition-colors">
+              {cat.count}
+            </span>
+          )}
         </Link>
       ))}
       {hasMore && !expanded && (

@@ -86,6 +86,7 @@ export interface Skill {
   id: string;
   name: string;
   description: string;
+  summary?: string;
   repo: string;
   repoSlug: string;
   path: string;

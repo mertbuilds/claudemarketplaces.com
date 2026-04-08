@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 
 export interface SortOption {
@@ -38,8 +38,14 @@ export function ListingSearchBar({
   );
 
   const urlSearch = searchParams.get("search") || "";
+  const lastPushed = useRef(urlSearch);
+
+  // Sync URL → input only for external changes (back/forward, clear filters)
   useEffect(() => {
-    setSearchQuery(urlSearch);
+    if (urlSearch !== lastPushed.current) {
+      setSearchQuery(urlSearch);
+    }
+    lastPushed.current = urlSearch;
   }, [urlSearch]);
 
   const sortBy = searchParams.get("sort") || defaultSort;
@@ -64,6 +70,7 @@ export function ListingSearchBar({
   useEffect(() => {
     if (prevRef.current !== debouncedSearch) {
       prevRef.current = debouncedSearch;
+      lastPushed.current = debouncedSearch || "";
       updateURL({ search: debouncedSearch || null, page: null });
     }
   }, [debouncedSearch, updateURL]);
@@ -77,8 +84,17 @@ export function ListingSearchBar({
           placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="!h-8 pl-9 text-xs"
+          className="!h-8 pl-9 pr-8 text-xs"
         />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery("")}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Clear search"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
       </div>
       <Select
         value={sortBy}

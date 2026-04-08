@@ -1,9 +1,8 @@
 "use client";
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { useMemo, useCallback, useState, useEffect, useRef } from "react";
+import { useMemo, useCallback } from "react";
 import { Marketplace } from "@/lib/types";
-import { useDebounce } from "@/lib/hooks/use-debounce";
 
 const ITEMS_PER_PAGE = 23;
 
@@ -12,16 +11,8 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const [searchQuery, setLocalSearch] = useState(searchParams.get("search") || "");
-  const debouncedSearchQuery = useDebounce(searchQuery, 300);
+  const searchQuery = searchParams.get("search") || "";
   const currentPage = Number(searchParams.get("page")) || 1;
-
-  // Sync local state when URL changes externally (e.g. from MarketplaceSearchBar)
-  const urlSearch = searchParams.get("search") || "";
-  useEffect(() => {
-    setLocalSearch(urlSearch);
-  }, [urlSearch]);
-
   const sortBy = (searchParams.get("sort") as "stars" | "plugins" | "votes") || "stars";
 
   const updateURL = useCallback(
@@ -39,15 +30,10 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
     [searchParams, router, pathname]
   );
 
-  const prevDebouncedRef = useRef(debouncedSearchQuery);
-  useEffect(() => {
-    if (prevDebouncedRef.current !== debouncedSearchQuery) {
-      prevDebouncedRef.current = debouncedSearchQuery;
-      updateURL({ search: debouncedSearchQuery || null, page: null });
-    }
-  }, [debouncedSearchQuery, updateURL]);
-
-  const setSearchQuery = setLocalSearch;
+  const setSearchQuery = useCallback(
+    (q: string) => updateURL({ search: q || null, page: null }),
+    [updateURL]
+  );
 
   const setPage = useCallback(
     (page: number) => updateURL({ page: page === 1 ? null : String(page) }),
@@ -57,8 +43,8 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
   const filteredMarketplaces = useMemo(() => {
     let filtered = marketplaces;
 
-    if (debouncedSearchQuery) {
-      const words = debouncedSearchQuery.toLowerCase().split(/\s+/).filter(Boolean);
+    if (searchQuery) {
+      const words = searchQuery.toLowerCase().split(/\s+/).filter(Boolean);
       filtered = filtered.filter((m) => {
         const haystack = `${m.repo} ${m.description} ${m.categories.join(" ")} ${m.pluginKeywords?.join(" ") ?? ""}`.toLowerCase();
         return words.every((w) => haystack.includes(w));
@@ -70,7 +56,7 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
       if (sortBy === "plugins") return (b.pluginCount ?? 0) - (a.pluginCount ?? 0);
       return (b.stars ?? 0) - (a.stars ?? 0);
     });
-  }, [marketplaces, debouncedSearchQuery, sortBy]);
+  }, [marketplaces, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filteredMarketplaces.length / ITEMS_PER_PAGE);
 
@@ -93,7 +79,6 @@ export function useMarketplaceFilters(marketplaces: Marketplace[]) {
     totalPages,
     setPage,
     clearFilters: () => {
-      setLocalSearch("");
       updateURL({ search: null, page: null });
     },
   };

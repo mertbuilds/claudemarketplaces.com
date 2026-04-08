@@ -11,22 +11,29 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Star, ExternalLink, Download, Calendar } from "lucide-react";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { VoteButton } from "@/components/vote-button";
 import { SkillInstallCommand } from "@/components/skill-install-command";
-import { getSkillById, getAllSkills, getSkillsByRepo } from "@/lib/data/skills";
+import { getSkillById, getAllSkills, getSkillsByRepo, getSkillsByCategory } from "@/lib/data/skills";
 import { classifySkill, getCategoryBySlug } from "@/lib/data/skill-categories";
 import { Skill } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
-import { SkillMarkdown } from "@/components/skill-markdown";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 import { CommentSidebar } from "@/components/comment-sidebar";
+import { CollapsibleReadme } from "@/components/collapsible-readme";
+import { SkillCard } from "@/components/skill-card";
 
 export const revalidate = 300;
+
+function humanize(name: string): string {
+  return name
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 export async function generateStaticParams() {
   const skills = await getAllSkills();
@@ -129,16 +136,18 @@ export async function generateMetadata({
     return { title: "Skill Not Found" };
   }
 
-  const title = `${skill.name} | Claude Code Skills`;
+  const displayName = humanize(skill.name);
+  const title = `${displayName} | Claude Code Skills`;
   const description =
+    skill.summary?.slice(0, 160) ||
     skill.description ||
-    `Install ${skill.name} skill for Claude Code from ${skill.repo}.`;
+    `Install ${displayName} skill for Claude Code from ${skill.repo}.`;
 
-  // Noindex detail pages that have zero original signal (no votes, no comments).
-  // The body is mirrored from the upstream SKILL.md, which Google already indexes
-  // at higher authority. Once a skill earns a vote or comment on this site, it
-  // graduates and becomes indexable on the next ISR revalidation.
-  const hasOriginalSignal = skill.voteCount + skill.commentCount > 0;
+  // Noindex detail pages that have zero original signal.
+  // Pages graduate to indexable when they have an editorial summary (original content)
+  // OR community signal (votes/comments).
+  const hasOriginalSignal =
+    !!skill.summary || skill.voteCount + skill.commentCount > 0;
 
   return {
     title,
@@ -444,6 +453,8 @@ async function SkillDetailContent({ id }: { id: string }) {
   const skillMd = await fetchSkillMarkdown(skill.repo, skill.name);
   const [org, repoName] = skill.repo.split("/");
 
+  const cats = classifySkill(skill).map(getCategoryBySlug).filter(Boolean);
+
   return (
     <>
       {/* Breadcrumb */}
@@ -463,7 +474,7 @@ async function SkillDetailContent({ id }: { id: string }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>{skill.name}</BreadcrumbPage>
+              <BreadcrumbPage>{humanize(skill.name)}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
@@ -474,8 +485,25 @@ async function SkillDetailContent({ id }: { id: string }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left column */}
           <div className="lg:col-span-8 space-y-6">
-            <h1 className="text-sm uppercase tracking-[0.12em]">{skill.name}</h1>
+            <h1 className="font-serif text-2xl md:text-3xl font-normal mb-3">
+              {humanize(skill.name)}
+            </h1>
 
+            {/* Editor's note */}
+            {skill.summary ? (
+              <div className="border-l-2 border-muted-foreground/20 pl-4">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60 block mb-1.5">Editor&apos;s Note</span>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-prose">
+                  {skill.summary}
+                </p>
+              </div>
+            ) : skill.description ? (
+              <p className="text-sm text-muted-foreground max-w-md">
+                {skill.description.slice(0, 300)}{skill.description.length > 300 ? "..." : ""}
+              </p>
+            ) : null}
+
+            {/* Installation */}
             <div>
               <h2 className="text-sm font-medium text-muted-foreground mb-2">
                 Install
@@ -483,134 +511,159 @@ async function SkillDetailContent({ id }: { id: string }) {
               <SkillInstallCommand command={skill.installCommand} />
             </div>
 
-            {/* Description */}
-            {skill.description && (
-              <p className="text-base text-muted-foreground leading-relaxed">
-                {skill.description.slice(0, 300)}{skill.description.length > 300 ? "..." : ""}
-              </p>
-            )}
-
-            {/* Rendered SKILL.md content */}
-            {skillMd && (
-              <div className="border-t pt-6">
-                <SkillMarkdown content={skillMd} />
-              </div>
-            )}
-
+            {/* SKILL.md - collapsible (collapsed by default) */}
+            {skillMd && <CollapsibleReadme content={skillMd} label="SKILL.md" />}
           </div>
 
           {/* Right column / sidebar */}
           <div className="lg:col-span-4 space-y-4">
-            <Card>
-              <CardContent className="space-y-4">
-                {/* Installs */}
+            <div className="space-y-4">
+              {/* Installs */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                  <Download className="h-4 w-4" />
+                  Installs
+                </span>
+                <span className="text-sm font-medium">
+                  {formatStarCount(skill.installs)}
+                </span>
+              </div>
+
+              {/* Stars */}
+              {skill.stars !== undefined && skill.stars > 0 && (
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                    <Download className="h-4 w-4" />
-                    Installs
+                    <Star className="h-4 w-4" />
+                    GitHub Stars
                   </span>
                   <span className="text-sm font-medium">
-                    {formatStarCount(skill.installs)}
+                    {formatStarCount(skill.stars)}
                   </span>
                 </div>
+              )}
 
-                {/* Stars */}
-                {skill.stars !== undefined && skill.stars > 0 && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                      <Star className="h-4 w-4" />
-                      GitHub Stars
-                    </span>
-                    <span className="text-sm font-medium">
-                      {formatStarCount(skill.stars)}
-                    </span>
-                  </div>
-                )}
+              {/* Votes */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Votes</span>
+                <VoteProvider itemType="skill" itemIds={[skill.id]}>
+                  <VoteButton
+                    itemType="skill"
+                    itemId={skill.id}
+                    initialVoteCount={skill.voteCount}
+                  />
+                </VoteProvider>
+              </div>
 
-                {/* Votes */}
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Votes</span>
-                  <VoteProvider itemType="skill" itemIds={[skill.id]}>
-                    <VoteButton
-                      itemType="skill"
-                      itemId={skill.id}
-                      initialVoteCount={skill.voteCount}
-                    />
-                  </VoteProvider>
-                </div>
-
-                {/* First Seen */}
-                {skill.discoveredAt && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground flex items-center gap-1.5">
-                      <Calendar className="h-4 w-4" />
-                      First Seen
-                    </span>
-                    <span className="text-sm font-medium">
-                      {formatDate(skill.discoveredAt)}
-                    </span>
-                  </div>
-                )}
-
-                {/* License */}
-                {skill.license && (
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      License
-                    </span>
-                    <Badge variant="secondary">{skill.license}</Badge>
-                  </div>
-                )}
-
-                {/* Categories */}
-                {(() => {
-                  const cats = classifySkill(skill)
-                    .map(getCategoryBySlug)
-                    .filter(Boolean);
-                  if (!cats.length) return null;
-                  return (
-                    <div className="border-t pt-4">
-                      <span className="text-sm text-muted-foreground block mb-2">
-                        Categories
-                      </span>
-                      <div className="flex flex-wrap gap-1.5">
-                        {cats.map((cat) => (
-                          <Link
-                            key={cat!.slug}
-                            href={`/skills/category/${cat!.slug}`}
-                          >
-                            <Badge
-                              variant="secondary"
-                              className="hover:bg-primary/10 transition-colors cursor-pointer"
-                            >
-                              {cat!.name}
-                            </Badge>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })()}
-
-                {/* Divider */}
+              {/* Categories */}
+              {cats.length > 0 && (
                 <div className="border-t pt-4">
-                  <Link
-                    href={`https://github.com/${skill.repo}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    View on GitHub
-                  </Link>
+                  <span className="text-sm text-muted-foreground block mb-2">Categories</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {cats.map((cat) => (
+                      <Link key={cat!.slug} href={`/skills/category/${cat!.slug}`}>
+                        <Badge
+                          variant="secondary"
+                          className="hover:bg-primary/10 transition-colors cursor-pointer"
+                        >
+                          {cat!.name}
+                        </Badge>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
+              )}
+
+              {/* First Seen + License */}
+              {(skill.discoveredAt || skill.license) && (
+                <div className="border-t pt-4 space-y-3">
+                  {skill.discoveredAt && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground flex items-center gap-1.5">
+                        <Calendar className="h-4 w-4" />
+                        First Seen
+                      </span>
+                      <span className="text-sm font-medium">
+                        {formatDate(skill.discoveredAt)}
+                      </span>
+                    </div>
+                  )}
+                  {skill.license && (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">
+                        License
+                      </span>
+                      <Badge variant="secondary">{skill.license}</Badge>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* GitHub link */}
+              <div className="border-t pt-4">
+                <Link
+                  href={`https://github.com/${skill.repo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <ExternalLink className="h-4 w-4" />
+                  View on GitHub
+                </Link>
+              </div>
+            </div>
             <CommentSidebar itemType="skill" itemId={skill.id} initialCommentCount={skill.commentCount} />
           </div>
         </div>
+
+        {/* Related skills — full width below the two-column layout */}
+        <Suspense fallback={null}>
+          <RelatedSkills skill={skill} />
+        </Suspense>
       </div>
     </>
+  );
+}
+
+// ─── Related Skills ─────────────────────────────────────────
+
+async function RelatedSkills({ skill }: { skill: Skill }) {
+  const cats = classifySkill(skill);
+  if (!cats.length) return null;
+
+  const primaryCat = cats[0];
+  const category = getCategoryBySlug(primaryCat);
+  const categorySkills = await getSkillsByCategory(primaryCat);
+  const related = categorySkills
+    .filter((s) => s.id !== skill.id)
+    .slice(0, 5);
+
+  if (!related.length) return null;
+
+  return (
+    <div className="mt-12 border-t pt-8">
+      <div className="flex items-baseline justify-between mb-4">
+        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
+          Related {category?.name ?? ""} Skills
+        </h2>
+        {category && (
+          <Link
+            href={`/skills/category/${primaryCat}`}
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            View all &rarr;
+          </Link>
+        )}
+      </div>
+      <VoteProvider itemType="skill" itemIds={related.map((s) => s.id)}>
+        <BookmarkProvider itemType="skill" itemIds={related.map((s) => s.id)}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+            {related.map((s) => (
+              <SkillCard key={s.id} skill={s} />
+            ))}
+          </div>
+        </BookmarkProvider>
+      </VoteProvider>
+    </div>
   );
 }
 
@@ -692,12 +745,32 @@ export default async function SkillDetailPage({ params }: PageProps) {
   const id = slug.join("/");
   const skill = await getSkillById(id);
 
-  const structuredData = skill
+  const breadcrumbSchema = skill
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Skills",
+            item: "https://claudemarketplaces.com/skills",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: skill.name,
+          },
+        ],
+      }
+    : null;
+
+  const softwareSchema = skill
     ? {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         name: skill.name,
-        description: skill.description || `${skill.name} - a Claude Code skill`,
+        description: skill.summary || skill.description || `${skill.name} - a Claude Code skill`,
         applicationCategory: "DeveloperApplication",
         operatingSystem: "Any",
         url: `https://claudemarketplaces.com/skills/${id}`,
@@ -712,27 +785,75 @@ export default async function SkillDetailPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {structuredData && (
+      {breadcrumbSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+      )}
+      {softwareSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
         />
       )}
       <Header />
       <main className="flex-1">
         <Suspense
           fallback={
-            <div className="container mx-auto px-4 py-8">
-              <div className="animate-pulse space-y-6">
-                <div className="h-4 w-48 bg-muted rounded-md" />
+            <div className="animate-pulse">
+              {/* Breadcrumb */}
+              <div className="container mx-auto px-4 pt-8 pb-6">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-10 bg-muted" />
+                  <div className="h-3 w-2 bg-muted" />
+                  <div className="h-3 w-16 bg-muted" />
+                  <div className="h-3 w-2 bg-muted" />
+                  <div className="h-3 w-24 bg-muted" />
+                  <div className="h-3 w-2 bg-muted" />
+                  <div className="h-3 w-32 bg-muted" />
+                </div>
+              </div>
+              {/* Two-column layout */}
+              <div className="container mx-auto px-4 pb-12">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                  {/* Left column */}
                   <div className="lg:col-span-8 space-y-6">
-                    <div className="h-10 w-64 bg-muted rounded-md" />
-                    <div className="h-12 bg-muted rounded-md" />
-                    <div className="h-32 bg-muted rounded-md" />
+                    <div>
+                      <div className="h-7 w-2/5 bg-muted mb-3" />
+                      <div className="h-3 w-3/5 bg-muted" />
+                    </div>
+                    {/* Install command */}
+                    <div>
+                      <div className="h-3 w-12 bg-muted mb-2" />
+                      <div className="h-9 w-full bg-muted" />
+                    </div>
+                    {/* SKILL.md placeholder */}
+                    <div className="h-10 w-full border border-border" />
                   </div>
-                  <div className="lg:col-span-4">
-                    <div className="h-64 bg-muted rounded-md" />
+                  {/* Sidebar */}
+                  <div className="lg:col-span-4 space-y-4">
+                    <div className="border border-border bg-card p-4 space-y-4">
+                      <div className="flex justify-between">
+                        <div className="h-3 w-20 bg-muted" />
+                        <div className="h-3 w-12 bg-muted" />
+                      </div>
+                      <div className="flex justify-between">
+                        <div className="h-3 w-24 bg-muted" />
+                        <div className="h-3 w-12 bg-muted" />
+                      </div>
+                      <div className="flex justify-between">
+                        <div className="h-3 w-12 bg-muted" />
+                        <div className="h-5 w-14 bg-muted" />
+                      </div>
+                      <div className="border-t pt-4">
+                        <div className="h-3 w-28 bg-muted" />
+                      </div>
+                    </div>
+                    <div className="border border-border bg-card p-4 space-y-3">
+                      <div className="h-3 w-20 bg-muted" />
+                      <div className="h-16 w-full bg-muted" />
+                    </div>
                   </div>
                 </div>
               </div>

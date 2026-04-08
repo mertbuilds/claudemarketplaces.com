@@ -10,7 +10,6 @@ import { getInFeedAdsForPage } from "@/lib/ads";
 import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { CategoryChips } from "@/components/category-chips";
 import { CopyCommand } from "@/components/copy-command";
-import { ListingSearchBar } from "@/components/listing-search-bar";
 import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
 import type { Metadata } from "next";
 
@@ -149,18 +148,9 @@ export default function SkillsPage() {
 
             </div>
 
-            {/* Right: search + categories */}
+            {/* Right: categories */}
             <div>
-              <ListingSearchBar
-                placeholder="Search skills..."
-                sortOptions={[
-                  { value: "installs", label: "Most installed" },
-                  { value: "stars", label: "Most stars" },
-                  { value: "votes", label: "Most voted" },
-                ]}
-                defaultSort="installs"
-              />
-              <div className="flex items-center gap-4 mt-8 mb-3">
+              <div className="flex items-center gap-4 mb-3">
                 <span className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
                   Categories
                 </span>
@@ -179,7 +169,7 @@ export default function SkillsPage() {
         </Suspense>
       </main>
 
-      <Footer />
+      <Footer hideCategories />
     </div>
   );
 }

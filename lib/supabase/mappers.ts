@@ -46,6 +46,7 @@ export interface SkillRow {
   id: string;
   name: string;
   description: string;
+  summary: string | null;
   repo: string;
   repo_slug: string;
   path: string;
@@ -152,6 +153,7 @@ export function mapSkillRow(row: SkillRow): Skill {
     id: row.id,
     name: row.name,
     description: row.description,
+    summary: row.summary || undefined,
     repo: row.repo,
     repoSlug: row.repo_slug,
     path: row.path,
