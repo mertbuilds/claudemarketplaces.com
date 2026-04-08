@@ -635,7 +635,7 @@ async function RelatedSkills({ skill }: { skill: Skill }) {
   const categorySkills = await getSkillsByCategory(primaryCat);
   const related = categorySkills
     .filter((s) => s.id !== skill.id)
-    .slice(0, 5);
+    .slice(0, 6);
 
   if (!related.length) return null;
 
@@ -656,7 +656,7 @@ async function RelatedSkills({ skill }: { skill: Skill }) {
       </div>
       <VoteProvider itemType="skill" itemIds={related.map((s) => s.id)}>
         <BookmarkProvider itemType="skill" itemIds={related.map((s) => s.id)}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {related.map((s) => (
               <SkillCard key={s.id} skill={s} />
             ))}

@@ -37,7 +37,6 @@ export function Footer({ hideCategories = false }: { hideCategories?: boolean } 
                 >
                   Skills by Category
                 </Link>
-                <div className="flex-1 border-t border-border" />
               </div>
               <CategoryChips categories={skillChips} />
             </div>
@@ -51,7 +50,6 @@ export function Footer({ hideCategories = false }: { hideCategories?: boolean } 
                 >
                   MCP Servers by Category
                 </Link>
-                <div className="flex-1 border-t border-border" />
               </div>
               <CategoryChips categories={mcpChips} />
             </div>
@@ -65,7 +63,6 @@ export function Footer({ hideCategories = false }: { hideCategories?: boolean } 
                 >
                   Marketplaces by Category
                 </Link>
-                <div className="flex-1 border-t border-border" />
               </div>
               <CategoryChips categories={marketplaceChips} />
             </div>
