@@ -33,16 +33,11 @@ export const revalidate = 3600;
 
 /* ── Helpers ─────────────────────────────────────────────────────────── */
 
-function SectionLabel({ number, title }: { number: string; title: string }) {
+function SectionLabel({ title }: { title: string }) {
   return (
-    <div className="flex items-center gap-4 mb-6">
-      <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground whitespace-nowrap">
-        <span className="font-mono">{number}</span>
-        <span className="mx-2 text-border">/</span>
-        <span>{title}</span>
-      </h2>
-      <div className="flex-1 border-t border-border" />
-    </div>
+    <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-6">
+      {title}
+    </h2>
   );
 }
 
@@ -408,7 +403,7 @@ export default function Home() {
 
         {/* ── 01 / Browse ─────────────────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="01" title="Browse" />
+          <SectionLabel title="Browse" />
           <Suspense fallback={<DirectorySkeleton />}>
             <DirectoryCards />
           </Suspense>
@@ -416,7 +411,7 @@ export default function Home() {
 
         {/* ── 02 / Popular Skills ─────────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="02" title="Popular Skills" />
+          <SectionLabel title="Popular Skills" />
           <Suspense fallback={<ItemGridSkeleton />}>
             <TopSkills />
           </Suspense>
@@ -432,7 +427,7 @@ export default function Home() {
 
         {/* ── 03 / Popular Marketplaces ───────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="03" title="Popular Marketplaces" />
+          <SectionLabel title="Popular Marketplaces" />
           <Suspense fallback={<ItemGridSkeleton />}>
             <TopMarketplaces />
           </Suspense>
@@ -448,7 +443,7 @@ export default function Home() {
 
         {/* ── 04 / Popular MCP Servers ────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="04" title="Popular MCP Servers" />
+          <SectionLabel title="Popular MCP Servers" />
           <Suspense fallback={<ItemGridSkeleton />}>
             <TopMcpServers />
           </Suspense>
@@ -464,7 +459,7 @@ export default function Home() {
 
         {/* ── 05 / Browse by Category ─────────────────────────────── */}
         <section className="container mx-auto px-4 pb-16">
-          <SectionLabel number="05" title="Browse by Category" />
+          <SectionLabel title="Browse by Category" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
               <p className="text-xs uppercase tracking-[0.1em] text-muted-foreground mb-3">
