@@ -130,17 +130,23 @@ export default function SkillsPage() {
                     Quick start
                   </span>
                 </div>
-                <div className="p-4 space-y-3">
+                <div className="p-4 space-y-4">
                   <div>
-                    <p className="text-xs text-muted-foreground mb-1.5">
-                      Initialize skills in your project
-                    </p>
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[10px] uppercase tracking-[0.12em] font-mono text-foreground border border-primary px-1.5 py-0.5">Step 1</span>
+                      <p className="text-xs text-muted-foreground">
+                        Run once to initialize skills in your project
+                      </p>
+                    </div>
                     <CopyCommand command="npx skills init" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground mb-1.5">
-                      Install any skill from this directory
-                    </p>
+                  <div className="border-t border-border pt-4">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className="text-[10px] uppercase tracking-[0.12em] font-mono text-foreground border border-primary px-1.5 py-0.5">Step 2</span>
+                      <p className="text-xs text-muted-foreground">
+                        Install any skill from this directory
+                      </p>
+                    </div>
                     <CopyCommand command="npx skills add https://github.com/vercel-labs/skills --skill find-skills" />
                   </div>
                 </div>

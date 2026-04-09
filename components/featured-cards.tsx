@@ -41,11 +41,13 @@ export function FeaturedCards() {
   const oneinchRef = useImpression("1inch");
   const appsignalRef = useImpression("appsignal");
   const ideabrowserRef = useImpression("ideabrowser");
+  const advertiseCtaRef = useImpression("advertise-cta");
 
   const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
     "1inch": oneinchRef,
     appsignal: appsignalRef,
     ideabrowser: ideabrowserRef,
+    "advertise-cta": advertiseCtaRef,
   };
 
   const cards: FeaturedCardData[] = [
@@ -174,6 +176,7 @@ export function FeaturedCards() {
     },
     {
       key: "advertise-cta",
+      impressionKey: "advertise-cta",
       cardClassName:
         "relative border-dashed border-muted-foreground/25 transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-1 gap-0",
       content: (
