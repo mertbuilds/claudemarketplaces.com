@@ -82,9 +82,11 @@ export function BookmarkButton({ itemType, itemId }: BookmarkButtonProps) {
     );
   }
 
+  if (!showSavedTip) return button;
+
   return (
     <TooltipProvider>
-      <Tooltip open={showSavedTip} onOpenChange={setShowSavedTip}>
+      <Tooltip open onOpenChange={(open) => { if (!open) setShowSavedTip(false); }}>
         <TooltipTrigger asChild>{button}</TooltipTrigger>
         <TooltipContent onClick={(e) => e.stopPropagation()}>
           <p>
