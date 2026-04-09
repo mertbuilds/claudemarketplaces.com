@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
@@ -11,15 +11,18 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [fading, setFading] = useState(false);
 
-  // Fire a per-banner impression each time the active banner changes (and on
-  // first mount). Polls briefly for window.op in case the SDK script is still
-  // loading. Skips entirely if the banner has been dismissed.
+  // Fire one impression per banner per page load. Uses a ref to track which
+  // banners have already been counted so rotations don't inflate the number.
+  const trackedRef = useRef<Set<string>>(new Set());
+
   useEffect(() => {
     if (dismissed) return;
     const banner = FLOATING_BANNERS[activeIndex];
+    if (trackedRef.current.has(banner.id)) return;
     const fire = () => {
       if (typeof window.op !== "function") return false;
       window.op!("track", "floating_banner_viewed", { banner: banner.id });
+      trackedRef.current.add(banner.id);
       return true;
     };
     if (fire()) return;
