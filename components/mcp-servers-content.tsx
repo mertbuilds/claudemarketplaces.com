@@ -17,9 +17,10 @@ interface McpServersContentProps {
   servers: McpServer[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  showFeatured?: boolean;
 }
 
-export function McpServersContent({ servers, newsletterSeed, infeedAds }: McpServersContentProps) {
+export function McpServersContent({ servers, newsletterSeed, infeedAds, showFeatured = true }: McpServersContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -41,7 +42,7 @@ export function McpServersContent({ servers, newsletterSeed, infeedAds }: McpSer
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {currentPage === 1 && <FeaturedCards />}
+      {showFeatured && currentPage === 1 && <FeaturedCards />}
 
       <div className="my-4">
         <ListingSearchBar

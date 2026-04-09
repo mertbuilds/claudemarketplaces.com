@@ -17,12 +17,14 @@ interface MarketplaceContentProps {
   marketplaces: Marketplace[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  showFeatured?: boolean;
 }
 
 export function MarketplaceContent({
   marketplaces,
   newsletterSeed,
   infeedAds,
+  showFeatured = true,
 }: MarketplaceContentProps) {
   const {
     searchQuery,
@@ -45,7 +47,7 @@ export function MarketplaceContent({
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {currentPage === 1 && <FeaturedCards />}
+      {showFeatured && currentPage === 1 && <FeaturedCards />}
 
       <div className="my-4">
         <ListingSearchBar

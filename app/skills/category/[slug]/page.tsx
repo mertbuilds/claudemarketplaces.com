@@ -128,6 +128,7 @@ async function CategorySkills({ slug }: { slug: string }) {
         skills={skills}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("skills")}
+        showFeatured={false}
       />
     </>
   );

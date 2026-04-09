@@ -49,3 +49,6 @@ TEMP.md
 scripts/send-permission-confirmation.ts
 scripts/already-emailed.json
 scripts/.dedup-cache.json
+
+# local scripts with hardcoded keys
+scripts/*.mjs

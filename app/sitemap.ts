@@ -34,12 +34,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...(m.lastUpdated && { lastModified: new Date(m.lastUpdated) }),
   }));
 
-  // Only include skill/mcp detail pages that have original signal (votes or
-  // comments) on this site. The rest are noindexed in their generateMetadata
-  // because the body is mirrored from upstream. Listing them here would send
-  // Google contradictory signals (sitemap says "index" while meta says "don't").
+  // Only include skill/mcp detail pages that have original signal on this site.
+  // Original signal = editorial summary, votes, or comments. The rest are
+  // noindexed in generateMetadata. Listing them here would send Google
+  // contradictory signals (sitemap says "index" while meta says "don't").
   const skillPages: MetadataRoute.Sitemap = skills
-    .filter((s) => s.voteCount + s.commentCount > 0)
+    .filter((s) => !!s.summary || s.voteCount + s.commentCount > 0)
     .map((s) => ({
       url: `${BASE_URL}/skills/${s.id}`,
       changeFrequency: "weekly" as const,

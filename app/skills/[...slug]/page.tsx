@@ -197,6 +197,11 @@ function formatDate(dateStr: string): string {
 async function fetchSkillMarkdown(repo: string, skillName: string): Promise<string | null> {
   const branches = ["main", "master"];
   const [org, repoName] = repo.split("/");
+
+  // Decode URL-encoded names (e.g. react%3Acomponents → react:components)
+  const decodedName = decodeURIComponent(skillName);
+
+  // Build name variants by stripping known prefixes
   const prefixCandidates = new Set<string>();
   if (org) {
     prefixCandidates.add(org);
@@ -206,38 +211,103 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
     prefixCandidates.add(repoName);
     prefixCandidates.add(repoName.split("-")[0]);
   }
-  const nameVariants = new Set<string>([skillName]);
+  const nameVariants = new Set<string>([decodedName]);
   for (const prefix of prefixCandidates) {
-    if (skillName.startsWith(prefix + "-")) {
-      nameVariants.add(skillName.slice(prefix.length + 1));
+    if (decodedName.startsWith(prefix + "-")) {
+      nameVariants.add(decodedName.slice(prefix.length + 1));
     }
   }
+  // Also try replacing : with - (e.g. react:components → react-components)
+  if (decodedName.includes(":")) {
+    nameVariants.add(decodedName.replace(/:/g, "-"));
+    nameVariants.add(decodedName.split(":").pop()!);
+  }
 
-  const dirPatterns = ["skills", "", ".claude/skills"];
+  const filenames = ["SKILL.md", "SKILL.MD"];
+
+  const dirPatterns = [
+    "skills",
+    "",
+    ".claude/skills",
+    "plugin/skills",
+    ".github/skills",
+    `plugins/${org}/skills`,
+    org,
+  ];
 
   for (const branch of branches) {
     for (const name of nameVariants) {
       for (const dir of dirPatterns) {
-        const filePath = dir ? `${dir}/${name}/SKILL.md` : `${name}/SKILL.md`;
-        const url = `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`;
-        try {
-          const res = await fetch(url, { next: { revalidate: 3600 } });
-          if (res.ok) return await res.text();
-        } catch {
-          continue;
+        for (const filename of filenames) {
+          const filePath = dir ? `${dir}/${name}/${filename}` : `${name}/${filename}`;
+          const url = `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`;
+          try {
+            const res = await fetch(url, { next: { revalidate: 3600 } });
+            if (res.ok) return await res.text();
+          } catch {
+            continue;
+          }
         }
       }
     }
-    try {
-      const res = await fetch(
-        `https://raw.githubusercontent.com/${repo}/${branch}/SKILL.md`,
-        { next: { revalidate: 3600 } }
-      );
-      if (res.ok) return await res.text();
-    } catch {
-      // continue to next branch
+    // Root SKILL.md
+    for (const filename of filenames) {
+      try {
+        const res = await fetch(
+          `https://raw.githubusercontent.com/${repo}/${branch}/${filename}`,
+          { next: { revalidate: 3600 } }
+        );
+        if (res.ok) return await res.text();
+      } catch {
+        // continue to next branch
+      }
     }
   }
+
+  // Last resort: GitHub tree API for deep nesting (e.g. plugins/*/skills/name/SKILL.md)
+  for (const branch of branches) {
+    try {
+      const treeUrl = `https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`;
+      const res = await fetch(treeUrl, { next: { revalidate: 3600 } });
+      if (!res.ok) continue;
+      const tree = await res.json();
+      const skillMdFiles = tree.tree?.filter((f: { path: string }) =>
+        f.path.endsWith("/SKILL.md") || f.path.endsWith("/SKILL.MD")
+      ) ?? [];
+
+      // Exact match first
+      for (const name of nameVariants) {
+        const match = skillMdFiles.find((f: { path: string }) =>
+          f.path.endsWith(`/${name}/SKILL.md`) || f.path.endsWith(`/${name}/SKILL.MD`)
+        );
+        if (match) {
+          const mdRes = await fetch(
+            `https://raw.githubusercontent.com/${repo}/${branch}/${match.path}`,
+            { next: { revalidate: 3600 } }
+          );
+          if (mdRes.ok) return await mdRes.text();
+        }
+      }
+
+      // Prefix match fallback (e.g. skill "remotion-best-practices" → dir "remotion")
+      for (const name of nameVariants) {
+        const match = skillMdFiles.find((f: { path: string }) => {
+          const dir = f.path.split("/").slice(-2, -1)[0];
+          return name.startsWith(dir + "-") || dir.startsWith(name + "-");
+        });
+        if (match) {
+          const mdRes = await fetch(
+            `https://raw.githubusercontent.com/${repo}/${branch}/${match.path}`,
+            { next: { revalidate: 3600 } }
+          );
+          if (mdRes.ok) return await mdRes.text();
+        }
+      }
+    } catch {
+      continue;
+    }
+  }
+
   return null;
 }
 
@@ -518,6 +588,18 @@ async function SkillDetailContent({ id }: { id: string }) {
           {/* Right column / sidebar */}
           <div className="lg:col-span-4 space-y-4">
             <div className="space-y-4">
+              {/* Votes */}
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-muted-foreground">Votes</span>
+                <VoteProvider itemType="skill" itemIds={[skill.id]}>
+                  <VoteButton
+                    itemType="skill"
+                    itemId={skill.id}
+                    initialVoteCount={skill.voteCount}
+                  />
+                </VoteProvider>
+              </div>
+
               {/* Installs */}
               <div className="flex items-center justify-between">
                 <span className="text-sm text-muted-foreground flex items-center gap-1.5">
@@ -541,18 +623,6 @@ async function SkillDetailContent({ id }: { id: string }) {
                   </span>
                 </div>
               )}
-
-              {/* Votes */}
-              <div className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">Votes</span>
-                <VoteProvider itemType="skill" itemIds={[skill.id]}>
-                  <VoteButton
-                    itemType="skill"
-                    itemId={skill.id}
-                    initialVoteCount={skill.voteCount}
-                  />
-                </VoteProvider>
-              </div>
 
               {/* Categories */}
               {cats.length > 0 && (

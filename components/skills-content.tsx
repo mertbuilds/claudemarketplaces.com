@@ -17,9 +17,10 @@ interface SkillsContentProps {
   skills: Skill[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  showFeatured?: boolean;
 }
 
-export function SkillsContent({ skills, newsletterSeed, infeedAds }: SkillsContentProps) {
+export function SkillsContent({ skills, newsletterSeed, infeedAds, showFeatured = true }: SkillsContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -44,7 +45,7 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds }: SkillsConte
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {currentPage === 1 && <FeaturedCards />}
+      {showFeatured && currentPage === 1 && <FeaturedCards />}
 
       <div className="my-4">
         <ListingSearchBar

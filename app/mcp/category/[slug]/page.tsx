@@ -128,6 +128,7 @@ async function CategoryServers({ slug }: { slug: string }) {
         servers={servers}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("mcp")}
+        showFeatured={false}
       />
     </>
   );
