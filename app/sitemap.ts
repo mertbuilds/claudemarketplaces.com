@@ -6,6 +6,8 @@ import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 
+export const revalidate = 3600;
+
 const BASE_URL = "https://claudemarketplaces.com";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
