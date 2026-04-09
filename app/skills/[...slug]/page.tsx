@@ -875,13 +875,13 @@ export default async function SkillDetailPage({ params }: PageProps) {
               {/* Breadcrumb */}
               <div className="container mx-auto px-4 pt-8 pb-6">
                 <div className="flex items-center gap-2">
-                  <div className="h-3 w-10 bg-muted" />
-                  <div className="h-3 w-2 bg-muted" />
-                  <div className="h-3 w-16 bg-muted" />
-                  <div className="h-3 w-2 bg-muted" />
-                  <div className="h-3 w-24 bg-muted" />
-                  <div className="h-3 w-2 bg-muted" />
-                  <div className="h-3 w-32 bg-muted" />
+                  <div className="h-3.5 w-10 bg-muted" />
+                  <div className="h-3.5 w-2 bg-muted" />
+                  <div className="h-3.5 w-16 bg-muted" />
+                  <div className="h-3.5 w-2 bg-muted" />
+                  <div className="h-3.5 w-24 bg-muted" />
+                  <div className="h-3.5 w-2 bg-muted" />
+                  <div className="h-3.5 w-32 bg-muted" />
                 </div>
               </div>
               {/* Two-column layout */}
@@ -889,40 +889,72 @@ export default async function SkillDetailPage({ params }: PageProps) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   {/* Left column */}
                   <div className="lg:col-span-8 space-y-6">
-                    <div>
-                      <div className="h-7 w-2/5 bg-muted mb-3" />
-                      <div className="h-3 w-3/5 bg-muted" />
+                    {/* Title: font-serif text-2xl md:text-3xl */}
+                    <div className="h-8 w-3/5 bg-muted mb-3" />
+                    {/* Editor's note: border-l-2 + label text-xs + text-sm leading-relaxed (~23px/line) */}
+                    <div className="border-l-2 border-muted-foreground/20 pl-4">
+                      <div className="h-3 w-20 bg-muted mb-1.5" />
+                      <div className="space-y-2">
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-full bg-muted" />
+                        <div className="h-4 w-2/3 bg-muted" />
+                      </div>
                     </div>
-                    {/* Install command */}
+                    {/* Install: label text-sm + command pre py-3 */}
                     <div>
-                      <div className="h-3 w-12 bg-muted mb-2" />
-                      <div className="h-9 w-full bg-muted" />
+                      <div className="h-5 w-12 bg-muted mb-2" />
+                      <div className="h-11 w-full bg-muted border" />
                     </div>
-                    {/* SKILL.md placeholder */}
-                    <div className="h-10 w-full border border-border" />
+                    {/* SKILL.md collapsed: border rounded-md, button px-4 py-3 */}
+                    <div className="border rounded-md">
+                      <div className="flex items-center gap-2 px-4 py-3">
+                        <div className="h-4 w-4 bg-muted" />
+                        <div className="h-5 w-20 bg-muted" />
+                      </div>
+                    </div>
                   </div>
-                  {/* Sidebar */}
+                  {/* Sidebar — no card wrapper, matches real layout */}
                   <div className="lg:col-span-4 space-y-4">
-                    <div className="border border-border bg-card p-4 space-y-4">
-                      <div className="flex justify-between">
-                        <div className="h-3 w-20 bg-muted" />
-                        <div className="h-3 w-12 bg-muted" />
+                    <div className="space-y-4">
+                      {/* Votes: text-sm label + VoteButton */}
+                      <div className="flex items-center justify-between">
+                        <div className="h-5 w-12 bg-muted" />
+                        <div className="h-5 w-16 bg-muted" />
                       </div>
-                      <div className="flex justify-between">
-                        <div className="h-3 w-24 bg-muted" />
-                        <div className="h-3 w-12 bg-muted" />
+                      {/* Installs: icon + text-sm label + count */}
+                      <div className="flex items-center justify-between">
+                        <div className="h-5 w-20 bg-muted" />
+                        <div className="h-5 w-12 bg-muted" />
                       </div>
-                      <div className="flex justify-between">
-                        <div className="h-3 w-12 bg-muted" />
-                        <div className="h-5 w-14 bg-muted" />
+                      {/* Stars: icon + text-sm label + count */}
+                      <div className="flex items-center justify-between">
+                        <div className="h-5 w-28 bg-muted" />
+                        <div className="h-5 w-12 bg-muted" />
                       </div>
+                      {/* Categories: border-t, label text-sm, badges */}
                       <div className="border-t pt-4">
-                        <div className="h-3 w-28 bg-muted" />
+                        <div className="h-5 w-20 bg-muted mb-2" />
+                        <div className="flex flex-wrap gap-1.5">
+                          <div className="h-[22px] w-28 bg-muted" />
+                          <div className="h-[22px] w-32 bg-muted" />
+                          <div className="h-[22px] w-24 bg-muted" />
+                        </div>
+                      </div>
+                      {/* GitHub link: border-t, icon + text-sm */}
+                      <div className="border-t pt-4">
+                        <div className="h-5 w-32 bg-muted" />
                       </div>
                     </div>
-                    <div className="border border-border bg-card p-4 space-y-3">
-                      <div className="h-3 w-20 bg-muted" />
-                      <div className="h-16 w-full bg-muted" />
+                    {/* CommentSidebar: text-xs label + login prompt */}
+                    <div>
+                      <div className="h-4 w-24 bg-muted mb-4" />
+                      <div className="mb-4 py-3 border border-border flex justify-center">
+                        <div className="h-3.5 w-24 bg-muted" />
+                      </div>
                     </div>
                   </div>
                 </div>

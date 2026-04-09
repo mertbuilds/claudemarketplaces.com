@@ -129,6 +129,7 @@ export interface McpServer {
   url?: string;
   stars?: number;
   lastUpdated?: string;
+  summary?: string;
   voteCount: number;
   commentCount: number;
   createdAt?: string;

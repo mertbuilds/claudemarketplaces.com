@@ -48,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   const mcpPages: MetadataRoute.Sitemap = mcpServers
-    .filter((s) => s.voteCount + s.commentCount > 0)
+    .filter((s) => !!s.summary || s.voteCount + s.commentCount > 0)
     .map((s) => ({
       url: `${BASE_URL}/mcp/${s.slug}`,
       changeFrequency: "weekly" as const,

@@ -51,7 +51,23 @@ function FeaturedSkeleton() {
   return (
     <div className="mb-4">
       <div className="h-4 w-16 bg-muted animate-pulse mb-2" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-start">
+
+      {/* Mobile carousel skeleton: visible below md */}
+      <div className="md:hidden">
+        <FeaturedCardSkeleton />
+        {/* Dot indicators */}
+        <div className="flex justify-center gap-1.5 mt-2">
+          {[0, 1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className={`h-1.5 rounded-full bg-muted-foreground/30 ${i === 0 ? "w-4 bg-primary" : "w-1.5"}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop grid: visible at md+ */}
+      <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-3">
         <FeaturedCardSkeleton />
         <FeaturedCardSkeleton />
         <FeaturedCardSkeleton />
@@ -75,9 +91,8 @@ function FeaturedSkeleton() {
 
 function SkillCardSkeleton() {
   return (
-    <div className="border border-border bg-card animate-pulse py-0">
-      {/* CardHeader: grid gap-2, p-4 pb-0 */}
-      <div className="grid gap-2 p-4 pb-0">
+    <div className="bg-card flex flex-col border shadow-sm animate-pulse py-0 gap-0">
+      <div className="grid auto-rows-min gap-2 p-4">
         <div className="flex flex-col gap-1.5">
           {/* Title row: text-base leading-6 (24px) + BookmarkButton p-1 (24px) */}
           <div className="flex items-start justify-between gap-2">
@@ -97,22 +112,6 @@ function SkillCardSkeleton() {
         <div className="space-y-1">
           <div className="h-3.5 w-full bg-muted" />
           <div className="h-3.5 w-4/5 bg-muted" />
-        </div>
-      </div>
-      {/* CardContent: p-4 pt-2 */}
-      <div className="p-4 pt-2">
-        <div className="flex flex-col gap-3">
-          {/* Badge: text-xs px-2 py-0.5 border → 22px */}
-          <div className="h-[22px] w-12 bg-muted" />
-          {/* Install command */}
-          <div className="mt-2 pt-3 border-t border-border">
-            <div className="flex items-center gap-2">
-              {/* code: text-xs px-2 py-1 → 24px */}
-              <div className="h-6 flex-1 bg-muted" />
-              {/* button: p-1.5 + h-3.5 w-3.5 → 26px */}
-              <div className="p-1.5"><div className="h-3.5 w-3.5 bg-muted" /></div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -254,6 +253,19 @@ function buildGridItems(count: number, CardSkeleton: React.FC) {
   return items;
 }
 
+// ── Search bar skeleton ───────────────────────────────────────────────
+
+function SearchBarSkeleton() {
+  return (
+    <div className="my-4">
+      <div className="flex items-center gap-2">
+        <div className="relative flex-1 h-8 bg-muted border border-border" />
+        <div className="w-[160px] h-8 bg-muted border border-border" />
+      </div>
+    </div>
+  );
+}
+
 // ── Main export ───────────────────────────────────────────────────────
 
 interface ListingGridSkeletonProps {
@@ -279,6 +291,8 @@ export function ListingGridSkeleton({
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
       {showFeatured && <FeaturedSkeleton />}
+
+      <SearchBarSkeleton />
 
       {/* Results bar: text-xs (h-4) + invisible text-sm button (h-5) */}
       <div className="flex items-center justify-between mt-6 mb-3">

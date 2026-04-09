@@ -21,8 +21,10 @@ import { McpServer } from "@/lib/types";
 import { formatStarCount } from "@/lib/utils/format";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { VoteProvider } from "@/lib/contexts/vote-context";
+import { BookmarkProvider } from "@/lib/contexts/bookmark-context";
 import { SkillInstallCommand } from "@/components/skill-install-command";
 import { CommentSidebar } from "@/components/comment-sidebar";
+import { McpServerCard } from "@/components/mcp-server-card";
 
 export const revalidate = 300;
 
@@ -57,7 +59,8 @@ export async function generateMetadata({
   // Noindex detail pages that have zero original signal.
   // Pages graduate to indexable when they have an editorial summary (original
   // content) OR community signal (votes/comments).
-  const hasOriginalSignal = server.voteCount + server.commentCount > 0;
+  const hasOriginalSignal =
+    !!server.summary || server.voteCount + server.commentCount > 0;
 
   return {
     title,
@@ -223,11 +226,11 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
               </CardContent>
             </Card>
             <CommentSidebar itemType="mcp_server" itemId={server.slug} initialCommentCount={server.commentCount} />
-            <Suspense fallback={null}>
-              <RelatedMcpServers server={server} />
-            </Suspense>
           </div>
         </div>
+        <Suspense fallback={null}>
+          <RelatedMcpServers server={server} />
+        </Suspense>
       </div>
     </>
   );
@@ -244,41 +247,35 @@ async function RelatedMcpServers({ server }: { server: McpServer }) {
   const categoryServers = await getMcpServersByCategory(primaryCat);
   const related = categoryServers
     .filter((s) => s.slug !== server.slug)
-    .slice(0, 5);
+    .slice(0, 6);
 
   if (!related.length) return null;
 
   return (
-    <Card>
-      <CardContent className="space-y-2">
-        <span className="text-sm text-muted-foreground block mb-1">
+    <div className="mt-12 border-t pt-8">
+      <div className="flex items-baseline justify-between mb-4">
+        <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
           Related {category?.name ?? ""} MCP Servers
-        </span>
-        {related.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/mcp/${s.slug}`}
-            className="flex items-center justify-between py-1.5 hover:text-foreground transition-colors gap-2"
-          >
-            <span className="text-sm truncate">{s.displayName || s.name}</span>
-            {s.stars !== undefined && s.stars > 0 && (
-              <span className="text-xs text-muted-foreground flex items-center gap-1 shrink-0">
-                <Star className="h-3 w-3" />
-                {formatStarCount(s.stars)}
-              </span>
-            )}
-          </Link>
-        ))}
+        </h2>
         {category && (
           <Link
             href={`/mcp/category/${primaryCat}`}
-            className="block pt-2 border-t text-xs text-muted-foreground hover:text-foreground transition-colors"
+            className="text-xs text-muted-foreground hover:text-foreground transition-colors"
           >
-            Browse all {category.name} servers &rarr;
+            View all &rarr;
           </Link>
         )}
-      </CardContent>
-    </Card>
+      </div>
+      <VoteProvider itemType="mcp_server" itemIds={related.map((s) => s.slug)}>
+        <BookmarkProvider itemType="mcp_server" itemIds={related.map((s) => s.slug)}>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {related.map((s) => (
+              <McpServerCard key={s.slug} server={s} />
+            ))}
+          </div>
+        </BookmarkProvider>
+      </VoteProvider>
+    </div>
   );
 }
 
@@ -347,9 +344,9 @@ export default async function McpServerDetailPage({ params }: PageProps) {
               {/* Breadcrumb */}
               <div className="container mx-auto px-4 pt-8 pb-6">
                 <div className="flex items-center gap-2">
-                  <div className="h-3 w-10 bg-muted" />
-                  <div className="h-3 w-2 bg-muted" />
-                  <div className="h-3 w-32 bg-muted" />
+                  <div className="h-3.5 w-10 bg-muted" />
+                  <div className="h-3.5 w-2 bg-muted" />
+                  <div className="h-3.5 w-32 bg-muted" />
                 </div>
               </div>
               {/* Two-column layout */}
@@ -357,43 +354,53 @@ export default async function McpServerDetailPage({ params }: PageProps) {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                   {/* Left column */}
                   <div className="lg:col-span-8 space-y-6">
-                    <div>
-                      <div className="h-7 w-2/5 bg-muted mb-3" />
-                      <div className="h-3 w-3/5 bg-muted" />
+                    {/* Title: font-serif text-2xl md:text-3xl */}
+                    <div className="h-8 w-3/5 bg-muted mb-3" />
+                    {/* Description: text-sm, multi-line */}
+                    <div className="space-y-2 max-w-md">
+                      <div className="h-4 w-full bg-muted" />
+                      <div className="h-4 w-full bg-muted" />
+                      <div className="h-4 w-3/4 bg-muted" />
                     </div>
-                    {/* Install command */}
+                    {/* Install: label text-sm + command pre py-3 */}
                     <div>
-                      <div className="h-3 w-12 bg-muted mb-2" />
-                      <div className="h-9 w-full bg-muted" />
+                      <div className="h-5 w-12 bg-muted mb-2" />
+                      <div className="h-11 w-full bg-muted border" />
                     </div>
-                    {/* README placeholder */}
-                    <div className="space-y-3 pt-4">
-                      <div className="h-4 w-1/3 bg-muted" />
-                      <div className="h-3 w-full bg-muted" />
-                      <div className="h-3 w-full bg-muted" />
-                      <div className="h-3 w-4/5 bg-muted" />
-                      <div className="h-3 w-full bg-muted" />
-                      <div className="h-3 w-2/3 bg-muted" />
+                    {/* README.md collapsed: border rounded-md, button px-4 py-3 */}
+                    <div className="border rounded-md">
+                      <div className="flex items-center gap-2 px-4 py-3">
+                        <div className="h-4 w-4 bg-muted" />
+                        <div className="h-5 w-24 bg-muted" />
+                      </div>
                     </div>
                   </div>
-                  {/* Sidebar */}
+                  {/* Sidebar — Card with CardContent */}
                   <div className="lg:col-span-4 space-y-4">
-                    <div className="border border-border bg-card p-4 space-y-4">
-                      <div className="flex justify-between">
-                        <div className="h-3 w-24 bg-muted" />
-                        <div className="h-3 w-12 bg-muted" />
-                      </div>
-                      <div className="flex justify-between">
-                        <div className="h-3 w-12 bg-muted" />
-                        <div className="h-5 w-14 bg-muted" />
-                      </div>
-                      <div className="border-t pt-4">
-                        <div className="h-3 w-28 bg-muted" />
+                    <div className="bg-card flex flex-col border shadow-sm py-6">
+                      <div className="px-6 space-y-4">
+                        {/* Stars: icon + text-sm label + count */}
+                        <div className="flex items-center justify-between">
+                          <div className="h-5 w-28 bg-muted" />
+                          <div className="h-5 w-12 bg-muted" />
+                        </div>
+                        {/* Votes: text-sm label + VoteButton */}
+                        <div className="flex items-center justify-between">
+                          <div className="h-5 w-12 bg-muted" />
+                          <div className="h-5 w-16 bg-muted" />
+                        </div>
+                        {/* GitHub link: border-t, icon + text-sm */}
+                        <div className="border-t pt-4">
+                          <div className="h-5 w-32 bg-muted" />
+                        </div>
                       </div>
                     </div>
-                    <div className="border border-border bg-card p-4 space-y-3">
-                      <div className="h-3 w-20 bg-muted" />
-                      <div className="h-16 w-full bg-muted" />
+                    {/* CommentSidebar: text-xs label + login prompt */}
+                    <div>
+                      <div className="h-4 w-24 bg-muted mb-4" />
+                      <div className="mb-4 py-3 border border-border flex justify-center">
+                        <div className="h-3.5 w-24 bg-muted" />
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -74,6 +74,7 @@ export interface McpServerRow {
   url: string | null;
   stars: number | null;
   last_updated: string | null;
+  summary: string | null;
   vote_count: number;
   comment_count: number;
   created_at: string;
@@ -93,6 +94,7 @@ export function mapMcpServerRow(row: McpServerRow): McpServer {
     url: row.url || undefined,
     stars: row.stars || undefined,
     lastUpdated: row.last_updated || undefined,
+    summary: row.summary || undefined,
     voteCount: row.vote_count,
     commentCount: row.comment_count,
     createdAt: row.created_at || undefined,
