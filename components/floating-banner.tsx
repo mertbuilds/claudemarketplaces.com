@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
@@ -11,18 +11,20 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [fading, setFading] = useState(false);
 
-  // Fire one impression per banner per page load. Uses a ref to track which
-  // banners have already been counted so rotations don't inflate the number.
-  const trackedRef = useRef<Set<string>>(new Set());
+  // Fire one impression per banner per session. Uses sessionStorage so the
+  // dedup survives Next.js client-side navigations (which remount the component).
+  const STORAGE_KEY = "floating_banner_tracked";
 
   useEffect(() => {
     if (dismissed) return;
     const banner = FLOATING_BANNERS[activeIndex];
-    if (trackedRef.current.has(banner.id)) return;
+    const tracked: string[] = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "[]");
+    if (tracked.includes(banner.id)) return;
     const fire = () => {
       if (typeof window.op !== "function") return false;
       window.op!("track", "floating_banner_viewed", { banner: banner.id });
-      trackedRef.current.add(banner.id);
+      tracked.push(banner.id);
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tracked));
       return true;
     };
     if (fire()) return;
