@@ -27,7 +27,7 @@ import {
   getPluginCategories,
 } from "@/lib/data/plugins";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;

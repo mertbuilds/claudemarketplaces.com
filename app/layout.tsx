@@ -21,7 +21,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 // BBH Sans Bartle for header (local font)
 const bbhSans = localFont({
-  src: "../public/BBH_Sans_Bartle/BBHSansBartle-Regular.ttf",
+  src: "../public/fonts/BBH_Sans_Bartle/BBHSansBartle-Regular.ttf",
   variable: "--font-bbh-sans",
   weight: "400",
   display: "swap",

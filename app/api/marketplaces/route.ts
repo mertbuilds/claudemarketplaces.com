@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { getAllMarketplaces } from "@/lib/data/marketplaces";
 
-export const dynamic = "force-dynamic";
 export const revalidate = 300; // Revalidate every 5 minutes
 
 /**

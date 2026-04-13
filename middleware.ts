@@ -17,6 +17,22 @@ export async function middleware(request: NextRequest) {
     });
   }
 
+  // Skip auth refresh for public API routes that don't need it.
+  // This avoids a Supabase roundtrip on every edge request.
+  const publicApiPrefixes = [
+    "/api/mcp-servers",
+    "/api/skills",
+    "/api/marketplaces",
+    "/api/search",
+    "/api/search-skills",
+    "/api/op/",
+    "/api/consent",
+    "/api/feedback",
+  ];
+  if (publicApiPrefixes.some((prefix) => pathname.startsWith(prefix))) {
+    return NextResponse.next();
+  }
+
   let supabaseResponse = NextResponse.next({
     request,
   });
@@ -44,7 +60,7 @@ export async function middleware(request: NextRequest) {
     }
   );
 
-  // Refresh the auth token
+  // Refresh the auth token only for routes that need authentication
   await supabase.auth.getUser();
 
   return supabaseResponse;

@@ -26,7 +26,7 @@ import { SkillInstallCommand } from "@/components/skill-install-command";
 import { CommentSidebar } from "@/components/comment-sidebar";
 import { McpServerCard } from "@/components/mcp-server-card";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const { getAllMcpServers } = await import("@/lib/data/mcp-servers");

@@ -27,7 +27,7 @@ import { CommentSidebar } from "@/components/comment-sidebar";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { SkillCard } from "@/components/skill-card";
 
-export const revalidate = 300;
+export const revalidate = 3600;
 
 function humanize(name: string): string {
   return name
