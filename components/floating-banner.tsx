@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
@@ -10,21 +10,18 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
   const [dismissed, setDismissed] = useState(false);
   const [activeIndex, setActiveIndex] = useState(initialIndex);
   const [fading, setFading] = useState(false);
+  const tracked = useRef(false);
 
-  // Fire one impression per banner per session. Uses sessionStorage so the
-  // dedup survives Next.js client-side navigations (which remount the component).
-  const STORAGE_KEY = "floating_banner_tracked";
-
+  // Fire one impression on mount for the initial banner. Rotation is visual
+  // only — no additional impression events. This avoids the old per-rotation
+  // firing that inflated counts (sessionStorage dedup failed silently in Firefox).
   useEffect(() => {
-    if (dismissed) return;
-    const banner = FLOATING_BANNERS[activeIndex];
-    const tracked: string[] = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || "[]");
-    if (tracked.includes(banner.id)) return;
+    if (dismissed || tracked.current) return;
+    const banner = FLOATING_BANNERS[initialIndex];
     const fire = () => {
       if (typeof window.op !== "function") return false;
       window.op!("track", "floating_banner_viewed", { banner: banner.id });
-      tracked.push(banner.id);
-      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(tracked));
+      tracked.current = true;
       return true;
     };
     if (fire()) return;
@@ -32,7 +29,7 @@ export function FloatingBanner({ initialIndex }: { initialIndex: number }) {
       if (fire()) clearInterval(id);
     }, 200);
     return () => clearInterval(id);
-  }, [activeIndex, dismissed]);
+  }, [dismissed, initialIndex]);
 
   useEffect(() => {
     const interval = setInterval(() => {
