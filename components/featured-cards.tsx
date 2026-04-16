@@ -52,47 +52,6 @@ export function FeaturedCards() {
 
   const cards: FeaturedCardData[] = [
     {
-      key: "1inch",
-      impressionKey: "1inch",
-      cardClassName:
-        "relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer py-1 gap-0",
-      content: (
-        <CardHeader className="flex-1 !flex !flex-col px-3 py-2 gap-2">
-          <div className="flex gap-2 items-start">
-            <Image
-              src="/1inch.png"
-              alt="1inch"
-              width={14}
-              height={14}
-              className="h-3.5 w-3.5 shrink-0 mt-[0.15rem]"
-            />
-            <CardTitle className="text-sm leading-snug">
-              <a
-                href="https://business.1inch.com/1inch-mcp?utm_source=claudemarketplaces&utm_medium=cpm&utm_campaign=1inch-mcp-awareness&utm_content=pinned-card"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="after:absolute after:inset-0 cursor-pointer"
-                onClick={() => {
-                  if (typeof window.op === "function")
-                    window.op!("track", "featured_card_clicked", {
-                      card: "1inch",
-                    });
-                }}
-              >
-                Make your agent a DeFi expert
-              </a>
-            </CardTitle>
-          </div>
-          <CardDescription className="text-xs line-clamp-2">
-            Real-time data across 13 networks, powered by 1inch.
-          </CardDescription>
-          <span className="text-xs font-medium text-primary mt-auto">
-            Install now &rarr;
-          </span>
-        </CardHeader>
-      ),
-    },
-    {
       key: "appsignal",
       impressionKey: "appsignal",
       cardClassName:
@@ -129,6 +88,47 @@ export function FeaturedCards() {
           </CardDescription>
           <span className="text-xs font-medium text-primary mt-auto">
             Start Free Trial &rarr;
+          </span>
+        </CardHeader>
+      ),
+    },
+    {
+      key: "1inch",
+      impressionKey: "1inch",
+      cardClassName:
+        "relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer py-1 gap-0",
+      content: (
+        <CardHeader className="flex-1 !flex !flex-col px-3 py-2 gap-2">
+          <div className="flex gap-2 items-start">
+            <Image
+              src="/1inch.png"
+              alt="1inch"
+              width={14}
+              height={14}
+              className="h-3.5 w-3.5 shrink-0 mt-[0.15rem]"
+            />
+            <CardTitle className="text-sm leading-snug">
+              <a
+                href="https://business.1inch.com/1inch-mcp?utm_source=claudemarketplaces&utm_medium=cpm&utm_campaign=1inch-mcp-awareness&utm_content=pinned-card"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="after:absolute after:inset-0 cursor-pointer"
+                onClick={() => {
+                  if (typeof window.op === "function")
+                    window.op!("track", "featured_card_clicked", {
+                      card: "1inch",
+                    });
+                }}
+              >
+                Make your agent a DeFi expert
+              </a>
+            </CardTitle>
+          </div>
+          <CardDescription className="text-xs line-clamp-2">
+            Real-time data across 13 networks, powered by 1inch.
+          </CardDescription>
+          <span className="text-xs font-medium text-primary mt-auto">
+            Install now &rarr;
           </span>
         </CardHeader>
       ),
