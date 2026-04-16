@@ -99,6 +99,8 @@ export interface Skill {
   voteCount: number;
   commentCount: number;
   createdAt?: string;
+  /** Number of sibling skills in the same repo (set client-side during dedup) */
+  repoSkillCount?: number;
 }
 
 

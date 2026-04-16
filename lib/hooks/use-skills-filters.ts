@@ -61,11 +61,31 @@ export function useSkillsFilters(skills: Skill[]) {
       });
     }
 
-    return [...filtered].sort((a, b) => {
+    const sorted = [...filtered].sort((a, b) => {
       if (sortBy === "stars") return (b.stars ?? 0) - (a.stars ?? 0);
       if (sortBy === "votes") return (b.voteCount ?? 0) - (a.voteCount ?? 0);
       return b.installs - a.installs;
     });
+
+    // When browsing (no search, no repo filter), show only the top skill
+    // per repo so one org can't dominate the entire listing.
+    if (!searchQuery && !repoFilter) {
+      const repoCounts = new Map<string, number>();
+      for (const s of sorted) {
+        repoCounts.set(s.repo, (repoCounts.get(s.repo) ?? 0) + 1);
+      }
+
+      const seen = new Set<string>();
+      return sorted
+        .filter((s) => {
+          if (seen.has(s.repo)) return false;
+          seen.add(s.repo);
+          return true;
+        })
+        .map((s) => ({ ...s, repoSkillCount: repoCounts.get(s.repo) ?? 1 }));
+    }
+
+    return sorted;
   }, [skills, repoFilter, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);

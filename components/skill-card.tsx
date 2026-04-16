@@ -39,6 +39,14 @@ export function SkillCard({ skill }: SkillCardProps) {
           </div>
           <p className="text-xs text-muted-foreground truncate">
             {skill.repo}
+            {skill.repoSkillCount && skill.repoSkillCount > 1 && (
+              <Link
+                href={`/skills/${skill.repo}`}
+                className="relative z-10 ml-1.5 text-primary/70 hover:text-primary hover:underline"
+              >
+                +{skill.repoSkillCount - 1} more
+              </Link>
+            )}
           </p>
           <div className="relative z-10 flex items-center gap-3">
             <VoteButton itemType="skill" itemId={skill.id} initialVoteCount={skill.voteCount} />
