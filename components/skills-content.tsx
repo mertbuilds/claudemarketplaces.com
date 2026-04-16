@@ -25,6 +25,7 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, showFeatured 
     searchQuery,
     setSearchQuery,
     filteredSkills,
+    totalCount,
     paginatedSkills,
     repoFilter,
     sortBy,
@@ -60,7 +61,7 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, showFeatured 
       </div>
 
       <ListingResultsBar
-        count={filteredSkills.length}
+        count={totalCount}
         label="skill"
         pluralLabel="skills"
         hasActiveFilters={hasActiveFilters}

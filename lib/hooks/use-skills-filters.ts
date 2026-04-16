@@ -46,7 +46,7 @@ export function useSkillsFilters(skills: Skill[]) {
     [updateURL]
   );
 
-  const filteredSkills = useMemo(() => {
+  const { filteredSkills, totalCount } = useMemo(() => {
     let filtered = skills;
 
     if (repoFilter) {
@@ -67,6 +67,8 @@ export function useSkillsFilters(skills: Skill[]) {
       return b.installs - a.installs;
     });
 
+    const totalCount = sorted.length;
+
     // When browsing (no search, no repo filter), show only the top skill
     // per repo so one org can't dominate the entire listing.
     if (!searchQuery && !repoFilter) {
@@ -76,16 +78,18 @@ export function useSkillsFilters(skills: Skill[]) {
       }
 
       const seen = new Set<string>();
-      return sorted
+      const deduped = sorted
         .filter((s) => {
           if (seen.has(s.repo)) return false;
           seen.add(s.repo);
           return true;
         })
         .map((s) => ({ ...s, repoSkillCount: repoCounts.get(s.repo) ?? 1 }));
+
+      return { filteredSkills: deduped, totalCount };
     }
 
-    return sorted;
+    return { filteredSkills: sorted, totalCount };
   }, [skills, repoFilter, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filteredSkills.length / ITEMS_PER_PAGE);
@@ -99,6 +103,7 @@ export function useSkillsFilters(skills: Skill[]) {
     searchQuery,
     setSearchQuery,
     filteredSkills,
+    totalCount,
     paginatedSkills,
     sortBy,
     setSortBy,

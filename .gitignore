@@ -52,3 +52,6 @@ scripts/.dedup-cache.json
 
 # local scripts with hardcoded keys
 scripts/*.mjs
+
+# throwaway scripts and temp data
+scripts/tmp/

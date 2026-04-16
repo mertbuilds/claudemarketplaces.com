@@ -14,7 +14,7 @@ import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Claude Skills Directory — Browse 2,500+ Claude Code Skills",
+  title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
   description:
     "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more. Install with one command.",
   keywords: [
@@ -26,14 +26,14 @@ export const metadata: Metadata = {
     "claude code plugins",
   ],
   openGraph: {
-    title: "Claude Skills Directory — Browse 2,500+ Claude Code Skills",
+    title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
     description:
       "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
     url: "https://claudemarketplaces.com/skills",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Claude Skills Directory — Browse 2,500+ Claude Code Skills",
+    title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
     description:
       "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
   },
