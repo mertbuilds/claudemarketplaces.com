@@ -13,31 +13,43 @@ import { CopyCommand } from "@/components/copy-command";
 import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
-  description:
-    "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more. Install with one command.",
-  keywords: [
-    "claude skills",
-    "claude code skills",
-    "ai skills",
-    "agent skills",
-    "claude code",
-    "claude code plugins",
-  ],
-  openGraph: {
-    title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
-    description:
-      "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
-    url: "https://claudemarketplaces.com/skills",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Claude Skills Directory — Browse 4,200+ Claude Code Skills",
-    description:
-      "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
-  },
-};
+function formatRoundedCount(n: number): string {
+  const rounded = Math.floor(n / 100) * 100;
+  return `${rounded.toLocaleString()}+`;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const skills = await getAllSkills();
+  const count = formatRoundedCount(skills.length);
+  const title = `Claude Skills Directory — Browse ${count} Claude Code Skills`;
+  const description =
+    "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more. Install with one command.";
+
+  return {
+    title,
+    description,
+    keywords: [
+      "claude skills",
+      "claude code skills",
+      "ai skills",
+      "agent skills",
+      "claude code",
+      "claude code plugins",
+    ],
+    openGraph: {
+      title,
+      description:
+        "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
+      url: "https://claudemarketplaces.com/skills",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description:
+        "The largest directory of Claude Code skills. Browse by category — frontend, backend, testing, security, DevOps, and more.",
+    },
+  };
+}
 
 // ── Category navigation ────────────────────────────────────────────────
 
