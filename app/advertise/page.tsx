@@ -643,7 +643,7 @@ export default async function AdvertisePage() {
                       </p>
                       <a
                         href={`https://chatgpt.com/?q=${encodeURIComponent(
-                          `I'm evaluating an advertising opportunity on claudemarketplaces.com, a developer tools directory for Claude Code plugins, skills, and MCP servers. They have 105,000+ monthly visitors (100% organic, zero paid traffic) and public analytics at https://analytics.vinena.studio/share/overview/hwyH1d.
+                          `I'm evaluating an advertising opportunity on claudemarketplaces.com, the only developer tools directory focused specifically on Claude Code plugins, skills, and MCP servers. They have 105,000+ monthly visitors (100% organic, zero paid traffic) and public analytics at https://analytics.vinena.studio/share/overview/hwyH1d.
 
 Their pricing:
 - All Placements (pinned + in-feed + jobs): $1,099/mo
@@ -651,15 +651,26 @@ Their pricing:
 - In-Feed Cards only: $499/mo
 - Job Listings only: $199/mo
 
+They accept max 6 advertisers at a time, so each sponsor gets ~17% share of voice across all ad surfaces.
+
 They claim 2,000+ clicks/month for the All Placements tier, which works out to ~$0.55 effective CPC.
 
-For context, industry benchmarks show:
+For comparison, here are alternatives for reaching developers:
+
+Developer directories:
+- TrustMRR (trustmrr.com): 120K+ visitors/mo, $1,499/mo, but accepts 20 advertisers at a time (~5% share of voice each)
+
+Google Ads benchmarks:
 - Google Ads overall average CPC: $5.26 (WordStream 2025)
 - B2B SaaS search CPC: $5.70 (AdLabz 2025)
 - DevTools vertical CPC: $7.50 (GrowthSpree 2026)
 - Non-branded B2B search CPC: $5.34, up 29% YoY (Dreamdata 2025)
 
-Is this good value for reaching developers compared to Google Ads? What should I look out for?`
+Larger platforms (different budget tier):
+- Stack Overflow: $10K-$15K/mo minimum
+- daily.dev: $5K/mo managed campaigns, $8-$20 CPM self-serve
+
+Is this good value for reaching Claude Code developers specifically? How does the share of voice (6 max advertisers vs 20 at TrustMRR) affect the value? What should I look out for?`
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
@@ -698,6 +709,29 @@ Is this good value for reaching developers compared to Google Ads? What should I
                       In-feed cards rotate daily across Skills, MCP, and Marketplaces
                       pages. Floating banners rotate every few seconds. Pinned cards
                       auto-rotate in groups of 3.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-background">
+                    <h3 className="text-sm font-medium mb-1">
+                      How do you compare to alternatives?
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      We&apos;re the only directory focused specifically on Claude
+                      Code builders. TrustMRR (120K+ visitors/mo) charges $1,499/mo
+                      and accepts 20 advertisers at a time. Larger platforms like
+                      Stack Overflow start at $10K&ndash;$15K/mo and daily.dev at
+                      $5K/mo for managed campaigns.
+                    </p>
+                  </div>
+                  <div className="p-4 bg-background">
+                    <h3 className="text-sm font-medium mb-1">
+                      How many advertisers do you accept?
+                    </h3>
+                    <p className="text-xs text-muted-foreground">
+                      Maximum 6 at a time. Each sponsor gets ~17% share of voice
+                      across all ad surfaces. Compare that to directories that
+                      accept 20+ advertisers where each gets ~5%. Fewer sponsors
+                      means more impressions and clicks per dollar.
                     </p>
                   </div>
                   <div className="p-4 bg-background">
