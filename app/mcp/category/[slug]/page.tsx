@@ -22,7 +22,7 @@ import {
 } from "@/lib/data/mcp-categories";
 import { ListingGridSkeleton } from "@/components/listing-grid-skeleton";
 
-export const revalidate = 3600; // 1 hour ISR
+export const revalidate = 86400; // 1 day ISR
 
 // ── Static params for SSG ──────────────────────────────────────────────
 

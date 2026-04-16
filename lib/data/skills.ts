@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { Skill } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapSkillRow, SkillRow } from "@/lib/supabase/mappers";
@@ -6,7 +7,7 @@ import {
   SKILL_CATEGORIES,
 } from "@/lib/data/skill-categories";
 
-export async function getAllSkills(): Promise<Skill[]> {
+export const getAllSkills = cache(async (): Promise<Skill[]> => {
   const supabase = await getDataClient();
   const allRows: SkillRow[] = [];
   const pageSize = 1000;
@@ -40,7 +41,7 @@ export async function getAllSkills(): Promise<Skill[]> {
   }
 
   return unique.map(mapSkillRow);
-}
+});
 
 export async function getSkillById(id: string): Promise<Skill | null> {
   const supabase = await getDataClient();

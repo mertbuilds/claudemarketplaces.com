@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getAllSkills } from "@/lib/data/skills";
 
-export const revalidate = 300; // Revalidate every 5 minutes
+export const revalidate = 86400; // Revalidate every 24 hours
 
 /**
  * GET /api/skills
@@ -13,7 +13,7 @@ export async function GET() {
 
     return NextResponse.json(skills, {
       headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800",
       },
     });
   } catch (error) {

@@ -1,14 +1,14 @@
 import { NextResponse } from "next/server";
 import { getAllMcpServers } from "@/lib/data/mcp-servers";
 
-export const revalidate = 300;
+export const revalidate = 86400; // Revalidate every 24 hours
 
 export async function GET() {
   try {
     const servers = await getAllMcpServers();
     return NextResponse.json(servers, {
       headers: {
-        "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+        "Cache-Control": "public, s-maxage=86400, stale-while-revalidate=172800",
       },
     });
   } catch (error) {

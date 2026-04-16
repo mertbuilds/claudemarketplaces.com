@@ -27,7 +27,7 @@ import { CommentSidebar } from "@/components/comment-sidebar";
 import { CollapsibleReadme } from "@/components/collapsible-readme";
 import { SkillCard } from "@/components/skill-card";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // 1 day ISR
 
 function humanize(name: string): string {
   return name
@@ -242,7 +242,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
           const filePath = dir ? `${dir}/${name}/${filename}` : `${name}/${filename}`;
           const url = `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`;
           try {
-            const res = await fetch(url, { next: { revalidate: 3600 } });
+            const res = await fetch(url, { next: { revalidate: 86400 } });
             if (res.ok) return await res.text();
           } catch {
             continue;
@@ -255,7 +255,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
       try {
         const res = await fetch(
           `https://raw.githubusercontent.com/${repo}/${branch}/${filename}`,
-          { next: { revalidate: 3600 } }
+          { next: { revalidate: 86400 } }
         );
         if (res.ok) return await res.text();
       } catch {
@@ -268,7 +268,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
   for (const branch of branches) {
     try {
       const treeUrl = `https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`;
-      const res = await fetch(treeUrl, { next: { revalidate: 3600 } });
+      const res = await fetch(treeUrl, { next: { revalidate: 86400 } });
       if (!res.ok) continue;
       const tree = await res.json();
       const skillMdFiles = tree.tree?.filter((f: { path: string }) =>
@@ -283,7 +283,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
         if (match) {
           const mdRes = await fetch(
             `https://raw.githubusercontent.com/${repo}/${branch}/${match.path}`,
-            { next: { revalidate: 3600 } }
+            { next: { revalidate: 86400 } }
           );
           if (mdRes.ok) return await mdRes.text();
         }
@@ -298,7 +298,7 @@ async function fetchSkillMarkdown(repo: string, skillName: string): Promise<stri
         if (match) {
           const mdRes = await fetch(
             `https://raw.githubusercontent.com/${repo}/${branch}/${match.path}`,
-            { next: { revalidate: 3600 } }
+            { next: { revalidate: 86400 } }
           );
           if (mdRes.ok) return await mdRes.text();
         }

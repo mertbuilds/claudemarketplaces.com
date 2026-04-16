@@ -27,7 +27,7 @@ import {
   getPluginCategories,
 } from "@/lib/data/plugins";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // 1 day ISR
 
 interface PageProps {
   params: Promise<{ slug: string }>;

@@ -24,7 +24,7 @@ async function getTrafficStats() {
             process.env.OPENPANEL_EXPORT_CLIENT_SECRET!,
           "User-Agent": "Mozilla/5.0",
         },
-        next: { revalidate: 3600 },
+        next: { revalidate: 86400 },
       },
     );
     if (!res.ok) return null;

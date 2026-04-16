@@ -2,9 +2,10 @@ import type { Metadata, Viewport } from "next";
 import { Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import Script from "next/script";
-import { OpenPanelComponent } from "@openpanel/nextjs";
+
 import "./globals.css";
 import { FloatingBanner } from "@/components/floating-banner";
+import { Analytics } from "@/components/analytics";
 import { getInitialFloatingBannerIndex } from "@/lib/ads";
 
 // Crimson Pro for elegant headings
@@ -117,22 +118,14 @@ export default function RootLayout({
           <Script
             src="//unpkg.com/react-grab/dist/index.global.js"
             crossOrigin="anonymous"
-            strategy="beforeInteractive"
+            strategy="lazyOnload"
           />
         )}
       </head>
       <body
         className={`${crimsonPro.variable} ${jetbrainsMono.variable} ${bbhSans.variable} antialiased`}
       >
-        <OpenPanelComponent
-          clientId={process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID!}
-          clientSecret={process.env.OPENPANEL_CLIENT_SECRET}
-          apiUrl="/api/op"
-          scriptUrl="/api/op/op1.js"
-          trackScreenViews={true}
-          trackOutgoingLinks={false}
-          trackAttributes={false}
-        />
+        <Analytics />
         {children}
         <FloatingBanner initialIndex={getInitialFloatingBannerIndex()} />
       </body>

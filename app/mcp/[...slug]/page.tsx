@@ -26,7 +26,7 @@ import { SkillInstallCommand } from "@/components/skill-install-command";
 import { CommentSidebar } from "@/components/comment-sidebar";
 import { McpServerCard } from "@/components/mcp-server-card";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // 1 day ISR
 
 export async function generateStaticParams() {
   const { getAllMcpServers } = await import("@/lib/data/mcp-servers");
@@ -104,7 +104,7 @@ async function fetchReadme(repo: string): Promise<string | null> {
   for (const branch of branches) {
     const url = `https://raw.githubusercontent.com/${repo}/${branch}/README.md`;
     try {
-      const res = await fetch(url, { next: { revalidate: 3600 } });
+      const res = await fetch(url, { next: { revalidate: 86400 } });
       if (res.ok) return await res.text();
     } catch {
       continue;

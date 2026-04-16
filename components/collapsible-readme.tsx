@@ -1,8 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { SkillMarkdown } from "@/components/skill-markdown";
+
+const SkillMarkdown = dynamic(
+  () => import("@/components/skill-markdown").then((m) => m.SkillMarkdown),
+  { loading: () => <div className="animate-pulse h-32 bg-muted rounded" /> }
+);
 
 interface CollapsibleReadmeProps {
   content: string;

@@ -7,6 +7,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { videos, articles, links } from "@/lib/data/learn-content";
 import { Link2 } from "lucide-react";
 
+export const revalidate = 86400; // 1 day ISR
+
 export const metadata: Metadata = {
   title: "Learn - Claude Code Videos, Tutorials & Articles",
   description:

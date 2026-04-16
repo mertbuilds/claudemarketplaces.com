@@ -11,6 +11,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Search, Github, Mail, Star, Shield } from "lucide-react";
 
+export const revalidate = 86400; // 1 day ISR
+
 export const metadata: Metadata = {
   title: "About | Claude Code Marketplaces",
   description:

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { McpServer } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMcpServerRow, McpServerRow } from "@/lib/supabase/mappers";
@@ -6,9 +7,9 @@ import {
   MCP_CATEGORIES,
 } from "@/lib/data/mcp-categories";
 
-export async function getAllMcpServers(_options?: {
+export const getAllMcpServers = cache(async (_options?: {
   includeEmpty?: boolean;
-}): Promise<McpServer[]> {
+}): Promise<McpServer[]> => {
   const supabase = await getDataClient();
   const allRows: McpServerRow[] = [];
   const pageSize = 1000;
@@ -32,7 +33,7 @@ export async function getAllMcpServers(_options?: {
   }
 
   return allRows.map(mapMcpServerRow);
-}
+});
 
 export async function getTopMcpServers(limit: number = 2): Promise<McpServer[]> {
   const supabase = await getDataClient();

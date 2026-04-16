@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { Marketplace } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMarketplaceRow, MarketplaceRow } from "@/lib/supabase/mappers";
@@ -10,9 +11,9 @@ import {
  * Fetch all marketplaces from Supabase
  * Optionally filter out marketplaces with 0 plugins
  */
-export async function getAllMarketplaces(options?: {
+export const getAllMarketplaces = cache(async (options?: {
   includeEmpty?: boolean;
-}): Promise<Marketplace[]> {
+}): Promise<Marketplace[]> => {
   const { includeEmpty = true } = options || {};
   const supabase = await getDataClient();
   const allRows: MarketplaceRow[] = [];
@@ -40,7 +41,7 @@ export async function getAllMarketplaces(options?: {
   }
 
   return allRows.map(mapMarketplaceRow);
-}
+});
 
 /**
  * Get top-voted marketplaces (with at least 1 plugin).

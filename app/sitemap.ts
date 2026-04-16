@@ -6,7 +6,7 @@ import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // 1 day ISR
 
 const BASE_URL = "https://claudemarketplaces.com";
 

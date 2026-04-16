@@ -16,6 +16,8 @@ import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 
+export const revalidate = 86400; // 1 day ISR
+
 export const metadata: Metadata = {
   title: "Claude Code Plugins | Skills, MCP Servers & Marketplace Directory",
   description:
@@ -28,8 +30,6 @@ export const metadata: Metadata = {
     url: "https://claudemarketplaces.com",
   },
 };
-
-export const revalidate = 3600;
 
 /* ── Helpers ─────────────────────────────────────────────────────────── */
 

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-export const revalidate = 3600;
+export const revalidate = 86400; // 1 day ISR
 
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
