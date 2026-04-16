@@ -53,6 +53,7 @@ export async function generateMetadata({
 
   const title = `${server.displayName || server.name} | MCP Servers`;
   const description =
+    server.summary?.slice(0, 160) ||
     server.description ||
     `${server.displayName || server.name} - an MCP server for Claude Code.`;
 
@@ -163,12 +164,19 @@ async function McpServerDetailContent({ slug }: { slug: string[] }) {
               {server.displayName || server.name}
             </h1>
 
-            {/* Description */}
-            {server.description && (
+            {/* Editor's note */}
+            {server.summary ? (
+              <div className="border-l-2 border-muted-foreground/20 pl-4">
+                <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground/60 block mb-1.5">Editor&apos;s Note</span>
+                <p className="text-sm text-muted-foreground leading-relaxed max-w-prose">
+                  {server.summary}
+                </p>
+              </div>
+            ) : server.description ? (
               <p className="text-sm text-muted-foreground max-w-md">
                 {server.description}
               </p>
-            )}
+            ) : null}
 
             {/* Installation */}
             <div>

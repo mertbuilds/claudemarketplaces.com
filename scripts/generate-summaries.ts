@@ -33,6 +33,56 @@ function log(msg: string, color = c.reset) {
   console.log(`${color}${msg}${c.reset}`);
 }
 
+// Cache repo trees to avoid re-fetching for repos with many skills
+const treeCache = new Map<string, string[] | null>();
+
+async function fetchRepoTree(repo: string): Promise<string[] | null> {
+  if (treeCache.has(repo)) return treeCache.get(repo)!;
+
+  for (const branch of ["main", "master"]) {
+    try {
+      const res = await fetch(
+        `https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`,
+        {
+          headers: {
+            Accept: "application/vnd.github+json",
+            "User-Agent": "claudemarketplaces-summary-gen",
+            ...(process.env.GITHUB_TOKEN
+              ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
+              : {}),
+          },
+        }
+      );
+      if (!res.ok) continue;
+      const data = await res.json();
+      const paths = (data.tree ?? []).map((t: { path: string }) => t.path);
+      treeCache.set(repo, paths);
+      return paths;
+    } catch {
+      continue;
+    }
+  }
+  treeCache.set(repo, null);
+  return null;
+}
+
+async function fetchRawSkillMd(
+  repo: string,
+  filePath: string
+): Promise<string | null> {
+  for (const branch of ["main", "master"]) {
+    try {
+      const res = await fetch(
+        `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`
+      );
+      if (res.ok) return await res.text();
+    } catch {
+      continue;
+    }
+  }
+  return null;
+}
+
 async function fetchSkillMarkdown(
   repo: string,
   skillName: string
@@ -57,6 +107,7 @@ async function fetchSkillMarkdown(
 
   const dirPatterns = ["skills", "", ".claude/skills"];
 
+  // Fast path: try common patterns directly via raw.githubusercontent.com
   for (const branch of branches) {
     for (const name of nameVariants) {
       for (const dir of dirPatterns) {
@@ -79,6 +130,42 @@ async function fetchSkillMarkdown(
       // continue
     }
   }
+
+  // Slow path: use GitHub tree API to find SKILL.md in any nested location
+  const tree = await fetchRepoTree(repo);
+  if (!tree) return null;
+
+  const skillMdPaths = tree.filter((p) => p.endsWith("/SKILL.md"));
+
+  // Pass 1: exact dir name match
+  for (const name of nameVariants) {
+    const match = skillMdPaths.find((p) => p.endsWith(`/${name}/SKILL.md`));
+    if (match) {
+      const content = await fetchRawSkillMd(repo, match);
+      if (content) return content;
+    }
+  }
+
+  // Pass 2: fuzzy match -- skill name starts with dir name or vice versa
+  // (handles azure-cost-optimization -> azure-cost, etc.)
+  for (const name of nameVariants) {
+    const match = skillMdPaths.find((p) => {
+      const dir = p.split("/").at(-2);
+      if (!dir) return false;
+      return name.startsWith(dir + "-") || dir.startsWith(name + "-");
+    });
+    if (match) {
+      const content = await fetchRawSkillMd(repo, match);
+      if (content) return content;
+    }
+  }
+
+  // Pass 3: single SKILL.md in repo (monorepo with one skill)
+  if (skillMdPaths.length === 1) {
+    const content = await fetchRawSkillMd(repo, skillMdPaths[0]);
+    if (content) return content;
+  }
+
   return null;
 }
 
