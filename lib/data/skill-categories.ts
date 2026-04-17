@@ -485,6 +485,254 @@ export const SKILL_CATEGORIES: Category[] = [
     ],
     relatedSlugs: ["frontend", "docs", "automation", "productivity"],
   },
+  {
+    slug: "cloud",
+    name: "Cloud & Infrastructure",
+    title: "Cloud & Infrastructure Skills — AWS, Azure, GCP, Terraform",
+    description:
+      "Claude Code skills for cloud platforms and infrastructure. Deploy to AWS, manage Azure resources, configure GCP, and write Terraform with AI assistance.",
+    headline: "Cloud & Infrastructure Skills",
+    intro:
+      "Skills for working with cloud platforms and infrastructure-as-code. From provisioning Azure resources to writing Terraform modules, these skills help Claude Code manage your cloud infrastructure.",
+    keywords: [
+      "aws", "azure", "gcp", "google-cloud", "cloud", "cloudflare",
+      "terraform", "pulumi", "infrastructure", "ec2", "s3", "lambda",
+      "ecs", "fargate", "cloudformation", "arm-template", "bicep",
+      "cdk", "serverless", "vercel", "netlify", "heroku", "digitalocean",
+      "linode", "fly.io", "railway",
+    ],
+    icon: "Cloud",
+    faq: [
+      {
+        question: "Can Claude Code help with cloud infrastructure?",
+        answer:
+          "Yes — cloud skills teach Claude to write IaC templates, configure cloud services, and follow provider-specific best practices for AWS, Azure, GCP, and other platforms.",
+      },
+    ],
+    relatedSlugs: ["devops", "backend", "security"],
+  },
+  {
+    slug: "mobile",
+    name: "Mobile Development",
+    title: "Mobile Development Skills — Flutter, React Native, Swift, iOS, Android",
+    description:
+      "Claude Code skills for mobile app development. Build Flutter, React Native, SwiftUI, and Kotlin apps with AI-powered mobile development skills.",
+    headline: "Mobile Development Skills",
+    intro:
+      "Skills for building mobile applications across iOS and Android. From Flutter widget patterns to SwiftUI views and React Native navigation, these skills help Claude Code write platform-native mobile code.",
+    keywords: [
+      "flutter", "react-native", "swift", "swiftui", "kotlin", "ios",
+      "android", "mobile", "expo", "capacitor", "cordova", "xcode",
+      "jetpack", "compose", "cocoapods", "gradle", "app-store",
+      "google-play", "maui", "xamarin", "tauri", "ionic",
+    ],
+    icon: "Smartphone",
+    faq: [
+      {
+        question: "Which mobile frameworks are supported?",
+        answer:
+          "You'll find skills for Flutter, React Native, SwiftUI, Kotlin/Jetpack Compose, Expo, and cross-platform tools like Capacitor and Tauri.",
+      },
+    ],
+    relatedSlugs: ["frontend", "testing", "design-ui"],
+  },
+  {
+    slug: "golang",
+    name: "Go",
+    title: "Go Skills — Idiomatic Go, Concurrency, Microservices",
+    description:
+      "Claude Code skills for Go development. Write idiomatic Go, build concurrent systems, and follow Go best practices with AI assistance.",
+    headline: "Go Skills",
+    intro:
+      "Skills for writing idiomatic Go code. These skills help Claude understand Go concurrency patterns, error handling conventions, and module structure so it produces clean, efficient Go code.",
+    keywords: [
+      "golang", "go-", "goroutine", "gin", "echo", "fiber",
+      "cobra", "viper",
+    ],
+    icon: "Terminal",
+    faq: [
+      {
+        question: "Can Claude Code write good Go code?",
+        answer:
+          "With Go skills installed, Claude understands idiomatic patterns, concurrency with goroutines, error handling conventions, and popular frameworks like Gin and Echo.",
+      },
+    ],
+    relatedSlugs: ["backend", "devops", "testing"],
+  },
+  {
+    slug: "java",
+    name: "Java & JVM",
+    title: "Java & JVM Skills — Spring Boot, Kotlin, Gradle, Maven",
+    description:
+      "Claude Code skills for Java and JVM development. Spring Boot, Kotlin, Gradle, Maven, and enterprise Java patterns with AI assistance.",
+    headline: "Java & JVM Skills",
+    intro:
+      "Skills for Java and JVM ecosystem development. From Spring Boot applications to Kotlin DSLs and Gradle build scripts, these skills help Claude Code work with enterprise Java stacks.",
+    keywords: [
+      "java", "spring", "springboot", "spring-boot", "kotlin", "gradle",
+      "maven", "jvm", "hibernate", "quarkus", "micronaut", "jpa",
+      "tomcat", "netty", "vertx", "vert.x",
+    ],
+    icon: "Coffee",
+    faq: [
+      {
+        question: "Does Claude Code support Java development?",
+        answer:
+          "Yes — Java skills teach Claude Spring Boot patterns, JPA/Hibernate usage, Gradle/Maven configuration, and enterprise Java best practices.",
+      },
+    ],
+    relatedSlugs: ["backend", "testing", "devops"],
+  },
+  {
+    slug: "design-ui",
+    name: "Design & UI/UX",
+    title: "Design & UI/UX Skills — Visual Design, Accessibility, Design Systems",
+    description:
+      "Claude Code skills for design and UI/UX. Build design systems, implement accessibility, create animations, and follow visual design best practices.",
+    headline: "Design & UI/UX Skills",
+    intro:
+      "Skills for visual design, UI/UX patterns, accessibility, and design systems. These skills help Claude Code produce polished, accessible interfaces that follow design best practices.",
+    keywords: [
+      "design", "ui/ux", "ux-", "ux_", "figma", "accessibility", "a11y",
+      "wcag", "aria", "color", "typography", "animation", "motion",
+      "design-system", "storybook", "visual", "aesthetic", "taste",
+      "minimalist", "brutalist", "interaction",
+    ],
+    icon: "Palette",
+    faq: [
+      {
+        question: "Can Claude Code help with UI/UX design?",
+        answer:
+          "Yes — design skills teach Claude visual design principles, accessibility standards, animation patterns, and how to implement design system components.",
+      },
+    ],
+    relatedSlugs: ["frontend", "mobile", "docs"],
+  },
+  {
+    slug: "cli",
+    name: "CLI & Terminal",
+    title: "CLI & Terminal Skills — Shell Scripts, CLI Tools, Terminal Workflows",
+    description:
+      "Claude Code skills for command-line tools and terminal workflows. Build CLIs, write shell scripts, and automate terminal tasks with AI assistance.",
+    headline: "CLI & Terminal Skills",
+    intro:
+      "Skills for building command-line tools, writing shell scripts, and working with terminal workflows. From parsing arguments to building interactive CLI apps, these skills help Claude Code work in the terminal.",
+    keywords: [
+      "cli", "terminal", "shell", "bash", "zsh", "fish",
+      "readline", "curses", "ncurses", "tmux", "screen",
+      "command-line", "argparse", "yargs", "commander", "oclif",
+      "inquirer",
+    ],
+    icon: "TerminalSquare",
+    faq: [
+      {
+        question: "Can Claude Code build CLI tools?",
+        answer:
+          "Yes — CLI skills help Claude build command-line applications, parse arguments, create interactive prompts, and follow CLI UX best practices.",
+      },
+    ],
+    relatedSlugs: ["automation", "devops", "python"],
+  },
+  {
+    slug: "office",
+    name: "Office & Documents",
+    title: "Office & Document Skills — PDF, Excel, PowerPoint, Google Workspace",
+    description:
+      "Claude Code skills for office documents and productivity suites. Work with PDF, Excel, PowerPoint, Google Workspace, and other document formats.",
+    headline: "Office & Document Skills",
+    intro:
+      "Skills for working with office documents and productivity suites. From extracting data from PDFs to generating PowerPoint slides and managing Google Workspace, these skills extend Claude Code into document workflows.",
+    keywords: [
+      "office", "pdf", "excel", "xlsx", "powerpoint", "ppt", "docx",
+      "google-workspace", "gws-", "gmail", "google-sheets", "google-docs",
+      "google-drive", "google-calendar", "ocr", "word", "spreadsheet",
+      "slides", "presentation", "lark", "larksuite", "notion",
+      "confluence", "obsidian",
+    ],
+    icon: "FileSpreadsheet",
+    faq: [
+      {
+        question: "Can Claude Code work with office documents?",
+        answer:
+          "Yes — office skills help Claude extract data from PDFs, manipulate Excel files, generate presentations, and integrate with Google Workspace and other productivity suites.",
+      },
+    ],
+    relatedSlugs: ["automation", "data-science", "productivity"],
+  },
+  {
+    slug: "finance",
+    name: "Finance & Trading",
+    title: "Finance & Trading Skills — Crypto, Stock Analysis, DeFi, Portfolio",
+    description:
+      "Claude Code skills for finance and trading. Analyze stocks, build trading bots, interact with crypto exchanges, and model financial data.",
+    headline: "Finance & Trading Skills",
+    intro:
+      "Skills for financial analysis, trading automation, and crypto/DeFi development. From connecting to Binance APIs to analyzing stock data and building portfolio trackers, these skills bring Claude Code into the finance workflow.",
+    keywords: [
+      "finance", "trading", "stock", "crypto", "bitcoin", "ethereum",
+      "defi", "binance", "okx", "coinbase", "bybit", "exchange",
+      "portfolio", "backtest", "quant", "hedge", "financial",
+      "stripe", "payment", "invoice", "accounting", "ledger",
+      "solana", "web3", "blockchain", "nft",
+    ],
+    icon: "DollarSign",
+    faq: [
+      {
+        question: "Can Claude Code help with trading?",
+        answer:
+          "Finance skills help Claude interact with exchange APIs, analyze market data, build backtesting frameworks, and generate financial reports. Always validate financial logic independently.",
+      },
+    ],
+    relatedSlugs: ["data-science", "backend", "automation"],
+  },
+  {
+    slug: "game-dev",
+    name: "Game Development",
+    title: "Game Development Skills — Unity, Godot, Unreal, Game Patterns",
+    description:
+      "Claude Code skills for game development. Build games with Unity, Godot, Unreal Engine, and learn game programming patterns with AI assistance.",
+    headline: "Game Development Skills",
+    intro:
+      "Skills for building games across major engines and frameworks. From Unity C# scripting to Godot GDScript patterns and game architecture, these skills help Claude Code assist with game development workflows.",
+    keywords: [
+      "game", "unity", "godot", "unreal", "gamedev", "game-dev",
+      "physics", "sprite", "tilemap", "shader", "opengl", "vulkan",
+      "directx", "ecs", "roguelike", "rpg", "platformer",
+      "bevy", "pygame", "love2d", "pixi",
+    ],
+    icon: "Gamepad2",
+    faq: [
+      {
+        question: "Which game engines are supported?",
+        answer:
+          "You'll find skills for Unity, Godot, Unreal Engine, Bevy (Rust), Pygame, and more. Skills cover scripting, architecture patterns, and engine-specific best practices.",
+      },
+    ],
+    relatedSlugs: ["design-ui", "rust", "debugging"],
+  },
+  {
+    slug: "php",
+    name: "PHP & Laravel",
+    title: "PHP & Laravel Skills — WordPress, Symfony, PHP Development",
+    description:
+      "Claude Code skills for PHP development. Laravel, WordPress, Symfony, and modern PHP patterns with AI assistance.",
+    headline: "PHP & Laravel Skills",
+    intro:
+      "Skills for PHP ecosystem development. From Laravel applications to WordPress plugins and Symfony bundles, these skills help Claude write modern, well-structured PHP code.",
+    keywords: [
+      "php", "laravel", "wordpress", "symfony", "drupal", "composer",
+      "eloquent", "blade", "livewire", "inertia", "filament",
+    ],
+    icon: "Code",
+    faq: [
+      {
+        question: "Does Claude Code support PHP?",
+        answer:
+          "Yes — PHP skills teach Claude Laravel patterns, WordPress development, Composer workflows, and modern PHP best practices.",
+      },
+    ],
+    relatedSlugs: ["backend", "frontend", "testing"],
+  },
 ];
 
 /**
@@ -492,7 +740,7 @@ export const SKILL_CATEGORIES: Category[] = [
  * A skill can belong to multiple categories.
  */
 export function classifySkill(skill: Skill): string[] {
-  const text = `${skill.name} ${skill.description} ${skill.repo}`.toLowerCase();
+  const text = `${skill.name} ${skill.description} ${skill.repo} ${skill.summary ?? ""}`.toLowerCase();
   const matched: string[] = [];
 
   for (const cat of SKILL_CATEGORIES) {

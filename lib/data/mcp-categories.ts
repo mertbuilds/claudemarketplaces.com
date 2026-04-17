@@ -445,6 +445,108 @@ export const MCP_CATEGORIES: Category[] = [
     ],
     relatedSlugs: ["developer-tools", "design-creative", "automation"],
   },
+  {
+    slug: "finance-commerce",
+    name: "Finance & Commerce",
+    title: "Finance & Commerce MCP Servers — Stripe, Shopify, Ads, CRM",
+    description:
+      "MCP servers for finance, e-commerce, and advertising platforms. Connect Claude to Stripe, Shopify, Facebook Ads, Salesforce, and other business tools.",
+    headline: "Finance & Commerce MCP Servers",
+    intro:
+      "MCP servers that connect your AI agent to financial, e-commerce, and advertising platforms. Manage Stripe payments, query Shopify orders, run Facebook Ads reports, and interact with CRMs like Salesforce.",
+    keywords: [
+      "stripe", "shopify", "paypal", "payment", "invoice", "billing",
+      "salesforce", "hubspot", "crm", "facebook-ads", "google-ads",
+      "ads", "commerce", "checkout", "order", "subscription",
+      "quickbooks", "xero", "accounting", "fintech", "banking",
+      "crypto", "bitcoin", "ethereum", "solana", "defi", "trading",
+      "coinbase", "binance",
+    ],
+    icon: "DollarSign",
+    faq: [
+      {
+        question: "Can Claude manage payments and commerce through MCP?",
+        answer:
+          "Yes — finance MCP servers let Claude create Stripe charges, query Shopify orders, pull ad campaign metrics, and interact with CRM platforms. Configure with appropriate API credentials and permissions.",
+      },
+    ],
+    relatedSlugs: ["data-analytics", "automation", "communication"],
+  },
+  {
+    slug: "media-entertainment",
+    name: "Media & Entertainment",
+    title: "Media & Entertainment MCP Servers — YouTube, Spotify, Music Production",
+    description:
+      "MCP servers for media platforms and creative tools. Connect Claude to YouTube, Spotify, Ableton, video editors, and other media services.",
+    headline: "Media & Entertainment MCP Servers",
+    intro:
+      "MCP servers for media platforms, music production, and entertainment services. From managing YouTube channels to controlling Ableton Live sessions and processing audio/video, these servers bring AI into the media workflow.",
+    keywords: [
+      "youtube", "spotify", "music", "audio", "video", "podcast",
+      "ableton", "midi", "ffmpeg", "obs", "streaming", "media",
+      "entertainment", "tiktok", "instagram", "twitter", "social",
+      "photo", "camera", "transcription", "subtitle", "speech",
+      "tts", "stt", "whisper", "elevenlabs",
+    ],
+    icon: "Play",
+    faq: [
+      {
+        question: "Can Claude work with media platforms?",
+        answer:
+          "Yes — media MCP servers let Claude manage YouTube uploads, process audio/video files, control music production tools like Ableton, and interact with social media platforms.",
+      },
+    ],
+    relatedSlugs: ["design-creative", "automation", "ai-agents"],
+  },
+  {
+    slug: "productivity-tools",
+    name: "Productivity & Office",
+    title: "Productivity & Office MCP Servers — Calendar, Notes, Task Management",
+    description:
+      "MCP servers for productivity tools and office applications. Connect Claude to calendar apps, note-taking tools, task managers, and office suites.",
+    headline: "Productivity & Office MCP Servers",
+    intro:
+      "MCP servers for productivity and office applications. Manage calendar events, create notes in Obsidian or Notion, control PowerPoint presentations, and interact with task management tools like Todoist and Linear.",
+    keywords: [
+      "calendar", "todo", "todoist", "task", "trello", "asana",
+      "monday", "clickup", "powerpoint", "pptx", "excel", "word",
+      "office", "anki", "flashcard", "apple-notes", "applescript",
+      "raycast", "alfred", "shortcut", "remember", "bookmark",
+    ],
+    icon: "ClipboardList",
+    faq: [
+      {
+        question: "Can Claude manage my tasks and calendar?",
+        answer:
+          "Yes — productivity MCP servers let Claude create calendar events, manage tasks in Todoist or Trello, generate presentations, and interact with note-taking apps.",
+      },
+    ],
+    relatedSlugs: ["communication", "documents-knowledge", "automation"],
+  },
+  {
+    slug: "reverse-engineering",
+    name: "Reverse Engineering",
+    title: "Reverse Engineering MCP Servers — Ghidra, IDA, Binary Analysis",
+    description:
+      "MCP servers for reverse engineering and binary analysis. Connect Claude to Ghidra, IDA Pro, debuggers, and other reverse engineering tools.",
+    headline: "Reverse Engineering MCP Servers",
+    intro:
+      "MCP servers for binary analysis, disassembly, and reverse engineering. Control Ghidra, IDA Pro, WinDbg, and GDB through Claude to analyze binaries, trace execution, and understand compiled code.",
+    keywords: [
+      "ghidra", "ida", "ida-pro", "binary", "disassembl", "decompil",
+      "reverse-eng", "windbg", "gdb", "lldb", "radare", "x64dbg",
+      "pe-file", "elf", "macho", "assembly", "asm",
+    ],
+    icon: "Microscope",
+    faq: [
+      {
+        question: "Can Claude assist with reverse engineering?",
+        answer:
+          "Yes — reverse engineering MCP servers let Claude interact with disassemblers like Ghidra and IDA, analyze binary files, and assist with debugging sessions in GDB and WinDbg.",
+      },
+    ],
+    relatedSlugs: ["security", "developer-tools"],
+  },
 ];
 
 /**
@@ -453,7 +555,7 @@ export const MCP_CATEGORIES: Category[] = [
  */
 export function classifyMcpServer(server: McpServer): string[] {
   const text =
-    `${server.name} ${server.description} ${server.sourceRepo} ${server.tags.join(" ")}`.toLowerCase();
+    `${server.name} ${server.description} ${server.sourceRepo} ${server.tags.join(" ")} ${server.summary ?? ""}`.toLowerCase();
   const matched: string[] = [];
 
   for (const cat of MCP_CATEGORIES) {
