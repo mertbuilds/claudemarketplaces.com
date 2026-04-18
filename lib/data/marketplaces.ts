@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { Marketplace } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMarketplaceRow, MarketplaceRow } from "@/lib/supabase/mappers";
@@ -6,27 +5,20 @@ import {
   MARKETPLACE_CATEGORIES,
   classifyAllMarketplaces,
 } from "@/lib/data/marketplace-categories";
+import { createMemo } from "@/lib/cache/memo";
 
-/**
- * Fetch all marketplaces from Supabase
- * Optionally filter out marketplaces with 0 plugins
- */
-export const getAllMarketplaces = cache(async (options?: {
-  includeEmpty?: boolean;
-}): Promise<Marketplace[]> => {
-  const { includeEmpty = true } = options || {};
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+
+const marketplacesMemo = createMemo<Marketplace[]>(async () => {
   const supabase = await getDataClient();
   const allRows: MarketplaceRow[] = [];
   const pageSize = 1000;
   let from = 0;
 
   while (true) {
-    let query = supabase.from("marketplaces").select("*");
-    if (!includeEmpty) {
-      query = query.gt("plugin_count", 0);
-    }
-
-    const { data, error } = await query
+    const { data, error } = await supabase
+      .from("marketplaces")
+      .select("*")
       .order("stars", { ascending: false, nullsFirst: false })
       .range(from, from + pageSize - 1);
 
@@ -41,11 +33,19 @@ export const getAllMarketplaces = cache(async (options?: {
   }
 
   return allRows.map(mapMarketplaceRow);
-});
+}, SEVEN_DAYS);
 
-/**
- * Get top-voted marketplaces (with at least 1 plugin).
- */
+export const invalidateMarketplacesMemo = marketplacesMemo.invalidate;
+
+export async function getAllMarketplaces(options?: {
+  includeEmpty?: boolean;
+}): Promise<Marketplace[]> {
+  const { includeEmpty = true } = options || {};
+  const all = await marketplacesMemo.get();
+  if (includeEmpty) return all;
+  return all.filter((m) => m.pluginCount > 0);
+}
+
 export async function getTopMarketplaces(limit: number = 2): Promise<Marketplace[]> {
   const supabase = await getDataClient();
   const { data, error } = await supabase
@@ -63,9 +63,6 @@ export async function getTopMarketplaces(limit: number = 2): Promise<Marketplace
   return (data as MarketplaceRow[]).map(mapMarketplaceRow);
 }
 
-/**
- * Get most recently added marketplaces (with at least 1 plugin).
- */
 export async function getLatestMarketplaces(limit: number = 2): Promise<Marketplace[]> {
   const supabase = await getDataClient();
   const { data, error } = await supabase
@@ -82,9 +79,6 @@ export async function getLatestMarketplaces(limit: number = 2): Promise<Marketpl
   return (data as MarketplaceRow[]).map(mapMarketplaceRow);
 }
 
-/**
- * Get a single marketplace by slug
- */
 export async function getMarketplaceBySlug(
   slug: string
 ): Promise<Marketplace | null> {
@@ -99,51 +93,19 @@ export async function getMarketplaceBySlug(
   return mapMarketplaceRow(data as MarketplaceRow);
 }
 
-/**
- * Get marketplaces that include a specific category
- */
 export async function getMarketplacesByCategory(
   category: string
 ): Promise<Marketplace[]> {
-  const supabase = await getDataClient();
-  const allRows: MarketplaceRow[] = [];
-  const pageSize = 1000;
-  let from = 0;
-
-  while (true) {
-    const { data, error } = await supabase
-      .from("marketplaces")
-      .select("*")
-      .contains("categories", [category])
-      .order("stars", { ascending: false, nullsFirst: false })
-      .range(from, from + pageSize - 1);
-
-    if (error) {
-      console.error("Error fetching marketplaces by category:", error);
-      return [];
-    }
-
-    allRows.push(...(data as MarketplaceRow[]));
-    if (data.length < pageSize) break;
-    from += pageSize;
-  }
-
-  return allRows.map(mapMarketplaceRow);
+  const all = await marketplacesMemo.get();
+  return all.filter((m) => m.categories?.includes(category));
 }
 
-/**
- * Get all unique categories across marketplaces
- */
 export async function getCategories(): Promise<string[]> {
-  const marketplaces = await getAllMarketplaces();
+  const marketplaces = await marketplacesMemo.get();
   const categories = new Set(marketplaces.flatMap((m) => m.categories));
   return Array.from(categories).sort();
 }
 
-/**
- * Get marketplaces for a curated category (keyword + DB-category classification).
- * Named differently from getMarketplacesByCategory which queries the DB directly.
- */
 export async function getMarketplacesByNewCategory(
   slug: string
 ): Promise<Marketplace[]> {
@@ -152,10 +114,6 @@ export async function getMarketplacesByNewCategory(
   return classified[slug] ?? [];
 }
 
-/**
- * Returns curated category counts: { slug: number } for all defined marketplace categories.
- * Used for the category navigation section.
- */
 export async function getMarketplaceCategoryCounts(): Promise<
   Record<string, number>
 > {
