@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
+import { timingSafeEqual } from "crypto";
 import { invalidateSkillsMemo } from "@/lib/data/skills";
 import { invalidateMarketplacesMemo } from "@/lib/data/marketplaces";
 import { invalidateMcpServersMemo } from "@/lib/data/mcp-servers";
@@ -19,9 +20,16 @@ const TARGETS: Record<string, { paths: string[]; invalidateMemo: () => void }> =
   },
 };
 
+function safeCompare(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(Buffer.from(a), Buffer.from(b));
+}
+
 export async function POST(request: NextRequest) {
-  const token = request.headers.get("authorization")?.replace("Bearer ", "");
-  if (!process.env.ADMIN_TOKEN || token !== process.env.ADMIN_TOKEN) {
+  const authHeader = request.headers.get("authorization") ?? "";
+  const token = authHeader.replace(/^bearer\s+/i, "");
+  const expected = process.env.ADMIN_TOKEN;
+  if (!expected || !safeCompare(token, expected)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

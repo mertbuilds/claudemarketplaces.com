@@ -16,6 +16,8 @@ const mcpServersMemo = createMemo<McpServer[]>(async () => {
   let from = 0;
 
   while (true) {
+    // `summary` intentionally excluded from list selects — only rendered on detail pages,
+    // which use getMcpServerBySlug (select *). Keeping it out shrinks the memoized payload.
     const { data, error } = await supabase
       .from("mcp_servers")
       .select(

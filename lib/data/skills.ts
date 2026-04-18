@@ -16,6 +16,8 @@ const skillsMemo = createMemo<Skill[]>(async () => {
   let from = 0;
 
   while (true) {
+    // `summary` intentionally excluded from list selects — only rendered on detail pages,
+    // which use getSkillById (select *). Keeping it out shrinks the memoized payload at 4k+ rows.
     const { data, error } = await supabase
       .from("skills")
       .select(
