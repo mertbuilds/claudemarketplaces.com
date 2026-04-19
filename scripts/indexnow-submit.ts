@@ -116,9 +116,8 @@ async function main() {
   console.log(`[3] Submitting ${urls.length} URLs in ${batches.length} batch(es)`);
 
   if (args.dryRun) {
-    console.log("    DRY RUN — not posting. Sample URLs:");
-    urls.slice(0, 5).forEach((u) => console.log(`      ${u}`));
-    if (urls.length > 5) console.log(`      ... and ${urls.length - 5} more`);
+    console.log("    DRY RUN — not posting. URLs:");
+    urls.forEach((u) => console.log(`      ${u}`));
     return;
   }
 

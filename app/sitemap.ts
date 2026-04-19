@@ -29,6 +29,7 @@ async function fetchIdsWithSummary(
       .from(table)
       .select(idColumn)
       .not("summary", "is", null)
+      .order(idColumn, { ascending: true })
       .range(from, from + pageSize - 1);
 
     if (error) {
