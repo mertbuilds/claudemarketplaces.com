@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { Megaphone } from "lucide-react";
 
 function useImpression(card: string) {
   const ref = useRef<HTMLDivElement>(null);
@@ -178,28 +179,31 @@ export function FeaturedCards() {
       key: "advertise-cta",
       impressionKey: "advertise-cta",
       cardClassName:
-        "relative border-dashed border-muted-foreground/25 transition-all hover:shadow-lg hover:border-primary/50 cursor-pointer py-1 gap-0",
+        "relative border-dashed border-primary/50 bg-primary/5 transition-all hover:shadow-lg hover:border-primary hover:bg-primary/10 cursor-pointer py-1 gap-0",
       content: (
         <CardHeader className="flex-1 !flex !flex-col px-3 py-2 gap-2">
-          <CardTitle className="text-sm leading-snug">
-            <Link
-              href="/advertise"
-              className="after:absolute after:inset-0 cursor-pointer"
-              onClick={() => {
-                if (typeof window.op === "function")
-                  window.op!("track", "featured_card_clicked", {
-                    card: "advertise-cta",
-                  });
-              }}
-            >
-              Your product here
-            </Link>
-          </CardTitle>
+          <div className="flex gap-2 items-start">
+            <Megaphone className="h-3.5 w-3.5 shrink-0 mt-[0.15rem] text-primary" />
+            <CardTitle className="text-sm leading-snug">
+              <Link
+                href="/advertise"
+                className="after:absolute after:inset-0 cursor-pointer"
+                onClick={() => {
+                  if (typeof window.op === "function")
+                    window.op!("track", "featured_card_clicked", {
+                      card: "advertise-cta",
+                    });
+                }}
+              >
+                Your product here.
+              </Link>
+            </CardTitle>
+          </div>
           <CardDescription className="text-xs line-clamp-2">
-            Show your product to 100K+ AI developers monthly.
+            Reach 105,000+ Claude Code builders. Only 2 of 6 sponsor slots left.
           </CardDescription>
           <span className="text-xs font-medium text-primary mt-auto">
-            Advertise &rarr;
+            See placements &rarr;
           </span>
         </CardHeader>
       ),

@@ -516,21 +516,33 @@ export default function Home() {
         <section className="container mx-auto px-4 pb-16">
           <Link
             href="/advertise"
-            className="block border border-dashed border-muted-foreground/25 p-8 md:p-10 hover:border-primary/40 hover:bg-primary/5 transition-all"
+            className="group block border border-border hover:border-primary/60 p-8 md:p-10 bg-background hover:bg-primary/5 transition-colors"
           >
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div>
-                <p className="text-sm font-medium mb-1">
-                  Reach 100K+ AI developers monthly
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+              <div className="flex-1">
+                <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-2.5 py-1 mb-4">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.12em] text-primary font-medium">
+                    Only 2 of 6 sponsor slots left
+                  </span>
+                </div>
+                <p className="font-serif text-lg md:text-xl font-normal mb-2 text-balance">
+                  Advertise to Claude Code builders.
                 </p>
-                <p className="text-xs text-muted-foreground max-w-md">
-                  Feature your tool in front of developers actively building
-                  with Claude Code. Pinned cards, in-feed placements, and
-                  banner ads available.
+                <p className="text-xs text-muted-foreground text-pretty max-w-lg">
+                  105,000+ developers visit here every month to find plugins,
+                  skills, and MCP servers. 1inch, AppSignal, IdeaBrowser, and
+                  MockHero already run ads. Display ads from{" "}
+                  <span className="font-mono tabular-nums">$499</span>/mo, job
+                  listings from{" "}
+                  <span className="font-mono tabular-nums">$199</span>/mo.
                 </p>
               </div>
-              <span className="shrink-0 text-xs font-medium text-primary">
-                See ad options &rarr;
+              <span className="shrink-0 inline-flex items-center text-xs font-medium bg-foreground text-background px-4 py-2.5 group-hover:bg-primary transition-colors">
+                See placements &amp; pricing &rarr;
               </span>
             </div>
           </Link>
