@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { Skill } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapSkillRow, SkillRow } from "@/lib/supabase/mappers";
@@ -6,17 +5,24 @@ import {
   classifyAllSkills,
   SKILL_CATEGORIES,
 } from "@/lib/data/skill-categories";
+import { createMemo } from "@/lib/cache/memo";
 
-export const getAllSkills = cache(async (): Promise<Skill[]> => {
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+
+const skillsMemo = createMemo<Skill[]>(async () => {
   const supabase = await getDataClient();
   const allRows: SkillRow[] = [];
   const pageSize = 1000;
   let from = 0;
 
   while (true) {
+    // `summary` intentionally excluded from list selects — only rendered on detail pages,
+    // which use getSkillById (select *). Keeping it out shrinks the memoized payload at 4k+ rows.
     const { data, error } = await supabase
       .from("skills")
-      .select("*")
+      .select(
+        "id, name, description, repo, repo_slug, path, license, stars, installs, install_command, discovered_at, last_updated, vote_count, comment_count, created_at"
+      )
       .order("installs", { ascending: false })
       .range(from, from + pageSize - 1);
 
@@ -30,7 +36,6 @@ export const getAllSkills = cache(async (): Promise<Skill[]> => {
     from += pageSize;
   }
 
-  // Deduplicate by ID (same skill can appear from multiple discovery runs)
   const seen = new Set<string>();
   const unique: SkillRow[] = [];
   for (const row of allRows) {
@@ -41,7 +46,10 @@ export const getAllSkills = cache(async (): Promise<Skill[]> => {
   }
 
   return unique.map(mapSkillRow);
-});
+}, SEVEN_DAYS);
+
+export const getAllSkills = skillsMemo.get;
+export const invalidateSkillsMemo = skillsMemo.invalidate;
 
 export async function getSkillById(id: string): Promise<Skill | null> {
   const supabase = await getDataClient();
@@ -101,25 +109,13 @@ export async function getSkillsByRepo(repo: string): Promise<Skill[]> {
   return (data as SkillRow[]).map(mapSkillRow);
 }
 
-/**
- * Returns skills classified into the given category slug.
- * Classification is keyword-based against name + description + repo.
- */
-export async function getSkillsByCategory(
-  slug: string
-): Promise<Skill[]> {
+export async function getSkillsByCategory(slug: string): Promise<Skill[]> {
   const all = await getAllSkills();
   const classified = classifyAllSkills(all);
   return classified[slug] ?? [];
 }
 
-/**
- * Returns category counts: { slug: number } for all defined categories.
- * Used for the category navigation section.
- */
-export async function getCategoryCounts(): Promise<
-  Record<string, number>
-> {
+export async function getCategoryCounts(): Promise<Record<string, number>> {
   const all = await getAllSkills();
   const classified = classifyAllSkills(all);
   const counts: Record<string, number> = {};

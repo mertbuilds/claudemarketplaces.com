@@ -53,7 +53,7 @@ async function CategoryNav() {
 }
 
 async function McpData() {
-  const servers = await getAllMcpServers({ includeEmpty: false });
+  const servers = await getAllMcpServers();
 
   const itemListSchema = {
     "@context": "https://schema.org",

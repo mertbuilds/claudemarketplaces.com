@@ -46,7 +46,9 @@ export interface SkillRow {
   id: string;
   name: string;
   description: string;
-  summary: string | null;
+  // Optional because list selects intentionally omit summary to cut egress;
+  // only detail selects (`select *`) populate it.
+  summary?: string | null;
   repo: string;
   repo_slug: string;
   path: string;
@@ -74,7 +76,9 @@ export interface McpServerRow {
   url: string | null;
   stars: number | null;
   last_updated: string | null;
-  summary: string | null;
+  // Optional because list selects intentionally omit summary to cut egress;
+  // only detail selects (`select *`) populate it.
+  summary?: string | null;
   vote_count: number;
   comment_count: number;
   created_at: string;

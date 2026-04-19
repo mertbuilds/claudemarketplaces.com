@@ -1,4 +1,3 @@
-import { cache } from "react";
 import { McpServer } from "@/lib/types";
 import { getDataClient } from "@/lib/supabase/data-client";
 import { mapMcpServerRow, McpServerRow } from "@/lib/supabase/mappers";
@@ -6,19 +5,24 @@ import {
   classifyAllMcpServers,
   MCP_CATEGORIES,
 } from "@/lib/data/mcp-categories";
+import { createMemo } from "@/lib/cache/memo";
 
-export const getAllMcpServers = cache(async (_options?: {
-  includeEmpty?: boolean;
-}): Promise<McpServer[]> => {
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+
+const mcpServersMemo = createMemo<McpServer[]>(async () => {
   const supabase = await getDataClient();
   const allRows: McpServerRow[] = [];
   const pageSize = 1000;
   let from = 0;
 
   while (true) {
+    // `summary` intentionally excluded from list selects — only rendered on detail pages,
+    // which use getMcpServerBySlug (select *). Keeping it out shrinks the memoized payload.
     const { data, error } = await supabase
       .from("mcp_servers")
-      .select("*")
+      .select(
+        "slug, name, display_name, description, source_repo, source, user_name, collection, tags, url, stars, last_updated, vote_count, comment_count, created_at"
+      )
       .order("stars", { ascending: false, nullsFirst: false })
       .range(from, from + pageSize - 1);
 
@@ -33,7 +37,13 @@ export const getAllMcpServers = cache(async (_options?: {
   }
 
   return allRows.map(mapMcpServerRow);
-});
+}, SEVEN_DAYS);
+
+export const invalidateMcpServersMemo = mcpServersMemo.invalidate;
+
+export async function getAllMcpServers(): Promise<McpServer[]> {
+  return mcpServersMemo.get();
+}
 
 export async function getTopMcpServers(limit: number = 2): Promise<McpServer[]> {
   const supabase = await getDataClient();
@@ -76,25 +86,13 @@ export async function getMcpServerBySlug(slug: string): Promise<McpServer | null
   return mapMcpServerRow(data as McpServerRow);
 }
 
-/**
- * Returns MCP servers classified into the given category slug.
- * Classification is keyword-based against name + description + sourceRepo + tags.
- */
-export async function getMcpServersByCategory(
-  slug: string
-): Promise<McpServer[]> {
+export async function getMcpServersByCategory(slug: string): Promise<McpServer[]> {
   const all = await getAllMcpServers();
   const classified = classifyAllMcpServers(all);
   return classified[slug] ?? [];
 }
 
-/**
- * Returns category counts: { slug: number } for all defined categories.
- * Used for the category navigation section.
- */
-export async function getMcpCategoryCounts(): Promise<
-  Record<string, number>
-> {
+export async function getMcpCategoryCounts(): Promise<Record<string, number>> {
   const all = await getAllMcpServers();
   const classified = classifyAllMcpServers(all);
   const counts: Record<string, number> = {};
