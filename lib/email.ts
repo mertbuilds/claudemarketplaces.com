@@ -4,9 +4,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_ADDRESS = "Claude Code Marketplaces <noreply@claudemarketplaces.com>";
 
-const MARKETING_SEGMENT_ID = process.env.RESEND_MARKETING_SEGMENT_ID!;
+const KIT_API_KEY = process.env.KIT_API_KEY!;
+const KIT_TAG_ID = process.env.KIT_TAG_ID!;
 
-/** Send a transactional email directly (no contact list needed). */
+/** Send a transactional email directly via Resend. */
 export async function sendEmail({
   to,
   subject,
@@ -19,34 +20,70 @@ export async function sendEmail({
   return resend.emails.send({ from: FROM_ADDRESS, to, subject, html });
 }
 
-/** Create contact in Resend (idempotent). Call for all signups. */
+/** Create a Resend contact for transactional tracking. Idempotent. */
 export async function createContact(email: string, firstName?: string) {
   const { error } = await resend.contacts.create({
     email,
     ...(firstName ? { firstName } : {}),
   });
   if (error) {
-    console.error("[email] Failed to create contact:", error.message);
+    console.error("[email] Failed to create Resend contact:", error.message);
   }
 }
 
-/** Create contact and add to marketing segment. Call when user consents. */
+/**
+ * Subscribe a user to the Kit newsletter list (tag: cmkt-weekly-2026).
+ * Creates the subscriber in Kit if they don't exist, then applies the tag.
+ * Call when marketing consent is granted.
+ */
 export async function addToMarketing(email: string, firstName?: string) {
-  const { data, error } = await resend.contacts.create({
-    email,
-    ...(firstName ? { firstName } : {}),
-  });
-  if (error) {
-    console.error("[email] Failed to create contact for marketing:", error.message);
+  if (!KIT_API_KEY) {
+    console.error("[email] KIT_API_KEY not set — skipping Kit subscribe");
     return;
   }
-  if (!data?.id) return;
 
-  const { error: segmentError } = await resend.contacts.segments.add({
-    segmentId: MARKETING_SEGMENT_ID,
-    contactId: data.id,
-  });
-  if (segmentError) {
-    console.error("[email] Failed to add to marketing segment:", segmentError.message);
+  try {
+    const createRes = await fetch("https://api.kit.com/v4/subscribers", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Kit-Api-Key": KIT_API_KEY,
+      },
+      body: JSON.stringify({
+        email_address: email,
+        state: "active",
+        ...(firstName ? { first_name: firstName } : {}),
+      }),
+    });
+
+    if (!createRes.ok) {
+      const body = await createRes.text();
+      console.error("[email] Kit create subscriber failed:", createRes.status, body);
+      return;
+    }
+
+    const { subscriber } = (await createRes.json()) as { subscriber: { id: number } };
+    if (!subscriber?.id) return;
+
+    if (!KIT_TAG_ID) return;
+
+    const tagRes = await fetch(
+      `https://api.kit.com/v4/tags/${KIT_TAG_ID}/subscribers/${subscriber.id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Kit-Api-Key": KIT_API_KEY,
+        },
+        body: "{}",
+      },
+    );
+
+    if (!tagRes.ok) {
+      const body = await tagRes.text();
+      console.error("[email] Kit tag subscriber failed:", tagRes.status, body);
+    }
+  } catch (err) {
+    console.error("[email] Kit subscribe threw:", err);
   }
 }
