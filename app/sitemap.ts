@@ -33,8 +33,13 @@ async function fetchIdsWithSummary(
       .range(from, from + pageSize - 1);
 
     if (error) {
-      console.error(`Error fetching summarized ${table}:`, error);
-      return ids;
+      // Failing the build is preferable to shipping a partial set: a silent
+      // truncation here would drop summary-backed URLs from the sitemap until
+      // the next ISR revalidation, which is exactly what this query exists to
+      // prevent. Let Next.js serve the last good sitemap instead.
+      throw new Error(
+        `Failed to fetch summarized ${table} (page starting at ${from}): ${error.message}`,
+      );
     }
 
     for (const row of data as Record<string, string>[]) {

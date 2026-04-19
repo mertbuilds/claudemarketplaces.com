@@ -36,7 +36,13 @@ function parseArgs(): CliArgs {
     if (arg === "--filter" && i + 1 < args.length) {
       result.filter = args[++i];
     } else if (arg === "--limit" && i + 1 < args.length) {
-      result.limit = parseInt(args[++i], 10);
+      const raw = args[++i];
+      const parsed = parseInt(raw, 10);
+      if (!Number.isFinite(parsed) || parsed <= 0) {
+        console.error(`Invalid --limit value "${raw}". Must be a positive integer.`);
+        process.exit(1);
+      }
+      result.limit = parsed;
     } else if (arg === "--sitemap" && i + 1 < args.length) {
       result.sitemap = args[++i];
     } else if (arg === "--dry-run") {
@@ -98,7 +104,7 @@ async function main() {
     console.log(`[2] Filtered by "${args.filter}": ${urls.length}/${before} URLs`);
   }
 
-  if (args.limit && urls.length > args.limit) {
+  if (args.limit !== undefined && urls.length > args.limit) {
     urls = urls.slice(0, args.limit);
     console.log(`    Limited to first ${urls.length} URLs`);
   }
