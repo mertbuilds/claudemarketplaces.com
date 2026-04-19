@@ -5,17 +5,57 @@ import { getAllMcpServers } from "@/lib/data/mcp-servers";
 import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
+import { getDataClient } from "@/lib/supabase/data-client";
 
 export const revalidate = 86400; // 1 day ISR
 
 const BASE_URL = "https://claudemarketplaces.com";
 
+// The memoized list selects in lib/data/skills.ts and lib/data/mcp-servers.ts
+// omit the `summary` column to keep their payload small. This runs dedicated
+// narrow queries just to learn *which* rows have a non-null summary, so the
+// sitemap can decide inclusion without bloating the shared memo.
+async function fetchIdsWithSummary(
+  table: "skills" | "mcp_servers",
+  idColumn: "id" | "slug",
+): Promise<Set<string>> {
+  const supabase = await getDataClient();
+  const ids = new Set<string>();
+  const pageSize = 1000;
+  let from = 0;
+
+  while (true) {
+    const { data, error } = await supabase
+      .from(table)
+      .select(idColumn)
+      .not("summary", "is", null)
+      .range(from, from + pageSize - 1);
+
+    if (error) {
+      console.error(`Error fetching summarized ${table}:`, error);
+      return ids;
+    }
+
+    for (const row of data as Record<string, string>[]) {
+      ids.add(row[idColumn]);
+    }
+
+    if (data.length < pageSize) break;
+    from += pageSize;
+  }
+
+  return ids;
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [marketplaces, skills, mcpServers] = await Promise.all([
-    getAllMarketplaces(),
-    getAllSkills(),
-    getAllMcpServers(),
-  ]);
+  const [marketplaces, skills, mcpServers, skillIdsWithSummary, mcpSlugsWithSummary] =
+    await Promise.all([
+      getAllMarketplaces(),
+      getAllSkills(),
+      getAllMcpServers(),
+      fetchIdsWithSummary("skills", "id"),
+      fetchIdsWithSummary("mcp_servers", "slug"),
+    ]);
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, changeFrequency: "daily", priority: 1.0, lastModified: new Date() },
@@ -40,8 +80,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Original signal = editorial summary, votes, or comments. The rest are
   // noindexed in generateMetadata. Listing them here would send Google
   // contradictory signals (sitemap says "index" while meta says "don't").
+  // `summary` lookups come from the narrow queries above because the shared
+  // memoized list selects omit that column.
   const skillPages: MetadataRoute.Sitemap = skills
-    .filter((s) => !!s.summary || s.voteCount + s.commentCount > 0)
+    .filter((s) => skillIdsWithSummary.has(s.id) || s.voteCount + s.commentCount > 0)
     .map((s) => ({
       url: `${BASE_URL}/skills/${s.id}`,
       changeFrequency: "weekly" as const,
@@ -50,7 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
 
   const mcpPages: MetadataRoute.Sitemap = mcpServers
-    .filter((s) => !!s.summary || s.voteCount + s.commentCount > 0)
+    .filter((s) => mcpSlugsWithSummary.has(s.slug) || s.voteCount + s.commentCount > 0)
     .map((s) => ({
       url: `${BASE_URL}/mcp/${s.slug}`,
       changeFrequency: "weekly" as const,

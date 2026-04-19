@@ -16,7 +16,10 @@
     "backfill": "bun --env-file=.env.prod run scripts/backfill-plugins.ts",
     "backfill:dry": "bun --env-file=.env.prod run scripts/backfill-plugins.ts --dry-run",
     "backfill:local": "bun run scripts/backfill-plugins.ts --dry-run",
-    "seed": "bun run scripts/seed-supabase.ts"
+    "seed": "bun run scripts/seed-supabase.ts",
+    "indexnow": "bun run scripts/indexnow-submit.ts",
+    "indexnow:skills": "bun run scripts/indexnow-submit.ts --filter /skills/",
+    "indexnow:dry": "bun run scripts/indexnow-submit.ts --dry-run"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.85.0",
