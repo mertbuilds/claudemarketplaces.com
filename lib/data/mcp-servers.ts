@@ -41,9 +41,7 @@ const mcpServersMemo = createMemo<McpServer[]>(async () => {
 
 export const invalidateMcpServersMemo = mcpServersMemo.invalidate;
 
-export async function getAllMcpServers(_options?: {
-  includeEmpty?: boolean;
-}): Promise<McpServer[]> {
+export async function getAllMcpServers(): Promise<McpServer[]> {
   return mcpServersMemo.get();
 }
 
