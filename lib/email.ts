@@ -41,6 +41,10 @@ export async function addToMarketing(email: string, firstName?: string) {
     console.error("[email] KIT_API_KEY not set — skipping Kit subscribe");
     return;
   }
+  if (!KIT_TAG_ID) {
+    console.error("[email] KIT_TAG_ID not set — skipping Kit subscribe");
+    return;
+  }
 
   try {
     const createRes = await fetch("https://api.kit.com/v4/subscribers", {
@@ -62,10 +66,20 @@ export async function addToMarketing(email: string, firstName?: string) {
       return;
     }
 
-    const { subscriber } = (await createRes.json()) as { subscriber: { id: number } };
+    const { subscriber } = (await createRes.json()) as {
+      subscriber: { id: number; state?: string };
+    };
     if (!subscriber?.id) return;
 
-    if (!KIT_TAG_ID) return;
+    // Kit's POST /v4/subscribers is an upsert that does NOT update state on
+    // existing subscribers. A previously-unsubscribed user resubmitting the
+    // form returns 200 but stays inactive. We respect that (compliant), but
+    // log it so it's not misread as a successful re-opt-in.
+    if (subscriber.state && subscriber.state !== "active") {
+      console.warn(
+        `[email] Kit subscriber ${email} is ${subscriber.state}; Kit will not reactivate via upsert. Tagging anyway.`,
+      );
+    }
 
     const tagRes = await fetch(
       `https://api.kit.com/v4/tags/${KIT_TAG_ID}/subscribers/${subscriber.id}`,
