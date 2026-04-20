@@ -56,17 +56,28 @@ export async function GET(request: Request) {
     })
     .eq("id", tokenRow.user_id);
 
-  // Add to Resend marketing segment
+  // Add to Kit newsletter list
   try {
     const { addToMarketing } = await import("@/lib/email");
     const {
       data: { user },
     } = await supabase.auth.admin.getUserById(tokenRow.user_id);
     if (user?.email) {
-      await addToMarketing(user.email);
+      const result = await addToMarketing(user.email);
+      if (!result.ok) {
+        console.error(
+          "[email-confirm] Kit signup failed:",
+          JSON.stringify({ email: user.email, ...result }),
+        );
+      } else if (result.state !== "active") {
+        console.warn(
+          "[email-confirm] Kit subscriber not active:",
+          JSON.stringify({ email: user.email, ...result }),
+        );
+      }
     }
   } catch (err) {
-    console.error("[email-confirm] Failed to sync Resend:", err);
+    console.error("[email-confirm] Kit sync threw:", err);
   }
 
   return NextResponse.redirect(

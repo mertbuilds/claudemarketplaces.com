@@ -28,7 +28,18 @@ export async function POST(request: Request) {
 
   if (user.email) {
     if (consent === true) {
-      await addToMarketing(user.email);
+      const result = await addToMarketing(user.email);
+      if (!result.ok) {
+        console.error(
+          "[consent] Kit signup failed:",
+          JSON.stringify({ email: user.email, ...result }),
+        );
+      } else if (result.state !== "active") {
+        console.warn(
+          "[consent] Kit subscriber not active:",
+          JSON.stringify({ email: user.email, ...result }),
+        );
+      }
     } else {
       await createContact(user.email);
     }
