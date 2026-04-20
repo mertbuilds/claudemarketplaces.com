@@ -28,6 +28,22 @@ export async function createContact(email: string, firstName?: string) {
   }
 }
 
+const KIT_FETCH_TIMEOUT_MS = 5000;
+
+async function kitFetch(input: string, init: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), KIT_FETCH_TIMEOUT_MS);
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function isAbortError(err: unknown): boolean {
+  return err instanceof Error && err.name === "AbortError";
+}
+
 export type AddToMarketingResult =
   | {
       ok: true;
@@ -42,6 +58,7 @@ export type AddToMarketingResult =
         | "create_failed"
         | "lookup_failed"
         | "tag_failed"
+        | "timeout"
         | "exception";
       status?: number;
       detail?: string;
@@ -83,7 +100,7 @@ export async function addToMarketing(
   let alreadyExisted = false;
 
   try {
-    const createRes = await fetch("https://api.kit.com/v4/subscribers", {
+    const createRes = await kitFetch("https://api.kit.com/v4/subscribers", {
       method: "POST",
       headers,
       body: JSON.stringify({
@@ -109,7 +126,7 @@ export async function addToMarketing(
       state = body.subscriber.state;
     } else if (createRes.status === 422) {
       alreadyExisted = true;
-      const lookupRes = await fetch(
+      const lookupRes = await kitFetch(
         `https://api.kit.com/v4/subscribers?email_address=${encodeURIComponent(email)}`,
         { headers },
       );
@@ -145,6 +162,13 @@ export async function addToMarketing(
       };
     }
   } catch (err) {
+    if (isAbortError(err)) {
+      return {
+        ok: false,
+        reason: "timeout",
+        detail: `create/lookup exceeded ${KIT_FETCH_TIMEOUT_MS}ms`,
+      };
+    }
     return {
       ok: false,
       reason: "exception",
@@ -153,7 +177,7 @@ export async function addToMarketing(
   }
 
   try {
-    const tagRes = await fetch(
+    const tagRes = await kitFetch(
       `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
       { method: "POST", headers, body: "{}" },
     );
@@ -168,6 +192,13 @@ export async function addToMarketing(
     }
     return { ok: true, subscriberId, state, alreadyExisted };
   } catch (err) {
+    if (isAbortError(err)) {
+      return {
+        ok: false,
+        reason: "timeout",
+        detail: `tag exceeded ${KIT_FETCH_TIMEOUT_MS}ms`,
+      };
+    }
     return {
       ok: false,
       reason: "exception",
