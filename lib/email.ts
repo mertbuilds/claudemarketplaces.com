@@ -74,6 +74,13 @@ export type AddToMarketingResult =
  * Returns a result so callers can log and decide whether to surface the
  * failure. On unexpected failures (network, 5xx) the caller can choose to
  * return a 5xx of its own.
+ *
+ * Note on Kit upsert semantics (from main's 302b37b): Kit's
+ * POST /v4/subscribers is an upsert that does NOT update state on an
+ * existing subscriber. A previously-unsubscribed user resubmitting the
+ * form returns 200 but stays inactive. We respect that (compliance) and
+ * surface it via the returned `state` field — callers log a warn when
+ * state !== "active" so it isn't misread as a successful re-opt-in.
  */
 export async function addToMarketing(
   email: string,
