@@ -33,17 +33,19 @@ function parseArgs(): CliArgs {
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
-    if (arg === "--filter" && i + 1 < args.length) {
+    if (arg === "--filter") {
+      if (i + 1 >= args.length) throw new Error("--filter requires a value");
       result.filter = args[++i];
-    } else if (arg === "--limit" && i + 1 < args.length) {
+    } else if (arg === "--limit") {
+      if (i + 1 >= args.length) throw new Error("--limit requires a value");
       const raw = args[++i];
       const parsed = parseInt(raw, 10);
       if (!Number.isFinite(parsed) || parsed <= 0) {
-        console.error(`Invalid --limit value "${raw}". Must be a positive integer.`);
-        process.exit(1);
+        throw new Error(`Invalid --limit value "${raw}". Must be a positive integer.`);
       }
       result.limit = parsed;
-    } else if (arg === "--sitemap" && i + 1 < args.length) {
+    } else if (arg === "--sitemap") {
+      if (i + 1 >= args.length) throw new Error("--sitemap requires a value");
       result.sitemap = args[++i];
     } else if (arg === "--dry-run") {
       result.dryRun = true;
@@ -58,6 +60,8 @@ Options:
   --help, -h          Show this help
 `);
       process.exit(0);
+    } else {
+      throw new Error(`Unknown argument: ${arg}`);
     }
   }
   return result;
