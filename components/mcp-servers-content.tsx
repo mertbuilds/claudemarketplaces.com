@@ -42,7 +42,7 @@ export function McpServersContent({ servers, newsletterSeed, infeedAds, showFeat
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {showFeatured && currentPage === 1 && <FeaturedCards />}
+      {showFeatured && <FeaturedCards />}
 
       <div className="my-4">
         <ListingSearchBar

@@ -131,7 +131,6 @@ async function CategoryMarketplaces({ slug }: { slug: string }) {
         marketplaces={marketplaces}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("marketplaces")}
-        showFeatured={false}
       />
     </>
   );

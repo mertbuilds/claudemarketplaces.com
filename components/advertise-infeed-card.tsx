@@ -41,7 +41,7 @@ export function AdvertiseInFeedCard() {
                 className="after:absolute after:inset-0"
                 onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "advertise" }); }}
               >
-                Advertise Here
+                Your product here
               </Link>
             </CardTitle>
             <Badge variant="outline" className="shrink-0 text-xs">
@@ -50,21 +50,21 @@ export function AdvertiseInFeedCard() {
           </div>
           <div className="flex items-center gap-1 text-muted-foreground">
             <Megaphone className="h-4 w-4" />
-            <span className="text-sm">Reach developers</span>
+            <span className="text-sm font-mono tabular-nums">From $499/mo</span>
           </div>
         </div>
         <CardDescription className="line-clamp-3">
-          Promote your developer tool, API, or service to thousands of Claude Code users. Floating banners, in-feed cards, and more.
+          Reach 105,000+ Claude Code developers every month. 100% organic traffic, public analytics, under $0.50 per click on All Placements.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap gap-1">
-            <Badge variant="secondary" className="text-xs capitalize">
-              sponsorship
+            <Badge variant="outline" className="text-xs border-primary/50 text-primary">
+              Only 2 slots left
             </Badge>
             <Badge variant="secondary" className="text-xs capitalize">
-              developer tools
+              sponsorship
             </Badge>
           </div>
           <div className="mt-2 pt-3 border-t border-border">
@@ -73,7 +73,7 @@ export function AdvertiseInFeedCard() {
               className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium hover:underline"
               onClick={() => { if (typeof window.op === "function") window.op!("track", "infeed_card_clicked", { card: "advertise" }); }}
             >
-              Learn more →
+              See placements →
             </Link>
           </div>
         </div>
