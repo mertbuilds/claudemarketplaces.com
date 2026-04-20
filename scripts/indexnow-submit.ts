@@ -46,7 +46,22 @@ function parseArgs(): CliArgs {
       result.limit = Number(raw);
     } else if (arg === "--sitemap") {
       if (i + 1 >= args.length) throw new Error("--sitemap requires a value");
-      result.sitemap = args[++i];
+      const sitemap = args[++i];
+      // IndexNow requires host/keyLocation to match the URLs being submitted.
+      // Our INDEXNOW_KEY lives at claudemarketplaces.com/<key>.txt, so any
+      // override must come from the same host or the payload is inconsistent.
+      let sitemapHost: string;
+      try {
+        sitemapHost = new URL(sitemap).host;
+      } catch {
+        throw new Error(`--sitemap value "${sitemap}" is not a valid URL`);
+      }
+      if (sitemapHost !== HOST) {
+        throw new Error(
+          `--sitemap host must be "${HOST}" to match IndexNow host/keyLocation (got "${sitemapHost}")`,
+        );
+      }
+      result.sitemap = sitemap;
     } else if (arg === "--dry-run") {
       result.dryRun = true;
     } else if (arg === "--help" || arg === "-h") {
