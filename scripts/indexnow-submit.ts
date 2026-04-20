@@ -19,6 +19,7 @@ const BASE_URL = `https://${HOST}`;
 const DEFAULT_SITEMAP = `${BASE_URL}/sitemap.xml`;
 const KEY_LOCATION = `${BASE_URL}/${INDEXNOW_KEY}.txt`;
 const BATCH_SIZE = 10_000; // IndexNow max per request
+const REQUEST_TIMEOUT_MS = 15_000;
 
 interface CliArgs {
   filter?: string;
@@ -39,11 +40,10 @@ function parseArgs(): CliArgs {
     } else if (arg === "--limit") {
       if (i + 1 >= args.length) throw new Error("--limit requires a value");
       const raw = args[++i];
-      const parsed = parseInt(raw, 10);
-      if (!Number.isFinite(parsed) || parsed <= 0) {
+      if (!/^[1-9]\d*$/.test(raw)) {
         throw new Error(`Invalid --limit value "${raw}". Must be a positive integer.`);
       }
-      result.limit = parsed;
+      result.limit = Number(raw);
     } else if (arg === "--sitemap") {
       if (i + 1 >= args.length) throw new Error("--sitemap requires a value");
       result.sitemap = args[++i];
@@ -68,7 +68,9 @@ Options:
 }
 
 async function fetchSitemapUrls(sitemapUrl: string): Promise<string[]> {
-  const res = await fetch(sitemapUrl);
+  const res = await fetch(sitemapUrl, {
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+  });
   if (!res.ok) {
     throw new Error(`Sitemap fetch failed: HTTP ${res.status} from ${sitemapUrl}`);
   }
@@ -81,6 +83,7 @@ async function submitBatch(urls: string[]): Promise<void> {
   const res = await fetch("https://api.indexnow.org/IndexNow", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     body: JSON.stringify({
       host: HOST,
       key: INDEXNOW_KEY,
