@@ -1,13 +1,26 @@
 "use client";
 
-import { useRef, useState, type FormEvent } from "react";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { newsletterSubscribeSchema } from "@/lib/schemas/newsletter.schema";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+} from "@/components/ui/form";
 
 type Source = "hero" | "footer" | "email-confirmed" | "digest";
-type Status = "idle" | "submitting" | "success" | "error";
+
+const formSchema = z.object({
+  email: z.string().email("Please enter a valid email address").max(255),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 export function NewsletterForm({
   source,
@@ -16,58 +29,47 @@ export function NewsletterForm({
   source: Source;
   className?: string;
 }) {
-  const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
   const timestampRef = useRef(Date.now());
-  const [status, setStatus] = useState<Status>("idle");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setStatus("submitting");
-    setErrorMsg("");
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: { email: "" },
+  });
 
-    const result = newsletterSubscribeSchema.safeParse({
-      email,
-      website,
-      timestamp: timestampRef.current,
-      source,
-    });
-
-    if (!result.success) {
-      setErrorMsg(
-        result.error.flatten().fieldErrors.email?.[0] ?? "Invalid email",
-      );
-      setStatus("error");
-      return;
-    }
-
+  const onSubmit = async (values: FormValues) => {
+    setSubmitError("");
     try {
       const res = await fetch("/api/newsletter-subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(result.data),
+        body: JSON.stringify({
+          email: values.email,
+          website,
+          timestamp: timestampRef.current,
+          source,
+        }),
       });
 
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        setErrorMsg(data.error ?? "Something went wrong. Try again.");
-        setStatus("error");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || data?.success !== true) {
+        setSubmitError(data?.error ?? "Something went wrong. Try again.");
         return;
       }
 
       if (typeof window.op === "function") {
         window.op!("track", "newsletter_subscribed", { source });
       }
-      setEmail("");
-      setStatus("success");
+      form.reset();
+      setSubmitted(true);
     } catch {
-      setErrorMsg("Network error. Check your connection.");
-      setStatus("error");
+      setSubmitError("Network error. Check your connection.");
     }
   };
 
-  if (status === "success") {
+  if (submitted) {
     return (
       <div
         role="status"
@@ -80,62 +82,83 @@ export function NewsletterForm({
     );
   }
 
-  const errorId = `newsletter-error-${source}`;
-  const hasError = status === "error" && !!errorMsg;
+  const isSubmitting = form.formState.isSubmitting;
+  const emailError = form.formState.errors.email?.message;
 
   return (
-    <form onSubmit={handleSubmit} className={`flex flex-col gap-2 ${className}`}>
-      <div className="flex flex-col sm:flex-row items-stretch gap-2">
-        <Input
-          type="email"
-          name="email"
-          placeholder="your@email.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={status === "submitting"}
-          required
-          aria-label="Email address"
-          aria-invalid={hasError}
-          aria-describedby={hasError ? errorId : undefined}
-          className="flex-1"
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={`flex flex-col gap-2 ${className}`}
+      >
+        <div className="flex flex-col sm:flex-row items-stretch gap-2">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field, fieldState }) => (
+              <FormItem className="flex-1 space-y-0">
+                <FormControl>
+                  <Input
+                    type="email"
+                    placeholder="your@email.com"
+                    aria-label="Email address"
+                    aria-invalid={!!fieldState.error || !!submitError}
+                    disabled={isSubmitting}
+                    {...field}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="shrink-0"
+          >
+            {isSubmitting ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              "Subscribe"
+            )}
+          </Button>
+        </div>
+
+        {/* Honeypot */}
+        <input
+          type="text"
+          name="website"
+          value={website}
+          onChange={(e) => setWebsite(e.target.value)}
+          style={{
+            position: "absolute",
+            left: "-9999px",
+            opacity: 0,
+            pointerEvents: "none",
+          }}
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
         />
-        <Button
-          type="submit"
-          disabled={status === "submitting"}
-          className="shrink-0"
-        >
-          {status === "submitting" ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            "Subscribe"
-          )}
-        </Button>
-      </div>
-      <input
-        type="text"
-        name="website"
-        value={website}
-        onChange={(e) => setWebsite(e.target.value)}
-        style={{
-          position: "absolute",
-          left: "-9999px",
-          opacity: 0,
-          pointerEvents: "none",
-        }}
-        tabIndex={-1}
-        autoComplete="off"
-        aria-hidden="true"
-      />
-      {hasError && (
-        <p
-          id={errorId}
-          role="alert"
-          aria-live="assertive"
-          className="text-xs text-destructive"
-        >
-          {errorMsg}
-        </p>
-      )}
-    </form>
+
+        {emailError && (
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="text-xs text-destructive"
+          >
+            {emailError}
+          </p>
+        )}
+        {submitError && !emailError && (
+          <p
+            role="alert"
+            aria-live="assertive"
+            className="text-xs text-destructive"
+          >
+            {submitError}
+          </p>
+        )}
+      </form>
+    </Form>
   );
 }

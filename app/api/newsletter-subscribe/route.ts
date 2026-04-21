@@ -37,13 +37,25 @@ export async function POST(request: Request) {
     );
   }
 
-  try {
-    await addToMarketing(result.data.email);
-  } catch (err) {
-    console.error("[newsletter-subscribe] Kit call failed:", err);
+  const kit = await addToMarketing(result.data.email);
+  if (!kit.ok) {
+    console.error(
+      "[newsletter-subscribe] Kit signup failed:",
+      JSON.stringify({ email: result.data.email, ...kit }),
+    );
     return NextResponse.json(
       { error: "Subscription service unavailable. Please try again." },
       { status: 502 },
+    );
+  }
+
+  if (kit.state !== "active") {
+    // Respect Kit's compliance behavior: a previously-unsubscribed user
+    // submitting the form stays inactive. We return success so the form
+    // clears, but this is logged for ops visibility.
+    console.warn(
+      "[newsletter-subscribe] Kit subscriber not active:",
+      JSON.stringify({ email: result.data.email, ...kit }),
     );
   }
 

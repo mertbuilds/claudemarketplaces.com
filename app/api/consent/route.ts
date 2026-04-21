@@ -28,19 +28,16 @@ export async function POST(request: Request) {
 
   if (user.email) {
     if (consent === true) {
-      try {
-        await addToMarketing(user.email);
-      } catch (err) {
-        // Consent is saved in Supabase; the Kit sync failed. Surface a 502
-        // so the client can show an error and retry — re-running the whole
-        // consent POST is idempotent on both sides.
-        console.error("[consent] Kit sync failed:", err);
-        return NextResponse.json(
-          {
-            error:
-              "We saved your preferences but couldn't subscribe you to the newsletter. Please try again.",
-          },
-          { status: 502 },
+      const result = await addToMarketing(user.email);
+      if (!result.ok) {
+        console.error(
+          "[consent] Kit signup failed:",
+          JSON.stringify({ email: user.email, ...result }),
+        );
+      } else if (result.state !== "active") {
+        console.warn(
+          "[consent] Kit subscriber not active:",
+          JSON.stringify({ email: user.email, ...result }),
         );
       }
     } else {

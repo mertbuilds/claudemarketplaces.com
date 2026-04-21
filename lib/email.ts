@@ -4,11 +4,6 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const FROM_ADDRESS = "Claude Code Marketplaces <noreply@claudemarketplaces.com>";
 
-const KIT_API_KEY = process.env.KIT_API_KEY;
-const KIT_TAG_ID = process.env.KIT_TAG_ID;
-
-const KIT_TIMEOUT_MS = 5000;
-
 /** Send a transactional email directly via Resend. */
 export async function sendEmail({
   to,
@@ -33,80 +28,188 @@ export async function createContact(email: string, firstName?: string) {
   }
 }
 
+const KIT_FETCH_TIMEOUT_MS = 5000;
+
+async function kitFetch(input: string, init: RequestInit = {}): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), KIT_FETCH_TIMEOUT_MS);
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function isAbortError(err: unknown): boolean {
+  return err instanceof Error && err.name === "AbortError";
+}
+
+export type AddToMarketingResult =
+  | {
+      ok: true;
+      subscriberId: number;
+      state: string;
+      alreadyExisted: boolean;
+    }
+  | {
+      ok: false;
+      reason:
+        | "missing_config"
+        | "create_failed"
+        | "lookup_failed"
+        | "tag_failed"
+        | "timeout"
+        | "exception";
+      status?: number;
+      detail?: string;
+    };
+
 /**
- * Subscribe a user to the Kit newsletter list (tag: cmkt-weekly-2026).
- * Creates the subscriber in Kit if they don't exist, then applies the tag.
+ * Subscribe a user to the Kit newsletter list.
  *
- * Throws on any failure so callers can distinguish real subscription success
- * from a silent upstream error. Soft edge cases (e.g. a previously
- * unsubscribed user re-submitting) are logged but not thrown — they leave the
- * subscriber in Kit in their current state, which is the correct compliant
- * behavior.
+ * Idempotent: if the subscriber already exists, looks them up and proceeds
+ * to tagging. Reads env vars at call time (module-load timing on edge /
+ * cold starts can be unreliable).
+ *
+ * Returns a result so callers can log and decide whether to surface the
+ * failure. On unexpected failures (network, 5xx) the caller can choose to
+ * return a 5xx of its own.
+ *
+ * Note on Kit upsert semantics (from main's 302b37b): Kit's
+ * POST /v4/subscribers is an upsert that does NOT update state on an
+ * existing subscriber. A previously-unsubscribed user resubmitting the
+ * form returns 200 but stays inactive. We respect that (compliance) and
+ * surface it via the returned `state` field — callers log a warn when
+ * state !== "active" so it isn't misread as a successful re-opt-in.
  */
 export async function addToMarketing(
   email: string,
   firstName?: string,
-): Promise<void> {
-  if (!KIT_API_KEY) {
-    throw new Error("Newsletter service not configured (KIT_API_KEY missing)");
-  }
-  if (!KIT_TAG_ID) {
-    throw new Error("Newsletter service not configured (KIT_TAG_ID missing)");
-  }
+): Promise<AddToMarketingResult> {
+  const apiKey = process.env.KIT_API_KEY;
+  const tagId = process.env.KIT_TAG_ID;
 
-  const createRes = await fetch("https://api.kit.com/v4/subscribers", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-Kit-Api-Key": KIT_API_KEY,
-    },
-    body: JSON.stringify({
-      email_address: email,
-      state: "active",
-      ...(firstName ? { first_name: firstName } : {}),
-    }),
-    signal: AbortSignal.timeout(KIT_TIMEOUT_MS),
-  });
-
-  if (!createRes.ok) {
-    const body = await createRes.text();
-    throw new Error(
-      `Kit subscriber create failed: ${createRes.status} ${body}`,
-    );
+  if (!apiKey || !tagId) {
+    return {
+      ok: false,
+      reason: "missing_config",
+      detail: `KIT_API_KEY=${Boolean(apiKey)} KIT_TAG_ID=${Boolean(tagId)}`,
+    };
   }
 
-  const { subscriber } = (await createRes.json()) as {
-    subscriber: { id: number; state?: string };
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+    "X-Kit-Api-Key": apiKey,
   };
-  if (!subscriber?.id) {
-    throw new Error("Kit subscriber create returned no subscriber id");
-  }
 
-  // Kit's POST /v4/subscribers is an upsert that does NOT update state on
-  // existing subscribers. A previously-unsubscribed user resubmitting the
-  // form returns 200 but stays inactive. We respect that (compliant), but
-  // log it so it's not misread as a successful re-opt-in.
-  if (subscriber.state && subscriber.state !== "active") {
-    console.warn(
-      `[email] Kit subscriber ${email} is ${subscriber.state}; Kit will not reactivate via upsert. Tagging anyway.`,
-    );
-  }
+  let subscriberId: number;
+  let state: string;
+  let alreadyExisted = false;
 
-  const tagRes = await fetch(
-    `https://api.kit.com/v4/tags/${KIT_TAG_ID}/subscribers/${subscriber.id}`,
-    {
+  try {
+    const createRes = await kitFetch("https://api.kit.com/v4/subscribers", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-Kit-Api-Key": KIT_API_KEY,
-      },
-      body: "{}",
-      signal: AbortSignal.timeout(KIT_TIMEOUT_MS),
-    },
-  );
+      headers,
+      body: JSON.stringify({
+        email_address: email,
+        state: "active",
+        ...(firstName ? { first_name: firstName } : {}),
+      }),
+    });
 
-  if (!tagRes.ok) {
-    const body = await tagRes.text();
-    throw new Error(`Kit tag subscriber failed: ${tagRes.status} ${body}`);
+    if (createRes.ok) {
+      const body = (await createRes.json().catch(() => ({}))) as {
+        subscriber?: { id: number; state: string };
+      };
+      if (!body.subscriber?.id) {
+        return {
+          ok: false,
+          reason: "create_failed",
+          status: createRes.status,
+          detail: "subscriber missing in response",
+        };
+      }
+      subscriberId = body.subscriber.id;
+      state = body.subscriber.state;
+    } else if (createRes.status === 422) {
+      alreadyExisted = true;
+      const lookupRes = await kitFetch(
+        `https://api.kit.com/v4/subscribers?email_address=${encodeURIComponent(email)}`,
+        { headers },
+      );
+      if (!lookupRes.ok) {
+        const detail = await lookupRes.text().catch(() => "");
+        return {
+          ok: false,
+          reason: "lookup_failed",
+          status: lookupRes.status,
+          detail: detail.slice(0, 200),
+        };
+      }
+      const lookup = (await lookupRes.json().catch(() => ({}))) as {
+        subscribers?: Array<{ id: number; state: string }>;
+      };
+      const existing = lookup.subscribers?.[0];
+      if (!existing?.id) {
+        return {
+          ok: false,
+          reason: "lookup_failed",
+          detail: "422 on create but lookup returned no match",
+        };
+      }
+      subscriberId = existing.id;
+      state = existing.state;
+    } else {
+      const detail = await createRes.text().catch(() => "");
+      return {
+        ok: false,
+        reason: "create_failed",
+        status: createRes.status,
+        detail: detail.slice(0, 200),
+      };
+    }
+  } catch (err) {
+    if (isAbortError(err)) {
+      return {
+        ok: false,
+        reason: "timeout",
+        detail: `create/lookup exceeded ${KIT_FETCH_TIMEOUT_MS}ms`,
+      };
+    }
+    return {
+      ok: false,
+      reason: "exception",
+      detail: err instanceof Error ? err.message : String(err),
+    };
+  }
+
+  try {
+    const tagRes = await kitFetch(
+      `https://api.kit.com/v4/tags/${tagId}/subscribers/${subscriberId}`,
+      { method: "POST", headers, body: "{}" },
+    );
+    if (!tagRes.ok) {
+      const detail = await tagRes.text().catch(() => "");
+      return {
+        ok: false,
+        reason: "tag_failed",
+        status: tagRes.status,
+        detail: detail.slice(0, 200),
+      };
+    }
+    return { ok: true, subscriberId, state, alreadyExisted };
+  } catch (err) {
+    if (isAbortError(err)) {
+      return {
+        ok: false,
+        reason: "timeout",
+        detail: `tag exceeded ${KIT_FETCH_TIMEOUT_MS}ms`,
+      };
+    }
+    return {
+      ok: false,
+      reason: "exception",
+      detail: err instanceof Error ? err.message : String(err),
+    };
   }
 }

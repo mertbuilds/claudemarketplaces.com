@@ -1,35 +1,63 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { ArrowRight, Check } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import { safeNextPath } from "@/lib/safe-redirect";
+
+const consentSchema = z.object({
+  consent: z.boolean(),
+});
+
+type ConsentValues = z.infer<typeof consentSchema>;
 
 function WelcomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const next = safeNextPath(searchParams.get("next"));
-  const [consent, setConsent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
 
-  const handleContinue = async () => {
-    setLoading(true);
-    setError(false);
+  const form = useForm<ConsentValues>({
+    resolver: zodResolver(consentSchema),
+    defaultValues: { consent: false },
+  });
+
+  const consent = form.watch("consent");
+  const submitError = form.formState.errors.root?.message;
+  const isSubmitting = form.formState.isSubmitting;
+
+  const onSubmit = async (values: ConsentValues) => {
+    form.clearErrors("root");
     try {
       const res = await fetch("/api/consent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ consent }),
+        body: JSON.stringify({ consent: values.consent }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        form.setError("root", {
+          message: data?.error ?? "Something went wrong. Please try again.",
+        });
+        return;
+      }
       router.push(next);
     } catch {
-      setError(true);
-      setLoading(false);
+      form.setError("root", {
+        message: "Network error. Please try again.",
+      });
     }
   };
 
@@ -55,73 +83,90 @@ function WelcomeContent() {
             comment on plugins, skills, and MCP servers.
           </p>
 
-          {/* Newsletter masthead — the opt-in, reframed */}
-          <div className="border border-border p-6 md:p-7 mb-8 bg-secondary/40 relative">
-            <div className="flex items-baseline justify-between pb-4 mb-4 border-b border-border">
-              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                The newsletter
-              </p>
-              <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Weekly &middot; Free
-              </p>
-            </div>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              {/* Newsletter masthead — the opt-in, reframed */}
+              <div className="border border-border p-6 md:p-7 mb-8 bg-secondary/40 relative">
+                <div className="flex items-baseline justify-between pb-4 mb-4 border-b border-border">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    The newsletter
+                  </p>
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    Weekly &middot; Free
+                  </p>
+                </div>
 
-            <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
-              This week in Claude
-            </p>
+                <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
+                  This week in Claude
+                </p>
 
-            <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
-              Model updates, Claude Code releases, and notable tools. Every
-              Monday morning.
-            </p>
+                <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
+                  Model updates, Claude Code releases, and notable tools. Every
+                  Monday morning.
+                </p>
 
-            <label
-              htmlFor="marketing-consent"
-              className="inline-flex items-center gap-3 cursor-pointer group select-none"
-            >
-              <Checkbox
-                id="marketing-consent"
-                checked={consent}
-                onCheckedChange={(checked) => setConsent(checked === true)}
-              />
-              <span className="text-sm text-foreground group-hover:text-primary transition-colors">
-                Send me the next issue
-              </span>
-            </label>
-          </div>
+                <FormField
+                  control={form.control}
+                  name="consent"
+                  render={({ field }) => (
+                    <FormItem className="flex items-center space-y-0 gap-3">
+                      <FormControl>
+                        <Checkbox
+                          id="marketing-consent"
+                          checked={field.value}
+                          onCheckedChange={(checked) =>
+                            field.onChange(checked === true)
+                          }
+                        />
+                      </FormControl>
+                      <FormLabel
+                        htmlFor="marketing-consent"
+                        className="text-sm text-foreground cursor-pointer font-normal"
+                      >
+                        Send me the next issue
+                      </FormLabel>
+                    </FormItem>
+                  )}
+                />
+              </div>
 
-          {error && (
-            <p
-              role="alert"
-              aria-live="assertive"
-              className="text-sm text-destructive mb-4"
-            >
-              Something went wrong. Please try again.
-            </p>
-          )}
-
-          {/* CTA row */}
-          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-            <Button
-              onClick={handleContinue}
-              disabled={loading}
-              className="group gap-2 px-6 w-full sm:w-auto"
-            >
-              {loading ? (
-                "Saving..."
-              ) : (
-                <>
-                  Continue
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </>
+              {submitError && (
+                <p
+                  role="alert"
+                  aria-live="assertive"
+                  className="text-sm text-destructive mb-4"
+                >
+                  {submitError}
+                </p>
               )}
-            </Button>
-            <p aria-live="polite" className="text-xs text-muted-foreground">
-              {consent
-                ? "You'll get the next issue on Monday."
-                : "You can subscribe later from any footer."}
-            </p>
-          </div>
+
+              {/* CTA row */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group gap-2 px-6 w-full sm:w-auto"
+                >
+                  {isSubmitting ? (
+                    "Saving..."
+                  ) : (
+                    <>
+                      Continue
+                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </>
+                  )}
+                </Button>
+                <p
+                  aria-live="polite"
+                  className="text-xs text-muted-foreground"
+                >
+                  {consent
+                    ? "You'll get the next issue on Monday."
+                    : "You can subscribe later from any footer."}
+                </p>
+              </div>
+            </form>
+          </Form>
         </div>
       </main>
     </div>

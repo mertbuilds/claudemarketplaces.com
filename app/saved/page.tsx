@@ -97,12 +97,21 @@ export default function SavedPage() {
         }
       }
 
+      // Narrow projections for list renders — match the repo pattern in
+      // lib/data/mcp-servers.ts and lib/data/skills.ts which intentionally
+      // omit `summary` and other large text fields from list queries to
+      // keep Supabase egress + payload size low.
+      const MCP_LIST_COLUMNS =
+        "slug, name, display_name, description, source_repo, source, user_name, collection, tags, url, stars, last_updated, vote_count, comment_count, created_at";
+      const SKILL_LIST_COLUMNS =
+        "id, name, description, repo, repo_slug, path, license, stars, installs, install_command, discovered_at, last_updated, vote_count, comment_count, created_at";
+
       const [mcpResult, marketplaceResult, pluginResult, skillResult] =
         await Promise.all([
           byType.mcp_server.length > 0
             ? supabase
                 .from("mcp_servers")
-                .select("*")
+                .select(MCP_LIST_COLUMNS)
                 .in("slug", byType.mcp_server)
             : Promise.resolve({ data: [], error: null }),
           byType.marketplace.length > 0
@@ -115,7 +124,10 @@ export default function SavedPage() {
             ? supabase.from("plugins").select("*").in("id", byType.plugin)
             : Promise.resolve({ data: [], error: null }),
           byType.skill.length > 0
-            ? supabase.from("skills").select("*").in("id", byType.skill)
+            ? supabase
+                .from("skills")
+                .select(SKILL_LIST_COLUMNS)
+                .in("id", byType.skill)
             : Promise.resolve({ data: [], error: null }),
         ]);
 
