@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { newsletterSubscribeSchema } from "@/lib/schemas/newsletter.schema";
 
-type Source = "hero" | "footer" | "email-confirmed";
+type Source = "hero" | "footer" | "email-confirmed" | "digest";
 type Status = "idle" | "submitting" | "success" | "error";
 
 export function NewsletterForm({

@@ -9,8 +9,9 @@ const links = [
   { href: "/skills", label: "Skills" },
   { href: "/marketplaces", label: "Marketplaces" },
   { href: "/mcp", label: "MCP" },
+  { href: "/digest", label: "Digest" },
   { href: "/learn", label: "Learn" },
-{ href: "/advertise", label: "Advertise" },
+  { href: "/advertise", label: "Advertise" },
 ];
 
 export function Header() {
