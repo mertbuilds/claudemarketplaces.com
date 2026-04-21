@@ -3,6 +3,7 @@ import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { CategoryChips } from "@/components/category-chips";
+import { NewsletterForm } from "@/components/newsletter-form";
 
 export function Footer({ hideCategories = false }: { hideCategories?: boolean } = {}) {
   const skillChips = SKILL_CATEGORIES.map((cat) => ({
@@ -26,6 +27,18 @@ export function Footer({ hideCategories = false }: { hideCategories?: boolean } 
   return (
     <footer className="border-t border-border mt-16">
       <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 md:gap-12 pb-10 mb-10 border-b border-border">
+          <div className="max-w-lg">
+            <p className="font-serif text-lg md:text-xl font-normal mb-1.5 text-balance">
+              This week in Claude
+            </p>
+            <p className="text-xs text-muted-foreground leading-relaxed text-pretty">
+              Weekly digest for Claude Code builders. Model updates, releases, and notable tools.
+            </p>
+          </div>
+          <NewsletterForm source="footer" className="w-full md:w-[360px] shrink-0" />
+        </div>
+
         {!hideCategories && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pb-8 border-b border-border">
             {/* Skills categories */}

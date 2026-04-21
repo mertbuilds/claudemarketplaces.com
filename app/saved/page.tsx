@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Bookmark } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { isDevPreview } from "@/lib/supabase/dev-preview";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { VoteProvider } from "@/lib/contexts/vote-context";
@@ -35,10 +37,18 @@ interface SavedItems {
   skills: Skill[];
 }
 
+const EMPTY_ITEMS: SavedItems = {
+  mcp_servers: [],
+  marketplaces: [],
+  plugins: [],
+  skills: [],
+};
+
 export default function SavedPage() {
   const [savedItems, setSavedItems] = useState<SavedItems | null>(null);
   const [loading, setLoading] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
+  const [isMock, setIsMock] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -49,13 +59,19 @@ export default function SavedPage() {
       } = await supabase.auth.getUser();
 
       if (!user) {
+        if (isDevPreview()) {
+          setAuthenticated(true);
+          setIsMock(true);
+          setSavedItems(EMPTY_ITEMS);
+          setLoading(false);
+          return;
+        }
         router.push("/login?next=/saved");
         return;
       }
 
       setAuthenticated(true);
 
-      // Fetch all bookmarks for this user
       const { data: bookmarks, error } = await supabase
         .from("bookmarks")
         .select("item_type, item_id")
@@ -63,12 +79,11 @@ export default function SavedPage() {
         .order("created_at", { ascending: false });
 
       if (error || !bookmarks) {
-        setSavedItems({ mcp_servers: [], marketplaces: [], plugins: [], skills: [] });
+        setSavedItems(EMPTY_ITEMS);
         setLoading(false);
         return;
       }
 
-      // Group bookmark IDs by type
       const byType: Record<string, string[]> = {
         mcp_server: [],
         marketplace: [],
@@ -82,35 +97,28 @@ export default function SavedPage() {
         }
       }
 
-      // Fetch actual items in parallel
-      const [mcpResult, marketplaceResult, pluginResult, skillResult] = await Promise.all([
-        byType.mcp_server.length > 0
-          ? supabase
-              .from("mcp_servers")
-              .select("*")
-              .in("slug", byType.mcp_server)
-          : Promise.resolve({ data: [], error: null }),
-        byType.marketplace.length > 0
-          ? supabase
-              .from("marketplaces")
-              .select("*")
-              .in("repo", byType.marketplace)
-          : Promise.resolve({ data: [], error: null }),
-        byType.plugin.length > 0
-          ? supabase
-              .from("plugins")
-              .select("*")
-              .in("id", byType.plugin)
-          : Promise.resolve({ data: [], error: null }),
-        byType.skill.length > 0
-          ? supabase
-              .from("skills")
-              .select("*")
-              .in("id", byType.skill)
-          : Promise.resolve({ data: [], error: null }),
-      ]);
+      const [mcpResult, marketplaceResult, pluginResult, skillResult] =
+        await Promise.all([
+          byType.mcp_server.length > 0
+            ? supabase
+                .from("mcp_servers")
+                .select("*")
+                .in("slug", byType.mcp_server)
+            : Promise.resolve({ data: [], error: null }),
+          byType.marketplace.length > 0
+            ? supabase
+                .from("marketplaces")
+                .select("*")
+                .in("repo", byType.marketplace)
+            : Promise.resolve({ data: [], error: null }),
+          byType.plugin.length > 0
+            ? supabase.from("plugins").select("*").in("id", byType.plugin)
+            : Promise.resolve({ data: [], error: null }),
+          byType.skill.length > 0
+            ? supabase.from("skills").select("*").in("id", byType.skill)
+            : Promise.resolve({ data: [], error: null }),
+        ]);
 
-      // Map rows to typed objects, preserving bookmark order
       const mcpMap = new Map<string, McpServer>();
       for (const row of (mcpResult.data ?? []) as McpServerRow[]) {
         mcpMap.set(row.slug, mapMcpServerRow(row));
@@ -150,23 +158,22 @@ export default function SavedPage() {
     load();
   }, [router]);
 
-  const totalCount =
-    savedItems
-      ? savedItems.mcp_servers.length +
-        savedItems.marketplaces.length +
-        savedItems.plugins.length +
-        savedItems.skills.length
-      : 0;
+  const totalCount = savedItems
+    ? savedItems.mcp_servers.length +
+      savedItems.marketplaces.length +
+      savedItems.plugins.length +
+      savedItems.skills.length
+    : 0;
 
   if (loading) {
     return (
-      <>
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <div className="container mx-auto flex min-h-[60vh] items-center justify-center px-4">
+        <main className="flex-1 flex items-center justify-center px-4">
           <p className="text-sm text-muted-foreground">Loading...</p>
-        </div>
+        </main>
         <Footer />
-      </>
+      </div>
     );
   }
 
@@ -176,88 +183,184 @@ export default function SavedPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <div className="container mx-auto px-4 pt-8 pb-4">
-          <h1 className="text-sm uppercase tracking-[0.12em]">Saved</h1>
+        <div className="container mx-auto max-w-6xl px-4 py-12 md:py-16 animate-in fade-in slide-in-from-bottom-2 duration-500">
+          {/* Status chip */}
+          <div
+            className={
+              isMock
+                ? "inline-flex items-center gap-2 border border-border bg-secondary/50 px-2.5 py-1 mb-8"
+                : "inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-2.5 py-1 mb-8"
+            }
+          >
+            <Bookmark
+              className={
+                isMock
+                  ? "h-3 w-3 text-muted-foreground"
+                  : "h-3 w-3 text-primary"
+              }
+              strokeWidth={2.5}
+            />
+            <span
+              className={
+                isMock
+                  ? "text-[10px] uppercase tracking-[0.14em] text-muted-foreground font-medium"
+                  : "text-[10px] uppercase tracking-[0.14em] text-primary font-medium"
+              }
+            >
+              {isMock ? "Dev preview" : "Library"}
+            </span>
+          </div>
+
+          {/* Headline */}
+          <h1 className="font-serif text-4xl md:text-5xl font-normal mb-4 tracking-tight text-balance">
+            Your <span className="italic">library</span>.
+          </h1>
+          <p className="text-sm text-muted-foreground max-w-md mb-12 leading-relaxed">
+            Everything you&apos;ve bookmarked across the directory, grouped by
+            kind.
+          </p>
+
+          {totalCount === 0 ? (
+            <div className="border-t border-border pt-16 pb-24 flex flex-col items-center text-center">
+              <p className="font-serif italic text-2xl md:text-3xl font-normal text-muted-foreground mb-3">
+                Nothing saved yet.
+              </p>
+              <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+                Tap the bookmark icon on any skill, marketplace, plugin, or MCP
+                server to keep it here for later.
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-14">
+              {savedItems!.skills.length > 0 && (
+                <section>
+                  <div className="flex items-baseline justify-between pb-4 mb-6 border-b border-border">
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                      Skills
+                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground font-mono">
+                      {savedItems!.skills.length}
+                    </p>
+                  </div>
+                  <VoteProvider
+                    itemType="skill"
+                    itemIds={savedItems!.skills.map((s) => s.id)}
+                  >
+                    <BookmarkProvider
+                      itemType="skill"
+                      itemIds={savedItems!.skills.map((s) => s.id)}
+                      initialBookmarks={Object.fromEntries(
+                        savedItems!.skills.map((s) => [s.id, true]),
+                      )}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {savedItems!.skills.map((skill) => (
+                          <SkillCard key={skill.id} skill={skill} />
+                        ))}
+                      </div>
+                    </BookmarkProvider>
+                  </VoteProvider>
+                </section>
+              )}
+
+              {savedItems!.mcp_servers.length > 0 && (
+                <section>
+                  <div className="flex items-baseline justify-between pb-4 mb-6 border-b border-border">
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                      MCP servers
+                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground font-mono">
+                      {savedItems!.mcp_servers.length}
+                    </p>
+                  </div>
+                  <VoteProvider
+                    itemType="mcp_server"
+                    itemIds={savedItems!.mcp_servers.map((s) => s.slug)}
+                  >
+                    <BookmarkProvider
+                      itemType="mcp_server"
+                      itemIds={savedItems!.mcp_servers.map((s) => s.slug)}
+                      initialBookmarks={Object.fromEntries(
+                        savedItems!.mcp_servers.map((s) => [s.slug, true]),
+                      )}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {savedItems!.mcp_servers.map((server) => (
+                          <McpServerCard key={server.slug} server={server} />
+                        ))}
+                      </div>
+                    </BookmarkProvider>
+                  </VoteProvider>
+                </section>
+              )}
+
+              {savedItems!.marketplaces.length > 0 && (
+                <section>
+                  <div className="flex items-baseline justify-between pb-4 mb-6 border-b border-border">
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                      Marketplaces
+                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground font-mono">
+                      {savedItems!.marketplaces.length}
+                    </p>
+                  </div>
+                  <VoteProvider
+                    itemType="marketplace"
+                    itemIds={savedItems!.marketplaces.map((m) => m.repo)}
+                  >
+                    <BookmarkProvider
+                      itemType="marketplace"
+                      itemIds={savedItems!.marketplaces.map((m) => m.repo)}
+                      initialBookmarks={Object.fromEntries(
+                        savedItems!.marketplaces.map((m) => [m.repo, true]),
+                      )}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {savedItems!.marketplaces.map((marketplace) => (
+                          <MarketplaceCard
+                            key={marketplace.repo}
+                            marketplace={marketplace}
+                          />
+                        ))}
+                      </div>
+                    </BookmarkProvider>
+                  </VoteProvider>
+                </section>
+              )}
+
+              {savedItems!.plugins.length > 0 && (
+                <section>
+                  <div className="flex items-baseline justify-between pb-4 mb-6 border-b border-border">
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                      Plugins
+                    </p>
+                    <p className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground font-mono">
+                      {savedItems!.plugins.length}
+                    </p>
+                  </div>
+                  <VoteProvider
+                    itemType="plugin"
+                    itemIds={savedItems!.plugins.map((p) => p.id)}
+                  >
+                    <BookmarkProvider
+                      itemType="plugin"
+                      itemIds={savedItems!.plugins.map((p) => p.id)}
+                      initialBookmarks={Object.fromEntries(
+                        savedItems!.plugins.map((p) => [p.id, true]),
+                      )}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {savedItems!.plugins.map((plugin) => (
+                          <PluginCard key={plugin.id} plugin={plugin} />
+                        ))}
+                      </div>
+                    </BookmarkProvider>
+                  </VoteProvider>
+                </section>
+              )}
+            </div>
+          )}
         </div>
-
-        {totalCount === 0 ? (
-          <div className="container mx-auto px-4 py-12 text-center">
-            <p className="text-muted-foreground mb-2">No saved items yet.</p>
-            <p className="text-sm text-muted-foreground">
-              Use the bookmark icon on any skill, marketplace, plugin, or MCP server to save it here.
-            </p>
-          </div>
-        ) : (
-          <div className="container mx-auto px-4 pb-12 space-y-10">
-            {savedItems!.mcp_servers.length > 0 && (
-              <section>
-                <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-4">
-                  MCP Servers
-                </h2>
-                <VoteProvider itemType="mcp_server" itemIds={savedItems!.mcp_servers.map(s => s.slug)}>
-                  <BookmarkProvider itemType="mcp_server" itemIds={savedItems!.mcp_servers.map(s => s.slug)} initialBookmarks={Object.fromEntries(savedItems!.mcp_servers.map(s => [s.slug, true]))}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {savedItems!.mcp_servers.map((server) => (
-                        <McpServerCard key={server.slug} server={server} />
-                      ))}
-                    </div>
-                  </BookmarkProvider>
-                </VoteProvider>
-              </section>
-            )}
-
-            {savedItems!.marketplaces.length > 0 && (
-              <section>
-                <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-4">
-                  Marketplaces
-                </h2>
-                <VoteProvider itemType="marketplace" itemIds={savedItems!.marketplaces.map(m => m.repo)}>
-                  <BookmarkProvider itemType="marketplace" itemIds={savedItems!.marketplaces.map(m => m.repo)} initialBookmarks={Object.fromEntries(savedItems!.marketplaces.map(m => [m.repo, true]))}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {savedItems!.marketplaces.map((marketplace) => (
-                        <MarketplaceCard key={marketplace.repo} marketplace={marketplace} />
-                      ))}
-                    </div>
-                  </BookmarkProvider>
-                </VoteProvider>
-              </section>
-            )}
-
-            {savedItems!.plugins.length > 0 && (
-              <section>
-                <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-4">
-                  Plugins
-                </h2>
-                <VoteProvider itemType="plugin" itemIds={savedItems!.plugins.map(p => p.id)}>
-                  <BookmarkProvider itemType="plugin" itemIds={savedItems!.plugins.map(p => p.id)} initialBookmarks={Object.fromEntries(savedItems!.plugins.map(p => [p.id, true]))}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {savedItems!.plugins.map((plugin) => (
-                        <PluginCard key={plugin.id} plugin={plugin} />
-                      ))}
-                    </div>
-                  </BookmarkProvider>
-                </VoteProvider>
-              </section>
-            )}
-
-            {savedItems!.skills.length > 0 && (
-              <section>
-                <h2 className="text-xs uppercase tracking-[0.12em] text-muted-foreground mb-4">
-                  Skills
-                </h2>
-                <VoteProvider itemType="skill" itemIds={savedItems!.skills.map(s => s.id)}>
-                  <BookmarkProvider itemType="skill" itemIds={savedItems!.skills.map(s => s.id)} initialBookmarks={Object.fromEntries(savedItems!.skills.map(s => [s.id, true]))}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {savedItems!.skills.map((skill) => (
-                        <SkillCard key={skill.id} skill={skill} />
-                      ))}
-                    </div>
-                  </BookmarkProvider>
-                </VoteProvider>
-              </section>
-            )}
-          </div>
-        )}
       </main>
       <Footer />
     </div>

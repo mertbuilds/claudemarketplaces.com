@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FeaturedCards } from "@/components/featured-cards";
+import { NewsletterForm } from "@/components/newsletter-form";
 import {
   getAllMarketplaces,
   getTopMarketplaces,
@@ -397,6 +398,12 @@ export default function Home() {
             <Suspense fallback={<CountStripSkeleton />}>
               <CountStrip />
             </Suspense>
+          </div>
+          <div className="mb-6">
+            <p className="text-xs text-muted-foreground mb-2">
+              Get <span className="italic">This week in Claude</span>. Weekly digest of model updates, releases, and notable tools.
+            </p>
+            <NewsletterForm source="hero" className="max-w-md" />
           </div>
           <FeaturedCards />
         </section>
