@@ -89,9 +89,9 @@ export function NewsletterForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className={`flex flex-col gap-2 ${className}`}
+        className={`flex flex-col gap-2 w-full ${className}`}
       >
-        <div className="flex flex-col sm:flex-row items-stretch gap-2">
+        <div className="flex flex-col sm:flex-row items-stretch gap-2 w-full">
           <FormField
             control={form.control}
             name="email"

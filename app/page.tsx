@@ -401,7 +401,7 @@ export default function Home() {
           </div>
           <div className="mb-6">
             <p className="text-xs text-muted-foreground mb-2">
-              Get <span className="italic">This week in Claude</span>. Weekly digest of model updates, releases, and notable tools.
+              Get This week in Claude. Weekly digest of model updates, releases, and notable tools.
             </p>
             <NewsletterForm source="hero" className="max-w-md" />
           </div>

@@ -96,7 +96,7 @@ function WelcomeContent() {
                   </p>
                 </div>
 
-                <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
+                <p className="font-serif text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
                   This week in Claude
                 </p>
 

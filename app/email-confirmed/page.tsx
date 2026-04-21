@@ -148,7 +148,7 @@ function EmailConfirmedContent() {
                   Weekly &middot; Free
                 </p>
               </div>
-              <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
+              <p className="font-serif text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
                 This week in Claude
               </p>
               <p className="text-sm text-foreground/80 leading-relaxed max-w-md">
@@ -169,7 +169,7 @@ function EmailConfirmedContent() {
                   Weekly &middot; Free
                 </p>
               </div>
-              <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
+              <p className="font-serif text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
                 This week in Claude
               </p>
               <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">

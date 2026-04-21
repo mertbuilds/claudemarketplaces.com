@@ -141,14 +141,14 @@ export default async function DigestIssuePage({ params }: PageProps) {
                 Weekly &middot; Free
               </p>
             </div>
-            <p className="font-serif italic text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
+            <p className="font-serif text-2xl md:text-3xl font-normal mb-2 text-balance leading-tight">
               This week in Claude
             </p>
             <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
               Get the next issue every Monday morning. Model updates,
               releases, and notable tools.
             </p>
-            <NewsletterForm source="digest" className="max-w-md" />
+            <NewsletterForm source="digest" />
           </div>
 
           {/* Prev / next nav */}

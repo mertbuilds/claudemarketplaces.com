@@ -68,7 +68,7 @@ export default async function DigestIndexPage() {
                 Weekly &middot; Free
               </p>
             </div>
-            <NewsletterForm source="digest" className="max-w-md" />
+            <NewsletterForm source="digest" />
           </div>
 
           {/* Past issues */}
@@ -92,9 +92,10 @@ export default async function DigestIndexPage() {
                 </p>
               </div>
             ) : (
-              <ul className="divide-y divide-border border-t border-border">
+              <ul>
                 {issues.map((issue) => (
-                  <li key={issue.id}>
+                  <li key={issue.id} className="border-b border-border">
+
                     <Link
                       href={`/digest/${issue.slug}`}
                       className="group flex flex-col md:flex-row md:items-baseline gap-2 md:gap-8 py-6 hover:bg-secondary/30 transition-colors -mx-4 px-4"
