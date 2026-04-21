@@ -6,10 +6,10 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { NewsletterForm } from "@/components/newsletter-form";
 import {
-  extractSlug,
   getBroadcastBySlug,
   listPublishedBroadcasts,
   sanitizeBroadcastHtml,
+  stripSubjectPrefix,
 } from "@/lib/kit";
 
 export const revalidate = 3600;
@@ -31,14 +31,15 @@ export async function generateMetadata({
   if (!broadcast) {
     return { title: "Issue not found" };
   }
+  const cleanSubject = stripSubjectPrefix(broadcast.subject);
   return {
-    title: `${broadcast.subject} — This week in Claude`,
+    title: `${cleanSubject} · This week in Claude`,
     description:
       broadcast.preview_text ??
-      "Weekly digest for Claude Code builders — model updates, releases, and notable tools.",
+      "Weekly digest for Claude Code builders. Model updates, releases, and notable tools.",
     alternates: { canonical: `/digest/${slug}` },
     openGraph: {
-      title: broadcast.subject,
+      title: cleanSubject,
       description: broadcast.preview_text ?? undefined,
       url: `https://claudemarketplaces.com/digest/${slug}`,
       type: "article",
@@ -73,8 +74,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
   const dateLabel = broadcast.send_at
     ? formatSendDate(broadcast.send_at)
     : null;
-
-  const currentSlug = extractSlug(broadcast);
+  const cleanSubject = stripSubjectPrefix(broadcast.subject);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -104,7 +104,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
 
           {/* Subject */}
           <h1 className="font-serif text-3xl md:text-4xl font-normal mb-4 tracking-tight text-balance leading-tight">
-            {broadcast.subject.replace(/^This week in Claude:\s*/i, "")}
+            {cleanSubject}
           </h1>
           {broadcast.preview_text && (
             <p className="text-sm text-muted-foreground leading-relaxed mb-10 max-w-2xl">
@@ -146,7 +146,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
             </p>
             <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
               Get the next issue every Monday morning. Model updates,
-              releases, MCP drops, and notable tools.
+              releases, and notable tools.
             </p>
             <NewsletterForm source="digest" className="max-w-md" />
           </div>
@@ -163,7 +163,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
                     Older issue
                   </span>
                   <span className="font-serif text-lg leading-snug text-balance group-hover:text-primary transition-colors">
-                    {older.subject.replace(/^This week in Claude:\s*/i, "")}
+                    {stripSubjectPrefix(older.subject)}
                   </span>
                 </Link>
               ) : (
@@ -179,7 +179,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
                     <ArrowRight className="h-3 w-3" />
                   </span>
                   <span className="font-serif text-lg leading-snug text-balance group-hover:text-primary transition-colors">
-                    {newer.subject.replace(/^This week in Claude:\s*/i, "")}
+                    {stripSubjectPrefix(newer.subject)}
                   </span>
                 </Link>
               ) : (
@@ -221,7 +221,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
                 },
                 mainEntityOfPage: {
                   "@type": "WebPage",
-                  "@id": `https://claudemarketplaces.com/digest/${currentSlug}`,
+                  "@id": `https://claudemarketplaces.com/digest/${slug}`,
                 },
               }),
             }}

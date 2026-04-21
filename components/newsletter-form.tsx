@@ -70,6 +70,8 @@ export function NewsletterForm({
   if (status === "success") {
     return (
       <div
+        role="status"
+        aria-live="polite"
         className={`flex items-center gap-2 text-sm text-foreground ${className}`}
       >
         <Check className="h-4 w-4 text-primary" />
@@ -77,6 +79,9 @@ export function NewsletterForm({
       </div>
     );
   }
+
+  const errorId = `newsletter-error-${source}`;
+  const hasError = status === "error" && !!errorMsg;
 
   return (
     <form onSubmit={handleSubmit} className={`flex flex-col gap-2 ${className}`}>
@@ -90,6 +95,8 @@ export function NewsletterForm({
           disabled={status === "submitting"}
           required
           aria-label="Email address"
+          aria-invalid={hasError}
+          aria-describedby={hasError ? errorId : undefined}
           className="flex-1"
         />
         <Button
@@ -119,8 +126,15 @@ export function NewsletterForm({
         autoComplete="off"
         aria-hidden="true"
       />
-      {errorMsg && status === "error" && (
-        <p className="text-xs text-destructive">{errorMsg}</p>
+      {hasError && (
+        <p
+          id={errorId}
+          role="alert"
+          aria-live="assertive"
+          className="text-xs text-destructive"
+        >
+          {errorMsg}
+        </p>
       )}
     </form>
   );

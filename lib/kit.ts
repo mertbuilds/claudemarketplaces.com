@@ -1,5 +1,8 @@
+import sanitizeHtml from "sanitize-html";
+
 const KIT_API_KEY = process.env.KIT_API_KEY;
 const KIT_API_BASE = "https://api.kit.com/v4";
+const KIT_TIMEOUT_MS = 5000;
 
 export interface KitBroadcast {
   id: number;
@@ -51,6 +54,7 @@ async function kitFetch<T>(
         "Content-Type": "application/json",
       },
       next: { revalidate: revalidateSec },
+      signal: AbortSignal.timeout(KIT_TIMEOUT_MS),
     });
     if (!res.ok) {
       console.error("[kit] fetch failed:", res.status, await res.text());
@@ -109,12 +113,42 @@ export async function getBroadcastBySlug(
 
 export { extractSlug };
 
+/** Strip the newsletter's subject-line brand prefix for display. */
+export function stripSubjectPrefix(subject: string): string {
+  return subject.replace(/^This week in Claude:\s*/i, "");
+}
+
 /**
- * Email HTML ships with <style> blocks scoped for email rendering.
- * Those styles leak into the page globally when rendered via
- * dangerouslySetInnerHTML. Strip them — the /digest page relies on its
- * own prose + Tailwind styling.
+ * Sanitize broadcast HTML for rendering with dangerouslySetInnerHTML.
+ * Strips scripts, iframes, event handlers, unsafe URL schemes, and the
+ * <style> blocks that email templates embed (they'd leak globally).
+ * Forces rel=noopener noreferrer on any target=_blank anchors.
  */
 export function sanitizeBroadcastHtml(html: string): string {
-  return html.replace(/<style[\s\S]*?<\/style>/gi, "").trim();
+  return sanitizeHtml(html, {
+    allowedTags: [
+      "h1", "h2", "h3", "h4", "h5", "h6",
+      "p", "ul", "ol", "li",
+      "a", "strong", "em", "b", "i", "u",
+      "code", "pre", "blockquote",
+      "hr", "br",
+      "table", "thead", "tbody", "tr", "td", "th", "caption",
+      "img",
+      "div", "span",
+    ],
+    allowedAttributes: {
+      a: ["href", "name", "target", "rel"],
+      img: ["src", "alt", "width", "height"],
+      "*": ["class"],
+    },
+    allowedSchemes: ["http", "https", "mailto"],
+    transformTags: {
+      a: (tagName, attribs) => {
+        if (attribs.target === "_blank") {
+          attribs.rel = "noopener noreferrer";
+        }
+        return { tagName, attribs };
+      },
+    },
+  });
 }

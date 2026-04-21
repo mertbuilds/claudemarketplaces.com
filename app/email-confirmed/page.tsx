@@ -152,8 +152,8 @@ function EmailConfirmedContent() {
                 This week in Claude
               </p>
               <p className="text-sm text-foreground/80 leading-relaxed max-w-md">
-                Model updates, Claude Code releases, MCP drops, and notable
-                skills. Every Monday morning.
+                Model updates, Claude Code releases, and notable tools. Every
+                Monday morning.
               </p>
             </div>
           )}
@@ -173,8 +173,8 @@ function EmailConfirmedContent() {
                 This week in Claude
               </p>
               <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
-                Model updates, Claude Code releases, MCP drops, and notable
-                skills. Every Monday morning.
+                Model updates, Claude Code releases, and notable tools. Every
+                Monday morning.
               </p>
               <NewsletterForm source="email-confirmed" className="max-w-md" />
             </div>

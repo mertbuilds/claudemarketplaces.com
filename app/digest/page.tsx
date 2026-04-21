@@ -11,7 +11,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "This Week in Claude — Weekly Digest Archive",
   description:
-    "Past issues of This week in Claude. Weekly digest for Claude Code builders covering model updates, releases, MCP drops, and notable tools.",
+    "Past issues of This week in Claude. Weekly digest for Claude Code builders covering model updates, releases, and notable tools.",
   alternates: { canonical: "/digest" },
   openGraph: {
     title: "This Week in Claude — Weekly Digest Archive",
@@ -51,11 +51,11 @@ export default async function DigestIndexPage() {
 
           {/* Headline */}
           <h1 className="font-serif text-4xl md:text-5xl font-normal mb-4 tracking-tight text-balance">
-            <span className="italic">This week</span> in Claude.
+            This week in Claude.
           </h1>
           <p className="text-sm text-muted-foreground max-w-md mb-10 leading-relaxed">
             A weekly digest for Claude Code builders. Model updates, releases,
-            MCP drops, and notable tools. Every Monday morning.
+            and notable tools. Every Monday morning.
           </p>
 
           {/* Subscribe card */}

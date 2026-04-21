@@ -6,11 +6,12 @@ import { ArrowRight, Check } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Header } from "@/components/header";
+import { safeNextPath } from "@/lib/safe-redirect";
 
 function WelcomeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const next = searchParams.get("next") || "/";
+  const next = safeNextPath(searchParams.get("next"));
   const [consent, setConsent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -70,8 +71,8 @@ function WelcomeContent() {
             </p>
 
             <p className="text-sm text-foreground/80 leading-relaxed mb-5 max-w-md">
-              Model updates, Claude Code releases, MCP drops, and notable
-              skills. Every Monday morning.
+              Model updates, Claude Code releases, and notable tools. Every
+              Monday morning.
             </p>
 
             <label
@@ -90,7 +91,11 @@ function WelcomeContent() {
           </div>
 
           {error && (
-            <p className="text-sm text-destructive mb-4">
+            <p
+              role="alert"
+              aria-live="assertive"
+              className="text-sm text-destructive mb-4"
+            >
               Something went wrong. Please try again.
             </p>
           )}
@@ -111,7 +116,7 @@ function WelcomeContent() {
                 </>
               )}
             </Button>
-            <p className="text-xs text-muted-foreground">
+            <p aria-live="polite" className="text-xs text-muted-foreground">
               {consent
                 ? "You'll get the next issue on Monday."
                 : "You can subscribe later from any footer."}
