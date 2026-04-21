@@ -94,7 +94,13 @@ function LoginContent() {
           </div>
 
           {error && (
-            <p className="text-sm text-destructive mb-4">{error}</p>
+            <p
+              role="alert"
+              aria-live="assertive"
+              className="text-sm text-destructive mb-4"
+            >
+              {error}
+            </p>
           )}
 
           {/* CTA row */}

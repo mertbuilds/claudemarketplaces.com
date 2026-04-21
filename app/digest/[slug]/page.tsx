@@ -223,7 +223,7 @@ export default async function DigestIssuePage({ params }: PageProps) {
                   "@type": "WebPage",
                   "@id": `https://claudemarketplaces.com/digest/${slug}`,
                 },
-              }),
+              }).replace(/</g, "\\u003c"),
             }}
           />
         </article>
