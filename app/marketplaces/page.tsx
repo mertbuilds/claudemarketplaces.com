@@ -8,7 +8,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMarketplaces, getMarketplaceCategoryCounts } from "@/lib/data/marketplaces";
 import { MarketplaceContent } from "@/components/marketplace-content";
-import { getInFeedAdsForPage } from "@/lib/ads";
+import { getInFeedAdsForPage, getFeaturedCardsOffset } from "@/lib/ads";
 import { MARKETPLACE_CATEGORIES } from "@/lib/data/marketplace-categories";
 import { CategoryChips } from "@/components/category-chips";
 import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
@@ -70,6 +70,7 @@ async function MarketplaceData() {
         marketplaces={marketplaces}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("marketplaces")}
+        featuredCardsOffset={getFeaturedCardsOffset()}
       />
     </>
   );

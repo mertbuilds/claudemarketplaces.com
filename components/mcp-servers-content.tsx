@@ -17,10 +17,11 @@ interface McpServersContentProps {
   servers: McpServer[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  featuredCardsOffset?: number;
   showFeatured?: boolean;
 }
 
-export function McpServersContent({ servers, newsletterSeed, infeedAds, showFeatured = true }: McpServersContentProps) {
+export function McpServersContent({ servers, newsletterSeed, infeedAds, featuredCardsOffset = 0, showFeatured = true }: McpServersContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -42,7 +43,7 @@ export function McpServersContent({ servers, newsletterSeed, infeedAds, showFeat
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {showFeatured && <FeaturedCards />}
+      {showFeatured && <FeaturedCards initialOffset={featuredCardsOffset} />}
 
       <div className="my-4">
         <ListingSearchBar

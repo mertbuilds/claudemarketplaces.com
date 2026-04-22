@@ -54,7 +54,7 @@ export function AdvertiseInFeedCard() {
           </div>
         </div>
         <CardDescription className="line-clamp-3">
-          Reach 105,000+ Claude Code developers every month. 100% organic traffic, public analytics, under $0.50 per click on All Placements.
+          Reach 110,000+ Claude Code developers every month. 100% organic traffic, public analytics, under $0.50 per click on All Placements.
         </CardDescription>
       </CardHeader>
       <CardContent>

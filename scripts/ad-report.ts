@@ -52,7 +52,7 @@ const startDate = new Date(endDate.getTime() - days * 24 * 60 * 60 * 1000);
 // Old card values (advertise-here, ideabrowser-workshop, ideabrowser-newsletter,
 // supastarter, etc.) are excluded from the report. Pass --include-historical
 // to see them.
-const CURRENT_CUSTOMERS = ["1inch", "appsignal", "ideabrowser", "mockhero"];
+const CURRENT_CUSTOMERS = ["1inch", "appsignal", "ideabrowser", "mockhero", "kryven"];
 
 // — Event types we care about —
 // Each surface has a (impression_event, click_event) pair. The property name

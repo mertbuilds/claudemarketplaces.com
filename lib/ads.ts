@@ -51,7 +51,18 @@ const ideabrowserInFeed: AdConfig = {
   tags: ["startups", "ai agents", "ideas"],
 };
 
-const INFEED_ADS = [oneinchInFeed, appsignalInFeed, ideabrowserInFeed];
+const kryvenInFeed: AdConfig = {
+  id: "kryven",
+  title: "Kryven AI",
+  description:
+    "Chat and build with the world's leading uncensored AI models.",
+  href: "https://kryven.cc/chat?utm_source=claudemarketplaces&utm_medium=ad&utm_campaign=launch",
+  cta: "Try Kryven free",
+  icon: "/kryven.png",
+  tags: ["ai", "models", "chat"],
+};
+
+const INFEED_ADS = [oneinchInFeed, appsignalInFeed, ideabrowserInFeed, kryvenInFeed];
 
 const PAGE_INDEX: Record<string, number> = {
   skills: 0,
@@ -69,11 +80,12 @@ const PAGE_INDEX: Record<string, number> = {
  */
 export function getInFeedAdsForPage(pageId: string): [AdConfig, AdConfig] {
   const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
-  const offset = daysSinceEpoch % 3;
+  const n = INFEED_ADS.length;
+  const offset = daysSinceEpoch % n;
   const p = PAGE_INDEX[pageId] ?? 0;
   return [
-    INFEED_ADS[(p + offset) % 3],
-    INFEED_ADS[(p + offset + 1) % 3],
+    INFEED_ADS[(p + offset) % n],
+    INFEED_ADS[(p + offset + 1) % n],
   ];
 }
 
@@ -112,6 +124,14 @@ export const FLOATING_BANNERS: BannerConfig[] = [
     icon: "/ideabrowser-symbol.webp",
     external: true,
   },
+  {
+    id: "kryven",
+    text: "Kryven AI — chat and build with the world's leading uncensored AI models.",
+    cta: "Try Kryven free",
+    href: "https://kryven.cc/chat?utm_source=claudemarketplaces&utm_medium=ad&utm_campaign=launch",
+    icon: "/kryven.png",
+    external: true,
+  },
 ];
 
 /**
@@ -124,6 +144,10 @@ export const FLOATING_BANNERS: BannerConfig[] = [
 export function getInitialFloatingBannerIndex(): number {
   const daysSinceEpoch = Math.floor(Date.now() / 86_400_000);
   return daysSinceEpoch % FLOATING_BANNERS.length;
+}
+
+export function getFeaturedCardsOffset(): number {
+  return Math.floor(Date.now() / 86_400_000) % 4;
 }
 
 // — Tier inventory (for /advertise scarcity badges) —
@@ -146,10 +170,10 @@ export interface TierInventory {
  * Update `taken` when a sale closes or a customer churns.
  */
 export const TIER_INVENTORY: Record<AdTierId, TierInventory> = {
-  "all-placements": { total: 6, taken: 3 },
-  "pinned-cards": { total: 6, taken: 3 },
-  "in-feed-cards": { total: 6, taken: 3 },
-  "floating-banner": { total: 6, taken: 4 },
+  "all-placements": { total: 6, taken: 5 },
+  "pinned-cards": { total: 6, taken: 5 },
+  "in-feed-cards": { total: 6, taken: 5 },
+  "floating-banner": { total: 6, taken: 5 },
 };
 
 export function getSlotsRemaining(tierId: AdTierId): number {

@@ -8,8 +8,6 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import Image from "next/image";
-import Link from "next/link";
-import { Megaphone } from "lucide-react";
 
 function useImpression(card: string) {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,17 +36,17 @@ interface FeaturedCardData {
   content: ReactNode;
 }
 
-export function FeaturedCards() {
+export function FeaturedCards({ initialOffset = 0 }: { initialOffset?: number }) {
   const oneinchRef = useImpression("1inch");
   const appsignalRef = useImpression("appsignal");
   const ideabrowserRef = useImpression("ideabrowser");
-  const advertiseCtaRef = useImpression("advertise-cta");
+  const kryvenRef = useImpression("kryven");
 
   const refs: Record<string, React.RefObject<HTMLDivElement | null>> = {
     "1inch": oneinchRef,
     appsignal: appsignalRef,
     ideabrowser: ideabrowserRef,
-    "advertise-cta": advertiseCtaRef,
+    kryven: kryvenRef,
   };
 
   const cards: FeaturedCardData[] = [
@@ -176,34 +174,42 @@ export function FeaturedCards() {
       ),
     },
     {
-      key: "advertise-cta",
-      impressionKey: "advertise-cta",
+      key: "kryven",
+      impressionKey: "kryven",
       cardClassName:
-        "relative border-dashed border-primary/50 bg-primary/5 transition-all hover:shadow-lg hover:border-primary hover:bg-primary/10 cursor-pointer py-1 gap-0",
+        "relative border-primary transition-all hover:shadow-lg hover:bg-primary/5 cursor-pointer py-1 gap-0",
       content: (
         <CardHeader className="flex-1 !flex !flex-col px-3 py-2 gap-2">
           <div className="flex gap-2 items-start">
-            <Megaphone className="h-3.5 w-3.5 shrink-0 mt-[0.15rem] text-primary" />
+            <Image
+              src="/kryven.png"
+              alt="Kryven AI"
+              width={14}
+              height={14}
+              className="h-3.5 w-3.5 shrink-0 mt-[0.15rem]"
+            />
             <CardTitle className="text-sm leading-snug">
-              <Link
-                href="/advertise"
+              <a
+                href="https://kryven.cc/chat?utm_source=claudemarketplaces&utm_medium=ad&utm_campaign=launch"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="after:absolute after:inset-0 cursor-pointer"
                 onClick={() => {
                   if (typeof window.op === "function")
                     window.op!("track", "featured_card_clicked", {
-                      card: "advertise-cta",
+                      card: "kryven",
                     });
                 }}
               >
-                Your product here.
-              </Link>
+                Kryven AI
+              </a>
             </CardTitle>
           </div>
           <CardDescription className="text-xs line-clamp-2">
-            Reach 105,000+ Claude Code builders. Only 2 of 6 sponsor slots left.
+            Chat and build with the world&apos;s leading uncensored AI models.
           </CardDescription>
           <span className="text-xs font-medium text-primary mt-auto">
-            See placements &rarr;
+            Try Kryven free &rarr;
           </span>
         </CardHeader>
       ),
@@ -220,6 +226,8 @@ export function FeaturedCards() {
     </Card>
   );
 
+  const rotatedCards = [...cards.slice(initialOffset), ...cards.slice(0, initialOffset)];
+
   // Carousel state
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
@@ -228,19 +236,19 @@ export function FeaturedCards() {
 
   const goTo = useCallback(
     (index: number) => {
-      setActiveIndex(((index % cards.length) + cards.length) % cards.length);
+      setActiveIndex(((index % rotatedCards.length) + rotatedCards.length) % rotatedCards.length);
     },
-    [cards.length]
+    [rotatedCards.length]
   );
 
   // Auto-rotation
   useEffect(() => {
     if (paused) return;
     const id = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % cards.length);
+      setActiveIndex((prev) => (prev + 1) % rotatedCards.length);
     }, 4000);
     return () => clearInterval(id);
-  }, [paused, cards.length]);
+  }, [paused, rotatedCards.length]);
 
   // Pause on touch, resume after
   const handleTouchStart = useCallback(
@@ -286,7 +294,7 @@ export function FeaturedCards() {
             className="flex transition-transform duration-300 ease-in-out"
             style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
-            {cards.map((card) => (
+            {rotatedCards.map((card) => (
               <div key={card.key} className="w-full shrink-0">
                 {renderCard(card)}
               </div>
@@ -295,7 +303,7 @@ export function FeaturedCards() {
         </div>
         {/* Dot indicators */}
         <div className="flex justify-center gap-1.5 mt-2">
-          {cards.map((card, i) => (
+          {rotatedCards.map((card, i) => (
             <button
               key={card.key}
               type="button"
@@ -317,7 +325,7 @@ export function FeaturedCards() {
 
       {/* Desktop grid: visible at md+ */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-3">
-        {cards.map(renderCard)}
+        {rotatedCards.map(renderCard)}
       </div>
     </div>
   );

@@ -17,10 +17,11 @@ interface SkillsContentProps {
   skills: Skill[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  featuredCardsOffset?: number;
   showFeatured?: boolean;
 }
 
-export function SkillsContent({ skills, newsletterSeed, infeedAds, showFeatured = true }: SkillsContentProps) {
+export function SkillsContent({ skills, newsletterSeed, infeedAds, featuredCardsOffset = 0, showFeatured = true }: SkillsContentProps) {
   const {
     searchQuery,
     setSearchQuery,
@@ -46,7 +47,7 @@ export function SkillsContent({ skills, newsletterSeed, infeedAds, showFeatured 
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {showFeatured && <FeaturedCards />}
+      {showFeatured && <FeaturedCards initialOffset={featuredCardsOffset} />}
 
       <div className="my-4">
         <ListingSearchBar

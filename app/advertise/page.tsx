@@ -55,7 +55,7 @@ async function getTrafficStats() {
 }
 
 const FALLBACK_STATS = [
-  { label: "Monthly Visitors", value: "105,000+" },
+  { label: "Monthly Visitors", value: "110,000+" },
   { label: "Daily Visitors", value: "5,000+" },
   { label: "Daily Page Views", value: "25,000+" },
 ];
@@ -73,6 +73,7 @@ const ADVERTISERS = [
     href: "https://ideabrowser.com",
   },
   { name: "MockHero", logo: "/mockhero.png", href: "https://mockhero.dev" },
+  { name: "Kryven AI", logo: "/kryven.png", href: "https://kryven.cc" },
 ];
 
 function SectionLabel({ title }: { title: string }) {
@@ -89,11 +90,11 @@ function SectionLabel({ title }: { title: string }) {
 export const metadata: Metadata = {
   title: "Advertise - Claude Code Marketplaces",
   description:
-    "Reach 105,000+ developers building with Claude Code. Under $0.50 per click, 10 to 14x cheaper than Google Ads, 100% organic traffic, public analytics.",
+    "Reach 110,000+ developers building with Claude Code. Under $0.50 per click, 10 to 14x cheaper than Google Ads, 100% organic traffic, public analytics.",
   openGraph: {
     title: "Advertise - Claude Code Marketplaces",
     description:
-      "Reach 105,000+ developers building with Claude Code. Under $0.50 per click, 100% organic traffic.",
+      "Reach 110,000+ developers building with Claude Code. Under $0.50 per click, 100% organic traffic.",
     url: "https://claudemarketplaces.com/advertise",
     type: "website",
   },
@@ -117,14 +118,14 @@ export default async function AdvertisePage() {
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-primary" />
                 </span>
                 <span className="text-[10px] uppercase tracking-[0.12em] text-primary font-medium">
-                  Only 2 of 6 sponsor slots left
+                  Only 1 of 6 sponsor slots left
                 </span>
               </div>
               <h1 className="font-serif text-2xl md:text-3xl font-normal mb-3 text-balance">
                 Reach every developer building with Claude Code.
               </h1>
               <p className="text-sm text-muted-foreground max-w-md mb-6">
-                105,000+ of them visit claudemarketplaces.com every month to
+                110,000+ of them visit claudemarketplaces.com every month to
                 find plugins, skills, and MCP servers they can install. High
                 intent, zero paid traffic, public analytics.
               </p>
@@ -137,7 +138,7 @@ export default async function AdvertisePage() {
                 </li>
                 <li>
                   <span className="font-medium text-foreground">
-                    1inch, AppSignal, IdeaBrowser, MockHero
+                    1inch, AppSignal, IdeaBrowser, MockHero, Kryven AI
                   </span>{" "}
                   already run ads here
                 </li>
@@ -558,7 +559,7 @@ export default async function AdvertisePage() {
                 </div>
               </div>
               <p className="text-xs text-muted-foreground text-pretty">
-                AI and developer roles surfaced to 105,000+ builders a
+                AI and developer roles surfaced to 110,000+ builders a
                 month. Every applicant already ships with Claude Code.
               </p>
               {/* Buy row */}
@@ -717,7 +718,7 @@ export default async function AdvertisePage() {
                 </p>
                 <a
                   href={`https://chatgpt.com/?q=${encodeURIComponent(
-                          `I'm evaluating an advertising opportunity on claudemarketplaces.com, the only developer tools directory focused specifically on Claude Code plugins, skills, and MCP servers. They have 105,000+ monthly visitors (100% organic, zero paid traffic) and public analytics at https://analytics.vinena.studio/share/overview/hwyH1d.
+                          `I'm evaluating an advertising opportunity on claudemarketplaces.com, the only developer tools directory focused specifically on Claude Code plugins, skills, and MCP servers. They have 110,000+ monthly visitors (100% organic, zero paid traffic) and public analytics at https://analytics.vinena.studio/share/overview/hwyH1d.
 
 Their pricing:
 - All Placements (pinned + in-feed + jobs): $1,099/mo

@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FeaturedCards } from "@/components/featured-cards";
+import { getFeaturedCardsOffset } from "@/lib/ads";
 import { NewsletterForm } from "@/components/newsletter-form";
 import {
   getAllMarketplaces,
@@ -405,7 +406,7 @@ export default function Home() {
             </p>
             <NewsletterForm source="hero" className="max-w-md" />
           </div>
-          <FeaturedCards />
+          <FeaturedCards initialOffset={getFeaturedCardsOffset()} />
         </section>
 
         {/* ── 01 / Browse ─────────────────────────────────────────── */}
@@ -540,7 +541,7 @@ export default function Home() {
                   Advertise to Claude Code builders.
                 </p>
                 <p className="text-xs text-muted-foreground text-pretty max-w-lg">
-                  105,000+ developers visit here every month to find plugins,
+                  110,000+ developers visit here every month to find plugins,
                   skills, and MCP servers. 1inch, AppSignal, IdeaBrowser, and
                   MockHero already run ads. Display ads from{" "}
                   <span className="font-mono tabular-nums">$499</span>/mo, job

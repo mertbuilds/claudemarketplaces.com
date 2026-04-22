@@ -6,7 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllMcpServers, getMcpCategoryCounts } from "@/lib/data/mcp-servers";
 import { McpServersContent } from "@/components/mcp-servers-content";
-import { getInFeedAdsForPage } from "@/lib/ads";
+import { getInFeedAdsForPage, getFeaturedCardsOffset } from "@/lib/ads";
 import { MCP_CATEGORIES } from "@/lib/data/mcp-categories";
 import { CategoryChips } from "@/components/category-chips";
 import { ListingGridSkeleton, CategoryChipsSkeleton } from "@/components/listing-grid-skeleton";
@@ -79,6 +79,7 @@ async function McpData() {
         servers={servers}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("mcp")}
+        featuredCardsOffset={getFeaturedCardsOffset()}
       />
     </>
   );

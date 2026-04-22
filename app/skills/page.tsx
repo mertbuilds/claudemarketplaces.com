@@ -6,7 +6,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { getAllSkills, getCategoryCounts } from "@/lib/data/skills";
 import { SkillsContent } from "@/components/skills-content";
-import { getInFeedAdsForPage } from "@/lib/ads";
+import { getInFeedAdsForPage, getFeaturedCardsOffset } from "@/lib/ads";
 import { SKILL_CATEGORIES } from "@/lib/data/skill-categories";
 import { CategoryChips } from "@/components/category-chips";
 import { CopyCommand } from "@/components/copy-command";
@@ -95,6 +95,7 @@ async function SkillsData() {
         skills={skills}
         newsletterSeed={[Math.random(), Math.random()]}
         infeedAds={getInFeedAdsForPage("skills")}
+        featuredCardsOffset={getFeaturedCardsOffset()}
       />
     </>
   );

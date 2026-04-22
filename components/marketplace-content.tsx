@@ -17,6 +17,7 @@ interface MarketplaceContentProps {
   marketplaces: Marketplace[];
   newsletterSeed: [number, number];
   infeedAds: [AdConfig, AdConfig];
+  featuredCardsOffset?: number;
   showFeatured?: boolean;
 }
 
@@ -24,6 +25,7 @@ export function MarketplaceContent({
   marketplaces,
   newsletterSeed,
   infeedAds,
+  featuredCardsOffset = 0,
   showFeatured = true,
 }: MarketplaceContentProps) {
   const {
@@ -47,7 +49,7 @@ export function MarketplaceContent({
 
   return (
     <div className="container mx-auto px-4 pt-0 pb-4">
-      {showFeatured && <FeaturedCards />}
+      {showFeatured && <FeaturedCards initialOffset={featuredCardsOffset} />}
 
       <div className="my-4">
         <ListingSearchBar
