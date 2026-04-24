@@ -233,12 +233,43 @@ export default async function PluginsPage({ params }: PageProps) {
       }
     : null;
 
+  const howToSchema = marketplace
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: `How to install the ${marketplace.repo} plugin marketplace in Claude Code`,
+        description: `Add the ${marketplace.repo} marketplace to Claude Code so you can install its ${marketplace.pluginCount} plugins.`,
+        totalTime: "PT1M",
+        tool: [{ "@type": "HowToTool", name: "Claude Code CLI" }],
+        step: [
+          {
+            "@type": "HowToStep",
+            position: 1,
+            name: "Add the marketplace",
+            text: `In Claude Code, run: /plugin marketplace add ${marketplace.repo}`,
+          },
+          {
+            "@type": "HowToStep",
+            position: 2,
+            name: "Browse and install plugins",
+            text: `Run /plugin to browse the ${marketplace.pluginCount} plugins available in the ${marketplace.repo} marketplace and install the ones you want.`,
+          },
+        ],
+      }
+    : null;
+
   return (
     <div className="min-h-screen flex flex-col">
       {structuredData && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
+      )}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
       <Header />

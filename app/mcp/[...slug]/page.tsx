@@ -330,6 +330,37 @@ export default async function McpServerDetailPage({ params }: PageProps) {
       }
     : null;
 
+  const howToSchema = server
+    ? (() => {
+        const isMonorepo = slug.length >= 3;
+        const packageName = isMonorepo
+          ? `mcp-server-${slug[slug.length - 1]}`
+          : server.collection;
+        const serverAlias = slug.join("-");
+        const installCommand = `claude mcp add --transport stdio ${serverAlias} uvx ${packageName}`;
+        const displayName = server.displayName || server.name;
+        return {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: `How to install the ${displayName} MCP server for Claude Code`,
+          description: `Connect ${displayName} to Claude Code as an MCP server.`,
+          totalTime: "PT1M",
+          tool: [
+            { "@type": "HowToTool", name: "Claude Code CLI" },
+            { "@type": "HowToTool", name: "uvx" },
+          ],
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Run the install command",
+              text: `Open your terminal and run: ${installCommand}`,
+            },
+          ],
+        };
+      })()
+    : null;
+
   return (
     <div className="min-h-screen flex flex-col">
       {breadcrumbSchema && (
@@ -342,6 +373,12 @@ export default async function McpServerDetailPage({ params }: PageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+        />
+      )}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
       <Header />

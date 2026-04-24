@@ -853,6 +853,27 @@ export default async function SkillDetailPage({ params }: PageProps) {
       }
     : null;
 
+  const howToSchema = skill
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: `How to install the ${skill.name} skill for Claude Code`,
+        description: `Install ${skill.name} from ${skill.repo} as a Claude Code skill.`,
+        totalTime: "PT1M",
+        tool: [
+          { "@type": "HowToTool", name: "Claude Code CLI" },
+        ],
+        step: [
+          {
+            "@type": "HowToStep",
+            position: 1,
+            name: "Run the install command",
+            text: `Open your terminal and run: ${skill.installCommand}`,
+          },
+        ],
+      }
+    : null;
+
   return (
     <div className="min-h-screen flex flex-col">
       {breadcrumbSchema && (
@@ -865,6 +886,12 @@ export default async function SkillDetailPage({ params }: PageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+        />
+      )}
+      {howToSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
       )}
       <Header />
