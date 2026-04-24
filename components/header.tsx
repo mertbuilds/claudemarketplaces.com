@@ -20,6 +20,7 @@ const links = [
   { href: "/mcp", label: "MCP" },
   { href: "/digest", label: "Digest" },
   { href: "/learn", label: "Learn" },
+  { href: "/jobs", label: "Jobs" },
   { href: "/advertise", label: "Advertise" },
 ];
 
