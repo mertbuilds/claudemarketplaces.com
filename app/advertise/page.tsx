@@ -562,6 +562,12 @@ export default async function AdvertisePage() {
                 AI and developer roles surfaced to 110,000+ builders a
                 month. Every applicant already ships with Claude Code.
               </p>
+              <a
+                href="/jobs"
+                className="text-[11px] text-primary hover:underline mt-2 inline-flex items-center gap-1"
+              >
+                See live jobs &rarr;
+              </a>
               {/* Buy row */}
               <div className="flex items-center justify-end gap-4 mt-auto pt-4">
                 <a

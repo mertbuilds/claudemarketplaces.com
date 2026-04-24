@@ -179,6 +179,14 @@ export function Footer({ hideCategories = false }: { hideCategories?: boolean } 
               </li>
               <li>
                 <Link
+                  href="/jobs"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Jobs
+                </Link>
+              </li>
+              <li>
+                <Link
                   href="/advertise"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
