@@ -63,6 +63,7 @@ async function CountStrip() {
     getAllSkills(),
     getAllMcpServers(),
   ]);
+  const updated = new Date().toISOString().slice(0, 10);
 
   return (
     <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs text-muted-foreground font-mono">
@@ -83,6 +84,16 @@ async function CountStrip() {
           {formatCount(marketplaces.length)}
         </span>{" "}
         marketplaces
+      </span>
+      <span>
+        <span className="text-foreground font-medium">110,000+</span> monthly
+        visitors
+      </span>
+      <span>
+        Updated{" "}
+        <time dateTime={updated} className="text-foreground font-medium">
+          {updated}
+        </time>
       </span>
     </div>
   );
@@ -236,6 +247,8 @@ function CountStripSkeleton() {
     <div className="flex flex-wrap gap-x-6 gap-y-1 text-xs font-mono">
       <span className="h-4 w-16 bg-muted rounded" />
       <span className="h-4 w-24 bg-muted rounded" />
+      <span className="h-4 w-28 bg-muted rounded" />
+      <span className="h-4 w-32 bg-muted rounded" />
       <span className="h-4 w-28 bg-muted rounded" />
     </div>
   );
